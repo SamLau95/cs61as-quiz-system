@@ -1,0 +1,11 @@
+h1 Quiz #{@quiz.lesson}
+
+/ = simple_form_for @quiz, url: submit_quiz_path do |f|
+/   = f.label :test, 'What is 1 + 1?'
+/   = f.text 
+/   = f.button :submit, 'Submit!'
+
+= form_tag submit_quiz_path, id: 'quiz' do
+  = label_tag :q1, 'What is 1 + 1?'
+  = text_field_tag :q1
+  = submit_tag 'Submit', class: 'button'
