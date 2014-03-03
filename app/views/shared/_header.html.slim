@@ -1,8 +1,14 @@
-nav.top-bar
+nav.top-bar data-topbar=true
   ul.title-area
     li.name
       h1= link_to 'CS61AS Quizzes', root_path
   section.top-bar-section
     ul.right
       li.divider
-      li= link_to 'Hello', '#'
+      - if current_user
+        li.has-dropdown
+          = link_to "Hello!", '#'
+          ul.dropdown
+            li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+      - else
+        li= link_to 'Sign In', new_user_session_path
