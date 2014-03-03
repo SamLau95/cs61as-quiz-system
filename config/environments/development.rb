@@ -29,4 +29,17 @@ Cs61asQuizzes::Application.configure do
 
   # For Devise
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  # Initialize bullet
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = false
+    Bullet.bullet_logger = false
+    Bullet.console = false
+    Bullet.growl = false
+    Bullet.rails_logger = true
+    Bullet.airbrake = false
+    Bullet.add_footer = true
+  end
+
 end
