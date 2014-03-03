@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303061339) do
+ActiveRecord::Schema.define(version: 20140303074434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20140303061339) do
     t.datetime "updated_at"
   end
 
+  add_index "questions", ["number", "quiz_id"], name: "index_questions_on_number_and_quiz_id", unique: true, using: :btree
+
   create_table "quizzes", force: true do |t|
     t.integer  "lesson"
     t.integer  "version"
@@ -32,12 +34,16 @@ ActiveRecord::Schema.define(version: 20140303061339) do
     t.datetime "updated_at"
   end
 
+  add_index "quizzes", ["lesson", "version", "retake"], name: "index_quizzes_on_lesson_and_version_and_retake", unique: true, using: :btree
+
   create_table "solutions", force: true do |t|
     t.text     "text"
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "solutions", ["question_id"], name: "index_solutions_on_question_id", unique: true, using: :btree
 
   create_table "submissions", force: true do |t|
     t.text     "text"
@@ -46,6 +52,8 @@ ActiveRecord::Schema.define(version: 20140303061339) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "submissions", ["question_id", "student_id"], name: "index_submissions_on_question_id_and_student_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
