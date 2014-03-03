@@ -11,7 +11,7 @@ ready = ->
       pagehide: h
 
     evt = evt or window.event
-    console.log 'They changed the page!'
+    console.log 'The page changed focus!'
 
   hidden = "hidden"
   if hidden of document
