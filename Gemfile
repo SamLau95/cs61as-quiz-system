@@ -14,6 +14,8 @@ gem 'ffaker', '~> 1.22.1'
 gem 'devise', '~> 3.2.3'
 gem 'newrelic_rpm'
 
+gem 'compass-rails'
+gem 'foundation-rails'
 gem 'simple_form', '~> 3.0.1'
 gem 'slim-rails', '~> 2.1.0'
 
