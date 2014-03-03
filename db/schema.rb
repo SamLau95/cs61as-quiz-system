@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303074434) do
+ActiveRecord::Schema.define(version: 20140303075525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "questions", force: true do |t|
-    t.text     "text"
+    t.text     "content"
     t.integer  "number"
     t.integer  "quiz_id"
     t.datetime "created_at"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140303074434) do
   add_index "quizzes", ["lesson", "version", "retake"], name: "index_quizzes_on_lesson_and_version_and_retake", unique: true, using: :btree
 
   create_table "solutions", force: true do |t|
-    t.text     "text"
+    t.text     "content"
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20140303074434) do
   add_index "solutions", ["question_id"], name: "index_solutions_on_question_id", unique: true, using: :btree
 
   create_table "submissions", force: true do |t|
-    t.text     "text"
+    t.text     "content"
     t.integer  "question_id"
     t.integer  "student_id"
     t.datetime "created_at"

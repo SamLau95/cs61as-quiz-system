@@ -8,4 +8,12 @@ def make_users
   end
 end
 
+def make_quizzes
+  q = Quiz.create! lesson: 1,
+                   version: 1
+  q1 = q.questions.create! number: 1,
+                           content: 'What is 1 + 1?'
+  q1.create_solution content: '2'
+end
+
 make_users
