@@ -8,10 +8,11 @@
 #  quiz_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  points     :integer          not null
 #
 
 class Question < ActiveRecord::Base
   belongs_to :quiz
   has_many :submissions
-  has_one :solution
+  has_one :solution, dependent: :destroy
 end

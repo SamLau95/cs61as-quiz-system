@@ -19,4 +19,8 @@
 
 class Student < User
   has_many :submissions
+
+  def student?
+    true
+  end
 end

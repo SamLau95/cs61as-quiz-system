@@ -6,7 +6,7 @@ class Ability
 
     if user.staff?
       can :manage, :all
-    else
+    elsif user.student?
       can :read, :all
     end
     

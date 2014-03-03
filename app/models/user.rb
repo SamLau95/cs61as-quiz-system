@@ -27,4 +27,8 @@ class User < ActiveRecord::Base
     false
   end
 
+  def student?
+    false
+  end
+
 end
