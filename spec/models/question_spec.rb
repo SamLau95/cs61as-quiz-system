@@ -8,6 +8,7 @@
 #  quiz_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  points     :integer          not null
 #
 
 require 'spec_helper'
