@@ -18,5 +18,7 @@
 #
 
 class Staff < User
-
+  def staff?
+    true
+  end
 end
