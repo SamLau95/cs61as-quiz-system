@@ -3,7 +3,7 @@
 # Table name: solutions
 #
 #  id          :integer          not null, primary key
-#  text        :text
+#  content     :text
 #  question_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime

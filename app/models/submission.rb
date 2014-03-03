@@ -3,7 +3,7 @@
 # Table name: submissions
 #
 #  id          :integer          not null, primary key
-#  text        :text
+#  content     :text
 #  question_id :integer
 #  student_id  :integer
 #  created_at  :datetime
