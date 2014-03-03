@@ -7,13 +7,21 @@ html
     meta content="" name="description"
     meta content="width=device-width, initial-scale=1" name="viewport"
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "vendor/modernizr", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   body
-  /[if lt IE 8]
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 
-    = yield
+    = render 'shared/header'
+    .row
+      .small-12.columns
+        /[if lt IE 8]
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 
-    = render 'shared/ga_boiler'
-    = render 'shared/flash', flash: flash
+
+        = yield
+
+        = render 'shared/footer'
+
+  = render 'shared/ga_boiler'
+  = render 'shared/flash', flash: flash
