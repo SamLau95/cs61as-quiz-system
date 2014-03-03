@@ -9,4 +9,8 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Cs61asQuizzes::Application.config.secret_key_base = '35a9516ca045a241fe249f1a7d86f0fc27fa0637431717c12a52e57cd0a4b1ad0b989b51b2a21cc48b31e802c61793f3f3c3288021706f2fece69fac7078e2c3'
+Cs61asQuizzes::Application.config.secret_key_base = if Rails.env.development? or Rails.env.test?
+  ('x' * 30)
+else
+  ENV['SECRET_TOKEN']
+end

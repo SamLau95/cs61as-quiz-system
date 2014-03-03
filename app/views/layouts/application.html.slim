@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    title CS61AS Quizzes
+    meta content="" name="description"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  body
+  /[if lt IE 8]
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+
+    = yield
+
+    = render 'shared/ga_boiler'
+    = render 'shared/flash', flash: flash
