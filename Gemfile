@@ -14,14 +14,15 @@ gem 'ffaker', '~> 1.22.1'
 gem 'devise', '~> 3.2.3'
 gem 'newrelic_rpm'
 
-gem 'compass-rails'
-gem 'foundation-rails'
+gem 'compass-rails', '~> 1.1.3'
+gem 'foundation-rails', '~> 5.1.1.0'
 gem 'simple_form', '~> 3.0.1'
 gem 'slim-rails', '~> 2.1.0'
 
 group :development, :test do
   gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller', '~> 0.7.2'
+  gem 'meta_request'
   gem 'awesome_print', '1.2.0', require: 'awesome_print'
   gem 'bullet', '~> 4.8.0'
   gem 'annotate', '~> 2.6.1'
