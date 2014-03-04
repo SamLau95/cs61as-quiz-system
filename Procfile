@@ -1,0 +1,1 @@
+web: puma -t ${PUMA_MIN_THREADS:-8}:${PUMA_MAX_THREADS:-12} -p 3000 -e ${RACK_ENV:-development}
