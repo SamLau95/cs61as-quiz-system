@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.0'
 gem 'turbolinks', '~> 2.2.1'
 gem 'jbuilder', '~> 1.2'
+gem 'dotenv', '~> 0.10.0', groups: [:development, :test]
 gem 'pg', '~> 0.17.1'
 gem 'cancan', '~> 1.6.10'
 gem 'ffaker', '~> 1.22.1'
