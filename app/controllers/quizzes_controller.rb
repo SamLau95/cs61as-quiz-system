@@ -2,10 +2,8 @@ class QuizzesController < ApplicationController
 
   def take
     @quiz = Quiz.find params[:id]
-    @questions = @quiz.questions.order :number
-    @questions.each do |q|
-      q.submissions.build student_id: current_user, quiz_id: @quiz
-    end
+    @questions = @quiz.questions.order(:number)
+                                .each { @quiz.submissions.build }
   end
 
   def submit
