@@ -32,9 +32,3 @@ build:
         # - script:
         #        name: rspec
         #        code: bundle exec rspec
-
-        - script:
-            name: deploy to heroku
-            code: |
-                git push heroku origin master
-                heroku run rake db:migrate
