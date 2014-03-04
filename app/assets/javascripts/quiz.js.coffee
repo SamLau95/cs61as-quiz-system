@@ -1,18 +1,5 @@
-ready = ->
-  onchange = (evt) ->
-    v = "visible"
-    h = "hidden"
-    evtMap =
-      focus: v
-      focusin: v
-      pageshow: v
-      blur: h
-      focusout: h
-      pagehide: h
-
-    evt = evt or window.event
-    console.log 'The page changed focus!'
-
+# http://stackoverflow.com/a/1060034
+addFocusListener = ->
   hidden = "hidden"
   if hidden of document
     document.addEventListener "visibilitychange", onchange
@@ -26,7 +13,30 @@ ready = ->
     document.onfocusin = document.onfocusout = onchange
   else
     window.onpageshow = window.onpagehide = window.onfocus = window.onblur = onchange
-  return
+
+removeFocusListener = ->
+  hidden = "hidden"
+  if hidden of document
+    document.removeEventListener "visibilitychange", onchange
+  else if (hidden = "mozHidden") of document
+    document.removeEventListener "mozvisibilitychange", onchange
+  else if (hidden = "webkitHidden") of document
+    document.removeEventListener "webkitvisibilitychange", onchange
+  else if (hidden = "msHidden") of document
+    document.removeEventListener "msvisibilitychange", onchange
+  else if "onfocusin" of document
+    document.onfocusin = document.onfocusout = undefined
+  else
+    window.onpageshow = window.onpagehide = window.onfocus = window.onblur = undefined
+
+onchange = (evt) ->
+  console.log 'The page changed focus!'
+
+ready = ->
+  if $('#take_quiz').length
+    addFocusListener()
+  else
+    removeFocusListener()
 
 $(document).ready ready
 $(document).on 'page:load', ready
