@@ -33,7 +33,7 @@ onchange = (evt) ->
   console.log 'The page changed focus!'
 
 ready = ->
-  if $('#take_quiz').length
+  if $('#take_quiz_form').length
     addFocusListener()
   else
     removeFocusListener()
