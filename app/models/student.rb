@@ -15,10 +15,12 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  type                   :string(255)
 #
 
 class Student < User
   has_many :submissions
+  has_many :quiz_requests
 
   def student?
     true

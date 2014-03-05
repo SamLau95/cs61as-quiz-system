@@ -13,5 +13,7 @@
 class Quiz < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :submissions
+  has_many :quiz_requests
+
   accepts_nested_attributes_for :submissions
 end
