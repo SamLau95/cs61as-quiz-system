@@ -2,6 +2,7 @@ class StudentDashboardController < ApplicationController
   before_filter :check_authorization
 
   def index
+    @quizzes = Quiz.all
   end
 
   private
