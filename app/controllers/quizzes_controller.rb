@@ -7,7 +7,13 @@ class QuizzesController < ApplicationController
   end
 
   def submit
-    
+    quiz = Quiz.find params[:id]
+    params['submissions'].each do |question_id, submission|
+      question = Question.find question_id
+      quiz.submissions.create question: question, student: current_user
+    end
+    flash[:success] = "Submitted quiz #{quiz.lesson}!"
+    redirect_to student_dashboard_path
   end
 
   def index
