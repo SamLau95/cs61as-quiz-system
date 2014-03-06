@@ -1,1 +1,11 @@
 h1 Welcome to the Staff Dashboard!
+
+h3 Quizzes
+ul.quizzes
+  - @quizzes.each do |quiz|
+    li = link_to "Quiz #{quiz.lesson} v#{quiz.version}", quiz
+
+h3 Students
+ul.students
+  - @students.each do |student|
+    li = link_to student.name, student
