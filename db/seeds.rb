@@ -23,6 +23,12 @@ def make_quizzes
                            points: 5,
                            content: 'What is 10 + 1?'
   q3.create_solution content: '11'
+  q = Quiz.create! lesson: 2,
+                   version: 1
+  q1 = q.questions.create! number: 1,
+                           points: 10,
+                           content: 'What do you say after Hello?'
+  q1.create_solution content: 'World'
 end
 
 make_users
