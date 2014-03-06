@@ -11,6 +11,7 @@ Cs61asQuizzes::Application.routes.draw do
     get '', to: 'staff_dashboard#index', as: :staff_dashboard
   end
 
+  resources :students
   scope '/student' do
     get '', to: 'student_dashboard#index', as: :student_dashboard
   end
