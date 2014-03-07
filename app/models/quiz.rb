@@ -16,4 +16,8 @@ class Quiz < ActiveRecord::Base
   has_many :quiz_requests
 
   accepts_nested_attributes_for :submissions
+
+  def full_name
+    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
+  end
 end

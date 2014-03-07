@@ -1,7 +1,5 @@
 Cs61asQuizzes::Application.routes.draw do
 
-  get "quizzes/show"
-  get "quizzes/take"
   devise_for :users
   devise_scope :user do
     root to: "devise/sessions#new"
