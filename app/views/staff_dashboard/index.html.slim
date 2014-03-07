@@ -3,7 +3,7 @@ h1 Welcome to the Staff Dashboard!
 h3 Quizzes
 ul.quizzes
   - @quizzes.each do |quiz|
-    li = link_to "Quiz #{quiz.lesson} v#{quiz.version}", quiz
+    li = link_to quiz.full_name, edit_quiz_path(quiz)
 
 h3 Students
 ul.students
