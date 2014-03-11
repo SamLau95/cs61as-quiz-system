@@ -20,4 +20,9 @@ Cs61asQuizzes::Application.routes.draw do
     post '/:id/submit', to: 'quizzes#submit', as: :submit_quiz
   end
 
+  resources :submissions
+  scope '/submissions' do
+    post '/save', to: 'quizzes#save_submission', as: :save_submission
+  end
+
 end

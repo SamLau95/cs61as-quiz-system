@@ -1,5 +1,8 @@
 h1 Quiz #{@quiz.lesson}
 
-= form_tag submit_quiz_path, id: 'take_quiz_form' do
-  = render partial: 'question_fields', collection: @questions, as: :question
-  = submit_tag 'Submit!', class: 'button'
+.row
+  .small-12.columns
+    - @questions_hash.each do |question, submission|
+      = render 'question_form', question: question,
+                                submission: submission,
+                                quiz_id: @quiz.id
