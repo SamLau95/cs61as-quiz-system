@@ -1,0 +1,8 @@
+h3 = question.full_name
+= simple_form_for submission, url: save_submission_path, remote: true do |f|
+  = f.hidden_field :quiz_id, value: quiz_id
+  = f.hidden_field :question_id, value: question.id
+  = f.hidden_field :student_id, value: current_user.id
+  = question.content
+  = f.input :content, label: false
+  = f.button :submit, 'Submit answer', class: 'small'
