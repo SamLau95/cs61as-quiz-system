@@ -2,16 +2,14 @@
 development:
   adapter: postgresql
   database: as_development
-  username: sam
-  password: password
+  username: ocitqqfwsbfgck
   pool: 5
   timeout: 5000
 
 test:
   adapter: postgresql
   database: as_test
-  username: sam
-  password: password
+  username: ocitqqfwsbfgck
   pool: 5
   timeout: 5000
 

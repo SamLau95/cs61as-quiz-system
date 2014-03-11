@@ -1,5 +1,9 @@
 h1 Quiz #{@quiz_form.lesson}
 
+div 
+  | Time left:  
+  .minutes 0 minutes
+  .seconds 0 seconds
 .row
   .small-12.columns
     = simple_form_for @quiz_form, url: submit_quiz_path, method: :post do |f|

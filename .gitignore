@@ -17,3 +17,6 @@
 
 # Ignore .env file
 .env
+
+# Ignore database mixups
+/db/database.yml
