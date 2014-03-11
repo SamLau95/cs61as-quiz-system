@@ -19,4 +19,4 @@
 .env
 
 # Ignore database mixups
-/db/database.yml
+/config/database.yml
