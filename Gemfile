@@ -32,7 +32,7 @@ group :development, :test do
   gem 'commands', '~> 0.2.1'
   gem 'factory_girl', '~> 4.4.0'
   gem 'rspec-rails', '~> 2.14.1'
-  gem 'guard-livereload'
+  gem 'guard-livereload', require: false
 end
 
 group :production do
