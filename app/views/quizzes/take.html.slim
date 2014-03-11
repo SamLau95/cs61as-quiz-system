@@ -1,5 +1,9 @@
 h1 Quiz #{@quiz.lesson}
 
+div 
+  | Time left:  
+  .minutes 0 minutes
+  .seconds 0 seconds
 .row
   .small-12.columns
     - @questions_hash.each do |question, submission|
