@@ -1,11 +1,11 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
   def take
-    @quiz_form = QuizForm.new Quiz.find(params[:id])
+    @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
   end
 
   def submit
-    @quiz_form = QuizForm.new Quiz.find(params[:id])
+    @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
     inject_current_user_into! params
     if @quiz_form.save params[:quiz]
       flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
