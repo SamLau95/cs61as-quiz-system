@@ -14,16 +14,9 @@ class QuizForm < Reform::Form
     validates :content, presence: true
   end
 
-  def initialize(quiz)
-    quiz.questions.map do |question|
-      quiz.submissions.build question: question
-    end
-    super
-  end
-
   def save(params)
     return false unless validate(params)
-    params[:submissions_attributes].all? do |_, attrs|
+    params[:new_submissions_attributes].all? do |_, attrs|
       Submission.create attrs
     end
   end
