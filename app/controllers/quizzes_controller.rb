@@ -53,7 +53,7 @@ class QuizzesController < ApplicationController
   end
 
   def inject_current_user_into!(quiz_params)
-    submissions_params = quiz_params[:quiz][:submissions_attributes]
+    submissions_params = quiz_params[:quiz][:new_submissions_attributes]
     submissions_params.each { |_, v| v[:student_id] = current_user.id }
   end
 end
