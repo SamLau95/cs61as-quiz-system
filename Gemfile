@@ -27,6 +27,7 @@ group :development, :test do
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'meta_request'
   gem 'awesome_print', '1.2.0', require: 'awesome_print'
+  gem 'rubocop', '~> 0.19.0'
   gem 'bullet', '~> 4.8.0'
   gem 'annotate', '~> 2.6.1'
   gem 'commands', '~> 0.2.1'
