@@ -1,5 +1,7 @@
 # Form object for submissions
-class QuizForm < Reform::Form
+class TakeQuizForm < Reform::Form
+  model :quiz
+
   property :lesson, virtual: true
 
   collection :new_submissions do
