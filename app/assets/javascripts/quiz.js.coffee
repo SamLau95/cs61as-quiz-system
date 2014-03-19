@@ -48,11 +48,11 @@ ready = ->
 
 runTest = (time)->
   if time != 0
-    [minutes, seconds] = [parseInt(time/60), time % 60]
+    [minutes, seconds] = [parseInt(time / 60), time % 60]
     $(".seconds").html("#{seconds} second(s)")
     $(".minutes").html("#{minutes} minute(s)")
-    setTimeout (-> runTest(time-=1)), 1000
-  else 
+    setTimeout (-> runTest(time - 1)), 1000
+  else
     $(".seconds").html("0 second(s)")
     $(".small").click()
 
