@@ -11,6 +11,7 @@
 #  points     :integer          not null
 #
 
+# Model that represents questions
 class Question < ActiveRecord::Base
   belongs_to :quiz
   has_many :submissions
