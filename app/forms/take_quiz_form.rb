@@ -16,10 +16,10 @@ class TakeQuizForm < Reform::Form
     validates :content, presence: true
   end
 
-  def save(params)
+  def validate_and_save(params)
     return false unless validate(params)
-    params[:new_submissions_attributes].all? do |_, attrs|
-      Submission.create attrs
+    params[:new_submissions_attributes].none? do |_, attrs|
+      Submission.create(attrs).new_record?
     end
   end
 end

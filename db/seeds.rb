@@ -1,11 +1,11 @@
 
 def make_users
   1.upto(2) do |i|
-    Student.create! first_name: "Student",
+    Student.create! first_name: 'Student',
                     last_name: "#{i}",
                     email: "student#{i}@gmail.com",
                     password: 'password'
-    Staff.create! first_name: "Staff",
+    Staff.create! first_name: 'Staff',
                   last_name: "#{i}",
                   email: "staff#{i}@gmail.com",
                   password: 'password'
