@@ -19,4 +19,8 @@
 .env
 
 # Ignore database mixups
+<<<<<<< HEAD
 /config/database.yml
+=======
+/config/database.yml
+>>>>>>> c2aab99b1dce7265f80cd5cfaf79184fcd65a39e
