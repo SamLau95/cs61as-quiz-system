@@ -7,7 +7,7 @@ class QuizzesController < ApplicationController
   def submit
     @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
     inject_current_user_into! params
-    if @quiz_form.save params[:quiz]
+    if @quiz_form.validate_and_save params[:quiz]
       flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
       redirect_to student_dashboard_path
     else
@@ -33,9 +33,10 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    @quiz_form = EditQuizForm.new Quiz.find params[:id]
+    quiz = Quiz.find params[:id]
+    @quiz_form = EditQuizForm.new quiz
     if @quiz_form.validate_and_save params[:quiz]
-      flash[:success] = 'Updated quiz!'
+      flash[:success] = "Updated #{quiz.full_name}!"
       redirect_to staff_dashboard_path
     else
       render :edit
