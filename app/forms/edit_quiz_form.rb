@@ -7,6 +7,7 @@ class EditQuizForm < Reform::Form
   property :retake
 
   collection :questions do
+    property :id
     property :quiz_id
     property :content
     property :number
@@ -24,6 +25,13 @@ class EditQuizForm < Reform::Form
   validates :version, presence: true
   validates :retake, presence: true
   validate :points_add_to_10
+
+  def validate_and_save(quiz_params)
+    return false unless validate(quiz_params)
+    quiz_params[:questions_attributes].all? do |_, v|
+      Question.find(v[:id]).update_attributes v
+    end
+  end
 
   private
 
