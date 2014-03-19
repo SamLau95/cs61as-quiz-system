@@ -13,6 +13,8 @@
 
 # Model that represents questions
 class Question < ActiveRecord::Base
+  default_scope -> { order 'number ASC' }
+
   belongs_to :quiz
   has_many :submissions
   has_one :solution, dependent: :destroy
