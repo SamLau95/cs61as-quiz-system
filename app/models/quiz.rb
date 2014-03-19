@@ -10,14 +10,17 @@
 #  updated_at :datetime
 #
 
+# Quiz class; knows its questions and its submisisons
 class Quiz < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
 
-  accepts_nested_attributes_for :submissions
-
   def full_name
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
+  end
+
+  def new_submissions
+    questions.map { |q| submissions.build question: q }
   end
 end

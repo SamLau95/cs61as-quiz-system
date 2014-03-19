@@ -1,25 +1,18 @@
+# Controller for quizzes
 class QuizzesController < ApplicationController
-
   def take
-    @quiz = Quiz.find params[:id]
-    questions = @quiz.questions.order(:number)
-    submissions = questions.map { |q| Submission.new }
-    @questions_hash = Hash[questions.zip submissions]
+    @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
   end
 
   def submit
-    quiz = Quiz.find params[:id]
-    params['submissions'].map do |question_id, content|
-      quiz.submissions.create question: Question.find(question_id),
-                              student: current_user,
-                              content: content
+    @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
+    inject_current_user_into! params
+    if @quiz_form.save params[:quiz]
+      flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
+      redirect_to student_dashboard_path
+    else
+      render 'take'
     end
-    flash[:success] = "Submitted quiz #{quiz.lesson}!"
-    redirect_to student_dashboard_path
-  end
-
-  def save_submission
-    submission = Submission.create submission_params
   end
 
   def new
@@ -54,12 +47,13 @@ class QuizzesController < ApplicationController
   end
 
   private
-    def check_authorization
-      authorize! :take, Quiz
-    end
 
-    def submission_params
-      params.require(:submission)
-            .permit(:quiz_id, :question_id, :student_id, :content)
-    end
+  def check_authorization
+    authorize! :take, Quiz
+  end
+
+  def inject_current_user_into!(quiz_params)
+    submissions_params = quiz_params[:quiz][:new_submissions_attributes]
+    submissions_params.each { |_, v| v[:student_id] = current_user.id }
+  end
 end

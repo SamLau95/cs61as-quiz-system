@@ -3,6 +3,7 @@
 
 guard 'livereload' do
   watch(%r{app/controllers/.*\.rb})
+  watch(%r{app/forms/.*\.rb})
   watch(%r{config/routes.rb})
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})

@@ -10,7 +10,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.0'
 gem 'turbolinks', '~> 2.2.1'
 gem 'jbuilder', '~> 1.2'
-gem 'dotenv', '~> 0.10.0', groups: [:development, :test]
 gem 'pg', '~> 0.17.1'
 gem 'cancan', '~> 1.6.10'
 gem 'ffaker', '~> 1.22.1'
@@ -20,6 +19,7 @@ gem 'newrelic_rpm'
 gem 'compass-rails', '~> 1.1.3'
 gem 'foundation-rails', '~> 5.1.1.0'
 gem 'simple_form', '~> 3.0.1'
+gem 'reform', '~> 0.2.6'
 gem 'slim-rails', '~> 2.1.0'
 
 group :development, :test do
@@ -27,6 +27,7 @@ group :development, :test do
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'meta_request'
   gem 'awesome_print', '1.2.0', require: 'awesome_print'
+  gem 'rubocop', '~> 0.19.0'
   gem 'bullet', '~> 4.8.0'
   gem 'annotate', '~> 2.6.1'
   gem 'commands', '~> 0.2.1'
