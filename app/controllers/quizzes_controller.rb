@@ -29,7 +29,7 @@ class QuizzesController < ApplicationController
   end
 
   def edit
-    @quiz = Quiz.find params[:id]
+    @quiz_form = EditQuizForm.new Quiz.find params[:id]
   end
 
   def update
