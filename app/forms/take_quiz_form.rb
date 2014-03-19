@@ -19,7 +19,7 @@ class TakeQuizForm < Reform::Form
   def save(params)
     return false unless validate(params)
     params[:new_submissions_attributes].all? do |_, attrs|
-      Submission.create attrs
+      Submission.create! attrs
     end
   end
 end

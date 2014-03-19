@@ -18,8 +18,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private 
-    def check_authorization
-      false
-    end
+  private
+
+  def check_authorization
+    false
+  end
 end

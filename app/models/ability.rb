@@ -1,3 +1,4 @@
+# Defines authorization for users
 class Ability
   include CanCan::Ability
 
@@ -9,6 +10,5 @@ class Ability
     elsif user.student?
       can [:take, :request], Quiz
     end
-    
   end
 end

@@ -20,6 +20,7 @@
 #  last_name              :text
 #
 
+# Base User class; doesn't get instantiated
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -37,5 +38,4 @@ class User < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
-
 end
