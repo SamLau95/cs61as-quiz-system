@@ -33,6 +33,7 @@
         success: success,
         version: version,
         warning: warning,
+        alert: warning,
         notice: info
       };
 
