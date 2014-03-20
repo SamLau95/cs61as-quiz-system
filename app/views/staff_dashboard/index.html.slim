@@ -5,6 +5,9 @@ ul.quizzes
   - @quizzes.each do |quiz|
     li = link_to quiz.full_name, edit_quiz_path(quiz)
 
+ul.makequizzes
+  = link_to "Create a New Quiz!", new_quiz_path
+
 h3 Students
 ul.students
   - @students.each do |student|
