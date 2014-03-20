@@ -3,7 +3,8 @@ class StaffDashboardController < ApplicationController
 
   def index
     @students = Student.all
-    @quizzes = Quiz.all
+    @drafts = Quiz.drafts 
+    @published = Quiz.published
   end
 
   private

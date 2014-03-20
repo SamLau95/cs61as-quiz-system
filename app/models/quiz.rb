@@ -15,6 +15,9 @@ class Quiz < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
+
+  scope :drafts,    -> { where draft: true }
+  scope :published, -> { where draft: false }
   
   def full_name
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"

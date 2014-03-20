@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320085809) do
+ActiveRecord::Schema.define(version: 20140320230116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140320085809) do
     t.boolean  "retake",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "draft",      default: true
   end
 
   add_index "quizzes", ["lesson", "version", "retake"], name: "index_quizzes_on_lesson_and_version_and_retake", unique: true, using: :btree
