@@ -31,19 +31,19 @@ class QuizzesController < ApplicationController
 
   def edit
     quiz = Quiz.find params[:id]
-    quiz.questions.create(points:0) if params[:add]
+    quiz.questions.create(points: 0) if params[:add]
     @quiz_form = EditQuizForm.new quiz
     respond_to do |format|
-      format.html { render 'edit'}
+      format.html { render 'edit' }
       format.js {}
     end
   end
 
   def update
-    quiz = Quiz.find params[:id]
-    @quiz_form = EditQuizForm.new quiz
+    @quiz_form = EditQuizForm.new Quiz.find params[:id]
     if @quiz_form.validate_and_save params[:quiz]
-      flash[:success] = "Updated #{quiz.full_name}!"
+      quiz = Quiz.find params[:id]
+      flash[:success] = "Updated #{ quiz.full_name }!"
       redirect_to staff_dashboard_path
     else
       render :edit

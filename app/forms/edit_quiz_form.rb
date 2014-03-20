@@ -22,12 +22,13 @@ class EditQuizForm < Reform::Form
   end
 
   validates :lesson, presence: true, numericality: true
-  validates :version, presence: true
+  validates :version, presence: true, numericality: true
   validates :retake, presence: true
   validate :points_add_to_10
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
+    Quiz.find(id).update_attributes(lesson: lesson, version: version, retake: retake)
     quiz_params[:questions_attributes].all? do |_, v|
       Question.find(v[:id]).update_attributes v
     end
