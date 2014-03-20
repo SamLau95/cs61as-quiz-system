@@ -1,6 +1,5 @@
 h1 Welcome to the Student Dashboard!
 
 h3 Take a quiz:
-ul
-- @quizzes.each do |quiz|
-  li = link_to quiz.full_name, take_quiz_path(quiz)
+- @lessons.each do |lesson|
+  h4 = link_to "Quiz #{lesson}", request_quiz_path(lesson)
