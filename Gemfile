@@ -31,6 +31,7 @@ group :development do
   gem 'annotate', '~> 2.6.1'
   gem 'commands', '~> 0.2.1'
   gem 'rspec-rails', '~> 2.14.1'
+  gem 'database_cleaner', '~> 1.2.0'
 end
 
 group :development, :test do
