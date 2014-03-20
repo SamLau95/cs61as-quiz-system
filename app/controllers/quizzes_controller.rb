@@ -1,5 +1,10 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
+  def make_request
+    @request = QuizRequest.create student: current_user,
+                                  lesson: params[:lesson]
+  end
+
   def take
     @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
   end
@@ -51,7 +56,7 @@ class QuizzesController < ApplicationController
   private
 
   def check_authorization
-    authorize! :take, Quiz
+    authorize! :request, Quiz
   end
 
   def inject_current_user_into!(quiz_params)
