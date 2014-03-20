@@ -2,4 +2,4 @@ h1 Welcome to the Student Dashboard!
 
 h3 Take a quiz:
 - @lessons.each do |lesson|
-  h4 = link_to "Quiz #{lesson}", request_quiz_path(lesson)
+  h4 = link_to "Quiz #{lesson}", make_quiz_request_path(lesson)
