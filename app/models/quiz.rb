@@ -15,12 +15,18 @@ class Quiz < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
-
+  
   def full_name
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
   end
 
   def new_submissions
     questions.map { |q| submissions.build question: q }
+  end
+
+  def self.create_with_question
+    quiz = create
+    quiz.questions.create points: 0
+    quiz
   end
 end

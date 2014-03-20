@@ -1,0 +1,25 @@
+.row
+  .small-12-columns
+    = simple_form_for question do |f|
+      .row
+        .small-2.columns
+          = f.input :lesson
+        .small-2.columns.end
+          = f.input :version
+      .row
+        .small-12.columns
+          = f.input :retake, as: :boolean
+      = f.fields_for :questions do |qf|
+        = qf.hidden_field :id, value: qf.object.id
+        .row
+          .small-3.columns
+              h3 Question
+              = qf.input :number
+              = qf.input :points
+        .row
+          .small-12.columns
+            = qf.input :content, as: :text
+      br
+        .addquestion
+          = link_to "Add Question!", edit_quiz_path(@quiz_form.id, add: true), remote: true
+      = f.submit 'Update!', class: 'button'

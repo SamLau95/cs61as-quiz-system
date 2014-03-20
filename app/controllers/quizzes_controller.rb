@@ -16,7 +16,8 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    @quiz = Quiz.new
+    @quiz_form = NewQuizForm.new Quiz.create_with_question
+    redirect_to edit_quiz_path @quiz_form.id
   end
 
   def create
@@ -29,7 +30,13 @@ class QuizzesController < ApplicationController
   end
 
   def edit
-    @quiz_form = EditQuizForm.new Quiz.find params[:id]
+    quiz = Quiz.find params[:id]
+    quiz.questions.create(points:0) if params[:add]
+    @quiz_form = EditQuizForm.new quiz
+    respond_to do |format|
+      format.html { render 'edit'}
+      format.js {}
+    end
   end
 
   def update
