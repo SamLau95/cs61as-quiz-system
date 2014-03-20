@@ -20,6 +20,7 @@
 #  last_name              :text
 #
 
+# Student model; uses users table
 class Student < User
   has_many :submissions
   has_one :quiz_request
