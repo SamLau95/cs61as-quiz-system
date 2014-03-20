@@ -1,12 +1,13 @@
+# Controller for the student dashboard
 class StudentDashboardController < ApplicationController
-  before_filter :check_authorization
 
   def index
-    @quizzes = Quiz.all
+    @lessons = Quiz.lessons
   end
 
   private
-    def check_authorization
-      authorize! :take, Quiz
-    end
+
+  def check_authorization
+    authorize! :take, Quiz
+  end
 end
