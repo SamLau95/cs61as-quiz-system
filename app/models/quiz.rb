@@ -16,6 +16,14 @@ class Quiz < ActiveRecord::Base
   has_many :submissions
   has_many :quiz_requests
 
+  def self.lessons
+    all.map(&:lesson).uniq
+  end
+
+  def self.choose_one(lesson)
+    where(lesson: lesson).sample
+  end
+
   def full_name
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
   end
