@@ -42,6 +42,12 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
+  # Use capybara
+  config.include Capybara::DSL
+
   # Have access to FactoryGirl methods
   config.include FactoryGirl::Syntax::Methods
+
+  # Use rails routes
+  config.include Rails.application.routes.url_helpers
 end
