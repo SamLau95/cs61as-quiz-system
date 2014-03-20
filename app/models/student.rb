@@ -22,7 +22,7 @@
 
 class Student < User
   has_many :submissions
-  has_many :quiz_requests
+  has_one :quiz_request
 
   def student?
     true
