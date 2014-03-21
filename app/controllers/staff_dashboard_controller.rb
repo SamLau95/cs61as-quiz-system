@@ -1,13 +1,10 @@
+# Controller for staff dashboard
 class StaffDashboardController < ApplicationController
-  before_filter :check_authorization
+  authorize_resource class: false
 
   def index
     @students = Student.all
     @quizzes = Quiz.all
+    @requests = QuizRequest.not_approved
   end
-
-  private
-    def check_authorization
-      authorize! :manage, :all
-    end
 end

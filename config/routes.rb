@@ -27,4 +27,9 @@ Cs61asQuizzes::Application.routes.draw do
     post '/save', to: 'quizzes#save_submission', as: :save_submission
   end
 
+  scope '/quiz_requests' do
+    post '/:id/approve', to: 'quiz_requests#approve', as: :approve_request
+    delete '/:id/', to: 'quiz_requests#cancel', as: :cancel_request
+  end
+
 end

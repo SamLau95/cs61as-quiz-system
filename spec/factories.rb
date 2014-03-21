@@ -33,4 +33,10 @@ FactoryGirl.define do
     points 5
     quiz
   end
+
+  factory :quiz_request do
+    sequence(:lesson) { |n| n }
+    approved false
+    student
+  end
 end

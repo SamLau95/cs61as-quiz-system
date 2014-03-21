@@ -49,7 +49,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     if @quiz_form.validate_and_save params[:quiz]
-      flash[:success] = "Updated #{quiz.full_name}!"
+      flash[:success] = "Updated #{quiz}!"
       redirect_to staff_dashboard_path
     else
       render :edit

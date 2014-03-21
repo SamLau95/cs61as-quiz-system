@@ -1,11 +1,21 @@
 h1 Welcome to the Staff Dashboard!
 
+h3 Quiz Requests
+ul.quiz-requests
+  - @requests.each do |request|
+    li
+      = request
+      = link_to 'Approve', approve_request_path(request),
+                method: :post, id: "approve-#{request.id}"
+      = link_to 'Cancel', cancel_request_path(request),
+                method: :delete, id: "cancel-#{request.id}"
+
 h3 Quizzes
 ul.quizzes
   - @quizzes.each do |quiz|
-    li = link_to quiz.full_name, edit_quiz_path(quiz)
+    li = link_to quiz, edit_quiz_path(quiz)
 
 h3 Students
 ul.students
   - @students.each do |student|
-    li = link_to student.name, student
+    li = link_to student, student
