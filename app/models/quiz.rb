@@ -8,6 +8,7 @@
 #  retake     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
+#  is_draft   :boolean          default(TRUE)
 #
 
 # Quiz class; knows its questions and its submisisons
@@ -18,7 +19,7 @@ class Quiz < ActiveRecord::Base
 
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
-  
+
   def self.lessons
     all.map(&:lesson).uniq.sort
   end
