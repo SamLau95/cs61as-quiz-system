@@ -8,7 +8,7 @@
 #  quiz_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  points     :integer          not null
+#  points     :integer          default(0), not null
 #
 
 # Model that represents questions
