@@ -19,7 +19,7 @@ class Question < ActiveRecord::Base
   has_many :submissions
   has_one :solution, dependent: :destroy
 
-  def full_name
+  def to_s
     "Question #{number} (#{points} points)"
   end
 end

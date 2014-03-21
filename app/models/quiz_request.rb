@@ -14,4 +14,8 @@
 # after a student starts taking a quiz.
 class QuizRequest < ActiveRecord::Base
   belongs_to :student
+
+  def to_s
+    "#{student}: Quiz #{lesson}#{", Approved" if approved}"
+  end
 end
