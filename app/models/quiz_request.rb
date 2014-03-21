@@ -15,6 +15,13 @@
 class QuizRequest < ActiveRecord::Base
   belongs_to :student
 
+  scope :not_approved, -> { where approved: false }
+
+  def approve!
+    self.approved = true
+    save!
+  end
+
   def to_s
     "#{student}: Quiz #{lesson}#{", Approved" if approved}"
   end
