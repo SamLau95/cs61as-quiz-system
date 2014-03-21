@@ -6,7 +6,8 @@ div
   .seconds 0 seconds
 .row
   .small-12.columns
-    = simple_form_for @quiz_form, url: submit_quiz_path, method: :post do |f|
+    = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
+                      method: :post do |f|
       = f.fields_for :new_submissions do |sf|
         = sf.hidden_field :quiz_id, value: @quiz_form.id
         = sf.hidden_field :question_id, value: sf.object.question_id
