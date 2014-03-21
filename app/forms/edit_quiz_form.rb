@@ -13,7 +13,10 @@ class EditQuizForm < Reform::Form
     property :content
     property :number
     property :points
+    property :format
+    property :options
 
+    validates :format, presence: true
     validates :quiz_id, presence: true, numericality: true
     validates :content, presence: true
     validates :number, presence: true, numericality: true
@@ -30,7 +33,7 @@ class EditQuizForm < Reform::Form
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
-    Quiz.find(id).update_attributes(lesson: lesson, 
+    Quiz.find(id).update_attributes(lesson: lesson,
                                     version: version,
                                     retake: retake,
                                     is_draft: is_draft)
