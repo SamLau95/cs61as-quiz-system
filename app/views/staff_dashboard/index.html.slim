@@ -5,9 +5,10 @@ ul.quiz-requests
   - @requests.each do |request|
     li
       = request
-      = link_to "Approve: #{request.student}",
-                approve_request_path(request), method: :post
-      = link_to "Cancel"
+      = link_to 'Approve', approve_request_path(request),
+                method: :post, id: "approve-#{request.id}"
+      = link_to 'Cancel', cancel_request_path(request),
+                method: :delete, id: "cancel-#{request.id}"
 
 h3 Quizzes
 ul.quizzes

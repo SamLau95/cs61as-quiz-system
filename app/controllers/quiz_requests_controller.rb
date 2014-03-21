@@ -6,4 +6,9 @@ class QuizRequestsController < ApplicationController
     QuizRequest.find(params[:id]).approve!
     redirect_to staff_dashboard_path
   end
+
+  def cancel
+    QuizRequest.find(params[:id]).destroy
+    redirect_to staff_dashboard_path
+  end
 end
