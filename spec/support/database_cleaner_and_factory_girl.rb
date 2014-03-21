@@ -1,8 +1,12 @@
 RSpec.configure do |config|
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-    FactoryGirl.lint
+    begin
+      DatabaseCleaner.clean_with(:truncation)
+      FactoryGirl.lint
+    ensure
+      DatabaseCleaner.clean
+    end
   end
 
   config.before(:each) do
