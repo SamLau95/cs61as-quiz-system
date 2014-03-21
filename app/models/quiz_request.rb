@@ -7,6 +7,7 @@
 #  lesson     :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  approved   :boolean          default(FALSE)
 #
 
 # A QuizRequest is created when a student requests a quiz and is destroyed
