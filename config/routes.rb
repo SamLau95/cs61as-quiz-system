@@ -27,4 +27,5 @@ Cs61asQuizzes::Application.routes.draw do
     post '/save', to: 'quizzes#save_submission', as: :save_submission
   end
 
+  resources :questions, only: :destroy
 end

@@ -65,7 +65,7 @@ class QuizzesController < ApplicationController
 
   def destroy
     Quiz.find(params[:id]).destroy
-    redirect_to quizzes_path, notice: 'Deleted quiz.'
+    redirect_to staff_dashboard_path, notice: 'Deleted quiz.'
   end
 
   private

@@ -1,6 +1,6 @@
 .row
   .small-12-columns
-    = simple_form_for question do |f|
+    = simple_form_for quiz_form do |f|
       .row
         .small-2.columns
           = f.input :lesson
@@ -15,6 +15,10 @@
         .row
           .small-3.columns
               h3 Question
+              = link_to 'Delete', 
+                         question_path(qf.object.id),
+                         method: :delete,
+                         data: { confirm: "Are you sure?" }
               = qf.input :number
               = qf.input :points
         .row
