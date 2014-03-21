@@ -1,5 +1,10 @@
 h1 Welcome to the Staff Dashboard!
 
+h3 Quiz Requests
+ul.quiz-requests
+  - @requests.each do |request|
+    li = request
+
 h3 Quizzes
 ul.quizzes
   - @quizzes.each do |quiz|
