@@ -5,10 +5,13 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    alias_action :index, to: :view
+
     if user.staff?
       can :manage, :all
     elsif user.student?
-      can [:take, :request], Quiz
+      can :make_request, Quiz
+      can :view, :student_dashboard
     end
   end
 end
