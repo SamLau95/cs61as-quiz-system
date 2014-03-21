@@ -17,7 +17,7 @@ class Quiz < ActiveRecord::Base
   has_many :quiz_requests
 
   def self.lessons
-    all.map(&:lesson).uniq
+    all.map(&:lesson).uniq.sort
   end
 
   def self.choose_one(lesson)
