@@ -9,7 +9,7 @@
       .row
         .small-12.columns
           = f.input :retake, as: :boolean
-          = f.input :draft, as: :boolean
+          = f.input :is_draft, label: 'Draft?', as: :boolean
       = f.fields_for :questions do |qf|
         = qf.hidden_field :id, value: qf.object.id
         .row

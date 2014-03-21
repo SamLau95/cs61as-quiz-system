@@ -5,7 +5,7 @@ class EditQuizForm < Reform::Form
   property :lesson
   property :version
   property :retake
-  property :draft
+  property :is_draft
 
   collection :questions do
     property :id
@@ -25,7 +25,7 @@ class EditQuizForm < Reform::Form
   validates :lesson, presence: true, numericality: true
   validates :version, presence: true, numericality: true
   validates :retake, presence: true
-  validates :draft, presence: true
+  validates :is_draft, presence: true
   validate :points_add_to_10
 
   def validate_and_save(quiz_params)
@@ -33,7 +33,7 @@ class EditQuizForm < Reform::Form
     Quiz.find(id).update_attributes(lesson: lesson, 
                                     version: version,
                                     retake: retake,
-                                    draft: draft)
+                                    is_draft: is_draft)
     quiz_params[:questions_attributes].all? do |_, v|
       Question.find(v[:id]).update_attributes v
     end

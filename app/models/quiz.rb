@@ -16,8 +16,8 @@ class Quiz < ActiveRecord::Base
   has_many :submissions
   has_many :quiz_requests
 
-  scope :drafts,    -> { where draft: true }
-  scope :published, -> { where draft: false }
+  scope :drafts,    -> { where is_draft: true }
+  scope :published, -> { where is_draft: false }
   
   def full_name
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
@@ -29,7 +29,7 @@ class Quiz < ActiveRecord::Base
 
   def self.create_with_question
     quiz = create
-    quiz.questions.create points: 0
+    quiz.questions.create
     quiz
   end
 end
