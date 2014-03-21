@@ -19,6 +19,14 @@ class Quiz < ActiveRecord::Base
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
   
+  def self.lessons
+    all.map(&:lesson).uniq.sort
+  end
+
+  def self.choose_one(lesson)
+    where(lesson: lesson).sample
+  end
+
   def full_name
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
   end

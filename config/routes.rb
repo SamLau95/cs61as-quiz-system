@@ -2,7 +2,7 @@ Cs61asQuizzes::Application.routes.draw do
 
   devise_for :users
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: 'devise/sessions#new'
   end
 
   scope '/staff' do
@@ -16,8 +16,10 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :quizzes, except: :show
   scope '/quizzes' do
-    get '/:id/take', to: 'quizzes#take', as: :take_quiz
-    post '/:id/submit', to: 'quizzes#submit', as: :submit_quiz
+    post '/:lesson/request', to: 'quizzes#make_request',
+                             as: :make_quiz_request
+    get '/:lesson/take', to: 'quizzes#take',   as: :take_quiz
+    post '/:id/submit',  to: 'quizzes#submit', as: :submit_quiz
   end
 
   resources :submissions

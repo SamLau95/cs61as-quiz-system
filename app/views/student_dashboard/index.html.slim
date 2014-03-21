@@ -1,6 +1,12 @@
 h1 Welcome to the Student Dashboard!
 
-h3 Take a quiz:
-ul
-- @quizzes.each do |quiz|
-  li = link_to quiz.full_name, take_quiz_path(quiz)
+- if @quiz_request
+  .quiz-request
+    h3 You are currently requesting to take quiz #{@quiz_request.lesson}
+    = link_to 'Once a TA approves you, you may click here to take your quiz.',
+              take_quiz_path(@quiz_request.lesson)
+- else
+  br
+  h3 Take a quiz:
+  - @lessons.each do |lesson|
+    h4 = link_to "Quiz #{lesson}", make_quiz_request_path(lesson), method: :post

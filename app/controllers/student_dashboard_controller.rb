@@ -1,12 +1,9 @@
+# Controller for the student dashboard
 class StudentDashboardController < ApplicationController
-  before_filter :check_authorization
+  authorize_resource class: false
 
   def index
-    @quizzes = Quiz.all
+    @lessons = Quiz.lessons
+    @quiz_request = current_user.quiz_request
   end
-
-  private
-    def check_authorization
-      authorize! :take, Quiz
-    end
 end
