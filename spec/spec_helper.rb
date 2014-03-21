@@ -49,4 +49,9 @@ RSpec.configure do |config|
 
   # Use rails routes
   config.include Rails.application.routes.url_helpers
+
+  # Use expect syntax
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
 end
