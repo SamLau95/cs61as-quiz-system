@@ -3,12 +3,15 @@ class QuizRequestsController < ApplicationController
   load_and_authorize_resource
 
   def approve
-    QuizRequest.find(params[:id]).approve!
+    request = QuizRequest.find(params[:id])
+    request.approve!
+    flash[:success] = "Approved #{request.student}!"
     redirect_to staff_dashboard_path
   end
 
   def cancel
     QuizRequest.find(params[:id]).destroy
+    flash[:success] = "Cancelled #{request.student}'s request!"
     redirect_to staff_dashboard_path
   end
 end
