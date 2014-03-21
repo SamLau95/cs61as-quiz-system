@@ -33,7 +33,7 @@ describe 'The staff dashboard' do
 
     it 'displays confirm links' do
       requests.each do |request|
-        expect(page).to have_link "Approve: #{request.student}"
+        expect(page).to have_link "approve-#{request.id}"
       end
     end
 
@@ -42,13 +42,25 @@ describe 'The staff dashboard' do
     end
   end
 
-  describe 'approving a quiz request' do
+  describe 'approving a request' do
     let!(:request) { create :quiz_request }
     before do
       visit staff_dashboard_path
-      click_link "Approve: #{request.student}"
+      click_link "approve-#{request.id}"
     end
 
-    it { should_not have_content "Approve: #{request.student}" }
+    it { should_not have_link "approve-#{request.id}" }
+  end
+
+  describe 'cancelling a request' do
+    let!(:request) { create :quiz_request }
+    before do
+      visit staff_dashboard_path
+    end
+
+    it 'deletes the request' do
+      expect { click_link "cancel-#{request.id}" }
+             .to change(QuizRequest, :count).by(-1)
+    end
   end
 end
