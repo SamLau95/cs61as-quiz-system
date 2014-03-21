@@ -5,6 +5,6 @@ class StaffDashboardController < ApplicationController
   def index
     @students = Student.all
     @quizzes = Quiz.all
-    @requests = QuizRequest.all
+    @requests = QuizRequest.not_approved
   end
 end
