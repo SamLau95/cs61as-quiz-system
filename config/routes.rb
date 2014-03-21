@@ -16,11 +16,9 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :quizzes, except: :show
   scope '/quizzes' do
-    get '/:lesson/request',  to: 'quizzes#make_request',
+    post '/:lesson/request', to: 'quizzes#make_request',
                              as: :make_quiz_request
-    post '/:lesson/request', to: 'quizzes#process_request',
-                             as: :process_quiz_request
-    get '/:id/take',         to: 'quizzes#take',   as: :take_quiz
+    get '/:lesson/take',     to: 'quizzes#take',   as: :take_quiz
     post '/:id/submit',      to: 'quizzes#submit', as: :submit_quiz
   end
 
