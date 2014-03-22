@@ -44,5 +44,16 @@ describe 'The student dashboard' do
       before { click_link 'Once a TA approves' }
       it { should have_content 'requesting' }
     end
+
+    describe 'after being approved' do
+      before do
+        student.quiz_request.approve!
+        click_link 'Once a TA approves'
+      end
+
+      it 'sends the student to take a quiz' do
+        expect(current_path).to eq take_quiz_path(quiz)
+      end
+    end
   end
 end
