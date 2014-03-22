@@ -9,6 +9,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  points     :integer          default(0), not null
+#  format     :string(255)
+#  options    :hstore
 #
 
 # Model that represents questions
