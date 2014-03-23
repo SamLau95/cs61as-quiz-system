@@ -14,6 +14,7 @@ class QuizzesController < ApplicationController
   end
 
   def take
+    # TODO: Quiz requests should consider retakes
     @quiz_form = TakeQuizForm.new(
                    Quiz.choose_one(current_user.quiz_request_lesson))
   end
