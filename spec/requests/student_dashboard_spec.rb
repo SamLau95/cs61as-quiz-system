@@ -37,22 +37,29 @@ describe 'The student dashboard' do
 
     it { should have_content 'requesting' }
     it { should have_content "#{quiz.lesson}" }
-    it { should have_link 'Once a TA approves' }
-    it { should_not have_content 'Take a quiz' }
+    it { should have_content 'not approved' }
+    it { should_not have_link "Quiz #{quiz.lesson}" }
 
     describe 'before being approved' do
-      before { click_link 'Once a TA approves' }
-      it { should have_content 'requesting' }
+      before { visit take_quiz_path }
+      it 'does not allow a student to take a quiz' do
+        expect(current_path).to eq student_dashboard_path
+      end
     end
 
     describe 'after being approved' do
       before do
         student.quiz_request.approve!
-        click_link 'Once a TA approves'
+        visit student_dashboard_path
       end
 
-      it 'sends the student to take a quiz' do
-        expect(current_path).to eq take_quiz_path(quiz)
+      it { should have_link 'Begin quiz!' }
+
+      describe 'the begin quiz link' do
+        before { click_link 'Begin quiz!' }
+        it 'lets the student take a quiz' do
+          expect(current_path).to eq take_quiz_path
+        end
       end
     end
   end
