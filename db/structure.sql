@@ -75,37 +75,6 @@ ALTER SEQUENCE options_id_seq OWNED BY options.id;
 
 
 --
--- Name: question_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE question_types (
-    id integer NOT NULL,
-    name character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE question_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE question_types_id_seq OWNED BY question_types.id;
-
-
---
 -- Name: questions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -117,7 +86,7 @@ CREATE TABLE questions (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     points integer DEFAULT 0 NOT NULL,
-    format character varying(255)
+    type character varying(255)
 );
 
 
@@ -335,13 +304,6 @@ ALTER TABLE ONLY options ALTER COLUMN id SET DEFAULT nextval('options_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY question_types ALTER COLUMN id SET DEFAULT nextval('question_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY questions ALTER COLUMN id SET DEFAULT nextval('questions_id_seq'::regclass);
 
 
@@ -386,14 +348,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY options
     ADD CONSTRAINT options_pkey PRIMARY KEY (id);
-
-
---
--- Name: question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY question_types
-    ADD CONSTRAINT question_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -564,3 +518,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140322104116');
 INSERT INTO schema_migrations (version) VALUES ('20140323013146');
 
 INSERT INTO schema_migrations (version) VALUES ('20140323013426');
+
+INSERT INTO schema_migrations (version) VALUES ('20140323024707');
+
+INSERT INTO schema_migrations (version) VALUES ('20140323025054');

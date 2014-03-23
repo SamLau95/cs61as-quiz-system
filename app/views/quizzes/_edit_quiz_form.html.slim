@@ -10,25 +10,23 @@
         .small-12.columns
           = f.input :retake, as: :boolean
           = f.input :is_draft, label: 'Draft?', as: :boolean
-      = f.fields_for :questions do |qf|
-        = qf.hidden_field :id, value: qf.object.id
-        .row
-          .small-3.columns
-              h3 Question
-              = link_to 'Delete', 
-                         question_path(qf.object.id),
-                         method: :delete,
-                         data: { confirm: "Are you sure?" }
-              = qf.input :number
-              = qf.input :points
-        .row
-          .small-12.columns
-            = qf.input :content, as: :text
-            = render "forms/#{qf.object.format}", qf: qf
-      = f.submit 'Update!', class: 'button'
+      = f.submit 'Update!', class: 'small button'
+
     br
-      .addquestion
-        = simple_form_for @question do |f|
-          = f.select :format, options_for_select( quiz_types )
-          = f.hidden_field :id, value: quiz_form.id
-          = f.submit "New Question", class: 'button'
+      .addQuestion
+        p Add a New Question!
+        - types.each do |type|
+          = link_to type.title, new_question_path, type: type.param, class: "small button"
+    - if @questions.nil?
+      p You have no questions yet!
+    - else
+      - @questions.each do |question| 
+        = link_to "Edit Question", edit_question_path(question)
+        div
+          p Question #{question.number}
+          p Points: #{question.points}
+          p = question.content
+          - if !question.options.empty?
+            p Options
+            - question.options.each do |option|
+              p = option.content

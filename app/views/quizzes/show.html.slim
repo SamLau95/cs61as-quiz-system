@@ -1,16 +1,18 @@
 h1 = @quiz.full_name
 
-/ Style this stuff later
+= link_to "Edit Quiz", edit_quiz_path(@quiz), class: 'small button'
 
- 
--if @questions.nil?
+-if @quiz.questions.nil?
   p You have no questions yet!
 - else
   - @questions.each do |question| 
     div
-      = link_to "Edit Question!", edit_question_path(question.id)
     p Question #{question.number}
     p Points: #{question.points}
     p = question.content
+      - if !question.options.empty?
+        p Options
+        - question.options.each do |option|
+          p = option.content
 
-= link_to "Add Question!", new_question_path
+
