@@ -10,7 +10,7 @@ class QuizRequestsController < ApplicationController
   end
 
   def cancel
-    QuizRequest.find(params[:id]).destroy
+    request = QuizRequest.find(params[:id]).destroy
     flash[:success] = "Cancelled #{request.student}'s request!"
     redirect_to staff_dashboard_path
   end

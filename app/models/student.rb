@@ -25,6 +25,12 @@ class Student < User
   has_many :submissions
   has_one :quiz_request
 
+  delegate :lesson, to: :quiz_request, prefix: true
+
+  def approved_request?
+    quiz_request && quiz_request.approved?
+  end
+
   def student?
     true
   end
