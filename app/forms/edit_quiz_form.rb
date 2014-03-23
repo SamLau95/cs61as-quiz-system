@@ -14,7 +14,6 @@ class EditQuizForm < Reform::Form
     property :number
     property :points
     property :format
-    property :options
 
     validates :format, presence: true
     validates :quiz_id, presence: true, numericality: true
@@ -23,7 +22,7 @@ class EditQuizForm < Reform::Form
     validates :points, presence: true,
                        numericality: { greater_than_or_equal_to: 1,
                                        less_than_or_equal_to: 10 }
-    validates :option_is_hash
+
   end
 
   validates :lesson, presence: true, numericality: true
@@ -49,9 +48,5 @@ class EditQuizForm < Reform::Form
     unless questions.map { |q| q.points.to_i }.sum == 10
       errors.add :lesson, 'Points must sum to 10'
     end
-  end
-
-  def option_is_hash
-    option.instance_of?(Hash)
   end
 end

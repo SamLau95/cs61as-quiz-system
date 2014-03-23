@@ -10,7 +10,6 @@
 #  updated_at :datetime
 #  points     :integer          default(0), not null
 #  format     :string(255)
-#  options    :hstore
 #
 
 # Model that represents questions
@@ -20,6 +19,7 @@ class Question < ActiveRecord::Base
   belongs_to :quiz
   has_many :submissions
   has_one :solution, dependent: :destroy
+  has_many :options
 
   def full_name
     "Question #{number} (#{points} points)"

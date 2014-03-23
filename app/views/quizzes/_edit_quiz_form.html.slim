@@ -24,7 +24,11 @@
         .row
           .small-12.columns
             = qf.input :content, as: :text
-      br
-        .addquestion
-          = link_to "Add Question!", edit_quiz_path(@quiz_form.id, add: true), remote: true
+            = render "forms/#{qf.object.format}", qf: qf
       = f.submit 'Update!', class: 'button'
+    br
+      .addquestion
+        = simple_form_for @question do |f|
+          = f.select :format, options_for_select( quiz_types )
+          = f.hidden_field :id, value: quiz_form.id
+          = f.submit "New Question", class: 'button'

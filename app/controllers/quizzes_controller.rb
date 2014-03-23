@@ -44,8 +44,9 @@ class QuizzesController < ApplicationController
 
   def edit
     quiz = Quiz.find params[:id]
-    quiz.questions.create if params[:add]
+    quiz.questions.create(format: params[:format]) if params[:format]
     @quiz_form = EditQuizForm.new quiz
+    @question = Question.new
     respond_to do |format|
       format.html { render 'edit' }
       format.js {}

@@ -23,14 +23,12 @@ def make_quizzes
   q2 = q.questions.create! number: 2,
                            points: 3,
                            content: 'What is 1 * 1?',
-                           format: 'checkbox',
-                           options: { 1 => "testing checkbox"}
+                           format: 'checkbox'
   q2.create_solution content: '1'
   q3 = q.questions.create! number: 3,
                            points: 5,
                            content: 'What is 10 + 1?',
-                           format: 'multichoice',
-                           options: { 1 => "test multichoice"}
+                           format: 'multichoice'
   q3.create_solution content: '11'
   q = Quiz.create! lesson: 2,
                    version: 1
