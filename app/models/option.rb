@@ -8,7 +8,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #
-# Options model
+
 class Option < ActiveRecord::Base
   belongs_to :question
 end

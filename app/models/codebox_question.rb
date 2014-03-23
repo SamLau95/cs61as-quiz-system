@@ -12,16 +12,13 @@
 #  type       :string(255)
 #
 
-# Model that represents questions
-class Question < ActiveRecord::Base
-  default_scope -> { order 'number ASC' }
+# Code box question
+class CodeboxQuestion < Question
+  def self.title
+    'Coding Question'
+  end
 
-  belongs_to :quiz
-  has_many :submissions
-  has_one :solution, dependent: :destroy
-  has_many :options
-
-  def full_name
-    "Question #{number} (#{points} points)"
+  def self.param
+    'codebox'
   end
 end
