@@ -4,7 +4,7 @@ h1 Welcome to the Student Dashboard!
   .quiz-request
     h3 You are currently requesting to take quiz #{@quiz_request.lesson}
     = link_to 'Once a TA approves you, you may click here to take your quiz.',
-              take_quiz_path(@quiz_request.lesson)
+              take_quiz_path
 - else
   br
   h3 Take a quiz:
