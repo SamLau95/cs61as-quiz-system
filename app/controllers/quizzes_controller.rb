@@ -14,7 +14,8 @@ class QuizzesController < ApplicationController
   end
 
   def take
-    @quiz_form = TakeQuizForm.new Quiz.choose_one(params[:lesson])
+    @quiz_form = TakeQuizForm.new(
+                   Quiz.choose_one(current_user.quiz_request_lesson))
   end
 
   def submit
