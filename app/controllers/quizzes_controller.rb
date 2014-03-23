@@ -69,6 +69,11 @@ class QuizzesController < ApplicationController
     redirect_to staff_dashboard_path, notice: 'Deleted quiz.'
   end
 
+  def show
+    @quiz = Quiz.find params[:id]
+    @questions = @quiz.questions
+  end
+
   private
 
   def inject_current_user_into!(quiz_params)

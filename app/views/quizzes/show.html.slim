@@ -1,2 +1,16 @@
+h1 = @quiz.full_name
 
-- 
+/ Style this stuff later
+
+ 
+-if @questions.nil?
+  p You have no questions yet!
+- else
+  - @questions.each do |question| 
+    div
+      = link_to "Edit Question!", edit_question_path(question.id)
+    p Question #{question.number}
+    p Points: #{question.points}
+    p = question.content
+
+= link_to "Add Question!", new_question_path
