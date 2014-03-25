@@ -2,6 +2,8 @@
 class QuizzesController < ApplicationController
   load_and_authorize_resource
 
+  [MCQuestion, CodeboxQuestion, TextboxQuestion, CheckboxQuestion] if Rails.env == 'development'
+
   def make_request
     if current_user.quiz_request.nil?
       QuizRequest.create student: current_user,
@@ -44,13 +46,9 @@ class QuizzesController < ApplicationController
 
   def edit
     quiz = Quiz.find params[:id]
-    quiz.questions.create(format: params[:format]) if params[:format]
     @quiz_form = EditQuizForm.new quiz
-    @question = Question.new
-    respond_to do |format|
-      format.html { render 'edit' }
-      format.js {}
-    end
+    @questions = quiz.questions.includes(:options)
+    @types = Question.subclasses
   end
 
   def update
@@ -70,8 +68,8 @@ class QuizzesController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find params[:id]
-    @questions = @quiz.questions
+    @quiz = Quiz.find(params[:id])
+    @questions = @quiz.questions.includes(:options)
   end
 
   private

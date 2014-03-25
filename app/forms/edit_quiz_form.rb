@@ -7,24 +7,6 @@ class EditQuizForm < Reform::Form
   property :retake
   property :is_draft
 
-  collection :questions do
-    property :id
-    property :quiz_id
-    property :content
-    property :number
-    property :points
-    property :format
-
-    validates :format, presence: true
-    validates :quiz_id, presence: true, numericality: true
-    validates :content, presence: true
-    validates :number, presence: true, numericality: true
-    validates :points, presence: true,
-                       numericality: { greater_than_or_equal_to: 1,
-                                       less_than_or_equal_to: 10 }
-
-  end
-
   validates :lesson, presence: true, numericality: true
   validates :version, presence: true, numericality: true
   validates :retake, presence: true
@@ -37,10 +19,9 @@ class EditQuizForm < Reform::Form
                                     version: version,
                                     retake: retake,
                                     is_draft: is_draft)
-    quiz_params[:questions_attributes].all? do |_, v|
-      Question.find(v[:id]).update_attributes v
-    end
   end
+
+  # TODO: check points when making questions
 
   private
 

@@ -3,13 +3,13 @@
 class QuestionsController < ApplicationController
   load_and_authorize_resource
 
+  def new
+  end
+
   def create
-    Question.create
-    @quiz_form = EditQuizForm.new Quiz.find(params[:id])
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
+  end
+
+  def edit
   end
 
   def destroy
