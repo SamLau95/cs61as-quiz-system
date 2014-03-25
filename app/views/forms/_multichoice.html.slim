@@ -2,8 +2,6 @@ p Options
 
 div.multiChoice
   - qf.object.options.each do |key, val|
-    = qf.input key.to_sym, label: "Option #{num}"
-    = 1/0
-    - num +=1 
+    = qf.input key.to_sym
 
 p.addMultiChoice Add

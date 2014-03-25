@@ -13,7 +13,7 @@
 #
 
 # Checkbox Question
-class CheckBoxQuestion < Question
+class CheckboxQuestion < Question
   def self.title
     'Checkbox Question'
   end
