@@ -1,0 +1,25 @@
+
+row
+  .small-12-columns
+    = simple_form_for quest_form do |f|
+
+      .row
+        .small-3.columns
+          h3 Question
+          = f.input :number
+          = f.input :points
+          = f.input :quiz_id
+      .row
+        .small-12.columns
+          = f.input :content, as: :text, label: 'Question'
+      - if correct_type(f.object.type)
+        p Options:
+        = f.fields_for :options do |of|
+          = of.hidden_field :id, value: of.object.id
+          .row
+            .small-3.columns
+              = of.input :content, label: ""
+        = link_to "Add another option!", edit_question_path(f.object, add: true),
+                                         remote: true
+      br
+        = f.submit 'Update!', class: 'small button'
