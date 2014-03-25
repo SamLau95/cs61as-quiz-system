@@ -19,6 +19,6 @@ class CodeboxQuestion < Question
   end
 
   def self.param
-    'codebox'
+    'CodeboxQuestion'
   end
 end

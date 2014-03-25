@@ -19,6 +19,6 @@ class MCQuestion < Question
   end
 
   def self.param
-    'multichoice'
+    'MCQuestion'
   end
 end

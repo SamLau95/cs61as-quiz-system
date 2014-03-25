@@ -19,6 +19,6 @@ class CheckboxQuestion < Question
   end
 
   def self.param
-    'checkbox'
+    'CheckboxQuestion'
   end
 end

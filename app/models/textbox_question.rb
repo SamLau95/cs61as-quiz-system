@@ -19,6 +19,6 @@ class TextboxQuestion < Question
   end
 
   def self.param
-    'textbox'
+    'TextboxQuestion'
   end
 end
