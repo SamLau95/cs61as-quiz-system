@@ -1,4 +1,3 @@
-
 # Question Controller
 class QuestionsController < ApplicationController
   load_and_authorize_resource
@@ -20,6 +19,15 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    question = Question.find params[:id]
+    quiz = Quiz.find question.quiz_id
+    @quest_form = EditQuestionForm.new question
+    if @quest_form.validate_and_save params[:question]
+      flash[:success] = 'Updated Question!'
+      redirect_to edit_quiz_path(quiz)
+    else
+      render 'edit'
+    end
   end
 
   def destroy

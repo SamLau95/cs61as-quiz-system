@@ -3,12 +3,13 @@ class StaffDashboardController < ApplicationController
 
   def index
     @students = Student.all
-    @drafts = Quiz.drafts 
+    @drafts = Quiz.drafts
     @published = Quiz.published
   end
 
   private
-    def check_authorization
-      authorize! :manage, :all
-    end
+
+  def check_authorization
+    authorize! :manage, :all
+  end
 end

@@ -15,10 +15,7 @@ class EditQuizForm < Reform::Form
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
-    Quiz.find(id).update_attributes(lesson: lesson,
-                                    version: version,
-                                    retake: retake,
-                                    is_draft: is_draft)
+    Quiz.find(id).update_attributes(quiz_params)
   end
 
   # TODO: check points when making questions
