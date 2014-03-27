@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
     question = Question.find params[:id]
     quiz = Quiz.find question.quiz_id
     @quest_form = EditQuestionForm.new question
-    if @quest_form.validate_and_save params[:question]
+    if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'
       redirect_to edit_quiz_path(quiz)
     else
@@ -36,4 +36,11 @@ class QuestionsController < ApplicationController
     flash[:success] = 'Deletion successful'
     redirect_to edit_quiz_path(@question.quiz_id)
   end
+
+  private
+
+  def question_params
+    params.require(:question).permit!
+  end
+
 end

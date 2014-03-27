@@ -53,7 +53,7 @@ class QuizzesController < ApplicationController
 
   def update
     @quiz_form = EditQuizForm.new Quiz.find params[:id]
-    if @quiz_form.validate_and_save params[:quiz]
+    if @quiz_form.validate_and_save quiz_params
       quiz = Quiz.find params[:id]
       flash[:success] = "Updated #{ quiz.full_name }!"
       redirect_to staff_dashboard_path
@@ -77,5 +77,9 @@ class QuizzesController < ApplicationController
   def inject_current_user_into!(quiz_params)
     submissions_params = quiz_params[:quiz][:new_submissions_attributes]
     submissions_params.each { |_, v| v[:student_id] = current_user.id }
+  end
+
+  def quiz_params
+    params.require(:quiz).permit!
   end
 end

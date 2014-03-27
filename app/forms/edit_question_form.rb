@@ -31,9 +31,12 @@ class EditQuestionForm < Reform::Form
 
   def validate_and_save(question_params)
     return false unless validate(question_params)
-    question_params[:options_attributes].all? do |_, v|
-      Option.find(v[:id]).update_attributes v
+    if question_params[:options_attributes]
+      question_params[:options_attributes].all? do |_, v|
+        Option.find(v[:id]).update_attributes v
+      end
     end
+    question_params.delete :options
     question_params.delete :options_attributes
     Question.find(id).update_attributes(question_params)
   end
