@@ -1,0 +1,35 @@
+.row
+  .small-12-columns
+    = simple_form_for quiz_form do |f|
+      .row
+        .small-2.columns
+          = f.input :lesson
+        .small-2.columns.end
+          = f.input :version
+      .row
+        .small-12.columns
+          = f.input :retake, as: :boolean
+          = f.input :is_draft, label: 'Draft?', as: :boolean
+      = f.submit 'Update!', class: 'small button'
+
+    br
+      .addQuestion
+        p Add a New Question!
+        - types.each do |type|
+          = link_to type.title, new_question_path(format: type.param, id: quiz_form.id), class: "small button"
+    - if @questions.nil?
+      p You have no questions yet!
+    - else
+      - @questions.each do |question| 
+        = link_to "Edit Question", edit_question_path(question)
+        div
+          p Question #{question.number}
+          p Points: #{question.points}
+          p = question.content
+          - if !question.options.empty?
+            p Options
+            - question.options.each do |option|
+              p = option.content
+        = link_to "delete", edit_quiz_path(quiz_form.id, destroy: question.id),
+                            remote: true, data: { confirm: 'Are you sure?'}
+        br

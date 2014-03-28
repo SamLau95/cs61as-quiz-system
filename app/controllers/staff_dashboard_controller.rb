@@ -4,7 +4,8 @@ class StaffDashboardController < ApplicationController
 
   def index
     @students = Student.all
-    @quizzes = Quiz.all
+    @drafts = Quiz.drafts
+    @published = Quiz.published
     @requests = QuizRequest.not_approved
   end
 end

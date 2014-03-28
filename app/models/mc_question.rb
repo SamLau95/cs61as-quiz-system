@@ -12,16 +12,13 @@
 #  type       :string(255)
 #
 
-# Model that represents questions
-class Question < ActiveRecord::Base
-  default_scope -> { order 'number ASC' }
+# Multiple Choice questiion
+class MCQuestion < Question
+  def self.title
+    'Multiple Choice'
+  end
 
-  belongs_to :quiz
-  has_many :submissions
-  has_one :solution, dependent: :destroy
-  has_many :options
-
-  def to_s
-    "Question #{number} (#{points} points)"
+  def self.param
+    'MCQuestion'
   end
 end

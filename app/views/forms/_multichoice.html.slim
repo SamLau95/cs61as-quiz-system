@@ -1,0 +1,7 @@
+p Options
+
+div.multiChoice
+  - qf.object.options.each do |key, val|
+    = qf.input key.to_sym
+
+p.addMultiChoice Add

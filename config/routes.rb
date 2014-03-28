@@ -14,7 +14,7 @@ Cs61asQuizzes::Application.routes.draw do
     get '', to: 'student_dashboard#index', as: :student_dashboard
   end
 
-  resources :quizzes, except: :show
+  resources :quizzes
   scope '/quizzes' do
     post '/:lesson/request', to: 'quizzes#make_request',
                              as: :make_quiz_request
@@ -27,9 +27,10 @@ Cs61asQuizzes::Application.routes.draw do
     post '/save', to: 'quizzes#save_submission', as: :save_submission
   end
 
+  resources :questions
+
   scope '/quiz_requests' do
     post '/:id/approve', to: 'quiz_requests#approve', as: :approve_request
     delete '/:id/',      to: 'quiz_requests#cancel',  as: :cancel_request
   end
-
 end

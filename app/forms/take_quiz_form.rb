@@ -13,7 +13,6 @@ class TakeQuizForm < Reform::Form
     property :content
 
     validates :quiz_id, :question_id, :student_id, presence: true
-    validates :content, presence: true
   end
 
   def validate_and_save(params)

@@ -1,0 +1,7 @@
+p Options
+
+div.checkbox 
+  - qf.object.options.keys.each do |key,val|
+    = qf.input key.to_sym
+
+p.addCheckBox Add

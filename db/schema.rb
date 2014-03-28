@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321205957) do
+ActiveRecord::Schema.define(version: 20140322092443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+
+  create_table "question_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "questions", force: true do |t|
     t.text     "content"
@@ -22,7 +29,8 @@ ActiveRecord::Schema.define(version: 20140321205957) do
     t.integer  "quiz_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "points",     null: false
+    t.integer  "points",     default: 0, null: false
+    t.string   "format"
   end
 
   add_index "questions", ["number", "quiz_id"], name: "index_questions_on_number_and_quiz_id", unique: true, using: :btree
@@ -32,7 +40,6 @@ ActiveRecord::Schema.define(version: 20140321205957) do
     t.integer  "lesson"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved",   default: false
   end
 
   add_index "quiz_requests", ["student_id"], name: "index_quiz_requests_on_student_id", using: :btree
@@ -43,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140321205957) do
     t.boolean  "retake",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_draft",   default: true
   end
 
   add_index "quizzes", ["lesson", "version", "retake"], name: "index_quizzes_on_lesson_and_version_and_retake", unique: true, using: :btree

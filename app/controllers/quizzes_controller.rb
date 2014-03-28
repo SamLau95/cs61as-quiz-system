@@ -2,6 +2,8 @@
 class QuizzesController < ApplicationController
   load_and_authorize_resource
 
+  [MCQuestion, CodeboxQuestion, TextboxQuestion, CheckboxQuestion] if Rails.env == 'development'
+
   def make_request
     if current_user.quiz_request.nil?
       QuizRequest.create student: current_user,
@@ -31,7 +33,8 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    @quiz = Quiz.new
+    @new_quiz = Quiz.create_with_question
+    redirect_to edit_quiz_path @new_quiz.id
   end
 
   def create
@@ -44,7 +47,15 @@ class QuizzesController < ApplicationController
   end
 
   def edit
-    @quiz_form = EditQuizForm.new Quiz.find params[:id]
+    quiz = Quiz.find params[:id]
+    @quiz_form = EditQuizForm.new quiz
+    @questions = quiz.questions.includes(:options)
+    Question.destroy(params[:destroy]) if params[:destroy]
+    @types = Question.subclasses
+    respond_to do |format|
+      format.html { render 'edit' }
+      format.js {}
+    end
   end
 
   def update
@@ -60,7 +71,12 @@ class QuizzesController < ApplicationController
 
   def destroy
     Quiz.find(params[:id]).destroy
-    redirect_to quizzes_path, notice: 'Deleted quiz.'
+    redirect_to staff_dashboard_path, notice: 'Deleted quiz.'
+  end
+
+  def show
+    @quiz = Quiz.find(params[:id])
+    @questions = @quiz.questions.includes(:options)
   end
 
   private
@@ -68,5 +84,9 @@ class QuizzesController < ApplicationController
   def inject_current_user_into!(quiz_params)
     submissions_params = quiz_params[:quiz][:new_submissions_attributes]
     submissions_params.each { |_, v| v[:student_id] = current_user.id }
+  end
+
+  def quiz_params
+    params.require(:quiz).permit!
   end
 end

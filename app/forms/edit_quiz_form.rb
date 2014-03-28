@@ -5,39 +5,26 @@ class EditQuizForm < Reform::Form
   property :lesson
   property :version
   property :retake
-
-  collection :questions do
-    property :id
-    property :quiz_id
-    property :content
-    property :number
-    property :points
-
-    validates :quiz_id, presence: true, numericality: true
-    validates :content, presence: true
-    validates :number, presence: true, numericality: true
-    validates :points, presence: true,
-                       numericality: { greater_than_or_equal_to: 1,
-                                       less_than_or_equal_to: 10 }
-  end
+  property :is_draft
 
   validates :lesson, presence: true, numericality: true
-  validates :version, presence: true
+  validates :version, presence: true, numericality: true
   validates :retake, presence: true
-  validate :points_add_to_10
+  validates :is_draft, presence: true
+  # validate :points_add_to_10
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
-    quiz_params[:questions_attributes].all? do |_, v|
-      Question.find(v[:id]).update_attributes v
-    end
+    Quiz.find(id).update_attributes(quiz_params)
   end
+
+  # TODO: check points when making questions
 
   private
 
-  def points_add_to_10
-    unless questions.map { |q| q.points.to_i }.sum == 10
-      errors.add :lesson, 'Points must sum to 10'
-    end
-  end
+  # def points_add_to_10
+  #   unless questions.map { |q| q.points.to_i }.sum == 10
+  #     errors.add :lesson, 'Points must sum to 10'
+  #   end
+  # end
 end
