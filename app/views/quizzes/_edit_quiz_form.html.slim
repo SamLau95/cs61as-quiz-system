@@ -30,3 +30,6 @@
             p Options
             - question.options.each do |option|
               p = option.content
+        = link_to "delete", edit_quiz_path(quiz_form.id, destroy: question.id),
+                            remote: true, data: { confirm: 'Are you sure?'}
+        br

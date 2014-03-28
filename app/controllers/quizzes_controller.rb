@@ -48,7 +48,12 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions.includes(:options)
+    Question.destroy(params[:destroy]) if params[:destroy]
     @types = Question.subclasses
+    respond_to do |format|
+      format.html { render 'edit' }
+      format.js {}
+    end
   end
 
   def update

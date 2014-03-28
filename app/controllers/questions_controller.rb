@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
   def edit
     question = Question.find params[:id]
     question.options.create if params[:add]
-    Option.delete(params[:destroy]) if params[:destroy]
+    Option.destroy(params[:destroy]) if params[:destroy]
     @quest_form = EditQuestionForm.new question
     respond_to do |format|
       format.html { render 'edit' }
