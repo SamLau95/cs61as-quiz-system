@@ -19,8 +19,7 @@ describe "Someone that isn't signed in" do
   end
 
   describe 'cannot view any quizzes' do
-    let(:quiz) { create :quiz }
-    before { visit take_quiz_path quiz }
+    before { visit take_quiz_path }
     it { should have_content 'Sign in' }
   end
 

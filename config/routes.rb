@@ -15,10 +15,10 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :quizzes
+  get '/take_quiz', to: 'quizzes#take', as: :take_quiz
   scope '/quizzes' do
     post '/:lesson/request', to: 'quizzes#make_request',
                              as: :make_quiz_request
-    get '/take',        to: 'quizzes#take',   as: :take_quiz
     post '/:id/submit', to: 'quizzes#submit', as: :submit_quiz
   end
 
