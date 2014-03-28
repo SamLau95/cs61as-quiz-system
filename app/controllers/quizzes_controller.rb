@@ -33,8 +33,8 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    @quiz_form = Quiz.create_with_question
-    redirect_to edit_quiz_path @quiz_form.id
+    @new_quiz = Quiz.create_with_question
+    redirect_to edit_quiz_path @new_quiz.id
   end
 
   def create

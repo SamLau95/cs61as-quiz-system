@@ -8,10 +8,4 @@ class StaffDashboardController < ApplicationController
     @published = Quiz.published
     @requests = QuizRequest.not_approved
   end
-
-  private
-
-  def check_authorization
-    authorize! :manage, :all
-  end
 end

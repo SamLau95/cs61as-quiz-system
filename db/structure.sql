@@ -118,7 +118,8 @@ CREATE TABLE quiz_requests (
     student_id integer,
     lesson integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    approved boolean DEFAULT false
 );
 
 
@@ -502,6 +503,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140320104015');
 INSERT INTO schema_migrations (version) VALUES ('20140320230116');
 
 INSERT INTO schema_migrations (version) VALUES ('20140320235415');
+
+INSERT INTO schema_migrations (version) VALUES ('20140321205957');
 
 INSERT INTO schema_migrations (version) VALUES ('20140321214945');
 
