@@ -1,10 +1,12 @@
+# Controller for staff dashboard
 class StaffDashboardController < ApplicationController
-  before_filter :check_authorization
+  authorize_resource class: false
 
   def index
     @students = Student.all
     @drafts = Quiz.drafts
     @published = Quiz.published
+    @requests = QuizRequest.not_approved
   end
 
   private

@@ -43,5 +43,10 @@ def make_quizzes
   q1.create_solution content: 'World'
 end
 
+def make_requests
+  Student.first.create_quiz_request lesson: 1
+end
+
 make_users
 make_quizzes
+make_requests

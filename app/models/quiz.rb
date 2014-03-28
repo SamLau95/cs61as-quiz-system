@@ -28,7 +28,7 @@ class Quiz < ActiveRecord::Base
     where(lesson: lesson).sample
   end
 
-  def full_name
+  def to_s
     "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
   end
 

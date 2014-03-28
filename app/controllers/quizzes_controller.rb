@@ -16,7 +16,9 @@ class QuizzesController < ApplicationController
   end
 
   def take
-    @quiz_form = TakeQuizForm.new Quiz.choose_one(params[:lesson])
+    # TODO: Quiz requests should consider retakes
+    @quiz_form = TakeQuizForm.new(
+                   Quiz.choose_one(current_user.quiz_request_lesson))
   end
 
   def submit
@@ -57,10 +59,10 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    @quiz_form = EditQuizForm.new Quiz.find params[:id]
-    if @quiz_form.validate_and_save quiz_params
-      quiz = Quiz.find params[:id]
-      flash[:success] = "Updated #{ quiz.full_name }!"
+    quiz = Quiz.find params[:id]
+    @quiz_form = EditQuizForm.new quiz
+    if @quiz_form.validate_and_save params[:quiz]
+      flash[:success] = "Updated #{quiz}!"
       redirect_to staff_dashboard_path
     else
       render :edit
