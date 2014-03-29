@@ -54,9 +54,7 @@ describe 'The staff dashboard' do
 
   describe 'cancelling a request' do
     let!(:request) { create :quiz_request }
-    before do
-      visit staff_dashboard_path
-    end
+    before { visit staff_dashboard_path }
 
     it 'deletes the request' do
       expect { click_link "cancel-#{request.id}" }

@@ -2,7 +2,8 @@
 class QuizzesController < ApplicationController
   load_and_authorize_resource
 
-  [MCQuestion, CodeboxQuestion, TextboxQuestion, CheckboxQuestion] if Rails.env == 'development'
+  [MCQuestion, CodeboxQuestion, TextboxQuestion,
+   CheckboxQuestion] if Rails.env == 'development'
 
   def make_request
     if current_user.quiz_request.nil?
@@ -16,9 +17,9 @@ class QuizzesController < ApplicationController
   end
 
   def take
-    # TODO: Quiz requests should consider retakes
-    @quiz_form = TakeQuizForm.new(
-                   Quiz.choose_one(current_user.quiz_request_lesson))
+    quiz_request = current_user.quiz_request
+    @quiz_form = TakeQuizForm.new(Quiz.choose_one(quiz_request))
+    quiz_request.destroy
   end
 
   def submit

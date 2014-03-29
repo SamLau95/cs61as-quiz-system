@@ -24,8 +24,8 @@ class Quiz < ActiveRecord::Base
     all.map(&:lesson).uniq.sort
   end
 
-  def self.choose_one(lesson)
-    where(lesson: lesson).sample
+  def self.choose_one(quiz_request)
+    where(lesson: quiz_request.lesson, retake: quiz_request.retake).sample
   end
 
   def to_s

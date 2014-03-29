@@ -61,6 +61,24 @@ describe 'The student dashboard' do
           expect(current_path).to eq take_quiz_path
         end
       end
+
+      describe 'beginning a quiz' do
+        it 'destroys the student\'s quiz request' do
+          expect { click_link 'Begin quiz!' }
+                 .to change(QuizRequest, :count).by(-1)
+        end
+      end
+    end
+  end
+
+  describe 'taking a quiz' do
+    let!(:quiz) { create :quiz }
+    before do
+      sign_in student
+      click_quiz_link quiz
+      student.quiz_request.approve!
+      visit student_dashboard_path
+      click_link 'Begin quiz!'
     end
   end
 end
