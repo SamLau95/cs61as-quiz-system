@@ -18,4 +18,5 @@ class Submission < ActiveRecord::Base
   belongs_to :student
 
   delegate :content, to: :question, prefix: true
+  delegate :type, to: :question, prefix: true
 end

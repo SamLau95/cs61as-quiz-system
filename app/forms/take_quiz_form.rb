@@ -6,6 +6,7 @@ class TakeQuizForm < Reform::Form
 
   collection :new_submissions do
     property :question_content, virtual: true
+    property :question_type, virtual: true
 
     property :quiz_id
     property :question_id
