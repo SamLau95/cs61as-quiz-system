@@ -2,5 +2,5 @@
 = sf.hidden_field :question_id, value: sf.object.question_id
 br
 = sf.object.question_content
-= sf.input :content, label: false
-hr
+= sf.select :content, options_for_select(Option.get_options(sf.object.question_options))
+hr  
