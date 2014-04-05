@@ -42,6 +42,6 @@ class Student < User
   def taken_quizzes
     taken = []
     submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
-    taken.uniq.sort_by &:lesson 
+    taken.uniq.sort_by &:lesson
   end
 end

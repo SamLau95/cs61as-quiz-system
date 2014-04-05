@@ -5,4 +5,4 @@ h1 = @student
 -else
   p View student's answers
   - @taken.each do |quiz|
-    = link_to quiz, view_quiz(quiz, student_id: @student.id)
+    = link_to quiz, view_quiz_path(quiz, student_id: @student.id)

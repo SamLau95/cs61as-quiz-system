@@ -20,10 +20,16 @@ def make_quizzes
                            content: 'What is 1 + 1?',
                            type: 'TextboxQuestion'
   q1.create_solution content: '2'
+  q.submissions.create content: '2',
+                       student_id: 1,
+                       question_id: 1
   q2 = q.questions.create! number: 2,
                            points: 3,
-                           content: 'What is 1 * 1?',
+                           content: 'What is 1 * 3?',
                            type: 'CheckboxQuestion'
+  q.submissions.create content: '3',
+                       student_id: 1,
+                       question_id: 2
   q2.create_solution content: '1'
   q2.options.create content: 'option 1'
   q2.options.create content: 'option 2'
@@ -34,6 +40,9 @@ def make_quizzes
   q3.create_solution content: '11'
   q3.options.create content: 'option 1'
   q3.options.create content: 'option 2'
+  q.submissions.create content: '11',
+                       student_id: 1,
+                       question_id: 3
   q = Quiz.create! lesson: 2,
                    version: 1
   q1 = q.questions.create! number: 1,
