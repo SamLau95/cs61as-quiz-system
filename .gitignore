@@ -20,3 +20,7 @@
 
 # Ignore database mixups
 /config/database.yml
+
+# Ignore custom rake file
+/lib/database.rake
+

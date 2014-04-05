@@ -38,7 +38,7 @@ class QuizzesController < ApplicationController
 
   def new
     @new_quiz = Quiz.create_with_question
-    redirect_to edit_quiz_path @new_quiz.id
+    redirect_to edit_quiz_path @new_quiz
   end
 
   def create
