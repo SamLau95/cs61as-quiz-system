@@ -3,8 +3,12 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @quiz = Quiz.find params[:id]
-    @question = @quiz.questions.create type: params[:format]
+    if params[:id]
+      @quiz = Quiz.find params[:id]
+      @question = @quiz.questions.create type: params[:format]
+    else
+      @question = Question.create type: params[:format]
+    end
     redirect_to edit_question_path(@question)
   end
 
