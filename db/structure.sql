@@ -86,7 +86,8 @@ CREATE TABLE questions (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     points integer DEFAULT 0 NOT NULL,
-    type character varying(255)
+    type character varying(255),
+    lesson integer
 );
 
 
@@ -578,3 +579,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140323025054');
 INSERT INTO schema_migrations (version) VALUES ('20140328213513');
 
 INSERT INTO schema_migrations (version) VALUES ('20140329033921');
+
+INSERT INTO schema_migrations (version) VALUES ('20140408035759');

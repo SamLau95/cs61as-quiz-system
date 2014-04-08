@@ -5,7 +5,8 @@ class QuestionsController < ApplicationController
   def new
     if params[:id]
       @quiz = Quiz.find params[:id]
-      @question = @quiz.questions.create type: params[:format]
+      @question = @quiz.questions.create type: params[:format],
+                                         lesson: @quiz.lesson
     else
       @question = Question.create type: params[:format]
     end
@@ -25,7 +26,7 @@ class QuestionsController < ApplicationController
 
   def update
     question = Question.find params[:id]
-    quiz = Quiz.find question.quiz_id
+    quiz = Quiz.find question.quiz_id unless question.quiz_id.nil?
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'
@@ -47,5 +48,4 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit!
   end
-
 end

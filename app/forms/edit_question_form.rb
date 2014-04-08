@@ -8,6 +8,7 @@ class EditQuestionForm < Reform::Form
   property :number
   property :points
   property :type
+  property :lesson
 
   collection :options do
 
@@ -16,6 +17,8 @@ class EditQuestionForm < Reform::Form
 
     validates :content, presence: true
     validates :question_id, presence: true
+
+    # TODO: Check if question lesson matches quiz lesson
 
   end
 
