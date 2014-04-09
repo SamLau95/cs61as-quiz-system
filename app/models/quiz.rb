@@ -41,4 +41,8 @@ class Quiz < ActiveRecord::Base
     quiz.questions.create
     quiz
   end
+
+  def self.all_lessons
+    (1..14).to_a
+  end
 end

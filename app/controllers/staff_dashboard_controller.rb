@@ -11,5 +11,10 @@ class StaffDashboardController < ApplicationController
     @published = Quiz.published
     @requests = QuizRequest.not_approved
     @types = Question.subclasses
+    @lessons = Quiz.all_lessons
+  end
+
+  def bank
+    @questions = Question.where lesson: params[:id]
   end
 end

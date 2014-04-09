@@ -27,6 +27,12 @@ ul.quiz-requests
 
 = render 'questions/new_question', types: @types, id: nil
 
+h3 Question Bank: 
+
+- @lessons.each do |lesson|
+  li
+    = link_to "Lesson #{lesson}", question_bank_path(id: lesson)
+
 h3 Students
 ul.students
   - @students.each do |student|
