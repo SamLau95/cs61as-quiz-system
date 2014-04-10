@@ -6,7 +6,8 @@ class QuestionsController < ApplicationController
     if params[:id]
       @quiz = Quiz.find params[:id]
       @question = @quiz.questions.create type: params[:format],
-                                         lesson: @quiz.lesson
+                                         lesson: @quiz.lesson,
+                                         number: @quiz.next_number
     else
       @question = Question.create type: params[:format]
     end
@@ -30,7 +31,11 @@ class QuestionsController < ApplicationController
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'
-      redirect_to edit_quiz_path(quiz)
+      if quiz
+        redirect_to edit_quiz_path(quiz)
+      else
+        redirect_to staff_dashboard_path
+      end
     else
       render 'edit'
     end

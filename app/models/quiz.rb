@@ -36,13 +36,12 @@ class Quiz < ActiveRecord::Base
     questions.map { |q| submissions.build question: q }
   end
 
-  def self.create_with_question
-    quiz = create
-    quiz.questions.create
-    quiz
-  end
-
   def self.all_lessons
     (1..14).to_a
+  end
+
+  def next_number
+    return 1 unless !questions.empty?
+    questions.last.number + 1
   end
 end

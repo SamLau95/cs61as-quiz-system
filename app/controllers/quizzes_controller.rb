@@ -2,9 +2,6 @@
 class QuizzesController < ApplicationController
   load_and_authorize_resource
 
-  [MCQuestion, CodeboxQuestion, TextboxQuestion,
-   CheckboxQuestion] if Rails.env == 'development'
-
   def make_request
     if current_user.quiz_request.nil?
       QuizRequest.create student: current_user,
@@ -37,7 +34,7 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    @new_quiz = Quiz.create_with_question
+    @new_quiz = Quiz.create
     redirect_to edit_quiz_path @new_quiz
   end
 
@@ -55,7 +52,6 @@ class QuizzesController < ApplicationController
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions.includes(:options)
     Question.destroy(params[:destroy]) if params[:destroy]
-    @types = Question.subclasses
     respond_to do |format|
       format.html { render 'edit' }
       format.js {}

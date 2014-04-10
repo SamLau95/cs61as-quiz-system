@@ -19,7 +19,8 @@ def make_quizzes
                            points: 2,
                            content: 'What is 1 + 1?',
                            type: 'TextboxQuestion',
-                           lesson: 1
+                           lesson: 1,
+                           difficulty: 'Easy'
   q1.create_solution content: '2'
   q.submissions.create content: '2',
                        student_id: 1,
@@ -28,7 +29,8 @@ def make_quizzes
                            points: 3,
                            content: 'What is 1 * 3?',
                            type: 'CheckboxQuestion',
-                           lesson: 1
+                           lesson: 1,
+                           difficulty: 'Medium'
   q.submissions.create content: '3',
                        student_id: 1,
                        question_id: 2
@@ -39,7 +41,8 @@ def make_quizzes
                            points: 5,
                            content: 'What is 10 + 1?',
                            type: 'MCQuestion',
-                           lesson: 1
+                           lesson: 1,
+                           difficulty: 'Hard'
   q3.create_solution content: '11'
   q3.options.create content: 'option 1'
   q3.options.create content: 'option 2'
@@ -52,7 +55,8 @@ def make_quizzes
                            points: 10,
                            content: 'What do you say after Hello?',
                            type: 'CodeboxQuestion',
-                           lesson: 2
+                           lesson: 2,
+                           difficulty: 'Easy'
   q1.create_solution content: 'World'
 end
 

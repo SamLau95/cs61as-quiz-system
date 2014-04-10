@@ -18,12 +18,11 @@ class EditQuizForm < Reform::Form
     Quiz.find(id).update_attributes(quiz_params)
   end
 
-  # TODO: check points when making questions
 
   private
 
   # def points_add_to_10
-  #   unless questions.map { |q| q.points.to_i }.sum == 10
+  #   unless !questions.nil? || questions.map { |q| q.points.to_i }.sum == 10
   #     errors.add :lesson, 'Points must sum to 10'
   #   end
   # end
