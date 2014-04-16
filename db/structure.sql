@@ -213,6 +213,38 @@ ALTER SEQUENCE quizzes_id_seq OWNED BY quizzes.id;
 
 
 --
+-- Name: relationships; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE relationships (
+    id integer NOT NULL,
+    quiz_id integer,
+    question_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE relationships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE relationships_id_seq OWNED BY relationships.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -369,6 +401,13 @@ ALTER TABLE ONLY quizzes ALTER COLUMN id SET DEFAULT nextval('quizzes_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY relationships ALTER COLUMN id SET DEFAULT nextval('relationships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY solutions ALTER COLUMN id SET DEFAULT nextval('solutions_id_seq'::regclass);
 
 
@@ -427,6 +466,14 @@ ALTER TABLE ONLY quizzes
 
 
 --
+-- Name: relationships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY relationships
+    ADD CONSTRAINT relationships_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: solutions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -469,6 +516,27 @@ CREATE INDEX index_quiz_requests_on_student_id ON quiz_requests USING btree (stu
 --
 
 CREATE UNIQUE INDEX index_quizzes_on_lesson_and_version_and_retake ON quizzes USING btree (lesson, version, retake);
+
+
+--
+-- Name: index_relationships_on_question_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_relationships_on_question_id ON relationships USING btree (question_id);
+
+
+--
+-- Name: index_relationships_on_question_id_and_quiz_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_relationships_on_question_id_and_quiz_id ON relationships USING btree (question_id, quiz_id);
+
+
+--
+-- Name: index_relationships_on_quiz_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_relationships_on_quiz_id ON relationships USING btree (quiz_id);
 
 
 --
@@ -586,3 +654,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140408035759');
 INSERT INTO schema_migrations (version) VALUES ('20140410015709');
 
 INSERT INTO schema_migrations (version) VALUES ('20140410035117');
+
+INSERT INTO schema_migrations (version) VALUES ('20140416081729');

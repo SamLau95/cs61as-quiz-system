@@ -18,7 +18,9 @@
 class Question < ActiveRecord::Base
   default_scope -> { order 'number ASC' }
 
-  belongs_to :quiz
+  has_many :relationships, dependent: :destroy
+  has_many :quizzes, through: :relationships
+
   has_many :submissions
   has_one :solution, dependent: :destroy
   has_many :options

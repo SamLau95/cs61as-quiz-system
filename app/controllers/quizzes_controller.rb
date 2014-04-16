@@ -39,11 +39,16 @@ class QuizzesController < ApplicationController
   end
 
   def create
-    @quiz = Quiz.new quiz_params
-    if @quiz.save
-      redirect_to quizzes_path, notice: 'Created quiz.'
+    if params[:quiz_type]
+      render :back unless params[:lesson].nil?
+      @quiz = Quiz.generate_random(params[:lesson])
     else
-      render :new
+      @quiz = Quiz.new quiz_params
+      if @quiz.save
+        redirect_to quizzes_path, notice: 'Created quiz.'
+      else
+        render :new
+      end
     end
   end
 

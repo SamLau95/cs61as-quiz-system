@@ -3,6 +3,13 @@ h1 Welcome to the Staff Dashboard!
 ul.makequizzes
   = link_to "Create a New Quiz!", new_quiz_path
 
+.row
+  .small-3.columns
+    = simple_form_for @quiz do |f|
+      = f.hidden_field :quiz_type, value: 'generate'
+      = f.input :lesson, collection: 1..14
+      = f.submit 'Generate a quiz!'
+
 h3 Quiz Drafts
 ul.quizzes
   - @drafts.each do |quiz|

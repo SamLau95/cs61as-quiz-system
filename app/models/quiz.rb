@@ -13,9 +13,13 @@
 
 # Quiz class; knows its questions and its submisisons
 class Quiz < ActiveRecord::Base
-  has_many :questions, -> { includes(:options) }, dependent: :destroy
+  # has_many :questions, -> { includes(:options) }, dependent: :destroy
+  has_many :questions,  -> { includes(:options) }, through: :relationships
+  has_many :relationships, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
+
+  # TODO: Make sure deleting a question won't screw up quizzes too hard
 
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
@@ -43,5 +47,9 @@ class Quiz < ActiveRecord::Base
   def next_number
     return 1 unless !questions.empty?
     questions.last.number + 1
+  end
+
+  def self.generate_random
+    quiz = create
   end
 end

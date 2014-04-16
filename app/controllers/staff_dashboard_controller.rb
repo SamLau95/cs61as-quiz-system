@@ -12,6 +12,7 @@ class StaffDashboardController < ApplicationController
     @requests = QuizRequest.not_approved
     @types = Question.subclasses
     @lessons = Quiz.all_lessons
+    @quiz = Quiz.new
   end
 
   def bank
