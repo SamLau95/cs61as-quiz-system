@@ -49,7 +49,14 @@ class Quiz < ActiveRecord::Base
     questions.last.number + 1
   end
 
-  def self.generate_random
+  def self.generate_random(lesson)
     quiz = create
+    hard = Question.where(lesson: lesson, difficulty: 'Hard').shuffle.first
+    medium = Question.where(lesson: lesson, difficulty: 'Medium').shuffle.first
+    easy = Question.where(lesson: lesson, difficulty: 'Easy').shuffle.first
+    quiz.relationships.create(quiz_id: hard.id)
+    quiz.relationships.create(quiz_id: medium.id)
+    quiz.relationships.create(quiz_id: easy.id)
+    quiz
   end
 end
