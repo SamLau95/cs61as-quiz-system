@@ -47,9 +47,21 @@ describe 'The student dashboard' do
       end
     end
 
+    describe 'approving' do
+      it 'destroys the quiz request' do
+        expect { student.quiz_request.lock_and_destroy! }
+               .to change(QuizRequest, :count).by(-1)
+      end
+
+      it 'creates a quiz lock' do
+        expect { student.quiz_request.lock_and_destroy! }
+               .to change(QuizLock, :count).by 1
+      end
+    end
+
     describe 'after being approved' do
       before do
-        student.quiz_request.approve!
+        student.quiz_request.lock_and_destroy!
         visit student_dashboard_path
       end
 
@@ -61,13 +73,6 @@ describe 'The student dashboard' do
           expect(current_path).to eq take_quiz_path
         end
       end
-
-      describe 'beginning a quiz' do
-        it 'destroys the student\'s quiz request' do
-          expect { click_link 'Begin quiz!' }
-                 .to change(QuizRequest, :count).by(-1)
-        end
-      end
     end
   end
 
@@ -76,7 +81,7 @@ describe 'The student dashboard' do
     before do
       sign_in student
       click_quiz_link quiz
-      student.quiz_request.approve!
+      student.quiz_request.lock_and_destroy!
       visit student_dashboard_path
       click_link 'Begin quiz!'
     end

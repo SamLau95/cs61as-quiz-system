@@ -5,5 +5,6 @@ class StudentDashboardController < ApplicationController
   def index
     @lessons = Quiz.lessons
     @quiz_request = current_user.quiz_request
+    @quiz_lock = current_user.quiz_lock
   end
 end

@@ -17,6 +17,7 @@ FactoryGirl.define do
     sequence(:lesson) { |n| n }
     version 1
     retake false
+    is_draft false
 
     factory :quiz_with_questions do
       ignore { questions_count 3 }
@@ -36,7 +37,12 @@ FactoryGirl.define do
 
   factory :quiz_request do
     sequence(:lesson) { |n| n }
-    approved false
     student
+  end
+
+  factory :quiz_lock do
+    locked false
+    student
+    quiz
   end
 end

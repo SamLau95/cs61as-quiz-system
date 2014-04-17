@@ -3,10 +3,10 @@ h1 Welcome to the Student Dashboard!
 - if @quiz_request
   .quiz-request
     h3 You are currently requesting to take quiz #{@quiz_request.lesson}
-    - if @quiz_request.approved?
-      = link_to 'Begin quiz!', take_quiz_path, class: 'button'
-    - else
-      p Your request is not approved yet!
+    p Your request is not approved yet!
+- elsif @quiz_lock
+  .quiz-lock
+    = link_to 'Begin quiz!', take_quiz_path, class: 'button'
 - else
   br
   h3 Take a quiz:

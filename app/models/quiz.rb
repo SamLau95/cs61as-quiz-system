@@ -16,6 +16,7 @@ class Quiz < ActiveRecord::Base
   has_many :questions, -> { includes(:options) }, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
+  has_many :quiz_locks
 
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
@@ -25,11 +26,12 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.choose_one(quiz_request)
-    where(lesson: quiz_request.lesson, retake: quiz_request.retake).sample
+    published.where(lesson: quiz_request.lesson, retake: quiz_request.retake)
+             .sample
   end
 
   def to_s
-    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
+    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}#{' (Draft)' if is_draft}"
   end
 
   def new_submissions
