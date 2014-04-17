@@ -4,7 +4,7 @@ class QuizRequestsController < ApplicationController
 
   def approve
     request = QuizRequest.find(params[:id])
-    request.approve_and_lock!
+    request.lock_and_destroy!
     flash[:success] = "Approved #{request.student}!"
     redirect_to staff_dashboard_path
   end
