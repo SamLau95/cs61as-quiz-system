@@ -76,9 +76,6 @@ describe 'The student dashboard' do
     end
   end
 
-  describe 'quiz locks' do
-  end
-
   describe 'taking a quiz' do
     let!(:quiz) { create :quiz }
     before do
