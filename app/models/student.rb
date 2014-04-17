@@ -24,6 +24,7 @@
 class Student < User
   has_many :submissions
   has_one :quiz_request
+  has_one :quiz_lock
 
   delegate :lesson, to: :quiz_request, prefix: true
 
