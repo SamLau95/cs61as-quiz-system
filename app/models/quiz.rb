@@ -13,10 +13,14 @@
 
 # Quiz class; knows its questions and its submisisons
 class Quiz < ActiveRecord::Base
-  has_many :questions, -> { includes(:options) }, dependent: :destroy
+  # has_many :questions, -> { includes(:options) }, dependent: :destroy
+  has_many :questions,  -> { includes(:options) }, through: :relationships
+  has_many :relationships, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
   has_many :quiz_locks
+
+  # TODO: Make sure deleting a question won't screw up quizzes too hard
 
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
@@ -38,9 +42,23 @@ class Quiz < ActiveRecord::Base
     questions.map { |q| submissions.build question: q }
   end
 
-  def self.create_with_question
+  def self.all_lessons
+    (1..14).to_a
+  end
+
+  def next_number
+    return 1 unless !questions.empty?
+    questions.last.number + 1
+  end
+
+  def self.generate_random(lesson)
     quiz = create
-    quiz.questions.create
+    hard = Question.where(lesson: lesson, difficulty: 'Hard').sample
+    medium = Question.where(lesson: lesson, difficulty: 'Medium').sample
+    easy = Question.where(lesson: lesson, difficulty: 'Easy').sample
+    quiz.relationships.create(question: hard) unless hard.nil?
+    quiz.relationships.create(question: medium) unless medium.nil?
+    quiz.relationships.create(question: easy) unless easy.nil?
     quiz
   end
 end

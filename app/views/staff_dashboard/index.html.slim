@@ -1,7 +1,16 @@
 h1 Welcome to the Staff Dashboard!
 
-ul.makequizzes
+p.makequizzes
   = link_to "Create a New Quiz!", new_quiz_path
+
+p Generate a quiz
+
+.row
+  .small-3.columns
+    = simple_form_for @quiz do |f|
+      = f.hidden_field :quiz_type, value: 'generate'
+      = f.input :lesson, collection: 1..14
+      = f.submit 'Generate a quiz!'
 
 h3 Quiz Drafts
 ul.quizzes
@@ -23,6 +32,15 @@ ul.quiz-requests
                 method: :post, id: "approve-#{request.id}"
       = link_to 'Cancel', cancel_request_path(request),
                 method: :delete, id: "cancel-#{request.id}"
+
+
+= render 'questions/new_question', id: nil
+
+h3 Question Bank: 
+
+- @lessons.each do |lesson|
+  li
+    = link_to "Lesson #{lesson}", question_bank_path(id: lesson)
 
 h3 Students
 ul.students

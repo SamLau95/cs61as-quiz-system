@@ -1,9 +1,6 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
-  load_and_authorize_resource
-
-  [MCQuestion, CodeboxQuestion, TextboxQuestion,
-   CheckboxQuestion] if Rails.env == 'development'
+  load_and_authorize_resource skip_load_resource only: [:create]
 
   def make_request
     if current_user.quiz_request.nil?
@@ -36,16 +33,18 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    @new_quiz = Quiz.create_with_question
-    redirect_to edit_quiz_path @new_quiz
+    @new_quiz = Quiz.create
+    redirect_to edit_quiz_path(@new_quiz), notice: 'Created Quiz'
   end
 
   def create
-    @quiz = Quiz.new quiz_params
-    if @quiz.save
-      redirect_to quizzes_path, notice: 'Created quiz.'
-    else
-      render :new
+    if params[:quiz][:quiz_type]
+      if params[:quiz][:lesson].empty?
+        redirect_to :back, notice: 'Invalid Lesson Number'
+      else
+        @quiz = Quiz.generate_random(params[:quiz][:lesson])
+        redirect_to edit_quiz_path(@quiz), notice: 'Created quiz.'
+      end
     end
   end
 
@@ -54,7 +53,6 @@ class QuizzesController < ApplicationController
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions.includes(:options)
     Question.destroy(params[:destroy]) if params[:destroy]
-    @types = Question.subclasses
     respond_to do |format|
       format.html { render 'edit' }
       format.js {}
