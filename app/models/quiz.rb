@@ -18,6 +18,7 @@ class Quiz < ActiveRecord::Base
   has_many :relationships, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
+  has_many :quiz_locks
 
   # TODO: Make sure deleting a question won't screw up quizzes too hard
 
@@ -29,11 +30,12 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.choose_one(quiz_request)
-    where(lesson: quiz_request.lesson, retake: quiz_request.retake).sample
+    published.where(lesson: quiz_request.lesson, retake: quiz_request.retake)
+             .sample
   end
 
   def to_s
-    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}"
+    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}#{' (Draft)' if is_draft}"
   end
 
   def new_submissions

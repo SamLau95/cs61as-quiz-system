@@ -14,7 +14,8 @@ end
 
 def make_quizzes
   q = Quiz.create! lesson: 1,
-                   version: 1
+                   version: 1,
+                   is_draft: false
   q1 = q.questions.create! number: 1,
                            points: 2,
                            content: 'What is 1 + 1?',

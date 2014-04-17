@@ -10,5 +10,10 @@
 #  updated_at :datetime
 #
 
+# Created when a quiz request is approved; locks a student to a particular quiz
 class QuizLock < ActiveRecord::Base
+  belongs_to :student
+  belongs_to :quiz
+
+  validates :student_id, :quiz_id, presence: true
 end

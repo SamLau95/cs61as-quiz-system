@@ -17,5 +17,6 @@ class StaffDashboardController < ApplicationController
 
   def bank
     @questions = Question.where lesson: params[:id]
+    @requests = QuizRequest.all
   end
 end

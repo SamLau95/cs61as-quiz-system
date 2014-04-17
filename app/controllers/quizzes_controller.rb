@@ -15,11 +15,10 @@ class QuizzesController < ApplicationController
 
   # edited -0- so i can actually freaking take quizzes
   def take
-    quiz_request = current_user.quiz_request
+    quiz_lock = current_user.quiz_lock
     # for testing
     # quiz_request = QuizRequest.create(student_id: 1, lesson: 1)
-    @quiz_form = TakeQuizForm.new(Quiz.choose_one(quiz_request))
-    quiz_request.destroy
+    @quiz_form = TakeQuizForm.new quiz_lock.quiz
   end
 
   def submit
