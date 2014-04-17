@@ -29,4 +29,9 @@ class QuizLock < ActiveRecord::Base
     self.locked = true
     save!
   end
+
+  def unlock!
+    self.locked = false
+    save!
+  end
 end
