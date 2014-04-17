@@ -14,4 +14,6 @@
 class QuizLock < ActiveRecord::Base
   belongs_to :student
   belongs_to :quiz
+
+  validates :student_id, :quiz_id, presence: true
 end
