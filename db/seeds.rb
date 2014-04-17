@@ -31,16 +31,16 @@ def make_quizzes
   q.submissions.create content: '3',
                        student_id: 1,
                        question_id: 2
-  q2.create_solution content: '1'
-  q2.options.create content: 'option 1'
-  q2.options.create content: 'option 2'
+  q2.create_solution content: '3'
+  q2.options.create content: '2'
+  q2.options.create content: '3'
   q3 = q.questions.create! number: 3,
                            points: 5,
                            content: 'What is 10 + 1?',
                            type: 'MCQuestion'
   q3.create_solution content: '11'
-  q3.options.create content: 'option 1'
-  q3.options.create content: 'option 2'
+  q3.options.create content: '1'
+  q3.options.create content: '11'
   q.submissions.create content: '11',
                        student_id: 1,
                        question_id: 3
