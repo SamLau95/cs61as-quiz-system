@@ -6,6 +6,6 @@ class StaffDashboardController < ApplicationController
     @students = Student.all
     @drafts = Quiz.drafts
     @published = Quiz.published
-    @requests = QuizRequest.not_approved
+    @requests = QuizRequest.all
   end
 end
