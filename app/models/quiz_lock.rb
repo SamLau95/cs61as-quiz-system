@@ -16,4 +16,12 @@ class QuizLock < ActiveRecord::Base
   belongs_to :quiz
 
   validates :student_id, :quiz_id, presence: true
+
+  def time_left
+    [expire_time - Time.now, 0].max
+  end
+
+  def expire_time
+    created_at + 1.hour
+  end
 end
