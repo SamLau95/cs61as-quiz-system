@@ -25,6 +25,8 @@ class Question < ActiveRecord::Base
   has_one :solution, dependent: :destroy
   has_many :options
 
+  validates :type, presence: true
+
   def to_s
     "Question #{number} (#{points} points)"
   end
