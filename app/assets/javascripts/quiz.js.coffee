@@ -1,6 +1,7 @@
 # http://stackoverflow.com/a/1060034
 onchange = ->
   console.log 'The page changed focus!'
+  console.log gon.lock_path
 
 ready = ->
   if $('#take_quiz_form').length
