@@ -18,9 +18,10 @@ class QuizRequest < ActiveRecord::Base
 
   scope :not_approved, -> { where approved: false }
 
-  def approve!
+  def approve_and_lock!
     self.approved = true
     save!
+    QuizLock.create! student: student, quiz: Quiz.choose_one(self)
   end
 
   def to_s
