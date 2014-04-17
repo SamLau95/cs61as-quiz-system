@@ -1,13 +1,13 @@
 h1 Quiz #{@quiz_form.lesson}
 
-div 
-  | Time left:  
+div
+  | Time left:
   .minutes 0 minutes
   .seconds 0 seconds
 .row
   .small-12.columns
-    = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
-                      method: :post do |f|
+   = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
+                      html: { id: 'take_quiz_form', method: :post } do |f|
       = f.fields_for :new_submissions do |sf|
         = render "forms/#{sf.object.question_type.downcase}", sf: sf
       = f.submit 'Submit!', class: 'button'
