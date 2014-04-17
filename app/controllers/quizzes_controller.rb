@@ -18,7 +18,8 @@ class QuizzesController < ApplicationController
     # for testing
     # quiz_request = QuizRequest.create(student_id: 1, lesson: 1)
     @quiz_form = TakeQuizForm.new quiz_lock.quiz
-    gon.push lock_path: lock_student_path(quiz_lock)
+    gon.push lock_path: lock_student_path(quiz_lock),
+             time_left: quiz_lock.time_left
   end
 
   def submit

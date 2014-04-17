@@ -6,7 +6,7 @@ onchange = ->
 ready = ->
   if $('#take_quiz_form').length
     $(window).blur -> onchange()
-    timer(3600)
+    timer(gon.time_left)
   else
     $(window).off 'blur'
 
