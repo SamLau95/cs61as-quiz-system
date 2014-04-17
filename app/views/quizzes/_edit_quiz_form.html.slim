@@ -18,7 +18,7 @@
       p You have no questions yet!
     - else
       - @questions.each do |question| 
-        = link_to "Edit Question", edit_question_path(question)
+        = link_to "Edit Question", edit_question_path(question, quiz_id: quiz_form.id)
         div
           p Question #{question.number}
           p Points: #{question.points}

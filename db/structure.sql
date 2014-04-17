@@ -82,7 +82,6 @@ CREATE TABLE questions (
     id integer NOT NULL,
     content text,
     number integer,
-    quiz_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     points integer DEFAULT 0 NOT NULL,
@@ -498,13 +497,6 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_questions_on_number_and_quiz_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_questions_on_number_and_quiz_id ON questions USING btree (number, quiz_id);
-
-
---
 -- Name: index_quiz_requests_on_student_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -656,4 +648,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140410015709');
 INSERT INTO schema_migrations (version) VALUES ('20140410035117');
 
 INSERT INTO schema_migrations (version) VALUES ('20140416081729');
+
+INSERT INTO schema_migrations (version) VALUES ('20140417111935');
 
