@@ -18,17 +18,12 @@ describe 'The staff dashboard' do
 
   describe 'when there are quiz requests' do
     let!(:requests) { 4.times.map { create :quiz_request } }
-    let!(:approved_request) { create :quiz_request, approved: true }
     before { visit staff_dashboard_path }
 
     it 'displays all unapproved quiz requests' do
       requests.each do |request|
         expect(page).to have_content request.to_s
       end
-    end
-
-    it 'does not show approved requests' do
-      expect(page).not_to have_content approved_request.to_s
     end
 
     it 'displays confirm links' do
