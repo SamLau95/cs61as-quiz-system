@@ -16,12 +16,9 @@
 class QuizRequest < ActiveRecord::Base
   belongs_to :student
 
-  scope :not_approved, -> { where approved: false }
-
-  def approve_and_lock!
-    self.approved = true
-    save!
+  def lock_and_destroy!
     QuizLock.create! student: student, quiz: Quiz.choose_one(self)
+    destroy
   end
 
   def to_s
