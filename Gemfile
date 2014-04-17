@@ -21,7 +21,7 @@ gem 'foundation-rails', '~> 5.1.1.0'
 gem 'simple_form', '~> 3.0.1'
 gem 'reform', '~> 0.2.6'
 gem 'slim-rails', '~> 2.1.0'
-gem 'gon'
+gem 'gon', '~> 5.0.4'
 
 group :development do
   gem 'better_errors', '~> 1.1.0'
