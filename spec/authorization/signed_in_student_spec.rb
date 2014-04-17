@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'a signed in student' do
+describe 'A signed in student' do
   let(:student) { create :student }
   before { sign_in student }
 
