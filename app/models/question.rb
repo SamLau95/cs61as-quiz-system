@@ -30,6 +30,6 @@ class Question < ActiveRecord::Base
   end
 
   def self.levels
-    [['Easy','Easy'], ['Medium','Medium'],['Hard','Hard']]
+    [%w(Easy Easy), %w(Medium Medium), %w(Hard Hard)]
   end
 end
