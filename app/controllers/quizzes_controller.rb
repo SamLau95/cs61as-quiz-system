@@ -18,6 +18,7 @@ class QuizzesController < ApplicationController
     # for testing
     # quiz_request = QuizRequest.create(student_id: 1, lesson: 1)
     @quiz_form = TakeQuizForm.new quiz_lock.quiz
+    gon.push
   end
 
   def submit

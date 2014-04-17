@@ -24,4 +24,9 @@ class QuizLock < ActiveRecord::Base
   def expire_time
     created_at + 1.hour
   end
+
+  def lock!
+    self.locked = true
+    save!
+  end
 end
