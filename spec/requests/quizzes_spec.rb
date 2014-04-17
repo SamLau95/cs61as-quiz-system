@@ -5,13 +5,13 @@ describe 'Making a quiz' do
   subject { quiz }
   before { sign_in staff }
 
-  describe 'should increase quiz count' do
+  describe 'increases quiz count' do
     before { visit staff_dashboard_path }
 
     it 'by one' do
       expect do
         click_link('Create a New Quiz!')
-      end.to change(Quiz.all, :count).by(1)
+      end.to change(Quiz, :count).by(1)
     end
   end
 
