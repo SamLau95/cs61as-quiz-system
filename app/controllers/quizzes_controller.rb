@@ -16,8 +16,11 @@ class QuizzesController < ApplicationController
     redirect_to student_dashboard_path
   end
 
+  # edited -0- so i can actually freaking take quizzes
   def take
     quiz_request = current_user.quiz_request
+    # for testing
+    # quiz_request = QuizRequest.create(student_id: 1, lesson: 1)
     @quiz_form = TakeQuizForm.new(Quiz.choose_one(quiz_request))
     quiz_request.destroy
   end
@@ -35,7 +38,7 @@ class QuizzesController < ApplicationController
 
   def new
     @new_quiz = Quiz.create_with_question
-    redirect_to edit_quiz_path @new_quiz.id
+    redirect_to edit_quiz_path @new_quiz
   end
 
   def create

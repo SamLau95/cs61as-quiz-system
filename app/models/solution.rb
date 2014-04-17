@@ -9,6 +9,7 @@
 #  updated_at  :datetime
 #
 
+# Solution model
 class Solution < ActiveRecord::Base
   belongs_to :question
 end

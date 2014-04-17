@@ -13,6 +13,7 @@ ul.quizzes
   - @published.each do |quiz|
     li = link_to quiz, quiz_path(quiz)
 
+/ = link_to 'Quiz', take_quiz_path
 h3 Quiz Requests
 ul.quiz-requests
   - @requests.each do |request|

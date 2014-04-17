@@ -1,0 +1,8 @@
+h1 = @student
+
+-if @taken.empty?
+  p There are no quizzes to grade!
+-else
+  p View student's answers
+  - @taken.each do |quiz|
+    = link_to quiz, view_quiz_path(quiz, student_id: @student.id)

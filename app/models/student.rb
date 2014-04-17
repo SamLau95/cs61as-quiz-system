@@ -34,4 +34,14 @@ class Student < User
   def student?
     true
   end
+
+  def to_s
+    "#{first_name} #{last_name}"
+  end
+
+  def taken_quizzes
+    taken = []
+    submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
+    taken.uniq.sort_by &:lesson
+  end
 end

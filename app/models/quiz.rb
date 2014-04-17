@@ -13,7 +13,7 @@
 
 # Quiz class; knows its questions and its submisisons
 class Quiz < ActiveRecord::Base
-  has_many :questions, dependent: :destroy
+  has_many :questions, -> { includes(:options) }, dependent: :destroy
   has_many :submissions
   has_many :quiz_requests
 
