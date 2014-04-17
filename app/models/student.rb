@@ -27,6 +27,7 @@ class Student < User
   has_one :quiz_lock
 
   delegate :lesson, to: :quiz_request, prefix: true
+  delegate :locked?, to: :quiz_lock, allow_nil: true
 
   def approved_request?
     quiz_lock
