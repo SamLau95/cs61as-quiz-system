@@ -1,0 +1,8 @@
+h3 Question Bank
+
+- @questions.each do |question|
+  p Question:
+  = question.content
+  p Points: 
+  = question.points
+  p = link_to 'Edit Question', edit_question_path(question)

@@ -12,11 +12,8 @@
           = f.input :is_draft, label: 'Draft?', as: :boolean
       = f.submit 'Update!', class: 'small button'
 
-    br
-      .addQuestion
-        p Add a New Question!
-        - types.each do |type|
-          = link_to type.title, new_question_path(format: type.param, id: quiz_form.id), class: "small button"
+    = render 'questions/new_question', types: types, id: quiz_form.id
+
     - if @questions.nil?
       p You have no questions yet!
     - else

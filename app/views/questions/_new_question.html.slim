@@ -1,0 +1,5 @@
+br
+  .addQuestion
+    p Add a New Question!
+    - types.each do |type|
+      = link_to type.title, new_question_path(format: type.param, id: id), class: "small button"

@@ -10,6 +10,8 @@
 #  updated_at :datetime
 #  points     :integer          default(0), not null
 #  type       :string(255)
+#  lesson     :integer
+#  difficulty :string(255)
 #
 
 # Checkbox Question
