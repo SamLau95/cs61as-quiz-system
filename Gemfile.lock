@@ -299,7 +299,7 @@ DEPENDENCIES
   ffaker (~> 1.22.1)
   foreman (~> 0.63.0)
   foundation-rails (~> 5.1.1.0)
-  gon
+  gon (~> 5.0.4)
   guard-livereload (~> 2.1.1)
   guard-rspec (~> 4.2.8)
   heroku-deflater
