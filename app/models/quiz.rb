@@ -31,7 +31,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def to_s
-    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version} #{'(Draft)' if is_draft}"
+    "Quiz #{lesson}#{!retake ? 'a' : 'b'}#{version}#{' (Draft)' if is_draft}"
   end
 
   def new_submissions
