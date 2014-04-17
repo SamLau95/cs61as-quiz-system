@@ -25,6 +25,8 @@ class Quiz < ActiveRecord::Base
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
 
+  validates :lesson, :version, presence: true
+
   def self.lessons
     all.map(&:lesson).uniq.sort
   end
