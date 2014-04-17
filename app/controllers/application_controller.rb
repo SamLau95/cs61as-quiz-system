@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  [MCQuestion, CodeboxQuestion, TextboxQuestion,
+   CheckboxQuestion] if Rails.env == 'development'
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = 'You aren\'t allowed to view that page!'
     if current_user
