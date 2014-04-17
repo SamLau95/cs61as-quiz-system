@@ -48,7 +48,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def next_number
-    return 1 unless !questions.empty?
+    return 1 if questions.empty?
     questions.last.number + 1
   end
 

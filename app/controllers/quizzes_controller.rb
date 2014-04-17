@@ -13,7 +13,6 @@ class QuizzesController < ApplicationController
     redirect_to student_dashboard_path
   end
 
-  # edited -0- so i can actually freaking take quizzes
   def take
     quiz_lock = current_user.quiz_lock
     # for testing
