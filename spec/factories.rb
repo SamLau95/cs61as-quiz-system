@@ -14,7 +14,7 @@ FactoryGirl.define do
   end
 
   factory :quiz do
-    sequence(:lesson) { |n| n }
+    sequence(:lesson) { |n| n % 14 + 1 }
     version 1
     retake false
 
@@ -38,5 +38,11 @@ FactoryGirl.define do
     sequence(:lesson) { |n| n }
     approved false
     student
+  end
+
+  factory :quiz_lock do
+    locked false
+    student
+    quiz
   end
 end
