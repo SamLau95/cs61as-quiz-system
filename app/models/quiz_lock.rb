@@ -18,7 +18,7 @@ class QuizLock < ActiveRecord::Base
   validates :student_id, :quiz_id, presence: true
 
   def time_left
-    [expire_time - Time.now, 0].max
+    [expire_time - Time.now, 0].max.to_i
   end
 
   def expire_time
