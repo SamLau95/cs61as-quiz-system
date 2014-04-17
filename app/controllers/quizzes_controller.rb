@@ -1,6 +1,6 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
-  load_and_authorize_resource skip_load_resource only: [:create]
+  load_and_authorize_resource
 
   def make_request
     if current_user.quiz_request.nil?
@@ -32,7 +32,7 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    # This is breaking since we have validations for quizzes now
+    # This is breaking since we have validations for quizzes
     @new_quiz = Quiz.create
     redirect_to edit_quiz_path(@new_quiz), notice: 'Created Quiz'
   end
