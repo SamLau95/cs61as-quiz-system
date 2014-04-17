@@ -13,6 +13,7 @@ class Ability
       can :make_request, Quiz
       can :take, Quiz if user.approved_request?
       can :view, :student_dashboard
+      can :lock, QuizLock, student_id: user.id
     end
   end
 end
