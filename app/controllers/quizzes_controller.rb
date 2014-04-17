@@ -1,6 +1,6 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
-  load_and_authorize_resource skip_load_resource only: [:create] 
+  load_and_authorize_resource skip_load_resource only: [:create]
 
   def make_request
     if current_user.quiz_request.nil?
@@ -35,19 +35,16 @@ class QuizzesController < ApplicationController
 
   def new
     @new_quiz = Quiz.create
-    redirect_to edit_quiz_path @new_quiz
+    redirect_to edit_quiz_path(@new_quiz), notice: 'Created Quiz'
   end
 
   def create
     if params[:quiz][:quiz_type]
-      redirect_to :back unless !params[:quiz][:lesson].nil?
-      @quiz = Quiz.generate_random(params[:quiz][:lesson])
-    else
-      @quiz = Quiz.new quiz_params
-      if @quiz.save
-        redirect_to quizzes_path, notice: 'Created quiz.'
+      if params[:quiz][:lesson].empty?
+        redirect_to :back, notice: 'Invalid Lesson Number'
       else
-        render :new
+        @quiz = Quiz.generate_random(params[:quiz][:lesson])
+        redirect_to edit_quiz_path(@quiz), notice: 'Created quiz.'
       end
     end
   end
