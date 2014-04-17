@@ -29,7 +29,7 @@ class Student < User
   delegate :lesson, to: :quiz_request, prefix: true
 
   def approved_request?
-    quiz_request && quiz_request.approved?
+    quiz_lock
   end
 
   def student?
@@ -43,6 +43,6 @@ class Student < User
   def taken_quizzes
     taken = []
     submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
-    taken.uniq.sort_by &:lesson
+    taken.uniq.sort_by(&:lesson)
   end
 end
