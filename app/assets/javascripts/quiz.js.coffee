@@ -1,7 +1,5 @@
 # http://stackoverflow.com/a/1060034
 onchange = ->
-  console.log 'The page changed focus!'
-  console.log gon.lock_path
   $.ajax
     url: gon.lock_path,
     type: 'POST'
