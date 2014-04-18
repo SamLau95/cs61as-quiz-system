@@ -3,7 +3,7 @@ class QuizzesController < ApplicationController
   load_and_authorize_resource
 
   def make_request
-    if current_user.quiz_request.nil?
+    if !current_user.making_request? || !current_user.taking_quiz?
       QuizRequest.create student: current_user,
                          lesson: params[:lesson]
       flash[:success] = "Requesting quiz #{params[:lesson]}!"

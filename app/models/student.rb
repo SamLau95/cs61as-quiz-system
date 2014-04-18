@@ -33,6 +33,14 @@ class Student < User
     quiz_lock
   end
 
+  def making_request?
+    quiz_request
+  end
+
+  def taking_quiz?
+    quiz_lock
+  end
+
   def student?
     true
   end
