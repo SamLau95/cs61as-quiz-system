@@ -2,6 +2,9 @@
 onchange = ->
   console.log 'The page changed focus!'
   console.log gon.lock_path
+  $.ajax
+    url: gon.lock_path,
+    type: 'POST'
 
 ready = ->
   if $('#take_quiz_form').length
