@@ -10,4 +10,4 @@ div
                       html: { id: 'take_quiz_form', method: :post } do |f|
       = f.fields_for :new_submissions do |sf|
         = render "forms/#{sf.object.question_type.downcase}", sf: sf
-      = f.submit 'Submit!', class: 'button'
+      = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
