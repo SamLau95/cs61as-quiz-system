@@ -30,7 +30,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :question do
+  factory :question, class: TextboxQuestion do
     content Faker::Lorem.paragraph
     sequence(:number) { |n| n }
     points 5
