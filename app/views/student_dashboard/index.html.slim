@@ -6,7 +6,8 @@ h1 Welcome to the Student Dashboard!
     p Your request is not approved yet!
 - elsif @quiz_lock
   .quiz-lock
-    = link_to 'Begin quiz!', take_quiz_path, class: 'button'
+    = link_to 'Begin quiz!', take_quiz_path, class: 'button',
+                             'data-no-turbolink' => true
 - else
   br
   h3 Take a quiz:
