@@ -13,7 +13,6 @@
 
 # Quiz class; knows its questions and its submisisons
 class Quiz < ActiveRecord::Base
-  # has_many :questions, -> { includes(:options) }, dependent: :destroy
   has_many :questions,  -> { includes(:options) }, through: :relationships
   has_many :relationships, dependent: :destroy
   has_many :submissions
@@ -24,6 +23,8 @@ class Quiz < ActiveRecord::Base
 
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
+
+  validates :lesson, :version, presence: true
 
   def self.lessons
     all.map(&:lesson).uniq.sort
@@ -47,7 +48,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def next_number
-    return 1 unless !questions.empty?
+    return 1 if questions.empty?
     questions.last.number + 1
   end
 

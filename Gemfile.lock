@@ -105,6 +105,9 @@ GEM
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     fssm (0.2.10)
+    gon (5.0.4)
+      actionpack (>= 2.3.0)
+      json
     guard (2.6.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -296,6 +299,7 @@ DEPENDENCIES
   ffaker (~> 1.22.1)
   foreman (~> 0.63.0)
   foundation-rails (~> 5.1.1.0)
+  gon (~> 5.0.4)
   guard-livereload (~> 2.1.1)
   guard-rspec (~> 4.2.8)
   heroku-deflater

@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  student_id :integer
 #  quiz_id    :integer
-#  locked     :boolean
+#  locked     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -16,4 +16,22 @@ class QuizLock < ActiveRecord::Base
   belongs_to :quiz
 
   validates :student_id, :quiz_id, presence: true
+
+  def time_left
+    [expire_time - Time.now, 0].max.to_i
+  end
+
+  def expire_time
+    created_at + 1.hour
+  end
+
+  def lock!
+    self.locked = true
+    save!
+  end
+
+  def unlock!
+    self.locked = false
+    save!
+  end
 end

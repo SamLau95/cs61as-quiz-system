@@ -23,16 +23,19 @@ FactoryGirl.define do
       ignore { questions_count 3 }
 
       after(:create) do |quiz, evaluator|
-        create_list :question, evaluator.questions_count, quiz: quiz
+        evaluator.questions_count.times do |n|
+          quiz.questions << create(:question)
+        end
       end
     end
   end
 
-  factory :question do
+  factory :question, class: TextboxQuestion do
     content Faker::Lorem.paragraph
     sequence(:number) { |n| n }
     points 5
-    quiz
+    lesson 1
+    difficulty 'Easy'
   end
 
   factory :quiz_request do

@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  content    :text
 #  number     :integer
-#  quiz_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
 #  points     :integer          default(0), not null
@@ -14,13 +13,13 @@
 #  difficulty :string(255)
 #
 
-# Code box question
-class CodeboxQuestion < Question
+# Multiple Choice questiion
+class MCQuestion < Question
   def self.title
-    'Coding Question'
+    'Multiple Choice'
   end
 
   def self.param
-    'CodeboxQuestion'
+    'MCQuestion'
   end
 end

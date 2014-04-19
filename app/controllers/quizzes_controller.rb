@@ -1,9 +1,9 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
-  load_and_authorize_resource skip_load_resource only: [:create]
+  load_and_authorize_resource
 
   def make_request
-    if current_user.quiz_request.nil?
+    if !current_user.making_request? || !current_user.taking_quiz?
       QuizRequest.create student: current_user,
                          lesson: params[:lesson]
       flash[:success] = "Requesting quiz #{params[:lesson]}!"
@@ -13,12 +13,13 @@ class QuizzesController < ApplicationController
     redirect_to student_dashboard_path
   end
 
-  # edited -0- so i can actually freaking take quizzes
   def take
     quiz_lock = current_user.quiz_lock
     # for testing
     # quiz_request = QuizRequest.create(student_id: 1, lesson: 1)
     @quiz_form = TakeQuizForm.new quiz_lock.quiz
+    gon.push lock_path: lock_student_path(quiz_lock),
+             time_left: quiz_lock.time_left
   end
 
   def submit
@@ -33,6 +34,7 @@ class QuizzesController < ApplicationController
   end
 
   def new
+    # @new_quiz isn't saved to db since it doesn't pass validations
     @new_quiz = Quiz.create
     redirect_to edit_quiz_path(@new_quiz), notice: 'Created Quiz'
   end

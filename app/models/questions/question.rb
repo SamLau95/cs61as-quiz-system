@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  content    :text
 #  number     :integer
-#  quiz_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
 #  points     :integer          default(0), not null
@@ -25,11 +24,13 @@ class Question < ActiveRecord::Base
   has_one :solution, dependent: :destroy
   has_many :options
 
+  validates :type, presence: true
+
   def to_s
     "Question #{number} (#{points} points)"
   end
 
   def self.levels
-    [['Easy','Easy'], ['Medium','Medium'],['Hard','Hard']]
+    [%w(Easy Easy), %w(Medium Medium), %w(Hard Hard)]
   end
 end

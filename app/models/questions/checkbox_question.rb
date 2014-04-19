@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  content    :text
 #  number     :integer
-#  quiz_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
 #  points     :integer          default(0), not null
@@ -14,13 +13,13 @@
 #  difficulty :string(255)
 #
 
-# TextBox Question
-class TextboxQuestion < Question
+# Checkbox Question
+class CheckboxQuestion < Question
   def self.title
-    'Short Answer'
+    'Checkbox Question'
   end
 
   def self.param
-    'TextboxQuestion'
+    'CheckboxQuestion'
   end
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: questions_quizzes
+# Table name: relationships
 #
 #  id          :integer          not null, primary key
 #  quiz_id     :integer
