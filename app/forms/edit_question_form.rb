@@ -31,7 +31,7 @@ class EditQuestionForm < Reform::Form
 
   # TODO: Check if this question makes the quiz go over ten points.
 
-  def validate_and_save(question_params)
+  def validate_and_save(question_params, add = false)
     return false unless validate(question_params)
     if question_params[:options_attributes]
       question_params[:options_attributes].all? do |_, v|
