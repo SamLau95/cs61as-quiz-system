@@ -5,13 +5,14 @@ describe 'Making a quiz' do
   subject { quiz }
   before { sign_in staff }
 
-  describe 'increases quiz count' do
+
+  describe 'should increase quiz count' do
     before { visit staff_dashboard_path }
 
     it 'by one' do
       expect do
         click_link('Create a New Quiz!')
-      end.to change(Quiz, :count).by(1)
+      end.to change(Quiz.all, :count).by(1)
     end
   end
 
@@ -37,10 +38,12 @@ describe 'Making a quiz' do
 
     describe 'Removing Questions' do
       before { visit edit_quiz_path(quiz) }
-      subject { page }
+
+      subject { quiz }
 
       it 'should show no questions if one is removed' do
-        expect(page).to have_content('Editing Quiz')
+        click_link('delete')
+        expect(page).to have_content('You have no questions yet!')
       end
     end
   end
