@@ -11,6 +11,7 @@
 #  type       :string(255)
 #  lesson     :integer
 #  difficulty :string(255)
+#  draft      :boolean          default(TRUE)
 #
 
 # Multiple Choice questiion
