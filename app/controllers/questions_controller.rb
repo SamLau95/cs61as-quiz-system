@@ -18,6 +18,7 @@ class QuestionsController < ApplicationController
     question = Question.find params[:id]
     question.options.create if params[:add]
     Option.destroy(params[:destroy]) if params[:destroy]
+    @quiz_id = params[:quiz_id]
     @quest_form = EditQuestionForm.new question
     respond_to do |format|
       format.html { render 'edit' }
@@ -27,7 +28,10 @@ class QuestionsController < ApplicationController
 
   def update
     question = Question.find params[:id]
-    quiz = Quiz.find question.quiz_id unless question.quiz_id.nil?
+    if !params[:question][:quiz_id].empty?
+      quiz = Quiz.find question.relationships.find_by_quiz_id(params[:question][:quiz_id]).quiz_id
+    end
+    question_params.delete :quiz_id
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'

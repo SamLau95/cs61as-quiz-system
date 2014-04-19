@@ -3,7 +3,6 @@ class EditQuestionForm < Reform::Form
   model :question
 
   property :id
-  property :quiz_id
   property :content
   property :number
   property :points
