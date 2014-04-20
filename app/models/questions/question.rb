@@ -8,10 +8,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  points     :integer          default(0), not null
-#  type       :string(255)
 #  lesson     :integer
 #  difficulty :string(255)
-#  draft      :boolean          default(TRUE)
 #
 
 # Model that represents questions
@@ -23,9 +21,7 @@ class Question < ActiveRecord::Base
 
   has_many :submissions
   has_one :solution, dependent: :destroy
-  has_many :options
 
-  validates :type, presence: true
 
   def to_s
     "Question #{number} (#{points} points)"
