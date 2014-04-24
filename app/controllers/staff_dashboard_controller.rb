@@ -7,7 +7,6 @@ class StaffDashboardController < ApplicationController
     @drafts = Quiz.drafts
     @published = Quiz.published
     @requests = QuizRequest.all
-    @types = Question.subclasses
     @lessons = Quiz.all_lessons
     @quiz = Quiz.new
   end

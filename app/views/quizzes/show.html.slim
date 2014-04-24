@@ -10,9 +10,5 @@ h1 = @quiz
     p Question #{question.number}
     p Points: #{question.points}
     p = question.content
-    - if !question.options.empty?
-      p Options
-      - question.options.each do |option|
-        p = option.content
 
 
