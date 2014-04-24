@@ -27,6 +27,7 @@ def make_quizzes
                            content: 'What is 1 * 3?',
                            lesson: 1,
                            difficulty: 'Medium'
+  q2.create_solution content: '3'
   q3 = q.questions.create! number: 3,
                            points: 5,
                            content: 'What is 10 + 1?',
