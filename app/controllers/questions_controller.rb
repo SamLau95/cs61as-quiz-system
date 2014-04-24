@@ -10,11 +10,13 @@ class QuestionsController < ApplicationController
     else
       @question = Question.create
     end
+    @question.create_solution
     redirect_to edit_question_path(@question)
   end
 
   def edit
     question = Question.find params[:id]
+    question.solution
     @quiz_id = params[:quiz_id]
     @quest_form = EditQuestionForm.new question
   end
