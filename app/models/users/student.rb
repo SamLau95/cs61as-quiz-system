@@ -22,8 +22,7 @@
 
 # Student model; uses users table
 class Student < User
-
-  default_scope -> { order 'id' }
+  default_scope -> { order 'last_name' }
   has_many :submissions
   has_one :quiz_request
   has_one :quiz_lock
