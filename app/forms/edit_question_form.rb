@@ -16,8 +16,8 @@ class EditQuestionForm < Reform::Form
 
   validates :content, :lesson, presence: true
   validates :difficulty, presence: true
-  validates :lesson, numericality: { greater_than_or_equal_to: 1, 
-                                     less_than_or_equal_to: 14}
+  validates :lesson, numericality: { greater_than_or_equal_to: 1,
+                                     less_than_or_equal_to: 14 }
 
   def validate_and_save(question_params)
     solution = question_params[:solution_attributes]
