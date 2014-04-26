@@ -13,7 +13,7 @@ class StudentsController < ApplicationController
     @quiz = Quiz.find id
     @questions = @quiz.questions.includes(:solution)
     @submissions = Submission.where(quiz_id: id, student_id: stu_id)
-                   .sort_by { |sub| Question.find(sub.question_id).number }
+                             .sort_by { |sub| sub.question_number }
     @ques_subm = QuizSubmission.new(@questions, @submissions).ques_subm
   end
 
