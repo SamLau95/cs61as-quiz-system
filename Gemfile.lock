@@ -246,7 +246,7 @@ GEM
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
     slop (3.5.0)
-    sprockets (2.8.0)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -305,6 +305,7 @@ DEPENDENCIES
   heroku-deflater
   jbuilder (~> 1.2)
   jquery-rails (~> 3.1.0)
+  json (~> 1.8.1)
   meta_request
   newrelic_rpm
   pg (~> 0.17.1)

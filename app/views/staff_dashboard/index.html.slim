@@ -16,6 +16,9 @@ h3 Quiz Drafts
 ul.quizzes
   - @drafts.each do |quiz|
     li = link_to quiz, quiz_path(quiz)
+    ul = link_to 'Delete Quiz', quiz, 
+                                method: :delete,
+                                data: { confirm: "You sure?" }
 
 h3 Published Quizzes
 ul.quizzes
@@ -33,8 +36,7 @@ ul.quiz-requests
       = link_to 'Cancel', cancel_request_path(request),
                 method: :delete, id: "cancel-#{request.id}"
 
-
-= link_to 'New Question!', id: nil
+= link_to 'New Question!', new_question_path(id: nil)
 
 h3 Question Bank: 
 

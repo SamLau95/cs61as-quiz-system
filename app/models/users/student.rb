@@ -22,9 +22,12 @@
 
 # Student model; uses users table
 class Student < User
+
+  default_scope -> { order 'id' }
   has_many :submissions
   has_one :quiz_request
   has_one :quiz_lock
+  has_many :grades
 
   delegate :lesson, to: :quiz_request, prefix: true
   delegate :locked?, to: :quiz_lock, allow_nil: true

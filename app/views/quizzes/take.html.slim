@@ -14,4 +14,5 @@ div
         br
         = sf.object.question_content
         br
+        = sf.text_area :content, label: false, class: 'noscroll'
       = f.submit 'Submit!', class: 'button', id: 'submit_quiz'

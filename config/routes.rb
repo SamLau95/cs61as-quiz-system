@@ -14,6 +14,7 @@ Cs61asQuizzes::Application.routes.draw do
   scope '/student' do
     get '', to: 'student_dashboard#index', as: :student_dashboard
     get '/view_quiz/:id', to: 'students#view', as: :view_quiz
+    get '/grade_quiz/:id', to: 'students#grade', as: :grade_quiz
   end
 
   resources :quizzes
