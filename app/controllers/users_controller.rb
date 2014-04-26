@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if @edit_form.validate_and_save params[:user]
       user.update_with_password(user_params)
       user.update_attributes(user_params)
-      sign_in(user, :bypass => true)
+      sign_in(user, bypass: true)
       flash[:success] = 'Updated profile!'
       redirect_to after_sign_in_path_for(user)
     else
@@ -25,4 +25,3 @@ class UsersController < ApplicationController
     params.required(:user).permit!
   end
 end
-
