@@ -10,19 +10,9 @@ row
           = f.input :lesson
           = f.label :difficulty
           = f.select :difficulty, options_for_select(Question.levels)
+          = f.hidden_field :quiz_id, value: quiz_id
       .row
         .small-12.columns
           = f.input :content, as: :text, label: 'Question'
-      - if correct_type(f.object.type)
-        p Options:
-        = f.fields_for :options do |of|
-          = of.hidden_field :id, value: of.object.id
-          .row
-            .small-3.columns
-              = of.input :content, label: ""
-              = link_to "delete", edit_question_path(f.object, destroy: of.object.id),
-                                  remote: true
-        = link_to "Add another option!", edit_question_path(f.object, add: true),
-                                         remote: true
       br
         = f.submit 'Update!', class: 'small button'

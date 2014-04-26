@@ -53,7 +53,7 @@ class QuizzesController < ApplicationController
   def edit
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
-    @questions = quiz.questions.includes(:options)
+    @questions = quiz.questions
     Question.destroy(params[:destroy]) if params[:destroy]
     respond_to do |format|
       format.html { render 'edit' }
@@ -79,7 +79,7 @@ class QuizzesController < ApplicationController
 
   def show
     @quiz = Quiz.find(params[:id])
-    @questions = @quiz.questions.includes(:options)
+    @questions = @quiz.questions
   end
 
   private

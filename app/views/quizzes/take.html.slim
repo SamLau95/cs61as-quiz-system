@@ -9,5 +9,9 @@ div
    = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
                       html: { id: 'take_quiz_form', method: :post } do |f|
       = f.fields_for :new_submissions do |sf|
-        = render "forms/#{sf.object.question_type.downcase}", sf: sf
+        = sf.hidden_field :quiz_id, value: @quiz_form.id
+        = sf.hidden_field :question_id, value: sf.object.question_id
+        br
+        = sf.object.question_content
+        br
       = f.submit 'Submit!', class: 'button', id: 'submit_quiz'

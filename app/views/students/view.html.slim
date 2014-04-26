@@ -4,9 +4,9 @@ p = @quiz
   div 
     p Question: 
     p = question.content
-    - question.options.each do |op|
-      p = op.content
+
     p Solution: 
     p = question.solution.content
+    
     p Student Answer:
     p = submission.content
