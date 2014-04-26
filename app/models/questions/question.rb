@@ -19,10 +19,9 @@ class Question < ActiveRecord::Base
   has_many :relationships, dependent: :destroy
   has_many :quizzes, through: :relationships
   has_many :grades
-  
+
   has_many :submissions
   has_one :solution, dependent: :destroy
-
 
   def to_s
     "Question #{number} (#{points} points)"
