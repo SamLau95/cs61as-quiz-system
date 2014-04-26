@@ -1,0 +1,17 @@
+h1 Hello
+
+row
+  .small-12-columns
+    = simple_form_for @edit_form, url: { action: 'update' } do |f|
+      .row
+        .small-3.columns
+          = f.input :first_name
+          = f.input :last_name
+          = f.input :login, placeholder: 'Ex: cs61as-au'
+          = f.input :email
+
+          = f.input :current_password, label: 'Old Password'
+          = f.input :password, label: 'New Password'
+          = f.input :password_confirmation, label: 'Confirm Password'
+
+      = f.submit 'Update!', class: 'small button'

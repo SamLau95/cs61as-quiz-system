@@ -5,6 +5,8 @@ Cs61asQuizzes::Application.routes.draw do
     root to: 'devise/sessions#new'
   end
 
+  resources :users, only: [:edit, :update]
+
   scope '/staff' do
     get '', to: 'staff_dashboard#index', as: :staff_dashboard
     get '/bank/:id', to: 'staff_dashboard#bank', as: :question_bank

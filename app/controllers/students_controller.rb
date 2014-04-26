@@ -8,12 +8,12 @@ class StudentsController < ApplicationController
   end
 
   def view
-    @student_id = params[:student_id]
-    @quiz = Quiz.find params[:id]
+    id, stu_id = params[:id], params[:student_id]
+    @student_id = stu_id
+    @quiz = Quiz.find id
     @questions = @quiz.questions.includes(:solution)
-    @submissions = Submission.where quiz_id: params[:id],
-                                    student_id: params[:student_id]
-    @submissions = @submissions.sort_by { |sub| Question.find(sub.question_id).number }
+    @submissions = Submission.where(quiz_id: id, student_id: stu_id)
+                             .sort_by { |sub| sub.question_number }
     @ques_subm = QuizSubmission.new(@questions, @submissions).ques_subm
   end
 

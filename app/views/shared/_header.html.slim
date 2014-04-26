@@ -7,8 +7,9 @@ nav.top-bar data-topbar=true
       li.divider
       - if current_user
         li.has-dropdown
-          = link_to "Hello!", '#'
+          = link_to "Account", '#'
           ul.dropdown
             li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+            li= link_to 'Profile', edit_user_path(current_user)
       - else
         li= link_to 'Sign In', new_user_session_path
