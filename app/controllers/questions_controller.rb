@@ -23,8 +23,10 @@ class QuestionsController < ApplicationController
 
   def update
     question = Question.find params[:id]
-    if !params[:question][:quiz_id].empty?
-      quiz = Quiz.find question.relationships.find_by_quiz_id(params[:question][:quiz_id]).quiz_id
+    quiz_id = params[:question][:quiz_id]
+    if !quiz_id.empty?
+      relationship = question.relationships.find_by_quiz_id(quiz_id)
+      quiz = Quiz.find relationship.quiz_id
     end
     question_params.delete :quiz_id
     @quest_form = EditQuestionForm.new question
