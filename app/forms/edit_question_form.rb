@@ -21,9 +21,7 @@ class EditQuestionForm < Reform::Form
 
   def validate_and_save(question_params)
     solution = question_params[:solution_attributes]
-    if solution[:content].empty?
-      errors.add :content, 'Solution cannot be blank'
-    end
+    errors.add :lesson, 'Solution cannot be blank' if solution[:content].empty?
     return false unless validate(question_params)
     question = Question.find id
     question.solution.update_attributes solution
