@@ -4,7 +4,7 @@ class EditQuestionForm < Reform::Form
 
   property :id
   property :content
-  property :number
+  # property :number
   property :lesson
   property :difficulty
 

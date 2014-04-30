@@ -18,13 +18,12 @@ class EditQuizForm < Reform::Form
     Quiz.find(id).update_attributes(quiz_params)
   end
 
-
   private
 
-  def points_add_to_10
-    questions = @model.questions
-    unless !questions.nil? || questions.map { |q| q.points.to_i }.sum == 10
-      errors.add :lesson, 'Points must sum to 10'
-    end
-  end
+  # def points_add_to_10
+  #   questions = @model.questions
+  #   unless !questions.nil? || questions.map { |q| q.points.to_i }.sum == 10
+  #     errors.add :lesson, 'Points must sum to 10'
+  #   end
+  # end
 end

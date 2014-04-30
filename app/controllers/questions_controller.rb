@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
   def update
     question = Question.find params[:id]
     quiz_id = params[:question][:quiz_id]
-  if !quiz_id.empty?
+    unless quiz_id.empty?
       relationship = question.relationships.find_by_quiz_id(quiz_id)
       quiz = Quiz.find relationship.quiz_id
     end
