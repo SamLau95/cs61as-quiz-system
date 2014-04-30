@@ -13,7 +13,7 @@
       = f.submit 'Update!', class: 'small button'
 
     = link_to 'Add a new question!', new_question_path
-
+    br
     - if @questions.empty?
       p You have no questions yet!
     - else
