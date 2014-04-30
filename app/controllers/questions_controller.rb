@@ -5,8 +5,7 @@ class QuestionsController < ApplicationController
   def new
     if params[:id]
       @quiz = Quiz.find params[:id]
-      @question = @quiz.questions.create lesson: @quiz.lesson,
-                                         number: @quiz.next_number
+      @question = @quiz.questions.create lesson: @quiz.lesson
     else
       @question = Question.create
     end
