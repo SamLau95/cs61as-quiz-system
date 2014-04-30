@@ -9,6 +9,9 @@ row
           = f.label :difficulty
           = f.select :difficulty, options_for_select(Question.levels)
           = f.hidden_field :quiz_id, value: quiz_id
+          - if add_pts == "true"
+            = label_tag :points, '* Points'
+            = text_field_tag :points
       .row
         .small-12.columns
           = f.input :content, as: :text, label: 'Question'

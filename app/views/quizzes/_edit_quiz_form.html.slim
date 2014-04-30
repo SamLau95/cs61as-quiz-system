@@ -12,17 +12,19 @@
           = f.input :is_draft, label: 'Draft?', as: :boolean
       = f.submit 'Update!', class: 'small button'
 
-    = link_to 'Add a new question!', new_question_path
+    = link_to 'Add a new question!', new_question_path(quiz_id: quiz_form.id)
     br
     - if @questions.empty?
       p You have no questions yet!
     - else
       - @questions.each do |question| 
-        = link_to "Edit Question", edit_question_path(question, quiz_id: quiz_form.id)
+        = link_to "Edit Question", edit_question_path(question, 
+                                                      quiz_id: quiz_form.id, 
+                                                      add_pts: true)
         div
           p Question #{question.number(quiz_form.id)}
           p Points: #{question.points(quiz_form.id)}
           p Content : #{question.content}
         = link_to "delete", edit_quiz_path(quiz_form.id, destroy: question.id),
-                            remote: true, data: { confirm: 'Are you sure?'}
+                            data: { confirm: 'Are you sure?'}
         br

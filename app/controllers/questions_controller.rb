@@ -3,17 +3,21 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource
 
   def new
-    if params[:id]
-      @quiz = Quiz.find params[:id]
+    if params[:quiz_id]
+      @quiz = Quiz.find params[:quiz_id]
       @question = @quiz.questions.create lesson: @quiz.lesson
+      # @quiz.relationships.update_attribute(number: @quiz.next_number)
     else
       @question = Question.create
     end
     @question.create_solution
-    redirect_to edit_question_path(@question)
+    redirect_to edit_question_path(@question,
+                                   quiz_id: params[:quiz_id],
+                                   add_pts: false)
   end
 
   def edit
+    @add_pts = params[:add_pts]
     question = Question.find params[:id]
     question.solution
     @quiz_id = params[:quiz_id]
@@ -21,11 +25,12 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    @add_pts = params[:add_pts]
     question = Question.find params[:id]
     quiz_id = params[:question][:quiz_id]
     unless quiz_id.empty?
       relationship = question.relationships.find_by_quiz_id(quiz_id)
-      quiz = Quiz.find relationship.quiz_id
+      quiz = Quiz.find quiz_id
     end
     question_params.delete :quiz_id
     @quest_form = EditQuestionForm.new question
