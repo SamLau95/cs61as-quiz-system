@@ -26,4 +26,12 @@ class Question < ActiveRecord::Base
   def self.levels
     [%w(Easy Easy), %w(Medium Medium), %w(Hard Hard)]
   end
+
+  def number(quiz_id)
+    relationships.find_by_quiz_id(quiz_id).number
+  end
+
+  def points(quiz_id)
+    relationships.find_by_quiz_id(quiz_id).points
+  end
 end

@@ -7,11 +7,11 @@ class EditQuizForm < Reform::Form
   property :retake
   property :is_draft
 
-  validates :lesson, presence: true, numericality: true
-  validates :version, presence: true, numericality: true
+  # validates :lesson, presence: true, numericality: true
+  # validates :version, presence: true, numericality: true
   validates :retake, presence: true
   validates :is_draft, presence: true
-  validate :points_add_to_10
+  # validate :points_add_to_10
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
