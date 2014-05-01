@@ -7,8 +7,8 @@ h1 = @quiz
 - else
   - @questions.each do |question| 
     div
-    p Question #{question.number}
-    p Points: #{question.points}
+    p Question #{question.number(@quiz.id)}
+    p Points: #{question.points(@quiz.id)}
     p = question.content
 
 

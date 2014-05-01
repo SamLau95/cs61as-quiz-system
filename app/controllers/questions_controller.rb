@@ -7,13 +7,15 @@ class QuestionsController < ApplicationController
       @quiz = Quiz.find params[:quiz_id]
       @question = @quiz.questions.create lesson: @quiz.lesson
       # @quiz.relationships.update_attribute(number: @quiz.next_number)
+      add_pts = true
     else
       @question = Question.create
+      add_pts = false
     end
     @question.create_solution
     redirect_to edit_question_path(@question,
                                    quiz_id: params[:quiz_id],
-                                   add_pts: false)
+                                   add_pts: add_pts)
   end
 
   def edit
@@ -27,12 +29,10 @@ class QuestionsController < ApplicationController
   def update
     @add_pts = params[:add_pts]
     question = Question.find params[:id]
-    quiz_id = params[:question][:quiz_id]
-    unless quiz_id.empty?
-      relationship = question.relationships.find_by_quiz_id(quiz_id)
-      quiz = Quiz.find quiz_id
-    end
+    @quiz_id = params[:question][:quiz_id]
+    quiz = Quiz.find @quiz_id unless @quiz_id.empty?
     question_params.delete :quiz_id
+    question_params[:points] = params[:points]
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'
