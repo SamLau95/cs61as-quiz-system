@@ -42,5 +42,4 @@ class EditQuizForm < Reform::Form
     end
     true
   end
-
 end

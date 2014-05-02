@@ -32,7 +32,7 @@ class EditQuestionForm < Reform::Form
   end
 
   def check_solution
-    unless !@model.solution.content.blank?
+    if @model.solution.content.blank?
       errors.add :content, "Doesn't have solution."
     end
   end
