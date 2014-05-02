@@ -12,7 +12,7 @@ row
           = hidden_field_tag :add_pts, add_pts
           - if add_pts == "true"
             = label_tag :points, '* Points'
-            = text_field_tag :points
+            = text_field_tag :points, points
       .row
         .small-12.columns
           = f.input :content, as: :text, label: 'Question'

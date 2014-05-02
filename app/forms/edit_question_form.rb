@@ -21,10 +21,10 @@ class EditQuestionForm < Reform::Form
   validate :check_solution
 
   def validate_and_save(question_params)
-    1/0
     solution = question_params[:solution_attributes]
     question = Question.find id
     question.solution.update_attributes solution
+    question_params = update_points(question_params)
     return false unless validate(question_params)
     question_params.delete :solution_attributes
     question_params.delete :solution
@@ -35,5 +35,15 @@ class EditQuestionForm < Reform::Form
     unless !@model.solution.content.blank?
       errors.add :content, "Doesn't have solution."
     end
+  end
+
+  def update_points(params)
+    unless params[:points].blank? || params[:quiz_id].blank?
+      rlt = Relationship.find_by_quiz_id(params[:quiz_id])
+      rlt.update_attribute(:points, params[:points])
+    end
+    params.delete :points
+    params.delete :quiz_id
+    params
   end
 end
