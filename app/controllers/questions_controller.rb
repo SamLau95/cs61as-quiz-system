@@ -34,7 +34,6 @@ class QuestionsController < ApplicationController
     question = Question.find params[:id]
     @quiz_id = params[:question][:quiz_id]
     quiz = Quiz.find @quiz_id unless @quiz_id.empty?
-    question_params
     question_params[:points] = params[:points]
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
