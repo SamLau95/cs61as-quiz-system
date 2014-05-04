@@ -9,7 +9,9 @@
 #  updated_at  :datetime
 #
 
+# Relationship controller
 class Relationship < ActiveRecord::Base
+  default_scope -> { order 'number ASC' }
   belongs_to :quiz
   belongs_to :question
 end

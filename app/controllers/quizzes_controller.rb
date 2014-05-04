@@ -65,7 +65,8 @@ class QuizzesController < ApplicationController
   def update
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
-    if @quiz_form.validate_and_save params[:quiz]
+    @questions = quiz.questions
+    if @quiz_form.validate_and_save quiz_params
       flash[:success] = "Updated #{quiz}!"
       redirect_to staff_dashboard_path
     else

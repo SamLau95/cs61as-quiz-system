@@ -3,32 +3,38 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource
 
   def new
-    if params[:id]
-      @quiz = Quiz.find params[:id]
-      @question = @quiz.questions.create lesson: @quiz.lesson,
-                                         number: @quiz.next_number
+    if params[:quiz_id]
+      @quiz = Quiz.find params[:quiz_id]
+      @question = @quiz.questions.create lesson: @quiz.lesson
+      add_pts = true
     else
       @question = Question.create
+      add_pts = false
     end
     @question.create_solution
-    redirect_to edit_question_path(@question)
+    redirect_to edit_question_path(@question,
+                                   quiz_id: params[:quiz_id],
+                                   add_pts: add_pts,
+                                   points: @points)
   end
 
   def edit
+    @add_pts = params[:add_pts]
     question = Question.find params[:id]
     question.solution
     @quiz_id = params[:quiz_id]
     @quest_form = EditQuestionForm.new question
+    rlt = Relationship.find_by_quiz_id(params[:quiz_id])
+    @points = rlt.nil? ? 0 : rlt.points
   end
 
   def update
+    @add_pts = params[:add_pts]
+    @points = params[:points]
     question = Question.find params[:id]
-    quiz_id = params[:question][:quiz_id]
-    if !quiz_id.empty?
-      relationship = question.relationships.find_by_quiz_id(quiz_id)
-      quiz = Quiz.find relationship.quiz_id
-    end
-    question_params.delete :quiz_id
+    @quiz_id = params[:question][:quiz_id]
+    quiz = Quiz.find @quiz_id unless @quiz_id.empty?
+    question_params[:points] = params[:points]
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'

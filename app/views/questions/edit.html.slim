@@ -1,4 +1,7 @@
 h1 Edit question!
 
 .question
-  = render 'edit_question_form', quest_form: @quest_form, quiz_id: @quiz_id
+  = render 'edit_question_form', quest_form: @quest_form, 
+                                 quiz_id: @quiz_id, 
+                                 add_pts: @add_pts,
+                                 points: @points

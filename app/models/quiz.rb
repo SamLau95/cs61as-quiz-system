@@ -24,7 +24,7 @@ class Quiz < ActiveRecord::Base
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
 
-  validates :lesson, :version, presence: true
+  # validates :lesson, :version, presence: true
 
   def self.lessons
     all.map(&:lesson).uniq.sort
@@ -49,7 +49,7 @@ class Quiz < ActiveRecord::Base
 
   def next_number
     return 1 if questions.empty?
-    questions.last.number + 1
+    questions.last.relationships.find_by_quiz_id(id).number + 1
   end
 
   def self.generate_random(lesson)
@@ -57,9 +57,9 @@ class Quiz < ActiveRecord::Base
     hard = Question.where(lesson: lesson, difficulty: 'Hard').sample
     medium = Question.where(lesson: lesson, difficulty: 'Medium').sample
     easy = Question.where(lesson: lesson, difficulty: 'Easy').sample
-    quiz.relationships.create(question: hard) unless hard.nil?
-    quiz.relationships.create(question: medium) unless medium.nil?
-    quiz.relationships.create(question: easy) unless easy.nil?
+    quiz.relationships.create(question: hard, number: quiz.next_number) unless hard.nil?
+    quiz.relationships.create(question: medium, number: quiz.next_number) unless medium.nil?
+    quiz.relationships.create(question: easy, number: quiz.next_number) unless easy.nil?
     quiz
   end
 end
