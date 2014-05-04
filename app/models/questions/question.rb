@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
 
   has_many :submissions
   has_one :solution, dependent: :destroy
-  
+
   def to_s
     "Question Lesson #{lesson}, #{difficulty}"
   end
