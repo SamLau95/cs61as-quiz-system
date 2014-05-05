@@ -17,7 +17,7 @@ class Question < ActiveRecord::Base
   # default_scope -> { order 'number ASC' }
 
   has_many :relationships, dependent: :destroy
-  has_many :quizzes, through: :relationships
+  has_many :quizzes, through: :relationships, foreign_key: 'quiz_id'
   has_many :grades
 
   has_many :submissions
