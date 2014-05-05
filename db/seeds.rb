@@ -25,8 +25,8 @@ def make_quizzes
                            points: 3
   q1.create_solution content: '2'
   q2 = Question.create! content: 'What is 1 * 3?',
-                         lesson: 1,
-                         difficulty: 'Medium'
+                        lesson: 1,
+                        difficulty: 'Medium'
   q2.relationships.create! quiz_id: q.id,
                            question_id: q2.id,
                            number: 2,
