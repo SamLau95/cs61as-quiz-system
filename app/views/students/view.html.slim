@@ -11,4 +11,5 @@ h3 = @quiz
     p Student Answer:
     p = submission.content
 
-    = link_to 'Grade Question!', new_grade_path()
+    = link_to 'Grade Question!', new_grade_path(qid: question.id, 
+                                                sid: @student_id)
