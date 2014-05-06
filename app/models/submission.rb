@@ -17,5 +17,5 @@ class Submission < ActiveRecord::Base
   belongs_to :question
   belongs_to :student
 
-  delegate :content, :number, to: :question, prefix: true
+  # delegate :content, :number, to: :question, prefix: true
 end

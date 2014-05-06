@@ -1,7 +1,5 @@
 h3 = @quiz
 
-= link_to 'Grade Quiz!', grade_quiz_path(@quiz, student_id: @student_id)
-
 - @ques_subm.each do |question, submission|
   div 
     p Question: 
@@ -12,3 +10,6 @@ h3 = @quiz
     
     p Student Answer:
     p = submission.content
+
+    = link_to 'Grade Question!', new_grade_path(qid: question.id, 
+                                                sid: @student_id)

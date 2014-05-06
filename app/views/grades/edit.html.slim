@@ -1,0 +1,20 @@
+h1 Edit
+
+= simple_form_for @grade_form do |f|
+  .row
+    .small-3.columns
+      h3 Question:
+      = @question.content
+
+      h4 Solution:
+      = @question.solution.content
+
+      h5 Student's Answer:
+      = @submission.content
+
+      = f.input :grade
+      = f.input :comments, as: :text
+      = f.hidden_field :lesson, value: @lesson
+      = hidden_field_tag :quiz_id, @submission.quiz_id
+
+  = f.submit 'Update Grade!', class: 'small button'
