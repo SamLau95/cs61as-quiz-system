@@ -1,6 +1,6 @@
 h3 = @quiz
-
-- @ques_subm.each do |question, submission|
+h1 = @grade
+- @ques_subm.each do |question, subm, score|
   div 
     p Question: 
     p = question.content
@@ -9,7 +9,16 @@ h3 = @quiz
     p = question.solution.content
     
     p Student Answer:
-    p = submission.content
+    p = subm.content
 
-    = link_to 'Grade Question!', new_grade_path(qid: question.id, 
-                                                sid: @student_id)
+    - if score
+      p Grade:
+      p = score.grade
+      p Reader Comments:
+      p = score.comments
+    - else
+      p Not graded yet!
+
+    - if @current_user.staff?
+      = link_to 'Grade Question!', new_grade_path(qid: question.id, 
+                                                  sid: @student_id)

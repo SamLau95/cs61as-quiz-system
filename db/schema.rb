@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505014722) do
+ActiveRecord::Schema.define(version: 20140506061745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140505014722) do
     t.text     "comments",    default: "No Comments"
     t.integer  "question_id"
     t.integer  "student_id"
-    t.integer  "grade"
+    t.integer  "grade",       default: 0
     t.integer  "lesson"
   end
 

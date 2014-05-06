@@ -13,3 +13,11 @@ h1 Welcome to the Student Dashboard!
   h3 Take a quiz:
   - @lessons.each do |lesson|
     h4 = link_to "Quiz #{lesson}", make_quiz_request_path(lesson), method: :post
+
+  h3 Quizzes You've Taken:
+  - if @taken.empty? 
+    p No Quizzes taken yet! Request a quiz!
+  - else
+    - @taken.each do |quiz|
+      = link_to quiz, view_quiz_path(quiz, student_id: @current_user.id)
+

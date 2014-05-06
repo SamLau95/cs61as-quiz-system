@@ -62,4 +62,12 @@ class Quiz < ActiveRecord::Base
     quiz.relationships.create(question: easy, number: quiz.next_number) unless easy.nil?
     quiz
   end
+
+  def grade(stu_id)
+    g = questions.map do |q|
+      Grade.find_by question_id: q.id, student_id: stu_id
+    end
+    pts = g.any? ? g.reject! { |r| r.nil? }.map { |r| r.grade.to_i }.sum : 0
+    "Total Points: #{pts}/10"
+  end
 end
