@@ -13,7 +13,6 @@ module Cs61asQuizzes
     config.generators do |g|
       g.assets = false
       g.helper = false
-
     end
 
     # Settings in config/environments/* take precedence over those specified here.
