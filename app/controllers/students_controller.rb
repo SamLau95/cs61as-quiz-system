@@ -15,5 +15,6 @@ class StudentsController < ApplicationController
     @submissions = Submission.where(quiz_id: id, student_id: stu_id)
                              # .sort_by { |sub| sub.question_number }
     @ques_subm = QuizSubmission.new(@questions, @submissions).ques_subm
+    @grade = @quiz.grade(@student_id)
   end
 end

@@ -62,4 +62,11 @@ class Quiz < ActiveRecord::Base
     quiz.relationships.create(question: easy, number: quiz.next_number) unless easy.nil?
     quiz
   end
+
+  def grade(stu_id)
+    1/0
+    grades = questions.map do |q|
+      Grade.find_by question_id: q.id, student_id: stu_id
+    end
+  end
 end
