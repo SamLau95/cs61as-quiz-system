@@ -12,9 +12,12 @@ class StudentsController < ApplicationController
     @student_id = stu_id
     @quiz = Quiz.find id
     @questions = @quiz.questions.includes(:solution)
-    @submissions = Submission.where(quiz_id: id, student_id: stu_id)
+    @subm = Submission.where(quiz_id: id, student_id: stu_id)
                              # .sort_by { |sub| sub.question_number }
-    @ques_subm = QuizSubmission.new(@questions, @submissions).ques_subm
+    @scores = @questions.map do |q|
+      Grade.find_by question_id: q.id, student_id: stu_id
+    end
+    @ques_subm = QuizSubmission.new(@questions, @subm, @scores).ques_subm
     @grade = @quiz.grade(@student_id)
   end
 end
