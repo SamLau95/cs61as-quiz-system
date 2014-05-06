@@ -19,5 +19,6 @@ h1 = @grade
     - else
       p Not graded yet!
 
-    = link_to 'Grade Question!', new_grade_path(qid: question.id, 
-                                                sid: @student_id)
+    - if @current_user.staff?
+      = link_to 'Grade Question!', new_grade_path(qid: question.id, 
+                                                  sid: @student_id)
