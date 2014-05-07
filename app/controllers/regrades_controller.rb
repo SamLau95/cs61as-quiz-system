@@ -1,0 +1,2 @@
+class RegradesController < ApplicationController
+end
