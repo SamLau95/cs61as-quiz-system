@@ -44,4 +44,6 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :grades
+
+  resources :regrades, only: [:create, :destroy]
 end
