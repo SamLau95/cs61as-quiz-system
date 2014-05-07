@@ -8,7 +8,8 @@
 #  comments    :text             default("No Comments")
 #  question_id :integer
 #  student_id  :integer
-#  grade       :integer
+#  grade       :integer          default(0)
+#  lesson      :integer
 #
 
 # Grading class
