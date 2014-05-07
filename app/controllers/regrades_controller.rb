@@ -1,3 +1,4 @@
+# Regrade Controller
 class RegradesController < ApplicationController
   def create
   	quiz = Quiz.find params[:regrade][:quiz_id]
