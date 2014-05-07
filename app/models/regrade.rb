@@ -22,8 +22,8 @@ class Regrade < ActiveRecord::Base
   validates_presence_of :questions, :reason, :quiz_id, :student_id
 
   def to_s
-  	quiz = Quiz.find quiz_id
-  	student = Student.find student_id
-  	"#{student} - #{quiz}"
+    quiz = Quiz.find quiz_id
+    student = Student.find student_id
+    "#{student} - #{quiz}"
   end
 end

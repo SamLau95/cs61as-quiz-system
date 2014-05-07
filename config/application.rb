@@ -8,7 +8,6 @@ Bundler.require(:default, Rails.env)
 
 module Cs61asQuizzes
   class Application < Rails::Application
-
     # Stops rails from generating the assets and specs
     config.generators do |g|
       g.assets = false
