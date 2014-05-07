@@ -9,6 +9,7 @@ class StaffDashboardController < ApplicationController
     @requests = QuizRequest.all
     @lessons = Quiz.all_lessons
     @quiz = Quiz.new
+    @regrades = Regrade.not_graded
   end
 
   def bank

@@ -11,7 +11,17 @@ class RegradesController < ApplicationController
   	redirect_to view_quiz_path(quiz, student_id: params[:regrade][:student_id])
   end
 
+  def change_status
+  	regrade = Regrade.find params[:id]
+  	regrade.update_attribute(:graded, true)
+  	redirect_to staff_dashboard_path
+  end
+
   def destroy
+  	Regrade.find(params[:id]).destroy!
+  	flash[:success] = "You've deleted the regrade request. 
+  										 The student can now request another one"
+    redirect_to staff_dashboard_path
   end
 
   private

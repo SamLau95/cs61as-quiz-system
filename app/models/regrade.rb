@@ -17,5 +17,13 @@ class Regrade < ActiveRecord::Base
   belongs_to :student
   belongs_to :quiz
 
+  scope :not_graded, -> { where(graded: false) }
+
   validates_presence_of :questions, :reason, :quiz_id, :student_id
+
+  def to_s
+  	quiz = Quiz.find quiz_id
+  	student = Student.find student_id
+  	"#{student} - #{quiz}"
+  end
 end
