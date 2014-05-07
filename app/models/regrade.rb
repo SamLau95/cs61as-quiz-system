@@ -17,5 +17,5 @@ class Regrade < ActiveRecord::Base
   belongs_to :student
   belongs_to :quiz
 
-  validates_presence_of :questions, :reason
+  validates_presence_of :questions, :reason, :quiz_id, :student_id
 end
