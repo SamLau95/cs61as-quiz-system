@@ -1,5 +1,25 @@
 h3 = @quiz
 h1 = @grade
+
+- if @current_user.student?
+  - if @request && @request.graded
+    p Your quiz has already been regraded!
+  - else
+    - if @request
+      p Your quiz is being regraded!
+    - else
+      h2 Request a regrade!
+      = simple_form_for @regrade do |f|
+        .row
+          .small-3.columns
+            = f.input :questions, label: 'Questions to Regrade'
+        .row
+          .small-6.columns
+            = f.input :reason, label: 'Reason why it should be regraded:' 
+        = f.submit 'Submit!', class: 'small button'
+
+  
+
 - @ques_subm.each do |question, subm, score|
   div 
     p Question: 
