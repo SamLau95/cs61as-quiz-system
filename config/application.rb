@@ -8,6 +8,12 @@ Bundler.require(:default, Rails.env)
 
 module Cs61asQuizzes
   class Application < Rails::Application
+    # Stops rails from generating the assets and specs
+    config.generators do |g|
+      g.assets = false
+      g.helper = false
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

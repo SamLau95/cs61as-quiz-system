@@ -19,5 +19,7 @@ class StudentsController < ApplicationController
     end
     @ques_subm = QuizSubmission.new(@questions, @subm, @scores).ques_subm
     @grade = @quiz.grade(@student_id)
+    @request = Regrade.find_by quiz_id: id, student_id: stu_id
+    @regrade = Regrade.new
   end
 end

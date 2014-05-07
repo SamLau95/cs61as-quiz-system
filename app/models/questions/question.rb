@@ -4,10 +4,8 @@
 #
 #  id         :integer          not null, primary key
 #  content    :text
-#  number     :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  points     :integer          default(0), not null
 #  lesson     :integer
 #  difficulty :string(255)
 #

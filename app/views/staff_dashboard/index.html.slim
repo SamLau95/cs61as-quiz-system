@@ -26,6 +26,7 @@ ul.quizzes
     li = link_to quiz, quiz_path(quiz)
 
 / = link_to 'Quiz', take_quiz_path
+
 h3 Quiz Requests
 ul.quiz-requests
   - @requests.each do |request|
@@ -35,6 +36,15 @@ ul.quiz-requests
                 method: :post, id: "approve-#{request.id}"
       = link_to 'Cancel', cancel_request_path(request),
                 method: :delete, id: "cancel-#{request.id}"
+
+h3 Quiz Regrade Requests
+ul
+  - @regrades.each do |re| 
+    li
+      = link_to re, view_quiz_path(re.quiz_id, student_id: re.student_id)
+      = link_to 'Finished Regrading!', change_grade_status_path(re),
+                 method: :post
+      = link_to "Delete Request!", regrade_path(re, method: :delete 
 
 = link_to 'New Question!', new_question_path(id: nil)
 

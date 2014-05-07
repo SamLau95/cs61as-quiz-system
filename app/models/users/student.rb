@@ -18,15 +18,18 @@
 #  type                   :string(255)
 #  first_name             :text
 #  last_name              :text
+#  login                  :string(255)      default("")
 #
 
 # Student model; uses users table
 class Student < User
   default_scope -> { order 'last_name' }
+
   has_many :submissions
   has_one :quiz_request
   has_one :quiz_lock
   has_many :grades
+  has_many :regrades
 
   delegate :lesson, to: :quiz_request, prefix: true
   delegate :locked?, to: :quiz_lock, allow_nil: true

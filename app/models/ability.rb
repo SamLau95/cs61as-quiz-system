@@ -14,7 +14,7 @@ class Ability
       can :make_request, Quiz
       can [:take, :submit], Quiz if user.approved_request?
       can :see, :student_dashboard
-      can :check, Student if user.taking_quiz?
+      can :check, Student unless user.taking_quiz?
       can :lock, QuizLock, student_id: user.id
       can [:edit, :update], User
     end

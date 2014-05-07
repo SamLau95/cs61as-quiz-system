@@ -18,6 +18,7 @@
 #  type                   :string(255)
 #  first_name             :text
 #  last_name              :text
+#  login                  :string(255)      default("")
 #
 
 class Staff < User

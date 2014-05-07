@@ -44,4 +44,9 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :grades
+
+  resources :regrades, except: [:new, :edit, :update]
+  scope '/regrades' do
+    post '/:id/change', to: 'regrades#change_status', as: :change_grade_status
+  end
 end
