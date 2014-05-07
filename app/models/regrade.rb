@@ -8,7 +8,14 @@
 #  graded     :boolean
 #  created_at :datetime
 #  updated_at :datetime
+#  questions  :string(255)
+#  reason     :text
 #
 
+# Regrade Model
 class Regrade < ActiveRecord::Base
+  belongs_to :student
+  belongs_to :quiz
+
+  validates_presence_of :questions, :reason
 end

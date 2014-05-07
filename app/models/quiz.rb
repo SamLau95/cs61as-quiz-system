@@ -18,6 +18,7 @@ class Quiz < ActiveRecord::Base
   has_many :submissions
   has_many :quiz_requests
   has_many :quiz_locks
+  has_many :grades
 
   # TODO: Make sure deleting a question won't screw up quizzes too hard
 
