@@ -11,11 +11,15 @@ h1 = @grade
       h2 Request a regrade!
       = simple_form_for @regrade do |f|
         .row
-          .small-3.columns
-            = f.input :questions, label: 'Questions to Regrade'
+          .small-6.columns
+            = f.input :questions, label: 'Questions to Regrade (separate with comma)',
+                                  placeholder: 'Ex: 1a, 2b, 3c'
         .row
           .small-6.columns
-            = f.input :reason, label: 'Reason why it should be regraded:' 
+            = f.input :reason, label: 'Reason why it should be regraded:',
+                               placeholder: 'Ex: The code runs correctly on lab computer.'
+            = f.hidden_field :quiz_id, value: @quiz.id
+            = f.hidden_field :student_id, value: @current_user.id
         = f.submit 'Submit!', class: 'small button'
 
   
