@@ -9,8 +9,14 @@ h3 Question Bank
 	
 	  p Solution:
 	  = question.solution.content
-	  p = link_to 'Edit Question', edit_question_path(question)
-	  p = link_to 'Delete Question', question_path(question), 
-	  															 method: :delete,
-	  															 data: { confirm: 'Are you sure?'}
+	  br
+	  - if @add
+	  	= link_to 'Add question!', add_question_path(question,
+	  																							 quiz_id: @id),
+	  														 method: :post
+	  - else
+	  	p = link_to 'Edit Question', edit_question_path(question)
+	  	p = link_to 'Delete Question', question_path(question), 
+	  															   method: :delete,
+	  															   data: { confirm: 'Are you sure?'}
 

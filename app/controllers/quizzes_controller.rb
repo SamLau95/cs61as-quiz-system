@@ -55,6 +55,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions
+    @lessons = Quiz.all_lessons
     Question.destroy(params[:destroy]) if params[:destroy]
     respond_to do |format|
       format.html { render 'edit' }

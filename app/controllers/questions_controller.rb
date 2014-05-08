@@ -52,7 +52,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.destroy
     flash[:success] = 'Deletion successful'
-    redirect_to edit_quiz_path(@question.quiz_id)
+    redirect_to :back 
   end
 
   private
