@@ -44,15 +44,14 @@ ul
       = link_to re, view_quiz_path(re.quiz_id, student_id: re.student_id)
       = link_to 'Finished Regrading!', change_grade_status_path(re),
                  method: :post
-      = link_to "Delete Request!", regrade_path(re, method: :delete 
+      = link_to "Delete Request!", regrade_path(re, method: :delete) 
 
 = link_to 'New Question!', new_question_path(id: nil)
 
 h3 Question Bank: 
-
-- @lessons.each do |lesson|
-  li
-    = link_to "Lesson #{lesson}", question_bank_path(id: lesson)
+= render 'staff_dashboard/question_bank', lesson: @lessons,
+                                          add: false,
+                                          quiz_id: nil
 
 h3 Students
 ul.students

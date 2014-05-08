@@ -13,6 +13,12 @@
       = f.submit 'Update!', class: 'small button'
 
     = link_to 'Add a new question!', new_question_path(quiz_id: quiz_form.id)
+    
+    p Or add a question from the question bank!
+
+    = render 'staff_dashboard/question_bank', lesson: @lessons,
+                                              add: true,
+                                              quiz_id: quiz_form.id
     br
     - if @questions.empty?
       p You have no questions yet!
