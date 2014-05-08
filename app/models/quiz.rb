@@ -77,7 +77,7 @@ class Quiz < ActiveRecord::Base
     count = 1
     rlt.each do |r|
       r.update_attribute :number, count
-      count +=1
+      count += 1
     end
   end
 end
