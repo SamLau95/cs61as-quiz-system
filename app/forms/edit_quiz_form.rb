@@ -16,7 +16,9 @@ class EditQuizForm < Reform::Form
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
-    Quiz.find(id).update_attributes(quiz_params)
+    quiz = Quiz.find(id)
+    quiz.add_numbers
+    quiz.update_attributes(quiz_params)
   end
 
   private

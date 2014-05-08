@@ -71,4 +71,13 @@ class Quiz < ActiveRecord::Base
     pts = g.any? ? g.reject! { |r| r.nil? }.map { |r| r.grade.to_i }.sum : 0
     "Total Points: #{pts}/10"
   end
+
+  def add_numbers
+    rlt = Relationship.where quiz_id: id
+    count = 1
+    rlt.each do |r|
+      r.update_attribute :number, count
+      count +=1
+    end
+  end
 end
