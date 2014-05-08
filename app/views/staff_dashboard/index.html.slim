@@ -44,7 +44,7 @@ ul
       = link_to re, view_quiz_path(re.quiz_id, student_id: re.student_id)
       = link_to 'Finished Regrading!', change_grade_status_path(re),
                  method: :post
-      = link_to "Delete Request!", regrade_path(re, method: :delete 
+      = link_to "Delete Request!", regrade_path(re, method: :delete) 
 
 = link_to 'New Question!', new_question_path(id: nil)
 
