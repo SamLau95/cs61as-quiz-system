@@ -1,22 +1,22 @@
 h3 Question Bank
 
 - if @questions.blank?
-	p There are no questions!
-- else	
-	- @questions.each do |question|
-	  p Question:
-	  = question.content
-	
-	  p Solution:
-	  = question.solution.content
-	  br
-	  - if @add
-	  	= link_to 'Add question!', add_question_path(question,
-	  																							 quiz_id: @id),
-	  														 method: :post
-	  - else
-	  	p = link_to 'Edit Question', edit_question_path(question)
-	  	p = link_to 'Delete Question', question_path(question), 
-	  															   method: :delete,
-	  															   data: { confirm: 'Are you sure?'}
+  p There are no questions!
+- else  
+  - @questions.each do |question|
+    p Question:
+    = question.content
+  
+    p Solution:
+    = question.solution.content
+    br
+    - if @add
+      = link_to 'Add question!', add_question_path(question,
+                                                   quiz_id: @id),
+                                 method: :post
+    - else
+      p = link_to 'Edit Question', edit_question_path(question)
+      p = link_to 'Delete Question', question_path(question), 
+                                     method: :delete,
+                                     data: { confirm: 'Are you sure?'}
 
