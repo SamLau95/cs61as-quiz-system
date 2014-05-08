@@ -52,7 +52,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.destroy
     flash[:success] = 'Deletion successful'
-    redirect_to :back 
+    redirect_to :back
   end
 
   private
