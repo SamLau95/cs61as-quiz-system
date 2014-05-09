@@ -12,6 +12,7 @@ class EditUserForm < Reform::Form
 
   validates :first_name, :last_name, :email, :login, presence: true
   validates :current_password, presence: true
+  validates :login, uniqueness: true
   # validates :password, :password_confirmation, length: { minimum: 8 }
   validates_format_of :email, with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_format_of :login, with: /cs61as-.{2,4}/
