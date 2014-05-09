@@ -41,7 +41,8 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   scope '/quiz_locks' do
-    post '/:id/lock', to: 'quiz_locks#lock', as: :lock_student
+    post '/:id/lock',    to: 'quiz_locks#lock',   as: :lock_student
+    patch '/:id/unlock', to: 'quiz_locks#unlock', as: :unlock_student
   end
 
   resources :grades
