@@ -16,6 +16,7 @@ class Ability
       can :see, :student_dashboard
       can :check, Student unless user.taking_quiz?
       can :lock, QuizLock, student_id: user.id
+      can :unlock, QuizLock if !user.approved_request?
       can [:edit, :update], User
     end
   end
