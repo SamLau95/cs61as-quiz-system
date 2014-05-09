@@ -23,14 +23,20 @@ class QuizzesController < ApplicationController
   end
 
   def submit
-    @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
-    inject_current_user_into! params
-    if @quiz_form.validate_and_save params[:quiz]
-      QuizLock.find_by_student_id(current_user.id).destroy
-      flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
+    ql = QuizLock.find_by_student_id(current_user.id)
+    if ql.locked
+      flash[:error] = 'You wish you could turn this in'
       redirect_to student_dashboard_path
     else
-      render 'take'
+      @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
+      inject_current_user_into! params
+      if @quiz_form.validate_and_save params[:quiz]
+        ql.destroy
+        flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
+        redirect_to student_dashboard_path
+      else
+        render 'take'
+      end
     end
   end
 

@@ -4,12 +4,12 @@ h1 Welcome to the Student Dashboard!
   .quiz-request
     h3 You are currently requesting to take quiz #{@quiz_request.lesson}
     p Your request is not approved yet!
-- elsif !@quiz_lock.locked
+- elsif @quiz_lock && !@quiz_lock.locked
   .quiz-lock
     = link_to 'Begin quiz!', take_quiz_path, class: 'button',
                              'data-no-turbolink' => true
 
-- elsif @quiz_lock.locked
+- elsif @quiz_lock && @quiz_lock.locked
   .not_quiz_lock
     p Lol your screwed
 

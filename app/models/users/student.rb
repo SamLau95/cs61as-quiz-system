@@ -35,7 +35,7 @@ class Student < User
   delegate :locked?, to: :quiz_lock, allow_nil: true
 
   def approved_request?
-    quiz_lock
+    quiz_lock && !quiz_lock.locked
   end
 
   def making_request?

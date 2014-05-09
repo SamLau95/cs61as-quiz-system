@@ -9,4 +9,7 @@ class QuizLocksController < ApplicationController
       format.js
     end
   end
+
+  def locked
+  end
 end
