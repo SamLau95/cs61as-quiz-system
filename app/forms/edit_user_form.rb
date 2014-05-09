@@ -1,5 +1,6 @@
 # Edit student
 class EditUserForm < Reform::Form
+  include Reform::Form::ActiveRecord
   model :user
 
   property :first_name
@@ -12,7 +13,7 @@ class EditUserForm < Reform::Form
 
   validates :first_name, :last_name, :email, :login, presence: true
   validates :current_password, presence: true
-  validates :login, uniqueness: true
+  validates_uniqueness_of :login
   # validates :password, :password_confirmation, length: { minimum: 8 }
   validates_format_of :email, with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_format_of :login, with: /cs61as-.{2,4}/
