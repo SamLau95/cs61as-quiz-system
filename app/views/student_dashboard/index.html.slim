@@ -11,9 +11,9 @@ h1 Welcome to the Student Dashboard!
 
 - elsif @quiz_lock && @quiz_lock.locked
   .not_quiz_lock
-    p Lol your screwed
+    p We've detected a screen change!
 
-    p Ask a TA to save your sorry self
+    p Please ask a TA to sign you back in.
 
     = simple_form_for @quiz_lock, 
                       url: unlock_student_path(@quiz_lock) do |f|

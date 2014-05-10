@@ -4,6 +4,9 @@ div
   | Time left:
   .minutes 0 minutes
   .seconds 0 seconds
+br
+p Don't click out of the quiz screen please. 
+p Doing so will lock your quiz.
 .row
   .small-12.columns
    = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
