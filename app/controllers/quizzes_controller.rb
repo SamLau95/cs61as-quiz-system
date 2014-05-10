@@ -4,8 +4,10 @@ class QuizzesController < ApplicationController
 
   def make_request
     if !current_user.making_request? || !current_user.taking_quiz?
+      retake = current_user.retake?(params[:lesson]) ? true : false
       QuizRequest.create student: current_user,
                          lesson: params[:lesson]
+                         retake: retake
       flash[:success] = "Requesting quiz #{params[:lesson]}!"
     else
       flash[:alert] = 'You are already requesting to take a quiz!'
@@ -23,14 +25,20 @@ class QuizzesController < ApplicationController
   end
 
   def submit
-    @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
-    inject_current_user_into! params
-    if @quiz_form.validate_and_save params[:quiz]
-      QuizLock.find_by_student_id(current_user.id).destroy
-      flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
+    ql = QuizLock.find_by_student_id(current_user.id)
+    if ql.locked
+      flash[:error] = 'You wish you could turn this in'
       redirect_to student_dashboard_path
     else
-      render 'take'
+      @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
+      inject_current_user_into! params
+      if @quiz_form.validate_and_save params[:quiz]
+        ql.destroy
+        flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
+        redirect_to student_dashboard_path
+      else
+        render 'take'
+      end
     end
   end
 

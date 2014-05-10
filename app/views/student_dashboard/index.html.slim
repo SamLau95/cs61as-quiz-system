@@ -4,10 +4,30 @@ h1 Welcome to the Student Dashboard!
   .quiz-request
     h3 You are currently requesting to take quiz #{@quiz_request.lesson}
     p Your request is not approved yet!
-- elsif @quiz_lock
+- elsif @quiz_lock && !@quiz_lock.locked
   .quiz-lock
     = link_to 'Begin quiz!', take_quiz_path, class: 'button',
                              'data-no-turbolink' => true
+
+- elsif @quiz_lock && @quiz_lock.locked
+  .not_quiz_lock
+    p We've detected a screen change!
+
+    p Please ask a TA to sign you back in.
+
+    = simple_form_for @quiz_lock, 
+                      url: unlock_student_path(@quiz_lock) do |f|
+      .row
+        .small-3.columns
+          = label_tag :staff_id, 'Staff Login' 
+          = text_field_tag :staff_id
+      .row
+        .small-3.columns
+          = label_tag :password
+          = password_field_tag :password
+      
+      = f.submit "Save!", class: 'small button'
+
 - else
   br
   h3 Take a quiz:

@@ -35,7 +35,7 @@ class Student < User
   delegate :locked?, to: :quiz_lock, allow_nil: true
 
   def approved_request?
-    quiz_lock
+    quiz_lock && !quiz_lock.locked
   end
 
   def making_request?
@@ -58,5 +58,9 @@ class Student < User
     taken = []
     submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
     taken.uniq.sort_by(&:lesson)
+  end
+
+  def retake?(lesson)
+    Submission.find_by(student_id: id, lesson: lesson)
   end
 end
