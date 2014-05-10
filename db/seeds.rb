@@ -14,7 +14,6 @@ def make_users
   end
 end
 
-
 def make_quizzes
   q = Quiz.create! lesson: 1,
                    version: 1,
