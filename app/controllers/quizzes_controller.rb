@@ -4,8 +4,10 @@ class QuizzesController < ApplicationController
 
   def make_request
     if !current_user.making_request? || !current_user.taking_quiz?
+      retake = current_user.retake?(params[:lesson]) ? true : false
       QuizRequest.create student: current_user,
                          lesson: params[:lesson]
+                         retake: retake
       flash[:success] = "Requesting quiz #{params[:lesson]}!"
     else
       flash[:alert] = 'You are already requesting to take a quiz!'

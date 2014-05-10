@@ -59,4 +59,8 @@ class Student < User
     submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
     taken.uniq.sort_by(&:lesson)
   end
+
+  def retake?(lesson)
+    Submission.find_by(student_id: id, lesson: lesson)
+  end
 end
