@@ -21,8 +21,18 @@ class StaffDashboardController < ApplicationController
 
   def add
     id, qid = params[:id], params[:quiz_id]
-    Relationship.where(question_id: id, quiz_id: qid).first_or_create
-    flash[:success] = 'Added question from question bank!'
-    redirect_to edit_quiz_path(params[:quiz_id])
+    quiz = Quiz.find params[:quiz_id]
+    quest = Question.find params[:id]
+    if quiz.can_add? quest
+      Relationship.where(question_id: id, quiz_id: qid).first_or_create
+      flash[:success] = 'Added question from question bank!'
+      redirect_to edit_quiz_path(params[:quiz_id])
+    else
+      @lesson = Quiz.all_lessons
+      flash[:error] = "This question has already been used on a retake!"
+      redirect_to question_bank_path(id: quiz.lesson,
+                                     add: true,
+                                     quiz_id: quiz.id)
+    end
   end
 end

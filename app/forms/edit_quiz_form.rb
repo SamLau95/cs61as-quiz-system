@@ -1,5 +1,6 @@
 # Form object for editing quizzes
 class EditQuizForm < Reform::Form
+  include Reform::Form::ActiveRecord
   model :quiz
 
   property :lesson
@@ -13,6 +14,8 @@ class EditQuizForm < Reform::Form
   validates :is_draft, presence: true
   validate :points_add_to_10
   validate :check_lessons
+  validate :check_questions
+  validate :different_version
 
   def validate_and_save(quiz_params)
     return false unless validate(quiz_params)
@@ -43,5 +46,26 @@ class EditQuizForm < Reform::Form
       return false if @model.lesson != quest.lesson
     end
     true
+  end
+
+  def check_questions
+    unless right_questions
+      errors.add :retake, "You have an invalid question!"
+    end
+  end
+
+  def right_questions
+    @model.questions.each do |quest|
+      unless @model.can_add? quest
+        return false
+      end
+    end
+  end
+
+  def different_version
+    q = Quiz.where(lesson: @fields.lesson, version: @fields.version)
+    unless q.size == 0
+      errors.add :version, 'This version has already been used'
+    end
   end
 end
