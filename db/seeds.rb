@@ -4,13 +4,16 @@ def make_users
     Student.create! first_name: 'Student',
                     last_name: "#{i}",
                     email: "student#{i}@gmail.com",
-                    password: 'password'
+                    password: 'password',
+                    login: 'cs61as-aou'
     Staff.create! first_name: 'Staff',
                   last_name: "#{i}",
                   email: "staff#{i}@gmail.com",
-                  password: 'password'
+                  password: 'password',
+                  login: 'cs61as-av'
   end
 end
+
 
 def make_quizzes
   q = Quiz.create! lesson: 1,
