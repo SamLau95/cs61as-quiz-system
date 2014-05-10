@@ -10,6 +10,7 @@ p Generate a quiz
     = simple_form_for @quiz do |f|
       = f.hidden_field :quiz_type, value: 'generate'
       = f.input :lesson, collection: 1..14
+      = f.input :retake, as: :boolean
       = f.submit 'Generate a quiz!'
 
 h3 Quiz Drafts

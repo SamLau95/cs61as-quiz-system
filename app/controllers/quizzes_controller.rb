@@ -55,7 +55,8 @@ class QuizzesController < ApplicationController
       if params[:quiz][:lesson].empty?
         redirect_to :back, notice: 'Invalid Lesson Number'
       else
-        @quiz = Quiz.generate_random(params[:quiz][:lesson])
+        lesson, rtk = params[:quiz][:lesson], params[:quiz][:retake]
+        @quiz = Quiz.generate_random(lesson, rtk)
         redirect_to edit_quiz_path(@quiz), notice: 'Created quiz.'
       end
     end
