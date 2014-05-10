@@ -80,4 +80,11 @@ class Quiz < ActiveRecord::Base
       count += 1
     end
   end
+
+  def can_add?(quest)
+    q = Quiz.where(lesson: lesson, retake: !retake)
+    questions = []
+    q.each { |quiz| questions << quiz.questions }
+    !(questions.flatten.include? quest)
+  end
 end
