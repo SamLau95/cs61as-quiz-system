@@ -26,7 +26,8 @@
       - @questions.each do |question| 
         = link_to "Edit Question", edit_question_path(question, 
                                                       quiz_id: quiz_form.id, 
-                                                      add_pts: true)
+                                                      add_pts: true,
+                                                      lesson: false)
         div
           p Question #{question.number(quiz_form.id)}
           p Points: #{question.points(quiz_form.id)}

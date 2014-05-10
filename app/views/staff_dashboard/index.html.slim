@@ -48,7 +48,8 @@ ul
 
 = link_to 'New Question!', new_question_path(id: nil)
 
-h3 Question Bank: 
+h3 Question Bank:
+
 = render 'staff_dashboard/question_bank', lesson: @lessons,
                                           add: false,
                                           quiz_id: nil

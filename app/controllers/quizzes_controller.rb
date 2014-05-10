@@ -3,14 +3,16 @@ class QuizzesController < ApplicationController
   load_and_authorize_resource except: :create
 
   def make_request
-    if !current_user.making_request? || !current_user.taking_quiz?
-      retake = current_user.retake?(params[:lesson]) ? true : false
+    if !current_user.making_request? || 
+       !current_user.taking_quiz? || 
+       current_user.retake(params[:lesson]) < 2
+      retake = current_user.retake(params[:lesson]) == 1
       QuizRequest.create student: current_user,
                          lesson: params[:lesson],
                          retake: retake
       flash[:success] = "Requesting quiz #{params[:lesson]}!"
     else
-      flash[:alert] = 'You are already requesting to take a quiz!'
+      flash[:alert] = "You can't request this quiz!"
     end
     redirect_to student_dashboard_path
   end
@@ -75,6 +77,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions
+    @lessons = Quiz.all_lessons
     if @quiz_form.validate_and_save quiz_params
       flash[:success] = "Updated #{quiz}!"
       redirect_to staff_dashboard_path

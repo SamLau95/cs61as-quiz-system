@@ -60,7 +60,13 @@ class Student < User
     taken.uniq.sort_by(&:lesson)
   end
 
-  def retake?(lesson)
-    Submission.find_by(student_id: id, lesson: lesson)
+  def retake(lesson)
+    subm = Submission.where(student_id: id)
+    take = []
+    subm.each do |s|
+      q = Quiz.find(s.quiz_id)
+      take << q if q.lesson == lesson.to_i
+    end
+    take.uniq.size
   end
 end
