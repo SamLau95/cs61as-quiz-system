@@ -66,7 +66,7 @@ class Quiz < ActiveRecord::Base
 
   def get_quest(lesson, diff)
     qst = Question.where(lesson: lesson, difficulty: diff)
-    qst.select{ |q| can_add? q}.sample
+    qst.select { |q| can_add? q }.sample
   end
 
   def grade(stu_id)

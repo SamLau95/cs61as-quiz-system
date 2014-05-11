@@ -29,7 +29,7 @@ class StaffDashboardController < ApplicationController
       redirect_to edit_quiz_path(params[:quiz_id])
     else
       @lesson = Quiz.all_lessons
-      flash[:error] = "This question has already been used on a retake!"
+      flash[:error] = 'This question has already been used on a retake!'
       redirect_to question_bank_path(id: quiz.lesson,
                                      add: true,
                                      quiz_id: quiz.id)

@@ -3,8 +3,8 @@ class QuizzesController < ApplicationController
   load_and_authorize_resource except: :create
 
   def make_request
-    if (!current_user.making_request? || 
-        !current_user.taking_quiz?) && 
+    if (!current_user.making_request? ||
+        !current_user.taking_quiz?) &&
        current_user.retake(params[:lesson]) < 2
       retake = current_user.retake(params[:lesson]) == 1
       QuizRequest.create student: current_user,

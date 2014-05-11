@@ -10,7 +10,6 @@ class QuestionsController < ApplicationController
     else
       @question = Question.create
       add_pts = false
-      1/0
     end
     @question.create_solution
     redirect_to edit_question_path(@question,
@@ -32,8 +31,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @add_pts = params[:add_pts]
-    @lesson = params[:lesson]
+    @add_pts, @lesson = params[:add_pts], params[:lesson]
     @points = params[:points]
     question = Question.find params[:id]
     @quiz_id = params[:question][:quiz_id]

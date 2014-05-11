@@ -49,22 +49,18 @@ class EditQuizForm < Reform::Form
   end
 
   def check_questions
-    unless right_questions
-      errors.add :retake, "You have an invalid question!"
-    end
+    errors.add :retake, 'You have an invalid question!' unless right_questions
   end
 
   def right_questions
     @model.questions.each do |quest|
-      unless @model.can_add? quest
-        return false
-      end
+      return false unless @model.can_add? quest
     end
   end
 
   def different_version
     q = Quiz.where(lesson: @fields.lesson, version: @fields.version)
-    unless q.size == 0 || @model = q[0] 
+    unless q.size == 0 || @model == q[0]
       errors.add :version, 'This version has already been used!'
     end
   end
