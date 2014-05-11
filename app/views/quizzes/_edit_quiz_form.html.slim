@@ -26,11 +26,13 @@
       - @questions.each do |question| 
         = link_to "Edit Question", edit_question_path(question, 
                                                       quiz_id: quiz_form.id, 
-                                                      add_pts: true)
+                                                      add_pts: true,
+                                                      lesson: false)
         div
           p Question #{question.number(quiz_form.id)}
           p Points: #{question.points(quiz_form.id)}
           p Content : #{question.content}
-        = link_to "delete", edit_quiz_path(quiz_form.id, destroy: question.id),
+        = link_to "delete", delete_rlt_path(quiz_form.id, quest_id: question.id),
+                            method: :delete,
                             data: { confirm: 'Are you sure?'}
         br

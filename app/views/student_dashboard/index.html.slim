@@ -32,7 +32,8 @@ h1 Welcome to the Student Dashboard!
   br
   h3 Take a quiz:
   - @lessons.each do |lesson|
-    h4 = link_to "Quiz #{lesson}", make_quiz_request_path(lesson), method: :post
+    h4 = link_to "Quiz #{lesson}", make_quiz_request_path(lesson), method: :post,
+                                   data: { confirm: 'Are you sure?' }
 
   h3 Quizzes You've Taken:
   - if @taken.empty? 

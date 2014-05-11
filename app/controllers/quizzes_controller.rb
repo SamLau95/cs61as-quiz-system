@@ -3,14 +3,16 @@ class QuizzesController < ApplicationController
   load_and_authorize_resource except: :create
 
   def make_request
-    if !current_user.making_request? || !current_user.taking_quiz?
-      retake = current_user.retake?(params[:lesson]) ? true : false
+    if (!current_user.making_request? ||
+        !current_user.taking_quiz?) &&
+       current_user.retake(params[:lesson]) < 2
+      retake = current_user.retake(params[:lesson]) == 1
       QuizRequest.create student: current_user,
-                         lesson: params[:lesson]
+                         lesson: params[:lesson],
                          retake: retake
       flash[:success] = "Requesting quiz #{params[:lesson]}!"
     else
-      flash[:alert] = 'You are already requesting to take a quiz!'
+      flash[:alert] = "You can't request this quiz!"
     end
     redirect_to student_dashboard_path
   end
@@ -53,7 +55,8 @@ class QuizzesController < ApplicationController
       if params[:quiz][:lesson].empty?
         redirect_to :back, notice: 'Invalid Lesson Number'
       else
-        @quiz = Quiz.generate_random(params[:quiz][:lesson])
+        lesson, rtk = params[:quiz][:lesson], params[:quiz][:retake]
+        @quiz = Quiz.generate_random(lesson, rtk)
         redirect_to edit_quiz_path(@quiz), notice: 'Created quiz.'
       end
     end
@@ -75,6 +78,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions
+    @lessons = Quiz.all_lessons
     if @quiz_form.validate_and_save quiz_params
       flash[:success] = "Updated #{quiz}!"
       redirect_to staff_dashboard_path
@@ -86,6 +90,14 @@ class QuizzesController < ApplicationController
   def destroy
     Quiz.find(params[:id]).destroy
     redirect_to staff_dashboard_path, notice: 'Deleted quiz.'
+  end
+
+  def delete_question
+    qid, quest_id = params[:id], params[:quest_id]
+    Relationship.find_by(quiz_id: qid, question_id: quest_id).destroy
+    quiz = Quiz.find qid
+    flash[:success] = 'Removed question from quiz'
+    redirect_to edit_quiz_path(quiz)
   end
 
   def show
