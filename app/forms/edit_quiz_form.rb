@@ -64,7 +64,7 @@ class EditQuizForm < Reform::Form
 
   def different_version
     q = Quiz.where(lesson: @fields.lesson, version: @fields.version)
-    unless q.size == 0
+    unless q.size == 0 || @model = q[0] 
       errors.add :version, 'This version has already been used!'
     end
   end

@@ -6,16 +6,17 @@ class QuestionsController < ApplicationController
     if params[:quiz_id]
       @quiz = Quiz.find params[:quiz_id]
       @question = @quiz.questions.create lesson: @quiz.lesson
-      add_pts, lesson = true, false
+      add_pts = true
     else
       @question = Question.create
-      add_pts, lesson= false, true 
+      add_pts = false
+      1/0
     end
     @question.create_solution
     redirect_to edit_question_path(@question,
                                    quiz_id: params[:quiz_id],
                                    add_pts: add_pts,
-                                   lesson: lesson,
+                                   lesson: true,
                                    points: @points)
   end
 

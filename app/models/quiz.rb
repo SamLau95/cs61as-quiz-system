@@ -28,7 +28,7 @@ class Quiz < ActiveRecord::Base
   # validates :lesson, :version, presence: true
 
   def self.lessons
-    all.map(&:lesson).uniq.sort
+    published.map(&:lesson).uniq.sort
   end
 
   def self.choose_one(quiz_request)

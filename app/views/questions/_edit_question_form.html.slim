@@ -7,6 +7,8 @@ row
           h3 Question
           - if lesson == "true"
             = f.input :lesson, collection: 1..14
+          - else
+            = f.hidden_field :lesson, value: f.object.lesson
           = f.label :difficulty
           = f.select :difficulty, options_for_select(Question.levels)
           = f.hidden_field :quiz_id, value: quiz_id
