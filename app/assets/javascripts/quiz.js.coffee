@@ -10,13 +10,13 @@ fullscreen = ->
     docElement = document.documentElement
     request = docElement.requestFullScreen or docElement.webkitRequestFullScreen or docElement.mozRequestFullScreen or docElement.msRequestFullScreen
     request.call docElement if typeof request isnt "undefined" and request
-  # $('#fullscreen')[0].click()
+    $('#quiz').show()
+    $('#fullscreen').hide()
 
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    console.log 'Hello'
-    # $(window).blur -> onchange()
+    $(window).blur -> onchange()
     timer(gon.time_left)
   else
     $(window).off 'blur'
