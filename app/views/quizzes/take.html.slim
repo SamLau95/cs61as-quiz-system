@@ -7,17 +7,21 @@ div
 br
 p Don't click out of the quiz screen please. 
 p Doing so will lock your quiz.
-.row
-  .small-12.columns
-   = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
-                      html: { id: 'take_quiz_form', method: :post } do |f|
-      = f.fields_for :new_submissions do |sf|
-        = sf.hidden_field :quiz_id, value: @quiz_form.id
-        = sf.hidden_field :question_id, value: sf.object.question_id
-        br
-        = sf.object.question_content
-        br
-        = sf.text_area :content, label: false, class: 'noscroll'
-      = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
+
+#quiz
+  .row
+    .small-12.columns
+     = simple_form_for @quiz_form, url: submit_quiz_path(@quiz_form),
+                        html: { id: 'take_quiz_form', method: :post } do |f|
+        = f.fields_for :new_submissions do |sf|
+          = sf.hidden_field :quiz_id, value: @quiz_form.id
+          = sf.hidden_field :question_id, value: sf.object.question_id
+          br
+          = sf.object.question_content
+          br
+          = sf.text_area :content, label: false, class: 'noscroll'
+        = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
+
+= link_to 'Start!', '#', class: 'Small button', id: 'fullscreen' 
 
 = link_to '', student_dashboard_path, class: 'hidden'
