@@ -39,4 +39,8 @@ class User < ActiveRecord::Base
   def to_s
     "#{first_name} #{last_name}"
   end
+
+  def taking_quiz?
+    false
+  end
 end
