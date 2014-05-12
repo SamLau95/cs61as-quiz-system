@@ -25,7 +25,7 @@ fullscreen = ->
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    # $(window).blur -> onchange()
+    $(window).blur -> onchange()
     timer(gon.time_left)
   else
     $(window).off 'blur'
