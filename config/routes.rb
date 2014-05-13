@@ -1,6 +1,6 @@
 Cs61asQuizzes::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'students/registrations' }
   devise_scope :user do
     root to: 'devise/sessions#new'
   end
