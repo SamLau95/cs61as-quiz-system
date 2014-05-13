@@ -8,7 +8,7 @@ fullscreen = ->
   $('#fullscreen').click (e) ->
     e.preventDefault()
     docElement = document.documentElement
-    request = docElement.requestFullScreen or docElement.webkitRequestFullScreen or docElement.mozRequestFullScreen or docElement.msRequestFullScreen
+    request = docElement.requestFullscreen or docElement.webkitRequestFullscreen or docElement.mozRequestFullscreen or docElement.msRequestFullscreen
     request.call docElement if typeof request isnt "undefined" and request
     $('#quiz').show()
     $('#fullscreen').hide()
