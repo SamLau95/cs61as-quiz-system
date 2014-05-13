@@ -37,6 +37,11 @@
         notice: info
       };
 
+      toastr.options = {
+          "closeButton": true,
+          "positionClass": "toast-bottom-right"
+      }
+
       return toastr;
 
       //#region Accessible Methods
