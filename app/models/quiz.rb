@@ -92,4 +92,8 @@ class Quiz < ActiveRecord::Base
     q.each { |quiz| questions << quiz.questions }
     !(questions.flatten.include? quest)
   end
+
+  def self.has_quiz(lesson, retake)
+    Quiz.published.where(lesson: lesson, retake: retake)
+  end
 end

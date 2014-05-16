@@ -3,14 +3,9 @@ class QuizzesController < ApplicationController
   load_and_authorize_resource except: :create
 
   def make_request
-    if (!current_user.making_request? ||
-        !current_user.taking_quiz?) &&
-       current_user.retake(params[:lesson]) < 2
-      retake = current_user.retake(params[:lesson]) == 1
-      QuizRequest.create student: current_user,
-                         lesson: params[:lesson],
-                         retake: retake
-      flash[:success] = "Requesting quiz #{params[:lesson]}!"
+    cu, les = current_user, params[:lesson]
+    if can_take? les
+      check_quiz_and_make_request(cu, les)
     else
       flash[:alert] = "You can't request this quiz!"
     end
@@ -107,6 +102,11 @@ class QuizzesController < ApplicationController
 
   private
 
+  def can_take?(lesson)
+    (!current_user.making_request? || !current_user.taking_quiz?) &&
+    current_user.retake(params[:lesson]) < 2
+  end
+
   def inject_current_user_into!(quiz_params)
     submissions_params = quiz_params[:quiz][:new_submissions_attributes]
     submissions_params.each { |_, v| v[:student_id] = current_user.id }
@@ -114,5 +114,15 @@ class QuizzesController < ApplicationController
 
   def quiz_params
     params.require(:quiz).permit!
+  end
+
+  def check_quiz_and_make_request(cu, les)
+    re = current_user.retake(les) == 1
+    if Quiz.has_quiz(les, re).blank?
+      flash[:notice] = "We don't currently have this quiz - please tell us!"
+    else
+      QuizRequest.create student: cu, lesson: les, retake: re
+      flash[:success] = "Requesting quiz #{params[:lesson]}!"
+    end
   end
 end
