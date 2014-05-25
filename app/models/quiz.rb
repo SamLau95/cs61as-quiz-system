@@ -73,7 +73,7 @@ class Quiz < ActiveRecord::Base
     g = questions.map do |q|
       Grade.find_by question_id: q.id, student_id: stu_id
     end
-    pts = g.any? ? g.reject! { |r| r.nil? }.map { |r| r.grade.to_i }.sum : 0
+    pts = g.any? ? g.reject { |r| r.nil? }.map { |r| r.grade.to_i }.sum : 0
     "Total Points: #{pts}/10"
   end
 
