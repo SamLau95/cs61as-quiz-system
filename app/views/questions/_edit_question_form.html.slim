@@ -1,6 +1,6 @@
 
-row
-  .small-12-columns
+.row
+  .small-12.columns
     = simple_form_for quest_form do |f|
       .row
         .small-3.columns
@@ -29,3 +29,4 @@ row
             = sf.text_area :content, placeholder: 'Add Rubric'
       br
         = f.submit 'Update!', class: 'small button'
+= render 'shared/markdown_reference'

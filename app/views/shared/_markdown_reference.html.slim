@@ -1,0 +1,92 @@
+.row.md-ref
+  .small-12.columns
+    .row
+      .medium-6.columns
+        h3 This Markdown...
+      .medium-6.columns
+        h3 produces this output
+    .row
+      .medium-6.columns
+        pre
+          | # This is an h1
+      .medium-6.columns
+        = markdown '# This is a h1'
+    .row
+      .medium-6.columns
+        pre
+          | # This is an h3
+      .medium-6.columns
+        = markdown '### This is a h3'
+    .row
+      .medium-6.columns
+        pre
+          | > This is a blockquote.
+      .medium-6.columns
+        = markdown '> This is a blockquote.'
+    .row
+      .medium-6.columns
+        pre
+          | *These words* are emphasized.
+      .medium-6.columns
+        = markdown '*These words* are emphasized.'
+    .row
+      .medium-6.columns
+        pre
+          | **So are these**
+      .medium-6.columns
+        = markdown '**So are these**'
+    .row
+      .medium-6.columns
+        pre
+          | ==These words== will be highlighted.
+      .medium-6.columns
+        = markdown '==These words== will be highlighted.'
+    .row
+      .medium-6.columns
+        pre
+          | - This is an unordered list element.
+          br
+          | - This is another unordered list element.
+      .medium-6.columns
+        = markdown "- This is an unordered list element.\n\
+                    - This is another unordered list element."
+    .row
+      .medium-6.columns
+        pre
+          | 1. This is an ordered list element.
+          br
+          | 2. This is another ordered list element.
+      .medium-6.columns
+        = markdown "1. This is an ordered list element.\n\
+                    2. This is another ordered list element."
+    .row
+      .medium-6.columns
+        pre
+          | `Backticks` denote inline code.
+      .medium-6.columns
+        = markdown '`Backticks` denote inline code.'
+    .row
+      .medium-6.columns
+        pre
+          |     This is a code block. (4 spaces)
+        p
+      .medium-6.columns
+        = markdown '    This is a code block. (4 spaces)'
+    .row
+      .medium-6.columns
+        pre
+          | ``` scheme
+          br
+          | (define (scheme-example x)
+          br
+          |   'this-is-scheme-code)
+          br
+          | ```
+      .medium-6.columns
+        = markdown "``` scheme\n\
+                    (define (scheme-example x)\n  \
+                    'this-is-scheme-code)\n\
+                    ```"
+    br
+    ' Check out the #{link_to 'syntax', 'http://daringfireball.net/projects/markdown/syntax#code'}
+    | for more details.
