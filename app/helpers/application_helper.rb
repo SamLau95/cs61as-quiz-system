@@ -3,7 +3,7 @@ module ApplicationHelper
   def markdown(text)
     md_options = { autolink: true, no_intra_emphasis: true,
                    fenced_code_blocks: true, superscript: true,
-                   underline: true, highlight: true, quote: true }
+                   highlight: true, quote: true }
     renderer_options = { hard_wrap: true, filter_html: true }
 
     highlight_syntax Redcarpet::Markdown.new(
