@@ -2,20 +2,11 @@
 
 @import "foundation/components/forms";
 
-// Textarea autoresizing
-.noscroll { overflow: hidden; }
-.hiddendiv {
-  display: none;
-}
-
-// Click hidden link
-
 .hidden {
   display: none;
 }
 
 // Hide quizzes initially
-
 #quiz {
   display: none;
 }
