@@ -16,6 +16,7 @@ gem 'ffaker', '~> 1.22.1'
 gem 'devise', '~> 3.2.3'
 gem 'newrelic_rpm'
 gem 'json', '~> 1.8.1'
+gem 'redcarpet', '~> 3.1.2'
 
 gem 'compass-rails', '~> 1.1.3'
 gem 'foundation-rails', '~> 5.1.1.0'
