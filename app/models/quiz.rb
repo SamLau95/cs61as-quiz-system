@@ -54,19 +54,21 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.generate_random(lesson, rtk)
-    quiz = create lesson: lesson.to_i, retake: rtk
-    hard = quiz.get_quest(lesson, 'hard')
-    medium = quiz.get_quest(lesson, 'medium')
-    easy = quiz.get_quest(lesson, 'easy')
+    quiz = create lesson: lesson.to_i, retake: rtk == '1'
+    easy, medium, hard = quiz.get_quest(lesson)
     quiz.relationships.create(question: hard, number: quiz.next_number) unless hard.nil?
     quiz.relationships.create(question: medium, number: quiz.next_number) unless medium.nil?
     quiz.relationships.create(question: easy, number: quiz.next_number) unless easy.nil?
     quiz
   end
 
-  def get_quest(lesson, diff)
-    qst = Question.where(lesson: lesson, difficulty: diff)
-    qst.select { |q| can_add? q }.sample
+  def get_quest(lesson)
+    questions = []
+    ['Easy', 'Medium', 'Hard'].each do |diff|
+      qst = Question.where(lesson: lesson, difficulty: diff)
+      questions << qst.select { |q| can_add? q }.sample
+    end
+    questions
   end
 
   def grade(stu_id)
