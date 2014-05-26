@@ -17,6 +17,7 @@ h1 = @grade
         .row
           .small-6.columns
             = f.input :reason, label: 'Reason why it should be regraded:',
+                               input_html: { class: 'expand' },
                                placeholder: 'Ex: The code runs correctly on lab computer.'
             = f.hidden_field :quiz_id, value: @quiz.id
             = f.hidden_field :student_id, value: @current_user.id
@@ -27,10 +28,10 @@ h1 = @grade
 - @ques_subm.each do |question, subm, score|
   div 
     p Question: 
-    p = question.content
+    p = markdown question.content
 
     p Solution: 
-    p = question.solution.content
+    p = markdown question.solution.content
     
     p Student Answer:
     p = subm.content

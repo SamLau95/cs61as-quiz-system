@@ -9,6 +9,6 @@ h1 = @quiz
     div
     p Question #{question.number(@quiz.id)}
     p Points: #{question.points(@quiz.id)}
-    p = question.content
+    p = markdown question.content
 
 

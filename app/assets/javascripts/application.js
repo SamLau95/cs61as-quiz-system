@@ -16,7 +16,10 @@
 //= require turbolinks
 //= require_tree .
 
-var ready = function() { $(document).foundation(); };
+var ready = function() {
+  $(document).foundation();
+  $("textarea[class*=expand]").TextAreaExpander();
+};
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

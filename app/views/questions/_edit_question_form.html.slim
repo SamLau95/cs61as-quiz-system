@@ -1,6 +1,6 @@
 
-row
-  .small-12-columns
+.row
+  .small-12.columns
     = simple_form_for quest_form do |f|
       .row
         .small-3.columns
@@ -19,13 +19,18 @@ row
             = text_field_tag :points, points
       .row
         .small-12.columns
-          = f.input :content, as: :text, label: 'Question'
+          = f.input :content, as: :text,
+                    input_html: { class: 'expand' },
+                    label: 'Question (parsed as Markdown)'
       .row
         .small-12.columns
           = f.fields_for :solution do |sf|
             = sf.hidden_field :question_id, value: f.object.id
             br
-            = sf.label :content, '* Solution'
-            = sf.text_area :content, placeholder: 'Add Rubric'
+            = sf.label :content, '* Solution (parsed as Markdown)'
+            = sf.text_area :content,
+                           class: 'expand',
+                           placeholder: 'Add Rubric'
       br
         = f.submit 'Update!', class: 'small button'
+= render 'shared/markdown_reference'
