@@ -14,7 +14,7 @@ module ApplicationHelper
   def highlight_syntax(html)
     doc = Nokogiri::HTML.fragment html
     doc.search('code[@class]').each do |code|
-      code.replace Albino.colorize(code.text.rstrip, code[:class])
+      code.replace Pygmentize.process(code.text.rstrip, code[:class])
     end
     doc.to_s.html_safe
   end
