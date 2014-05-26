@@ -19,13 +19,13 @@ row
             = text_field_tag :points, points
       .row
         .small-12.columns
-          = f.input :content, as: :text, label: 'Question'
+          = f.input :content, as: :text, label: 'Question (parsed as Markdown)'
       .row
         .small-12.columns
           = f.fields_for :solution do |sf|
             = sf.hidden_field :question_id, value: f.object.id
             br
-            = sf.label :content, '* Solution'
+            = sf.label :content, '* Solution (parsed as Markdown)'
             = sf.text_area :content, placeholder: 'Add Rubric'
       br
         = f.submit 'Update!', class: 'small button'

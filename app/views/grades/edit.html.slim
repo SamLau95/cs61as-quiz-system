@@ -4,10 +4,10 @@ h1 Edit
   .row
     .small-3.columns
       h3 Question:
-      = @question.content
+      = markdown @question.content
 
       h4 Solution:
-      = @question.solution.content
+      = markdown @question.solution.content
 
       h5 Student's Answer:
       = @submission.content

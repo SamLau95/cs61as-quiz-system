@@ -27,10 +27,10 @@ h1 = @grade
 - @ques_subm.each do |question, subm, score|
   div 
     p Question: 
-    p = question.content
+    p = markdown question.content
 
     p Solution: 
-    p = question.solution.content
+    p = markdown question.solution.content
     
     p Student Answer:
     p = subm.content

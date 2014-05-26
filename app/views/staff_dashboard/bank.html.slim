@@ -5,10 +5,10 @@ h3 Question Bank
 - else  
   - @questions.each do |question|
     p Question:
-    = question.content
+    = markdown question.content
   
     p Solution:
-    = question.solution.content
+    = markdown question.solution.content
     br
     - if @add
       = link_to 'Add question!', add_question_path(question,

@@ -17,7 +17,7 @@ p Doing so will lock your quiz.
           = sf.hidden_field :quiz_id, value: @quiz_form.id
           = sf.hidden_field :question_id, value: sf.object.question_id
           br
-          = sf.object.question_content
+          = markdown sf.object.question_content
           br
           = sf.text_area :content, label: false, class: 'noscroll'
         = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
