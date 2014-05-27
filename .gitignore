@@ -24,3 +24,6 @@
 # Ignore custom rake file
 /lib/database.rake
 
+# Ignore DS_Store files
+
+*.DS_Store
