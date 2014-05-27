@@ -1,0 +1,36 @@
+/**
+ * Inspired by github's default code highlighting
+ */
+pre { white-space: pre; 
+      background-color: #f8f8f8; 
+      border: 1px solid #ccc; 
+      font-size: 13px; 
+      line-height: 19px; 
+      overflow: auto; 
+      padding: 6px 10px; 
+      border-radius: 3px; 
+      height: auto;}
+pre .replace {white-space: pre; margin: 0; padding: 0; background: none; border: none; overflow-x: auto; font-size: 13px;}
+.replace {margin: 0 2px; padding: 0 5px; white-space: nowrap; font-family: Consolas, "Liberation Mono", Courier, monospace; background: #f8f8f8; border: 1px solid #eaeaea; border-radius: 3px;}
+
+.replace {color: #008080;}
+.replace .function {color: #008080;}
+.replace .function.known {color: #800603;}
+.replace .function.known.special {color: #2d2d2d; font-weight: bold;}
+.replace .keyword {color: #990073;}
+.replace .keyword.known {color: #990073;}
+.replace .symbol {color: #75a;}
+.replace .lambda-list {color: #966;}
+.replace .number {color: #800;}
+.replace .variable.known {color: #c3c;}
+.replace .variable.global {color: #939;}
+.replace .variable.constant {color: #229;}
+.replace .nil {color: #f00;}
+.replace .list {color: #222;}
+
+.replace .string, .replace .string * {color: #d14 !important;}
+.replace .comment,
+.replace .comment *,
+.replace .comment .string
+.replace .comment .string * {color: #aaa !important;}
+.replace .string .comment {color: #d14 !important;}

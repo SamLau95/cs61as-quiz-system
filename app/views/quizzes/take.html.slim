@@ -19,7 +19,8 @@ p Doing so will lock your quiz.
           br
           = markdown sf.object.question_content
           br
-          = sf.text_area :content, label: false, class: 'expand'
+          pre.replace
+          = sf.text_area :content, label: false, class: 'expand hilite'
         = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
 
 = link_to 'Start!', '#', class: 'Small button', id: 'fullscreen' 
