@@ -21,6 +21,5 @@ var ready = function() {
   $("textarea[class*=expand]").TextAreaExpander();
 };
 
-
 $(document).ready(ready)
 $(document).on('page:load', ready)

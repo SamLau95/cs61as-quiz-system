@@ -15,12 +15,12 @@ fullscreen = ->
     $('li.name').hide()
     fs = 'webkitfullscreenchange mozfullscreenchange fullscreenchange'
     fullScreen = false
-    # $(document).on fs, (e) ->
-    #   fullScreen = !fullScreen
-    #   if !fullScreen
-    #     $.ajax
-    #       url: gon.lock_path,
-    #       type: 'POST'
+    $(document).on fs, (e) ->
+      fullScreen = !fullScreen
+      if !fullScreen
+        $.ajax
+          url: gon.lock_path,
+          type: 'POST'
 
 hilite = ->
   $('.hilite').keyup (e) ->
@@ -29,8 +29,8 @@ hilite = ->
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    # $(window).blur -> onchange()
-    # timer(gon.time_left)
+    $(window).blur -> onchange()
+    timer(gon.time_left)
     hilite()
   else
     $(window).off 'blur'
