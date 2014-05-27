@@ -381,7 +381,7 @@ var highlight_lisp = function() {
 	{
 		var html = code_el.value;
 		// can't have &...;'s running wild like a pack of animals...
-		html = html.replace(/\n/, "<br>")
+		html = html.replace(/\n/g, "<br>")
 		html = html.replace(/&amp;/g, '&');
 		html = html.replace(/&lt;/g, '<');
 		html = html.replace(/&gt;/g, '>');
@@ -391,13 +391,12 @@ var highlight_lisp = function() {
 		{
 			var rep = replace[i];
 			html = html.replace(rep.regex, rep.replace);
-			console.log(html);
 		}
 		// unpad HTML string
 		html = html.replace(/(^\n|\n$)/g, '');
 		html = html.replace(/<(?!\/?span|br)/g, '&lt;');
-		console.log(html);
-		$('.replace')[0].innerHTML = html;
+		var repl = $(code_el.parentElement).find('.replace');
+		repl[0].innerHTML = html;
 	},
 
 	/**

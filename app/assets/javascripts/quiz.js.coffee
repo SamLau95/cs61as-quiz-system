@@ -22,11 +22,16 @@ fullscreen = ->
     #       url: gon.lock_path,
     #       type: 'POST'
 
+hilite = ->
+  $('.hilite').keyup (e) ->
+    HighlightLisp.highlight_element(e.target)
+
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
     # $(window).blur -> onchange()
     # timer(gon.time_left)
+    hilite()
   else
     $(window).off 'blur'
 
