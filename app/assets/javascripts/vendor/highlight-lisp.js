@@ -381,7 +381,8 @@ var highlight_lisp = function() {
 	{
 		var html = code_el.value;
 		// can't have &...;'s running wild like a pack of animals...
-		html = html.replace(/\n/g, "<br>")
+		html = html.replace(/\n/g, "<br>");
+		html = html.replace(/\t/g, "&nbsp&nbsp");
 		html = html.replace(/&amp;/g, '&');
 		html = html.replace(/&lt;/g, '<');
 		html = html.replace(/&gt;/g, '>');

@@ -7,20 +7,28 @@ onchange = ->
 fullscreen = ->
   $('#fullscreen').click (e) ->
     e.preventDefault()
-    docElement = document.documentElement
-    request = docElement.requestFullscreen or docElement.webkitRequestFullscreen or docElement.mozRequestFullscreen or docElement.msRequestFullscreen
-    request.call docElement if typeof request isnt "undefined" and request
+    # docElement = document.documentElement
+    # request = docElement.requestFullscreen or docElement.webkitRequestFullscreen or docElement.mozRequestFullscreen or docElement.msRequestFullscreen
+    # request.call docElement if typeof request isnt "undefined" and request
     $('#quiz').show()
     $('#fullscreen').hide()
     $('li.name').hide()
     fs = 'webkitfullscreenchange mozfullscreenchange fullscreenchange'
     fullScreen = false
-    $(document).on fs, (e) ->
-      fullScreen = !fullScreen
-      if !fullScreen
-        $.ajax
-          url: gon.lock_path,
-          type: 'POST'
+    # $(document).on fs, (e) ->
+    #   fullScreen = !fullScreen
+    #   if !fullScreen
+    #     $.ajax
+    #       url: gon.lock_path,
+    #       type: 'POST'
+  $('.hilite').keydown (e) ->
+    if (e.keyCode == 9) 
+      start = this.selectionStart
+      end = this.selectionEnd
+      $this = $(this)
+      $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
+      this.selectionStart = this.selectionEnd = start + 1
+      return false
 
 hilite = ->
   $('.hilite').keyup (e) ->
@@ -29,7 +37,7 @@ hilite = ->
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    $(window).blur -> onchange()
+    # $(window).blur -> onchange()
     timer(gon.time_left)
     hilite()
   else
