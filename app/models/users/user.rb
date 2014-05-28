@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :login, presence: true, format: { with: /\Acs61as-[a-z]{2,3}\z/ }, uniqueness: true
+
   def staff?
     false
   end
