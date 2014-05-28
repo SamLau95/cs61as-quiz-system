@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  LOGRX = /\Acs61as-[a-z]{2,3}\z/
+  validates :login, presence: true, format: { with: LOGRX }, uniqueness: true
+
   def staff?
     false
   end
