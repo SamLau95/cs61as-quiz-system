@@ -84,7 +84,7 @@ class Student < User
   end
 
   def has_grade(lesson)
-    grades.where(lesson: lesson).blank?
+    !grades.where(lesson: lesson).blank?
   end
 
   def get_max(lesson)
