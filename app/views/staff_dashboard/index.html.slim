@@ -55,6 +55,13 @@ h3 Question Bank:
                                           add: false,
                                           quiz_id: nil
 
+h3 Download Grades.txt file
+
+= form_tag staff_dashboard_path do
+  = select_tag(:lesson, options_for_select(@download))
+  = submit_tag 'Download!'
+
+
 h3 Students
 ul.students
   - @students.each do |student|

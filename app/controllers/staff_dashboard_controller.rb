@@ -10,6 +10,11 @@ class StaffDashboardController < ApplicationController
     @lessons = Quiz.all_lessons
     @quiz = Quiz.new
     @regrades = Regrade.not_graded
+    @download = downloads
+    respond_to do |format|
+      format.html {}
+      format.csv {}
+    end
   end
 
   def bank
@@ -34,5 +39,15 @@ class StaffDashboardController < ApplicationController
                                      add: true,
                                      quiz_id: quiz.id)
     end
+  end
+
+  private
+
+  def downloads
+    download = []
+    (1..14).each do |n|
+      download << ["Lesson #{n}", n.to_s]
+    end
+    download
   end
 end
