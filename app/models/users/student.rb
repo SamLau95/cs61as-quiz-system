@@ -74,7 +74,7 @@ class Student < User
 
   def self.get_csv(lesson)
     CSV.generate do |csv|
-      csv << ['Login','Grade']
+      csv << ['Login', 'Grade']
       all.each do |student|
         if student.has_grade(lesson)
           csv << [student.login, student.get_max(lesson)]
