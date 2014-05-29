@@ -3,7 +3,7 @@ class GradesController < ApplicationController
   def new
     qid, sid = params[:qid], params[:sid]
     @question = Question.find qid
-    @grade = Grade.where(question_id: qid, 
+    @grade = Grade.where(question_id: qid,
                          student_id: sid,
                          lesson: @question.lesson).first_or_create
     redirect_to edit_grade_path(@grade)
