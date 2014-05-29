@@ -57,7 +57,7 @@ h3 Question Bank:
 
 h3 Download Grades.txt file
 
-= form_tag staff_dashboard_path do
+= form_tag download_grades_path( format: 'csv' ) do
   = select_tag(:lesson, options_for_select(@download))
   = submit_tag 'Download!'
 

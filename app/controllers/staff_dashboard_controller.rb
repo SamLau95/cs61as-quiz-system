@@ -41,6 +41,13 @@ class StaffDashboardController < ApplicationController
     end
   end
 
+  def download
+    respond_to do |format|
+      format.html { redirect_to staff_dashboard_path }
+      format.csv { 1/0}
+    end
+  end
+
   private
 
   def downloads

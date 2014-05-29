@@ -9,6 +9,7 @@ Cs61asQuizzes::Application.routes.draw do
 
   scope '/staff' do
     get '', to: 'staff_dashboard#index', as: :staff_dashboard
+    post '/download', to: 'staff_dashboard#download', as: :download_grades
     get '/bank/:id', to: 'staff_dashboard#bank', as: :question_bank
     post '/add/:id', to: 'staff_dashboard#add', as: :add_question
   end
