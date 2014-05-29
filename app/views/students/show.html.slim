@@ -7,4 +7,4 @@ h4 Quizzes to Grade:
 -else
   p View student's answers
   - @taken.each do |quiz|
-    = link_to quiz, view_quiz_path(quiz, student_id: @student.id)
+    = link_to quiz, view_quiz_path(@student.id, quiz_id: quiz.id)

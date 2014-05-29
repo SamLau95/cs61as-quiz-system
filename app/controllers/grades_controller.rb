@@ -25,7 +25,7 @@ class GradesController < ApplicationController
     @grade_form = EditGradeForm.new grade
     quiz = params[:quiz_id]
     if @grade_form.validate_and_save grade_params
-      redirect_to view_quiz_path(quiz, student_id: grade.student_id)
+      redirect_to view_quiz_path(grade.student_id, quiz_id: quiz)
     else
       render 'edit'
     end
