@@ -19,8 +19,16 @@ fullscreen = ->
       fullScreen = !fullScreen
       if !fullScreen
         $.ajax
-          url: gon.lock_path,
-          type: 'POST'
+        url: gon.lock_path,
+        type: 'POST'
+  $('.hilite').keydown (e) ->
+    if (e.keyCode == 9) 
+      start = this.selectionStart
+      end = this.selectionEnd
+      $this = $(this)
+      $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
+      this.selectionStart = this.selectionEnd = start + 1
+      return false
 
 hilite = ->
   $('.hilite').keyup (e) ->
