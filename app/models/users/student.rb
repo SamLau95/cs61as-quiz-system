@@ -1,3 +1,5 @@
+require 'csv'
+
 # == Schema Information
 #
 # Table name: users
@@ -68,5 +70,29 @@ class Student < User
       take << q if q.lesson == lesson.to_i
     end
     take.uniq.size
+  end
+
+  def self.get_csv(lesson)
+    CSV.generate do |csv|
+      csv << ['Login', 'Grade']
+      all.each do |student|
+        if student.has_grade(lesson)
+          csv << [student.login, student.get_max(lesson)]
+        end
+      end
+    end
+  end
+
+  def has_grade(lesson)
+    !grades.where(lesson: lesson).blank?
+  end
+
+  def get_max(lesson)
+    grades1 = grades.where(lesson: lesson, retake: 'false')
+    grades2 = grades.where(lesson: lesson, retake: 'true')
+    total1, total2 = 0, 0
+    grades1.each { |g| total1 += g.grade } unless grades1.blank?
+    grades2.each { |g| total2 += g.grade } unless grades2.blank?
+    [total1, total2].max
   end
 end

@@ -8,10 +8,10 @@ class StudentsController < ApplicationController
   end
 
   def view
-    id, stu_id = params[:id], params[:student_id]
+    stu_id, id = params[:id], params[:quiz_id]
     @student_id = stu_id
     @quiz = Quiz.find id
-    @questions = @quiz.questions.includes(:solution)
+    @questions = @quiz.questions
     @subm = Submission.where(quiz_id: id, student_id: stu_id)
                              # .sort_by { |sub| sub.question_number }
     @scores = @questions.map do |q|

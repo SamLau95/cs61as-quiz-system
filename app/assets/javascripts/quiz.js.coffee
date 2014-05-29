@@ -19,8 +19,9 @@ fullscreen = ->
       fullScreen = !fullScreen
       if !fullScreen
         $.ajax
-        url: gon.lock_path,
-        type: 'POST'
+          url: gon.lock_path,
+          type: 'POST'
+
   $('.hilite').keydown (e) ->
     if (e.keyCode == 9) 
       start = this.selectionStart

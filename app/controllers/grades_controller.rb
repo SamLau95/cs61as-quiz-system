@@ -3,8 +3,10 @@ class GradesController < ApplicationController
   def new
     qid, sid = params[:qid], params[:sid]
     @question = Question.find qid
-    @grade = Grade.where(question_id: qid, student_id: sid).first_or_create
-    redirect_to edit_grade_path(@grade, lesson: @question.lesson)
+    @grade = Grade.where(question_id: qid,
+                         student_id: sid,
+                         lesson: @question.lesson).first_or_create
+    redirect_to edit_grade_path(@grade)
   end
 
   def edit
@@ -13,7 +15,6 @@ class GradesController < ApplicationController
                                      student_id: grade.student_id
     @question = Question.find grade.question_id
     @grade_form = EditGradeForm.new grade
-    @lesson = params[:lesson]
   end
 
   def update
@@ -23,9 +24,10 @@ class GradesController < ApplicationController
     @question = Question.find grade.question_id
 
     @grade_form = EditGradeForm.new grade
-    quiz = params[:quiz_id]
+    quiz = Quiz.find(params[:quiz_id])
+    grade_params[:retake] = quiz.retake
     if @grade_form.validate_and_save grade_params
-      redirect_to view_quiz_path(quiz, student_id: grade.student_id)
+      redirect_to view_quiz_path(grade.student_id, quiz_id: quiz)
     else
       render 'edit'
     end

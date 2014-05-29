@@ -39,7 +39,8 @@ class EditQuestionForm < Reform::Form
 
   def update_points(params)
     unless params[:points].blank? || params[:quiz_id].blank?
-      rlt = Relationship.find_by_quiz_id(params[:quiz_id])
+      rlt = Relationship.find_by quiz_id: params[:quiz_id],
+                                 question_id: id
       rlt.update_attribute(:points, params[:points])
     end
     params.delete :points
