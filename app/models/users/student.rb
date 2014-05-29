@@ -91,8 +91,12 @@ class Student < User
     grades1 = grades.where(lesson: lesson, retake: 'false')
     grades2 = grades.where(lesson: lesson, retake: 'true')
     total1, total2 = 0, 0
-    grades1.each { |g| total1 += g.grade } unless grades1.blank?
-    grades2.each { |g| total2 += g.grade } unless grades2.blank?
-    [total1, total2].max
+    if grades2.blank?
+      grades1.each { |g| total1 += g.grade }
+      return grade1
+    else
+      grades2.each { |g| total2 += g.grade }
+      return grade2
+    end
   end
 end
