@@ -12,7 +12,6 @@
 
 # TakenQuiz Class
 class TakenQuiz < ActiveRecord::Base
-  
   belongs_to :quiz
   belongs_to :student
 end

@@ -27,6 +27,8 @@ require 'csv'
 class Student < User
   default_scope -> { order 'last_name' }
 
+  has_many :quizzes, through: :taken_quizzes, foreign_key: 'student_id'
+  has_many :taken_quizzes, dependent: :destroy
   has_many :submissions
   has_one :quiz_request
   has_one :quiz_lock
