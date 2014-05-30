@@ -92,13 +92,18 @@ class QuizzesController < ApplicationController
     qid, quest_id = params[:id], params[:quest_id]
     Relationship.find_by(quiz_id: qid, question_id: quest_id).destroy
     quiz = Quiz.find qid
-    flash[:success] = 'Removed question from quiz'
+    flash[:success] = 'Removed question from quiz.'
     redirect_to edit_quiz_path(quiz)
   end
 
   def show
     @quiz = Quiz.find(params[:id])
     @questions = @quiz.questions
+  end
+
+  def stats
+    @quiz = Quiz.find(params[:id])
+    @grades = TakenQuiz.where(quiz_id: params[:id])
   end
 
   private
