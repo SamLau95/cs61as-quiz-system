@@ -10,6 +10,7 @@
 #  student_id  :integer
 #  grade       :integer          default(0)
 #  lesson      :integer
+#  retake      :boolean          default(FALSE)
 #
 
 # Grading class
