@@ -104,6 +104,13 @@ class QuizzesController < ApplicationController
   def stats
     @quiz = Quiz.find(params[:id])
     @grades = TakenQuiz.where(quiz_id: params[:id])
+    @students, @avg = [], 0
+    @grades.each do |g|
+      s = Student.find(g.student_id)
+      @students << [s.to_s, s.login, g.grade]
+      @avg += g.grade
+    end
+    @avg /= @grades.size
   end
 
   private
