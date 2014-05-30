@@ -19,6 +19,7 @@ class GradesController < ApplicationController
 
   def update
     grade = Grade.find params[:id]
+    g = grade.grade
     @submission = Submission.find_by question_id: grade.question_id,
                                      student_id: grade.student_id
     @question = Question.find grade.question_id
@@ -28,7 +29,7 @@ class GradesController < ApplicationController
     if @grade_form.validate_and_save grade_params
       tq = TakenQuiz.find_by student_id: grade.student_id,
                              quiz_id: quiz
-      tq.update_attribute(:grade, grade.grade + tq.grade)
+      tq.update_attribute(:grade, params[:grade][:grade].to_i + tq.grade - g)
       redirect_to view_quiz_path(grade.student_id, quiz_id: quiz)
     else
       render 'edit'
