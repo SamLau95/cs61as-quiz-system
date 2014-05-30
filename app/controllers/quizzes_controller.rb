@@ -30,7 +30,7 @@ class QuizzesController < ApplicationController
       @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
       inject_current_user_into! params
       if @quiz_form.validate_and_save params[:quiz]
-        TakenQuiz.create student_id: ql.student_id
+        TakenQuiz.create student_id: ql.student_id,
                          quiz_id: ql.quiz_id
         ql.destroy
         flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
