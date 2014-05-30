@@ -1,5 +1,4 @@
 require 'csv'
-
 # == Schema Information
 #
 # Table name: users
@@ -18,8 +17,8 @@ require 'csv'
 #  created_at             :datetime
 #  updated_at             :datetime
 #  type                   :string(255)
-#  first_name             :text
-#  last_name              :text
+#  first_name             :string(255)
+#  last_name              :string(255)
 #  login                  :string(255)      default("")
 #
 

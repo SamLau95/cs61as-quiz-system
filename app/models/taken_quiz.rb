@@ -5,9 +5,9 @@
 #  id         :integer          not null, primary key
 #  quiz_id    :integer
 #  student_id :integer
-#  score      :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  grade      :integer          default(0)
 #
 
 # TakenQuiz Class

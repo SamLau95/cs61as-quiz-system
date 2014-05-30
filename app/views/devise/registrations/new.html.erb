@@ -4,6 +4,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :first_name, :required => true %>
+    <%= f.input :last_name, :required => true %>
     <%= f.input :email, :required => true, :autofocus => true %>
     <%= f.input :login, :required => true, placeholder: "Ex: cs61as-ab" %>
     <%= f.input :password, :required => true %>
