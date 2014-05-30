@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  student_id :integer
 #  quiz_id    :integer
-#  graded     :boolean
+#  graded     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #  questions  :string(255)

@@ -1,0 +1,18 @@
+h1 = "Scores for #{@quiz}" 
+
+h3 = "Average grade: #{@avg}"
+
+table
+  tr
+    th Student
+    br
+    th Login
+    br
+    th Score
+  - @students.each do |name,login,grade|
+    tr
+      td = name
+      br
+      td = login
+      br
+      td = grade

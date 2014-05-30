@@ -28,6 +28,7 @@ Cs61asQuizzes::Application.routes.draw do
                              as: :make_quiz_request
     post '/:id/submit', to: 'quizzes#submit', as: :submit_quiz
     delete '/:id/delete', to: 'quizzes#delete_question', as: :delete_rlt
+    get '/stats/:id', to: 'quizzes#stats', as: :check_quiz
   end
 
   resources :submissions

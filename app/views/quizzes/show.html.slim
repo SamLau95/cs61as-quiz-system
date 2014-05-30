@@ -1,6 +1,9 @@
 h1 = @quiz
 
-= link_to "Edit Quiz", edit_quiz_path(@quiz), class: 'small button'
+div
+  = link_to "Edit Quiz", edit_quiz_path(@quiz), class: 'small button'
+  br
+  = link_to "See Quiz Stats", check_quiz_path(@quiz), class: 'small button'
 
 -if @quiz.questions.nil?
   p You have no questions yet!

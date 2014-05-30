@@ -24,12 +24,13 @@ class QuizzesController < ApplicationController
   def submit
     ql = QuizLock.find_by_student_id(current_user.id)
     if ql.locked
-      flash[:error] = 'You wish you could turn this in'
+      flash[:error] = 'You wish you could turn this in.'
       redirect_to student_dashboard_path
     else
       @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
       inject_current_user_into! params
       if @quiz_form.validate_and_save params[:quiz]
+        TakenQuiz.create student_id: ql.student_id, quiz_id: ql.quiz_id
         ql.destroy
         flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
         redirect_to student_dashboard_path
@@ -91,13 +92,25 @@ class QuizzesController < ApplicationController
     qid, quest_id = params[:id], params[:quest_id]
     Relationship.find_by(quiz_id: qid, question_id: quest_id).destroy
     quiz = Quiz.find qid
-    flash[:success] = 'Removed question from quiz'
+    flash[:success] = 'Removed question from quiz.'
     redirect_to edit_quiz_path(quiz)
   end
 
   def show
     @quiz = Quiz.find(params[:id])
     @questions = @quiz.questions
+  end
+
+  def stats
+    @quiz = Quiz.find(params[:id])
+    @grades = TakenQuiz.where(quiz_id: params[:id])
+    @students, @avg = [], 0
+    @grades.each do |g|
+      s = Student.find(g.student_id)
+      @students << [s.to_s, s.login, g.grade]
+      @avg += g.grade
+    end
+    @avg /= @grades.size
   end
 
   private

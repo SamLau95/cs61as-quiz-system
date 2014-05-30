@@ -1,5 +1,4 @@
 require 'csv'
-
 # == Schema Information
 #
 # Table name: users
@@ -18,8 +17,8 @@ require 'csv'
 #  created_at             :datetime
 #  updated_at             :datetime
 #  type                   :string(255)
-#  first_name             :text
-#  last_name              :text
+#  first_name             :string(255)
+#  last_name              :string(255)
 #  login                  :string(255)      default("")
 #
 
@@ -27,6 +26,8 @@ require 'csv'
 class Student < User
   default_scope -> { order 'last_name' }
 
+  has_many :quizzes, through: :taken_quizzes, foreign_key: 'student_id'
+  has_many :taken_quizzes, dependent: :destroy
   has_many :submissions
   has_one :quiz_request
   has_one :quiz_lock
@@ -93,10 +94,10 @@ class Student < User
     total1, total2 = 0, 0
     if grades2.blank?
       grades1.each { |g| total1 += g.grade }
-      return grade1
+      return total1
     else
       grades2.each { |g| total2 += g.grade }
-      return grade2
+      return total2
     end
   end
 end
