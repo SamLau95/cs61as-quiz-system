@@ -95,10 +95,10 @@ class Student < User
     total1, total2 = 0, 0
     if grades2.blank?
       grades1.each { |g| total1 += g.grade }
-      return grade1
+      return total1
     else
       grades2.each { |g| total2 += g.grade }
-      return grade2
+      return total2
     end
   end
 end
