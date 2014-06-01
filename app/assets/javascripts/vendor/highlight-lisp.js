@@ -379,7 +379,7 @@ var highlight_lisp = function() {
 	 */
 	this.highlight_element = function(code_el)
 	{	
-		var html = code_el.innerHTML || "";
+		var html = code_el.innerHTML || code_el.value;
 		// can't have &...;'s running wild like a pack of animals...
 		html = html.replace(/\n/g, "<br>");
 		html = html.replace(/\t/g, "&nbsp&nbsp");
