@@ -1,4 +1,3 @@
-# http://stackoverflow.com/a/1060034
 onchange = ->
   $.ajax
     url: gon.lock_path,
@@ -35,12 +34,19 @@ hilite = ->
   $('.hilite').keyup (e) ->
     HighlightLisp.highlight_element(e.target)
 
+hilite_answer = ->
+  answers = $('.replace')
+  for i in [0...answers.length]
+    HighlightLisp.highlight_element(answers[i])
+
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
     $(window).blur -> onchange()
     timer(gon.time_left)
     hilite()
+  else if $('#show_quiz').length
+    hilite_answer()
   else
     $(window).off 'blur'
 

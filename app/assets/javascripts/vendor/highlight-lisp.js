@@ -378,8 +378,8 @@ var highlight_lisp = function() {
 	 * Main highlight function.
 	 */
 	this.highlight_element = function(code_el)
-	{
-		var html = code_el.value;
+	{	
+		var html = code_el.innerHTML || code_el.value;
 		// can't have &...;'s running wild like a pack of animals...
 		html = html.replace(/\n/g, "<br>");
 		html = html.replace(/\t/g, "&nbsp&nbsp");
@@ -396,9 +396,13 @@ var highlight_lisp = function() {
 		// unpad HTML string
 		html = html.replace(/(^\n|\n$)/g, '');
 		html = html.replace(/<(?!\/?span|br)/g, '&lt;');
-		var repl = $(code_el.parentElement).find('.replace');
-		repl[0].innerHTML = html;
-	},
+		if ($('#take_quiz_form').length > 0) {
+			var repl = $(code_el.parentElement).find('.replace');
+			repl[0].innerHTML = html;
+		} else if ($('#show_quiz').length > 0) {
+			code_el.innerHTML = html;
+		}
+	}
 
 	/**
 	 * Automatically highlight all <code class="lisp"> blocks

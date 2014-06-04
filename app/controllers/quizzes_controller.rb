@@ -41,7 +41,6 @@ class QuizzesController < ApplicationController
   end
 
   def new
-    # @new_quiz isn't saved to db since it doesn't pass validations
     @new_quiz = Quiz.create
     redirect_to edit_quiz_path(@new_quiz), notice: 'Created Quiz'
   end

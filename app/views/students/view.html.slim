@@ -1,4 +1,4 @@
-h3 = @quiz
+h3#show_quiz = @quiz
 h1 = "Total: #{@grade}/10"
 
 - if @current_user.student?
@@ -31,7 +31,8 @@ h1 = "Total: #{@grade}/10"
     p = markdown question.content
     
     p Student Answer:
-    p = subm.content
+    pre.replace
+      = subm.content
 
     - if score
       p Grade:
