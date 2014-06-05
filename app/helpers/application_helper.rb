@@ -18,4 +18,8 @@ module ApplicationHelper
     end
     doc.to_s.html_safe
   end
+
+  def get_user(id)
+    Student.find(id)
+  end
 end

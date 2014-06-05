@@ -14,4 +14,6 @@
 class TakenQuiz < ActiveRecord::Base
   belongs_to :quiz
   belongs_to :student
+
+  scope :not_graded, -> { where(finished: false)}
 end

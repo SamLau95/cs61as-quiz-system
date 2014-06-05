@@ -11,6 +11,7 @@ class StaffDashboardController < ApplicationController
     @quiz = Quiz.new
     @regrades = Regrade.not_graded
     @download = downloads
+    @to_grade = TakenQuiz.not_graded
   end
 
   def bank
