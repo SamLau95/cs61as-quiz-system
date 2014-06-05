@@ -75,6 +75,7 @@ class Student < User
 
   def self.get_csv(lesson)
     CSV.generate do |csv|
+      csv << ["Lesson #{lesson} grades"]
       csv << ['Login', 'Grade']
       all.each do |student|
         if student.has_grade(lesson)
