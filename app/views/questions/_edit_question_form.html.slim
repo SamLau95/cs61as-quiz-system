@@ -5,10 +5,6 @@
       .row
         .small-3.columns
           h3 Question
-          - if lesson == "true"
-            = f.input :lesson, collection: 1..14
-          - else
-            = f.hidden_field :lesson, value: f.object.lesson
           = f.label :difficulty
           = f.select :difficulty, options_for_select(Question.levels)
           = f.hidden_field :quiz_id, value: quiz_id
@@ -16,7 +12,11 @@
           = hidden_field_tag :lesson, lesson
           - if add_pts == "true"
             = label_tag :points, '* Points'
-            = text_field_tag :points, points
+          - if lesson == "true"
+            = f.input :lesson, collection: 1..14
+            = f.file_field :photo
+          - else
+            = f.hidden_field :lesson, value: f.object.lesson
       .row
         .small-12.columns
           = f.input :content, as: :text,
