@@ -74,9 +74,9 @@ class Student < User
   end
 
   def self.get_csv(lesson)
-    headers = ['Login', 'Grade', 'Retake']
-    CSV.generate({ headers: headers}) do |csv|
+    CSV.generate do |csv|
       csv << ["Lesson #{lesson} grades"]
+      csv << ['Login', 'Grade', 'Retake?']
       all.each do |student|
         if student.has_grade(lesson)
           csv << student.get_row(lesson)
@@ -95,10 +95,10 @@ class Student < User
     total1, total2 = 0, 0
     if grades2.blank?
       grades1.each { |g| total1 += g.grade }
-      return [login, grade, 'true']
+      return [login, total1, 'false']
     else
       grades2.each { |g| total2 += g.grade }
-      return total2
+      return [login, total2, 'true']
     end
   end
 end
