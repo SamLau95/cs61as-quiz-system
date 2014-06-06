@@ -28,8 +28,8 @@ h1 = "Total: #{@grade}/10"
 
   = link_to 'Finished Grading!', finish_grading_path(@quiz.id,
                                                      student_id: @student_id),
+                                 method: 'put',
                                  class: 'large button'
-
 
 - @ques_subm.each do |question, subm, score|
   div 

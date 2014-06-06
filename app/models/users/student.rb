@@ -86,7 +86,9 @@ class Student < User
   end
 
   def has_grade(lesson)
-    !grades.where(lesson: lesson).blank?
+    taken = TakenQuiz.where(student_id: self.id, lesson: lesson)
+    !grades.where(lesson: lesson).blank? &&
+    taken.inject { |a, b| a.finished && b.finished }
   end
 
   def get_row(lesson)

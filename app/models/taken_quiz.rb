@@ -22,4 +22,8 @@ class TakenQuiz < ActiveRecord::Base
   def to_s
     "#{Student.find student_id}: #{Quiz.find quiz_id}"
   end
+
+  def finish
+    update_attribute(:finished, true)
+  end
 end

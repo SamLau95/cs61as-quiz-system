@@ -18,7 +18,7 @@ Cs61asQuizzes::Application.routes.draw do
   scope '/student' do
     get '', to: 'student_dashboard#index', as: :student_dashboard
     get '/view_quiz/:id', to: 'students#view', as: :view_quiz
-    post '/view_quiz/:id/finish', to: 'students#finish', as: :finish_grading
+    put '/view_quiz/:id/finish', to: 'students#finish', as: :finish_grading
     get '/grade_quiz/:id', to: 'students#grade', as: :grade_quiz
   end
 
