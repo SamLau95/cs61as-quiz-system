@@ -51,9 +51,10 @@ ul
 
 h3 Quizzes To Grade
 
-ul 
-  - @to_grade.each do |g|
-    = link_to g, view_quiz_path(g.student_id, 
+ul
+  li
+    - @to_grade.each do |g|
+      = link_to g, view_quiz_path(g.student_id, 
                                 quiz_id: g.quiz_id)
 
 h3 Question Bank:

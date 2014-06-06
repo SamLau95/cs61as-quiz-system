@@ -21,4 +21,7 @@ class StudentsController < ApplicationController
     @request = Regrade.find_by quiz_id: qid, student_id: stu_id
     @regrade = Regrade.new
   end
+
+  def finish
+  end
 end

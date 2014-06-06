@@ -15,5 +15,9 @@ class TakenQuiz < ActiveRecord::Base
   belongs_to :quiz
   belongs_to :student
 
-  scope :not_graded, -> { where(finished: false)}
+  scope :not_graded, -> { where(finished: false) }
+
+  def to_s
+    "#{Student.find student_id}: #{Quiz.find quiz_id}"
+  end
 end
