@@ -26,4 +26,8 @@ class TakenQuiz < ActiveRecord::Base
   def finish
     update_attribute(:finished, true)
   end
+
+  def undo
+    update_attribute(:finished, false)
+  end
 end
