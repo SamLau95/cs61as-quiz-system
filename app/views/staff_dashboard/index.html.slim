@@ -43,7 +43,7 @@ ul
   - @regrades.each do |re| 
     li
       = link_to re, view_quiz_path(re.student_id, quiz_id: re.quiz_id)
-      = link_to "Delete Request!", regrade_path(re, method: :delete) 
+      = link_to "Delete Request!", regrade_path(re), method: :delete
 
 = link_to 'New Question!', new_question_path(id: nil)
 
