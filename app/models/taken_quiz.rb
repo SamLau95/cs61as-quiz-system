@@ -8,6 +8,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  grade      :integer          default(0)
+#  finished   :boolean          default(FALSE)
+#  lesson     :integer
 #
 
 # TakenQuiz Class
@@ -16,7 +18,7 @@ class TakenQuiz < ActiveRecord::Base
   belongs_to :student
 
   scope :not_graded, -> { where(finished: false) }
-
+  
   def to_s
     "#{Student.find student_id}: #{Quiz.find quiz_id}"
   end
