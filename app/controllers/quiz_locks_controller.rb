@@ -11,7 +11,7 @@ class QuizLocksController < ApplicationController
   end
 
   def unlock
-    user = User.find_by_login params[:staff_id]
+    user = Staff.find_by_login params[:staff_id]
     if !user.nil? && user.valid_password?(params[:password])
       QuizLock.find(params[:id]).unlock!
       flash[:success] = "Don't try switching windows!"
