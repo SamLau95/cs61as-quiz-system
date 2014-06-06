@@ -41,7 +41,7 @@ class StaffDashboardController < ApplicationController
   def download
     respond_to do |format|
       format.html { redirect_to staff_dashboard_path }
-      format.csv { send_data Student.get_csv(params[:lesson]), 
+      format.csv { send_data Student.get_csv(params[:lesson]),
                              filename: "lesson#{params[:lesson]}.csv" }
     end
   end
