@@ -12,10 +12,10 @@ Cs61asQuizzes::Application.routes.draw do
     post '/download', to: 'staff_dashboard#download', as: :download_grades
     get '/bank/:id', to: 'staff_dashboard#bank', as: :question_bank
     post '/add/:id', to: 'staff_dashboard#add', as: :add_question
-    get '/questions', as: :question_dashboard
-    get '/requests', as: :requests_dashboard
-    get '/students', as: :students_dashboard
-    get '/grading', as: :question_dashboard
+    get '/questions', to: 'staff_dashboard#questions', as: :question_dashboard
+    get '/requests', to: 'staff_dashboard#requests', as: :requests_dashboard
+    get '/students', to: 'staff_dashboard#students', as: :students_dashboard
+    get '/grading', to: 'staff_dashboard#grading', as: :grading_dashboard
   end
 
   resources :students

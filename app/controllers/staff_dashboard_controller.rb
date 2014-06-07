@@ -3,27 +3,27 @@ class StaffDashboardController < ApplicationController
   authorize_resource class: false
 
   def index
-    @students = Student.all
     @drafts = Quiz.drafts
     @published = Quiz.published
-    @requests = QuizRequest.all
-    @lessons = Quiz.all_lessons
     @quiz = Quiz.new
-    @regrades = Regrade.not_graded
     @download = downloads
-    @to_grade = TakenQuiz.not_graded
   end
 
   def questions
+    @lessons = Quiz.all_lessons
   end
 
   def requests
+    @requests = QuizRequest.all
+    @regrades = Regrade.not_graded
   end
 
   def students
+    @students = Student.all
   end
 
   def grading
+    @to_grade = TakenQuiz.not_graded
   end
 
   def bank
