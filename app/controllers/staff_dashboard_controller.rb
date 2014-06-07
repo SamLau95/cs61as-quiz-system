@@ -14,6 +14,18 @@ class StaffDashboardController < ApplicationController
     @to_grade = TakenQuiz.not_graded
   end
 
+  def questions
+  end
+
+  def requests
+  end
+
+  def students
+  end
+
+  def grading
+  end
+
   def bank
     @questions = Question.where(lesson: params[:id]).includes(:solution)
     @requests = QuizRequest.all
