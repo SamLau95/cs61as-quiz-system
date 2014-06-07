@@ -48,6 +48,7 @@ class QuestionsController < ApplicationController
     else
       render 'edit'
     end
+    delete_questions
   end
 
   def destroy
@@ -61,5 +62,11 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit!
+  end
+
+  def delete_questions
+    Question.where(lesson: '').each do |question|
+      question.destroy
+    end
   end
 end

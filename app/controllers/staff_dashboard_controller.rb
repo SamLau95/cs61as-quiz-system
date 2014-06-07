@@ -3,14 +3,28 @@ class StaffDashboardController < ApplicationController
   authorize_resource class: false
 
   def index
-    @students = Student.all
     @drafts = Quiz.drafts
     @published = Quiz.published
-    @requests = QuizRequest.all
-    @lessons = Quiz.all_lessons
     @quiz = Quiz.new
-    @regrades = Regrade.not_graded
     @download = downloads
+  end
+
+  def questions
+    @lessons = Quiz.all_lessons
+  end
+
+  def requests
+    @requests = QuizRequest.all
+    @regrades = Regrade.not_graded
+  end
+
+  def students
+    @students = Student.page params[:page]
+    @value = params[:search]
+    @search = Student.get(params[:search])
+  end
+
+  def grading
     @to_grade = TakenQuiz.not_graded
   end
 

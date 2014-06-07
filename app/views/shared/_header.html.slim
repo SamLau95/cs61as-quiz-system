@@ -8,6 +8,17 @@ nav.top-bar data-topbar=true
       - elsif current_user.student?
         h1 = link_to 'Dashboard', student_dashboard_path
   section.top-bar-section
+    - if current_user && current_user.staff?
+      ul.left
+        li.divider
+        li = link_to 'Questions', question_dashboard_path
+        li.divider
+        li = link_to 'Students', students_dashboard_path
+        li.divider
+        li = link_to 'Requests', requests_dashboard_path
+        li.divider
+        li = link_to 'Grading', grading_dashboard_path
+        li.divider
     ul.right
       li.divider
       - if current_user
