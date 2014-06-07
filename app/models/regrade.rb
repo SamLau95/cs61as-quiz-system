@@ -26,4 +26,8 @@ class Regrade < ActiveRecord::Base
     student = Student.find student_id
     "#{student} - #{quiz}"
   end
+
+  def finish
+    update_attribute(:graded, true)
+  end
 end

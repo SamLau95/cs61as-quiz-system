@@ -13,9 +13,7 @@ class QuizzesController < ApplicationController
   end
 
   def take
-    quiz_lock = current_user.quiz_lock
-    # for testing
-    # quiz_request = QuizRequest.create(student_id: 1, lesson: 1)
+    quiz_lock = current_user.quiz_loc
     @quiz_form = TakeQuizForm.new quiz_lock.quiz
     gon.push lock_path: lock_student_path(quiz_lock),
              time_left: quiz_lock.time_left
@@ -27,10 +25,13 @@ class QuizzesController < ApplicationController
       flash[:error] = 'You wish you could turn this in.'
       redirect_to student_dashboard_path
     else
-      @quiz_form = TakeQuizForm.new Quiz.find(params[:id])
+      q = Quiz.find(params[:id])
+      @quiz_form = TakeQuizForm.new q
       inject_current_user_into! params
       if @quiz_form.validate_and_save params[:quiz]
-        TakenQuiz.create student_id: ql.student_id, quiz_id: ql.quiz_id
+        TakenQuiz.create student_id: ql.student_id, 
+                         quiz_id: ql.quiz_id,
+                         lesson: q.lesson
         ql.destroy
         flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
         redirect_to student_dashboard_path

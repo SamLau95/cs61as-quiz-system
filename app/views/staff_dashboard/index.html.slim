@@ -42,12 +42,18 @@ h3 Quiz Regrade Requests
 ul
   - @regrades.each do |re| 
     li
-      = link_to re, view_quiz_path(re.quiz_id, student_id: re.student_id)
-      = link_to 'Finished Regrading!', change_grade_status_path(re),
-                 method: :post
-      = link_to "Delete Request!", regrade_path(re, method: :delete) 
+      = link_to re, view_quiz_path(re.student_id, quiz_id: re.quiz_id)
+      = link_to "Delete Request!", regrade_path(re), method: :delete
 
 = link_to 'New Question!', new_question_path(id: nil)
+
+h3 Quizzes To Grade
+
+ul
+  - @to_grade.each do |g|
+    li
+      = link_to g, view_quiz_path(g.student_id, 
+                                 quiz_id: g.quiz_id)
 
 h3 Question Bank:
 

@@ -11,6 +11,7 @@ class Ability
     if user.staff?
       can :manage, :all
     elsif user.student?
+      can :cancel, QuizRequest if user.quiz_request
       can :make_request, Quiz
       can [:take, :submit], Quiz if user.approved_request?
       can :see, :student_dashboard

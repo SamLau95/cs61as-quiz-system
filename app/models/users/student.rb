@@ -75,29 +75,32 @@ class Student < User
 
   def self.get_csv(lesson)
     CSV.generate do |csv|
-      csv << ['Login', 'Grade']
+      csv << ["Lesson #{lesson} grades"]
+      csv << ['Login', 'Grade', 'Retake?']
       all.each do |student|
         if student.has_grade(lesson)
-          csv << [student.login, student.get_max(lesson)]
+          csv << student.get_row(lesson)
         end
       end
     end
   end
 
   def has_grade(lesson)
-    !grades.where(lesson: lesson).blank?
+    taken = TakenQuiz.where(student_id: self.id, lesson: lesson)
+    !grades.where(lesson: lesson).blank? &&
+    taken.inject { |a, b| a.finished && b.finished }
   end
 
-  def get_max(lesson)
+  def get_row(lesson)
     grades1 = grades.where(lesson: lesson, retake: 'false')
     grades2 = grades.where(lesson: lesson, retake: 'true')
     total1, total2 = 0, 0
     if grades2.blank?
       grades1.each { |g| total1 += g.grade }
-      return total1
+      return [login, total1, 'false']
     else
       grades2.each { |g| total2 += g.grade }
-      return total2
+      return [login, total2, 'true']
     end
   end
 end

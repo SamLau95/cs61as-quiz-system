@@ -5,16 +5,13 @@ class RegradesController < ApplicationController
     regrade = Regrade.new regrade_params
     if regrade.save
       flash[:success] = "You've submitted a regrade request!"
+      TakenQuiz.find_by(quiz_id: params[:regrade][:quiz_id],
+                        student_id: current_user.id).undo
     else
       flash[:error] = "You didn't fill out all the required fields!"
     end
-    redirect_to view_quiz_path(quiz, student_id: params[:regrade][:student_id])
-  end
-
-  def change_status
-    regrade = Regrade.find params[:id]
-    regrade.update_attribute(:graded, true)
-    redirect_to staff_dashboard_path
+    redirect_to view_quiz_path(params[:regrade][:student_id], 
+                               quiz_id: params[:regrade][:quiz_id])
   end
 
   def destroy

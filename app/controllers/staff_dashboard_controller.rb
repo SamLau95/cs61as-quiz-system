@@ -11,10 +11,7 @@ class StaffDashboardController < ApplicationController
     @quiz = Quiz.new
     @regrades = Regrade.not_graded
     @download = downloads
-    respond_to do |format|
-      format.html {}
-      format.csv {}
-    end
+    @to_grade = TakenQuiz.not_graded
   end
 
   def bank
@@ -44,7 +41,8 @@ class StaffDashboardController < ApplicationController
   def download
     respond_to do |format|
       format.html { redirect_to staff_dashboard_path }
-      format.csv { send_data Student.get_csv(params[:lesson]) }
+      format.csv { send_data Student.get_csv(params[:lesson]),
+                             filename: "lesson#{params[:lesson]}.csv" }
     end
   end
 
