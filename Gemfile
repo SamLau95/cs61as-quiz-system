@@ -2,8 +2,11 @@ source 'https://rubygems.org'
 ruby '2.1.1'
 
 gem 'rails', '4.1.0'
+
+# Server
 gem 'foreman', '~> 0.63.0'
 gem 'puma', '~> 2.8.0'
+
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -13,19 +16,26 @@ gem 'jbuilder', '~> 1.2'
 gem 'pg', '~> 0.17.1'
 gem 'cancan', '~> 1.6.10'
 gem 'ffaker', '~> 1.22.1'
+
+# Authentication
 gem 'devise', '~> 3.2.3'
+
 gem 'newrelic_rpm'
+
+# JS/Frontend
 gem 'json', '~> 1.8.1'
 gem 'redcarpet', '~> 3.1.2'
 gem 'nokogiri', '~> 1.6.1'
 gem 'pygmentize', '~> 0.0.3'
-
 gem 'compass-rails', '~> 1.1.3'
 gem 'foundation-rails', '~> 5.1.1.0'
 gem 'simple_form', '~> 3.0.1'
 gem 'reform', '~> 0.2.6'
 gem 'slim-rails', '~> 2.1.0'
 gem 'gon', '~> 5.0.4'
+
+# Pagination
+gem 'kaminari'
 
 group :development do
   gem 'better_errors', '~> 1.1.0'
