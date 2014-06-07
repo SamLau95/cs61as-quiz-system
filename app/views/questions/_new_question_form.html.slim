@@ -12,12 +12,11 @@
           - if lesson == "true"
             = f.input :lesson, collection: 1..14
             / = f.file_field :photo
+          - else
+            = f.hidden_field :lesson, value: f.object.lesson
           - if add_pts == "true"
             = label_tag :points, '* Points'
             = text_field_tag :points, points
-
-          - else
-            = f.hidden_field :lesson, value: f.object.lesson
       .row
         .small-12.columns
           = f.input :content, as: :text,

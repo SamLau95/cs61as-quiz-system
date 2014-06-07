@@ -39,5 +39,6 @@ class NewQuestionForm < Reform::Form
                                 question_id: @model.id,
                                 points: pts[:pts] || 0
     end
+    true
   end
 end
