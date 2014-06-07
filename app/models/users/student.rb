@@ -107,9 +107,11 @@ class Student < User
   def self.get(search)
     return nil if search.blank? || Student.all.blank?
     search.downcase!
-    Student.all.select { |s| s.first_name.downcase.include?(search) ||
-                             s.last_name.downcase.include?(search) ||
-                             s.to_s.downcase.include?(search) ||
-                             s.login.downcase.include?(search) }
+    Student.all.select do |s| 
+      s.first_name.downcase.include?(search) ||
+      s.last_name.downcase.include?(search) ||
+      s.to_s.downcase.include?(search) ||
+      s.login.downcase.include?(search)
+    end
   end
 end
