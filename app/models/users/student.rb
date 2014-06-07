@@ -54,7 +54,7 @@ class Student < User
   end
 
   def to_s
-    "#{first_name} #{last_name}"
+    "#{first_name} #{last_name}: #{login}"
   end
 
   def taken_quizzes
@@ -109,6 +109,7 @@ class Student < User
     search.downcase!
     Student.all.select { |s| s.first_name.downcase.include?(search) || 
                               s.last_name.downcase.include?(search) ||
-                              s.to_s.downcase.include?(search) }
+                              s.to_s.downcase.include?(search) ||
+                              s.login.downcase.include?(search) }
   end
 end
