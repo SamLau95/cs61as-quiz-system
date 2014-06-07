@@ -65,7 +65,7 @@ class QuestionsController < ApplicationController
   end
 
   def delete_questions
-    Question.where(lesson: "").each do |question|
+    Question.where(lesson: '').each do |question|
       question.destroy
     end
   end
