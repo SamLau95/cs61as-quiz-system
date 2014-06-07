@@ -1,22 +1,40 @@
   # Question Controller
 class QuestionsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :create
 
   def new
     if params[:quiz_id]
+      @quiz_id = params[:quiz_id]
       @quiz = Quiz.find params[:quiz_id]
-      @question = @quiz.questions.create lesson: @quiz.lesson
-      add_pts = true
+      question = @quiz.questions.new lesson: @quiz.lesson
+      @add_pts = 'true'
     else
-      @question = Question.create
-      add_pts = false
+      question = Question.new
+      @add_pts = 'false'
     end
-    @question.create_solution
-    redirect_to edit_question_path(@question,
-                                   quiz_id: params[:quiz_id],
-                                   add_pts: add_pts,
-                                   lesson: true,
-                                   points: @points)
+    @lesson = 'true'
+    question.solution = Solution.new
+    @quest_form = NewQuestionForm.new question
+  end
+
+  def create
+    @add_pts, @lesson = params[:add_pts], params[:lesson]
+    @points = params[:points].blank? ? 0 : params[:points]
+    question = createQues
+    @quiz_id = params[:quiz_id]
+    quiz = Quiz.find_by_id @quiz_id
+    question_params[:points] = { pts: @points, qid: @quiz_id }
+    @quest_form = NewQuestionForm.new question
+    if @quest_form.validate_and_save question_params
+      flash[:success] = 'Created Question!'
+      if quiz
+        redirect_to edit_quiz_path(quiz)
+      else
+        redirect_to staff_dashboard_path
+      end
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -34,9 +52,9 @@ class QuestionsController < ApplicationController
     @add_pts, @lesson = params[:add_pts], params[:lesson]
     @points = params[:points]
     question = Question.find params[:id]
-    @quiz_id = params[:question][:quiz_id]
+    @quiz_id = params[:quiz_id]
     quiz = Quiz.find @quiz_id unless @quiz_id.empty?
-    question_params[:points] = params[:points]
+    question_params[:points] = { pts: @points, qid: @quiz_id }
     @quest_form = EditQuestionForm.new question
     if @quest_form.validate_and_save question_params
       flash[:success] = 'Updated Question!'
@@ -48,7 +66,6 @@ class QuestionsController < ApplicationController
     else
       render 'edit'
     end
-    delete_questions
   end
 
   def destroy
@@ -64,9 +81,11 @@ class QuestionsController < ApplicationController
     params.require(:question).permit!
   end
 
-  def delete_questions
-    Question.where(lesson: '').each do |question|
-      question.destroy
-    end
+  def createQues
+    solution = Solution.new question_params[:solution_attributes]
+    question_params.delete :solution_attributes
+    question = Question.new question_params
+    question.solution = solution
+    question
   end
 end

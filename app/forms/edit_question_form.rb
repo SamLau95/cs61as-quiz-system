@@ -15,7 +15,7 @@ class EditQuestionForm < Reform::Form
 
   validates :content, :lesson, presence: true
   validates :difficulty, presence: true
-  validates :lesson, numericality: { greater_than_or_equal_to: 1,
+  validates :lesson, numericality: { greater_than_or_equal_to: 0,
                                      less_than_or_equal_to: 14 }
   validate :check_solution
 
@@ -37,13 +37,12 @@ class EditQuestionForm < Reform::Form
   end
 
   def update_points(params)
-    unless params[:points].blank? || params[:quiz_id].blank?
-      rlt = Relationship.find_by quiz_id: params[:quiz_id],
+    unless params[:points][:pts].blank? || params[:points][:qid].blank?
+      rlt = Relationship.find_by quiz_id: params[:points][:qid],
                                  question_id: id
-      rlt.update_attribute(:points, params[:points])
+      rlt.update_attribute(:points, params[:points][:pts])
     end
     params.delete :points
-    params.delete :quiz_id
     params
   end
 end
