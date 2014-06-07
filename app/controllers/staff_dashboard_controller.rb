@@ -19,7 +19,7 @@ class StaffDashboardController < ApplicationController
   end
 
   def students
-    @students = Student.all
+    @students = Student.page params[:page]
   end
 
   def grading
