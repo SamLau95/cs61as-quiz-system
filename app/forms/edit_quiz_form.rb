@@ -35,7 +35,7 @@ class EditQuizForm < Reform::Form
 
   def check_lessons
     rlt = @model.relationships
-    unless !rlt.empty? || same_lesson(rlt)
+    unless !rlt.empty? && same_lesson(rlt)
       errors.add :lesson, 'Question lessons must match'
     end
   end
@@ -43,7 +43,7 @@ class EditQuizForm < Reform::Form
   def same_lesson(rlt)
     rlt.each do |r|
       quest = Question.find(r.question_id)
-      return false if @model.lesson != quest.lesson
+      return false if @fields.lesson.to_i != quest.lesson
     end
     true
   end

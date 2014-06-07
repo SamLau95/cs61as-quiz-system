@@ -41,10 +41,10 @@ class QuestionsController < ApplicationController
     @add_pts = params[:add_pts]
     @lesson = params[:lesson]
     question = Question.find params[:id]
-    question.solution
     @quiz_id = params[:quiz_id]
     @quest_form = EditQuestionForm.new question
-    rlt = Relationship.find_by_quiz_id(params[:quiz_id])
+    rlt = Relationship.find_by(quiz_id: params[:quiz_id],
+                               question_id: question.id)
     @points = rlt.nil? ? 0 : rlt.points
   end
 
