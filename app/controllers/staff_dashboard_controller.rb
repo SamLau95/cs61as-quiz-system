@@ -20,6 +20,8 @@ class StaffDashboardController < ApplicationController
 
   def students
     @students = Student.page params[:page]
+    @value = params[:search]
+    @search = Student.get(params[:search])
   end
 
   def grading
