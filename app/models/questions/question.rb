@@ -21,7 +21,7 @@ class Question < ActiveRecord::Base
   has_many :relationships, dependent: :destroy
   has_many :quizzes, through: :relationships, foreign_key: 'quiz_id'
   has_many :grades
-
+  has_one :rubric, dependent: :destroy
   has_many :submissions
   has_one :solution, dependent: :destroy
 
