@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
   def create
     @add_pts, @lesson = params[:add_pts], params[:lesson]
     @points = params[:points].blank? ? 0 : params[:points]
-    question = createQues
+    question = create_question
     @quiz_id = params[:quiz_id]
     quiz = Quiz.find_by_id @quiz_id
     question_params[:points] = { pts: @points, qid: @quiz_id }
@@ -81,7 +81,7 @@ class QuestionsController < ApplicationController
     params.require(:question).permit!
   end
 
-  def createQues
+  def create_question
     solution = Solution.new question_params[:solution_attributes]
     question_params.delete :solution_attributes
     question = Question.new question_params
