@@ -4,7 +4,6 @@
 #
 #  id          :integer          not null, primary key
 #  rubric      :text
-#  points      :integer
 #  question_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
