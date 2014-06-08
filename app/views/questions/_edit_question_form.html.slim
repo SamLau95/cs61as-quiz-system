@@ -30,7 +30,12 @@
             = sf.label :content, '* Solution (parsed as Markdown)'
             = sf.text_area :content,
                            class: 'expand',
-                           placeholder: 'Add Rubric'
+                           placeholder: 'Add Solution'
+          = f.fields_for :rubric do |sf|
+            = sf.hidden_field :question_id, value: f.object.id
+            br
+            = sf.label :rubric, '* Rubric'
+            = sf.text_area :rubric, class: 'expand', placeholder: 'Add rubric'
       br
         = f.submit 'Update!', class: 'small button'
         br

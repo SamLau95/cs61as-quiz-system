@@ -9,8 +9,12 @@ class EditQuestionForm < Reform::Form
 
   property :solution do
     property :content
-
     validates :content, presence: true
+  end
+
+  property :rubric do
+    property :rubric
+    validates :rubric, presence: true
   end
 
   validates :content, :lesson, presence: true
@@ -18,6 +22,7 @@ class EditQuestionForm < Reform::Form
   validates :lesson, numericality: { greater_than_or_equal_to: 0,
                                      less_than_or_equal_to: 14 }
   validate :check_solution
+  validate :check_rubric
 
   def validate_and_save(question_params)
     solution = question_params[:solution_attributes]
@@ -33,6 +38,12 @@ class EditQuestionForm < Reform::Form
   def check_solution
     if @fields.solution.content.blank?
       errors.add :content, "Doesn't have solution."
+    end
+  end
+
+  def check_rubric
+    if @fields.rubric.rubric.blank?
+      errors.add :content, "Needs a Rubric"
     end
   end
 
