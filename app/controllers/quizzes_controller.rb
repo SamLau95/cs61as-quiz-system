@@ -114,7 +114,7 @@ class QuizzesController < ApplicationController
       @students << [s.to_s, s.login, g.grade]
       @avg += g.grade
     end
-    @avg /= @grades.size
+    @grades.size == 0 ? 0 : @avg /= @grades.size
   end
 
   private
