@@ -9,14 +9,14 @@
           = hidden_field_tag :quiz_id, quiz_id
           = hidden_field_tag :add_pts, add_pts
           = hidden_field_tag :lesson, lesson
-          - if add_pts == "true"
-            = label_tag :points, '* Points'
-            = text_field_tag :points, points
           - if lesson == "true"
             = f.input :lesson, collection: 1..14
             / = f.file_field :photo
           - else
             = f.hidden_field :lesson, value: f.object.lesson
+          - if add_pts == "true"
+            = label_tag :points, '* Points'
+            = text_field_tag :points, points
       .row
         .small-12.columns
           = f.input :content, as: :text,
@@ -32,9 +32,7 @@
                            class: 'expand',
                            placeholder: 'Add Rubric'
       br
-        = f.submit 'Update!', class: 'small button'
+        = f.submit 'Create', class: 'small button'
         br
         = link_to 'Cancel', :back, class: 'small button'
-
-
 = render 'shared/markdown_reference'

@@ -90,9 +90,13 @@ class QuizzesController < ApplicationController
 
   def delete_question
     qid, quest_id = params[:id], params[:quest_id]
-    Relationship.find_by(quiz_id: qid, question_id: quest_id).destroy
     quiz = Quiz.find qid
-    flash[:success] = 'Removed question from quiz.'
+    if quiz.is_draft
+      Relationship.find_by(quiz_id: qid, question_id: quest_id).destroy
+      flash[:success] = 'Removed question from quiz.'
+    else
+      flash[:error] = "Can't remove question from published quiz!"
+    end
     redirect_to edit_quiz_path(quiz)
   end
 
@@ -110,7 +114,7 @@ class QuizzesController < ApplicationController
       @students << [s.to_s, s.login, g.grade]
       @avg += g.grade
     end
-    @avg /= @grades.size
+    @grades.size == 0 ? 0 : @avg /= @grades.size
   end
 
   private

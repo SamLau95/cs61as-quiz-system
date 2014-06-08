@@ -1,5 +1,8 @@
 h3 Question Bank
 
+br
+= link_to 'Back', :back, class: 'small button'
+
 - if @questions.blank?
   p There are no questions!
 - else  
@@ -19,4 +22,3 @@ h3 Question Bank
       p = link_to 'Delete Question', question_path(question), 
                                      method: :delete,
                                      data: { confirm: 'Are you sure?'}
-
