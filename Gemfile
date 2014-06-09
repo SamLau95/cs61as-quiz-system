@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'pg', '~> 0.17.1'
 gem 'cancan', '~> 1.6.10'
 gem 'ffaker', '~> 1.22.1'
+gem 'figaro', '~> 0.7.0'
 
 # Authentication
 gem 'devise', '~> 3.2.3'
