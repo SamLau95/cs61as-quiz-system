@@ -26,6 +26,7 @@ def make_quizzes
                            number: 1,
                            points: 3
   q1.create_solution content: '2'
+  q1.create_rubric rubric: '5: Hello'
   q2 = Question.create content: 'What is 1 * 3?',
                         lesson: 1,
                         difficulty: 'Medium'
@@ -34,6 +35,7 @@ def make_quizzes
                            number: 2,
                            points: 3
   q2.create_solution content: '3'
+  q2.create_rubric rubric: '5: Hello'
   q3 = Question.create content: 'What is 10 + 1?',
                         lesson: 1,
                         difficulty: 'Hard'
@@ -42,6 +44,7 @@ def make_quizzes
                            number: 3,
                            points: 4
   q3.create_solution content: '11'
+  q3.create_rubric rubric: '5: Hello'
   q = Quiz.create lesson: 2,
                    version: 1
   q4 = Question.create content: 'What do you say after Hello?',
@@ -52,6 +55,7 @@ def make_quizzes
                            number: 1,
                            points: 10
   q4.create_solution content: 'World'
+  q4.create_rubric rubric: '5: Hello'
 end
 
 def make_requests

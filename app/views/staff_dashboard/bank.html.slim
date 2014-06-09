@@ -13,6 +13,10 @@ br
     p Solution:
     = markdown question.solution.content
     br
+
+    p Rubric:
+    = question.rubric.rubric
+    
     - if @add
       = link_to 'Add question!', add_question_path(question,
                                                    quiz_id: @id),
@@ -22,3 +26,4 @@ br
       p = link_to 'Delete Question', question_path(question), 
                                      method: :delete,
                                      data: { confirm: 'Are you sure?'}
+  = paginate @questions

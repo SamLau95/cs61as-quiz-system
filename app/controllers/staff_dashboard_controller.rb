@@ -29,7 +29,9 @@ class StaffDashboardController < ApplicationController
   end
 
   def bank
-    @questions = Question.where(lesson: params[:id]).includes(:solution)
+    @questions = Question.where(lesson: params[:id]).
+                         includes(:solution).includes(:rubric).
+                         page params[:page]
     @requests = QuizRequest.all
     @add = params[:add] == 'true'
     @id = params[:quiz_id]

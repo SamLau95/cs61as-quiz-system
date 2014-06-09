@@ -13,7 +13,7 @@ h1 = "Total: #{@grade}/10"
         .row
           .small-6.columns
             = f.input :questions, label: 'Questions to Regrade (separate with comma)',
-                                  placeholder: 'Ex: 1a, 2b, 3c'
+                                  placeholder: 'Ex: 1, 2, 3'
         .row
           .small-6.columns
             = f.input :reason, label: 'Reason why it should be regraded:',
@@ -31,9 +31,9 @@ h1 = "Total: #{@grade}/10"
                                  method: 'put',
                                  class: 'large button'
 
-- @ques_subm.each do |question, subm, score|
+- @ques_subm.each do |question, subm, score, rlt|
   div 
-    p Question: 
+    p = "Question #{rlt.number}: "
     p = markdown question.content
     
     p Student Answer:

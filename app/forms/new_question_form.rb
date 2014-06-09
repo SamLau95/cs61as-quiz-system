@@ -18,18 +18,26 @@ class NewQuestionForm < Reform::Form
   validates :lesson, numericality: { greater_than_or_equal_to: 0,
                                      less_than_or_equal_to: 14 }
   validate :check_solution
+  validate :check_rubric
 
   def validate_and_save(question_params)
     return false unless validate(question_params)
     pts = question_params.delete :points
     @model.save
     @model.solution.update_attribute(:question_id, @model.id)
+    @model.rubric.update_attribute(:question_id, @model.id)
     update_points(pts)
   end
 
   def check_solution
     if @model.solution.content.blank?
       errors.add :content, "Doesn't have solution."
+    end
+  end
+
+  def check_rubric
+    if @model.rubric.rubric.blank?
+      errors.add :content, "Doesn't have rubric."
     end
   end
 

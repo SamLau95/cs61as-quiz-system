@@ -12,6 +12,9 @@ h1 Edit
       h5 Student's Answer:
       = @submission.content
 
+      h5 Rubric
+      = @question.rubric.rubric
+      
       = f.input :grade
       = f.input :comments, as: :text
       = hidden_field_tag :quiz_id, @submission.quiz_id

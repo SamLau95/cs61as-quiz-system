@@ -1,4 +1,4 @@
-  # Question Controller
+# Question Controller
 class QuestionsController < ApplicationController
   load_and_authorize_resource except: :create
 
@@ -14,6 +14,7 @@ class QuestionsController < ApplicationController
     end
     @lesson = 'true'
     question.solution = Solution.new
+    question.rubric = Rubric.new
     @quest_form = NewQuestionForm.new question
   end
 
@@ -70,8 +71,16 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
-    flash[:success] = 'Deletion successful'
+    rlt = @question.relationships
+    if rlt.blank?
+      @question.destroy
+      flash[:success] = 'Deletion successful!'
+    else
+      str = rlt.map { |r| Quiz.find(r.quiz_id).to_s }.uniq.join(', ')
+      flash[:error] = 'This question is being used by the following quizzes: '
+      flash[:error] << str
+      flash[:error] << '. Please remove the question on the quiz(zes) first.'
+    end
     redirect_to :back
   end
 
@@ -82,10 +91,11 @@ class QuestionsController < ApplicationController
   end
 
   def create_question
-    solution = Solution.new question_params[:solution_attributes]
-    question_params.delete :solution_attributes
+    solution = Solution.new question_params.delete :solution_attributes
+    rubric = Rubric.new question_params.delete :rubric
     question = Question.new question_params
     question.solution = solution
+    question.rubric = rubric
     question
   end
 end
