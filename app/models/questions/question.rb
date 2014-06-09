@@ -17,7 +17,7 @@
 # Model that represents questions
 class Question < ActiveRecord::Base
   # default_scope -> { order 'number ASC' }
-  paginates_per 10
+  paginates_per 10  
 
   has_many :relationships, dependent: :destroy
   has_many :quizzes, through: :relationships, foreign_key: 'quiz_id'
