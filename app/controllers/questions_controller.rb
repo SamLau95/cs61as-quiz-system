@@ -76,7 +76,7 @@ class QuestionsController < ApplicationController
       @question.destroy
       flash[:success] = 'Deletion successful!'
     else
-      str = rlt.map { |r| Quiz.find(r.quiz_id).to_s }.uniq.join(", ")
+      str = rlt.map { |r| Quiz.find(r.quiz_id).to_s }.uniq.join(', ')
       flash[:error] = 'This question is being used by the following quizzes: '
       flash[:error] << str
       flash[:error] << '. Please remove the question on the quiz(zes) first.'
