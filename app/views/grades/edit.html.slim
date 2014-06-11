@@ -13,7 +13,7 @@ h1 Edit
       = @submission.content
 
       h5 Rubric
-      = @question.rubric.rubric
+      = markdown @question.rubric.rubric
       
       = f.input :grade
       = f.input :comments, as: :text
