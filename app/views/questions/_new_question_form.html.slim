@@ -35,7 +35,7 @@
           = f.fields_for :rubric do |sf|
             = sf.hidden_field :question_id, value: f.object.id
             br
-            = sf.label :rubric, '* Rubric'
+            = sf.label :rubric, '* Rubric (parsed as Markdown)'
             = sf.text_area :rubric, class: 'expand', placeholder: 'Add Rubric'
       br
         = f.submit 'Create', class: 'small button'

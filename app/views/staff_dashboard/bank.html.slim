@@ -15,7 +15,7 @@ br
     br
 
     p Rubric:
-    = question.rubric.rubric
+    = markdown question.rubric.rubric
     
     - if @add
       = link_to 'Add question!', add_question_path(question,
