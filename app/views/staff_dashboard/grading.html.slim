@@ -1,7 +1,11 @@
 h3 Quizzes To Grade
 
-ul
-  - @to_grade.each do |g|
-    li
-      = link_to g, view_quiz_path(g.student_id, 
-                                 quiz_id: g.quiz_id)
+
+- if @to_grade.empty?
+  p You don't have any quizzes to grade!
+- else
+  ul
+    - @to_grade.each do |g|
+      li
+        = link_to g, view_quiz_path(g.student_id, 
+                                    quiz_id: g.quiz_id)
