@@ -29,9 +29,9 @@ class StaffDashboardController < ApplicationController
   end
 
   def bank
-    @questions = Question.where(lesson: params[:id]).
-                         includes(:solution).includes(:rubric).
-                         page params[:page]
+    @questions = Question.where(lesson: params[:id])
+                         .includes(:solution).includes(:rubric)
+                         .page params[:page]
     @requests = QuizRequest.all
     @add = params[:add] == 'true'
     @id = params[:quiz_id]
@@ -57,9 +57,21 @@ class StaffDashboardController < ApplicationController
   def download
     respond_to do |format|
       format.html { redirect_to staff_dashboard_path }
-      format.csv { send_data Student.get_csv(params[:lesson]),
-                             filename: "lesson#{params[:lesson]}.csv" }
+      format.csv do
+        send_data Student.get_csv(params[:lesson]),
+                  filename: "lesson#{params[:lesson]}.csv"
+      end
     end
+  end
+
+  def import_students_form
+  end
+
+  def import_students
+    logins = params[:logins].split
+    @result = logins.reject { |login| Student.find_by_login login }
+                    .map { |login| import_student login }
+    1/0
   end
 
   private
@@ -70,5 +82,17 @@ class StaffDashboardController < ApplicationController
       download << ["Lesson #{n}", n.to_s]
     end
     download
+  end
+
+  def import_student(login)
+    password = SecureRandom.base64 5
+    student = Student.create(email: 'invalid@cs61as.edu', login: login,
+                             password: password, first_name: login,
+                             last_name: login)
+    if student.new_record?
+      [login, "Not saved. #{student.errors.full_messages.join ' '}"]
+    else
+      [login, password]
+    end
   end
 end
