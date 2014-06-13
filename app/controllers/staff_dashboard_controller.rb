@@ -76,6 +76,9 @@ class StaffDashboardController < ApplicationController
     render :import_students_form
   end
 
+  def download_students
+    1/0
+  end
   private
 
   def downloads

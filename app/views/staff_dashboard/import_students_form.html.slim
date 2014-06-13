@@ -15,3 +15,5 @@ h3 Import Students
       - @results.each do |login, password|
         = "#{login},#{password}"
         br
+      = link_to 'Download as csv', download_students_path(students: @results), 
+                                   class: 'small button'
