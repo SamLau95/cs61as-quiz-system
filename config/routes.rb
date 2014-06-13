@@ -16,6 +16,10 @@ Cs61asQuizzes::Application.routes.draw do
     get '/requests', to: 'staff_dashboard#requests', as: :requests_dashboard
     get '/students', to: 'staff_dashboard#students', as: :students_dashboard
     get '/grading', to: 'staff_dashboard#grading', as: :grading_dashboard
+    get '/import_students', to: 'staff_dashboard#import_students_form',
+                            as: :import_students_form
+    post '/import_students', to: 'staff_dashboard#import_students',
+                             as: :import_students
   end
 
   resources :students
