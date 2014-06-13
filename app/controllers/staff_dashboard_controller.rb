@@ -73,7 +73,13 @@ class StaffDashboardController < ApplicationController
     @results = @logins.split
                       .reject { |login| Student.find_by_login login }
                       .map { |login| import_student login }
-    render :import_students_form
+    respond_to do |format|
+      format.html { redirect_to staff_dashboard_path }
+      format.csv do
+        send_data create_student_csv(@results),
+                  filename: 'studentInfo.csv'
+      end
+    end
   end
 
   private
@@ -94,6 +100,15 @@ class StaffDashboardController < ApplicationController
       [login, "Not saved. #{student.errors.full_messages.join ' '}"]
     else
       [login, password]
+    end
+  end
+
+  def create_student_csv(results)
+    CSV.generate do |csv|
+      csv << ['Login', 'Password']
+      results.each do |r|
+        csv << r
+      end
     end
   end
 end

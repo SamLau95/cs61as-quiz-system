@@ -34,6 +34,10 @@ ActiveRecord::Schema.define(version: 20140613004809) do
     t.datetime "updated_at"
     t.integer  "lesson"
     t.string   "difficulty"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "quiz_locks", force: true do |t|
