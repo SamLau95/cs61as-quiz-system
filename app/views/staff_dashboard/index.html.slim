@@ -11,13 +11,13 @@ p Generate a quiz
       = f.hidden_field :quiz_type, value: 'generate'
       = f.input :lesson, collection: 1..14
       = f.input :retake, as: :boolean
-      = f.submit 'Generate a quiz!'
+      = f.submit 'Generate!', class: 'button small'
 
 h3 Quiz Drafts
 ul.quizzes
   - @drafts.each do |quiz|
     li = link_to quiz, quiz_path(quiz)
-    ul = link_to 'Delete Quiz', quiz, 
+    ul = link_to 'Delete Quiz', quiz,
                                 method: :delete,
                                 data: { confirm: "You sure?" }
 
@@ -32,5 +32,4 @@ h3 Download Grades.txt file
   .small-3.column
     = form_tag download_grades_path( format: 'csv' ) do
       = select_tag(:lesson, options_for_select(@download))
-      = submit_tag 'Download!'
-
+      = submit_tag 'Download!', class: 'button'
