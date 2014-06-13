@@ -65,13 +65,15 @@ class StaffDashboardController < ApplicationController
   end
 
   def import_students_form
+    @results = []
   end
 
   def import_students
-    logins = params[:logins].split
-    @result = logins.reject { |login| Student.find_by_login login }
-                    .map { |login| import_student login }
-    1/0
+    @logins = params[:logins]
+    @results = @logins.split
+                      .reject { |login| Student.find_by_login login }
+                      .map { |login| import_student login }
+    render :import_students_form
   end
 
   private
@@ -85,10 +87,9 @@ class StaffDashboardController < ApplicationController
   end
 
   def import_student(login)
-    password = SecureRandom.base64 5
-    student = Student.create(email: 'invalid@cs61as.edu', login: login,
-                             password: password, first_name: login,
-                             last_name: login)
+    password = Devise.friendly_token.first 8
+    student = Student.create(login: login, password: password,
+                             first_name: login, last_name: login)
     if student.new_record?
       [login, "Not saved. #{student.errors.full_messages.join ' '}"]
     else
