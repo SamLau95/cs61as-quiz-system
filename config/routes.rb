@@ -20,8 +20,6 @@ Cs61asQuizzes::Application.routes.draw do
                             as: :import_students_form
     post '/import_students', to: 'staff_dashboard#import_students',
                              as: :import_students
-    get '/download_students', to: 'staff_dashboard#download_students',
-                              as: :download_students
   end
 
   resources :students

@@ -1,5 +1,5 @@
 h3 Import Students
-= form_tag :import_students do
+= form_tag import_students_path(format: 'csv') do
   .row
     .medium-7.columns
       = label_tag :logins, 'Copy and paste student logins, one per line. You may enter in logins that have already been processed before; they will be ignored.'
@@ -15,5 +15,4 @@ h3 Import Students
       - @results.each do |login, password|
         = "#{login},#{password}"
         br
-      = link_to 'Download as csv', download_students_path(students: @results), 
-                                   class: 'small button'
+
