@@ -75,11 +75,11 @@ class StaffDashboardController < ApplicationController
                       .map { |login| import_student login }
     respond_to do |format|
       format.html { redirect_to staff_dashboard_path }
-      format.csv do 
+      format.csv do
         send_data create_student_csv(@results),
-        filename: 'studentInfo.csv'
+                  filename: 'studentInfo.csv'
       end
-    end 
+    end
   end
 
   private
