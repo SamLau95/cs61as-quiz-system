@@ -7,3 +7,11 @@ h3 Import Students
   .row
     .medium-12.columns
       = submit_tag 'Create students!', class: 'button'
+
+.row
+  .columns
+    - unless @results.empty?
+      h3 Results:
+      - @results.each do |login, password|
+        = "#{login},#{password}"
+        br
