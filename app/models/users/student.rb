@@ -37,6 +37,10 @@ class Student < User
   delegate :lesson, to: :quiz_request, prefix: true
   delegate :locked?, to: :quiz_lock, allow_nil: true
 
+  def email_required?
+    false
+  end
+
   def approved_request?
     quiz_lock && !quiz_lock.locked
   end

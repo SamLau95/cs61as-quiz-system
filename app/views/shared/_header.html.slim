@@ -19,6 +19,8 @@ nav.top-bar data-topbar=true
         li.divider
         li = link_to 'Grading', grading_dashboard_path
         li.divider
+        li = link_to 'Import Students', import_students_form_path
+        li.divider
     ul.right
       li.divider
       - if current_user
