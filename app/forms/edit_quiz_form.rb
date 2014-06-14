@@ -8,7 +8,7 @@ class EditQuizForm < Reform::Form
   property :retake
   property :is_draft
 
-  validates :lesson, presence: true, numericality: true
+  validates :lesson, presence: true
   validates :version, presence: true, numericality: true
   validates :retake, presence: true
   validates :is_draft, presence: true
@@ -43,7 +43,7 @@ class EditQuizForm < Reform::Form
   def same_lesson(rlt)
     rlt.each do |r|
       quest = Question.find(r.question_id)
-      return false if @fields.lesson.to_i != quest.lesson
+      return false if @fields.lesson != quest.lesson
     end
     true
   end

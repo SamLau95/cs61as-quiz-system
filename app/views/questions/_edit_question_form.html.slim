@@ -13,7 +13,7 @@
             = label_tag :points, '* Points'
             = text_field_tag :points, points
           - if lesson == "true"
-            = f.input :lesson, collection: 1..14
+            = f.input :lesson, collection: Quiz.all_lessons
             / = f.file_field :photo
           - else
             = f.hidden_field :lesson, value: f.object.lesson

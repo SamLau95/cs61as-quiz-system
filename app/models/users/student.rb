@@ -72,7 +72,7 @@ class Student < User
     take = []
     subm.each do |s|
       q = Quiz.find(s.quiz_id)
-      take << q if q.lesson == lesson.to_i
+      take << q if q.lesson == lesson
     end
     take.uniq.size
   end
