@@ -47,7 +47,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.all_lessons
-    ['0-1', '0-2','0-3']+(1..14).to_a.map { |n| n.to_s }
+    ['0-1', '0-2', '0-3'] + (1..14).to_a.map { |n| n.to_s }
   end
 
   def next_number
