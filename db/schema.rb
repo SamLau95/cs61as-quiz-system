@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613004809) do
+ActiveRecord::Schema.define(version: 20140614065012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140613004809) do
     t.integer  "question_id"
     t.integer  "student_id"
     t.integer  "grade",       default: 0
-    t.integer  "lesson"
+    t.string   "lesson",      default: ""
     t.boolean  "retake",      default: false
   end
 
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20140613004809) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lesson"
+    t.string   "lesson",             default: ""
     t.string   "difficulty"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20140613004809) do
 
   create_table "quiz_requests", force: true do |t|
     t.integer  "student_id"
-    t.integer  "lesson"
+    t.string   "lesson",     default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "approved",   default: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140613004809) do
   add_index "quiz_requests", ["student_id"], name: "index_quiz_requests_on_student_id", using: :btree
 
   create_table "quizzes", force: true do |t|
-    t.integer  "lesson"
+    t.string   "lesson",     default: ""
     t.integer  "version"
     t.boolean  "retake",     default: false
     t.datetime "created_at"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20140613004809) do
     t.datetime "updated_at"
     t.integer  "grade",      default: 0
     t.boolean  "finished",   default: false
-    t.integer  "lesson"
+    t.string   "lesson",     default: ""
   end
 
   add_index "taken_quizzes", ["quiz_id", "student_id"], name: "index_taken_quizzes_on_quiz_id_and_student_id", unique: true, using: :btree
