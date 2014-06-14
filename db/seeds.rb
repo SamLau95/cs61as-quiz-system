@@ -15,11 +15,11 @@ def make_users
 end
 
 def make_quizzes
-  q = Quiz.create lesson: 1,
+  q = Quiz.create lesson: '1',
                    version: 1,
                    is_draft: false
   q1 = Question.create content: 'What is 1 + 1?',
-                        lesson: 1,
+                        lesson: '1',
                         difficulty: 'Easy'
   q1.relationships.create quiz_id: q.id,
                            question_id: q1.id,
@@ -28,7 +28,7 @@ def make_quizzes
   q1.create_solution content: '2'
   q1.create_rubric rubric: '5: Hello'
   q2 = Question.create content: 'What is 1 * 3?',
-                        lesson: 1,
+                        lesson: '1',
                         difficulty: 'Medium'
   q2.relationships.create quiz_id: q.id,
                            question_id: q2.id,
@@ -37,7 +37,7 @@ def make_quizzes
   q2.create_solution content: '3'
   q2.create_rubric rubric: '5: Hello'
   q3 = Question.create content: 'What is 10 + 1?',
-                        lesson: 1,
+                        lesson: '1',
                         difficulty: 'Hard'
   q3.relationships.create quiz_id: q.id,
                            question_id: q3.id,
@@ -45,10 +45,10 @@ def make_quizzes
                            points: 4
   q3.create_solution content: '11'
   q3.create_rubric rubric: '5: Hello'
-  q = Quiz.create lesson: 2,
+  q = Quiz.create lesson: '2',
                    version: 1
   q4 = Question.create content: 'What do you say after Hello?',
-                        lesson: 2,
+                        lesson: '2',
                         difficulty: 'Easy'
   q4.relationships.create quiz_id: q.id,
                            question_id: q4.id,
