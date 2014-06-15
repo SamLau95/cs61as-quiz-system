@@ -33,8 +33,8 @@ Cs61asQuizzes::Application.routes.draw do
   resources :quizzes
   get '/take_quiz', to: 'quizzes#take', as: :take_quiz
   scope '/quizzes' do
-    post '/:lesson/request', to: 'quizzes#make_request',
-                             as: :make_quiz_request
+    post '/request', to: 'quizzes#make_request',
+                     as: :make_quiz_request
     post '/:id/submit', to: 'quizzes#submit', as: :submit_quiz
     delete '/:id/delete', to: 'quizzes#delete_question', as: :delete_rlt
     get '/stats/:id', to: 'quizzes#stats', as: :check_quiz

@@ -9,7 +9,7 @@ p Generate a quiz
   .small-3.columns
     = simple_form_for @quiz do |f|
       = f.hidden_field :quiz_type, value: 'generate'
-      = f.input :lesson, collection: 1..14
+      = f.input :lesson, collection: Quiz.all_lessons
       = f.input :retake, as: :boolean
       = f.submit 'Generate!', class: 'button small'
 

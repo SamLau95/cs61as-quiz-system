@@ -86,8 +86,8 @@ class StaffDashboardController < ApplicationController
 
   def downloads
     download = []
-    (1..14).each do |n|
-      download << ["Lesson #{n}", n.to_s]
+    Quiz.all_lessons.each do |n|
+      download << ["Lesson #{n}", n]
     end
     download
   end

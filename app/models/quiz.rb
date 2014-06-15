@@ -47,7 +47,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.all_lessons
-    (1..14).to_a
+    ['0-1', '0-2', '0-3'] + (1..14).to_a.map { |n| n.to_s }
   end
 
   def next_number
@@ -56,7 +56,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.generate_random(lesson, rtk)
-    quiz = create lesson: lesson.to_i, retake: rtk == '1'
+    quiz = create lesson: lesson, retake: rtk == '1'
     easy, medium, hard = quiz.get_quest(lesson)
     quiz.relationships.create(question: hard, number: quiz.next_number) unless hard.nil?
     quiz.relationships.create(question: medium, number: quiz.next_number) unless medium.nil?
