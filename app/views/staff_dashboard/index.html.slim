@@ -1,16 +1,18 @@
 h1 Welcome to the Staff Dashboard!
 
 p.makequizzes
-  = link_to "Create a New Quiz!", new_quiz_path
+  = link_to "Create a New Quiz!", new_quiz_path, class: 'button small'
 
-p Generate a quiz
+p or
+
+h3 Generate a quiz
 
 .row
   .small-3.columns
     = simple_form_for @quiz do |f|
       = f.hidden_field :quiz_type, value: 'generate'
       = f.input :lesson, collection: Quiz.all_lessons
-      = f.input :retake, as: :boolean
+      = f.input :retake, as: :boolean, label: 'Retake?'
       = f.submit 'Generate!', class: 'button small'
 
 h3 Quiz Drafts
