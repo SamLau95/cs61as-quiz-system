@@ -19,10 +19,10 @@
             = text_field_tag :points, points
       .row
         .small-12.columns
-          = f.input :content, as: :text,
-                    input_html: { class: 'expand' },
-                    label: 'Question (parsed as Markdown)'
-          .preview
+          = f.label :content, '* Question (parsed as Markdown)'
+          = f.text_area :content,
+                        class: 'expand'
+          = render 'preview'
       .row
         .small-12.columns
           = f.fields_for :solution do |sf|
@@ -32,14 +32,14 @@
             = sf.text_area :content,
                            class: 'expand',
                            placeholder: 'Add Solution'
-            .preview
+            = render 'preview'
 
           = f.fields_for :rubric do |sf|
             = sf.hidden_field :question_id, value: f.object.id
             br
             = sf.label :rubric, '* Rubric (parsed as Markdown)'
             = sf.text_area :rubric, class: 'expand', placeholder: 'Add Rubric'
-            .preview
+            = render 'preview'
       br
         = f.submit 'Create', class: 'small button'
         br
