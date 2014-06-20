@@ -10,7 +10,8 @@ h1 Edit
       = markdown @question.solution.content
 
       h5 Student's Answer:
-      = @submission.content
+      pre.replace
+        = @submission.content
 
       h5 Rubric
       = markdown @question.rubric.rubric
