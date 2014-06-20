@@ -30,6 +30,16 @@ h1 = "Total: #{@grade}/10"
                                                      student_id: @student_id),
                                  method: 'put',
                                  class: 'large button'
+  h3 Regrade request:
+  - if @request
+    = "Questions to grade: #{@request.questions}"
+    br 
+    br
+    = "Reasons: #{@request.reason}"
+  - else 
+    p No regrade request was submitted!
+  br
+  br
 
 - @ques_subm.each do |question, subm, score, rlt|
   div 
