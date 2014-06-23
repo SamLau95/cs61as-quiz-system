@@ -1,5 +1,6 @@
 h3#show_quiz = @quiz
-h1 = "Total: #{@grade.grade}/10"
+- if @grade.finished? || @current_user.staff?
+  h1 = "Total: #{@grade.grade}/10"
 
 - if @current_user.student?
   - if @request && @request.graded
