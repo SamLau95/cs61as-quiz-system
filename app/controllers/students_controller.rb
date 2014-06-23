@@ -25,8 +25,9 @@ class StudentsController < ApplicationController
   def finish
     TakenQuiz.find_by(quiz_id: params[:id],
                       student_id: params[:student_id]).finish
-    Regrade.find_by(quiz_id: params[:id],
-                    student_id: params[:student_id]).finish
+    re = Regrade.find_by(quiz_id: params[:id],
+                         student_id: params[:student_id])
+    re.finish unless re.blank?
     flash[:success] = 'Finished grading!'
     redirect_to staff_dashboard_path
   end
