@@ -20,6 +20,6 @@ module ApplicationHelper
   end
 
   def get_number(quiz, question)
-    return Relationship.find_by(question_id: question, quiz_id: quiz).number
+    Relationship.find_by(question_id: question, quiz_id: quiz).number
   end
 end
