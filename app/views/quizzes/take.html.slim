@@ -17,6 +17,7 @@ p After you click Begin, you cannot use the computer for anything else!
           = sf.hidden_field :quiz_id, value: @quiz_form.id
           = sf.hidden_field :question_id, value: sf.object.question_id
           br
+          = "Question #{get_number sf.object.quiz_id, sf.object.question_id}:"
           = markdown sf.object.question_content
           br
           div
