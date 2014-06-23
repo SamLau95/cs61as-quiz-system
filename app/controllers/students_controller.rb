@@ -17,9 +17,10 @@ class StudentsController < ApplicationController
       Grade.find_by question_id: q.id, student_id: stu_id
     end
     @ques_subm = QuizSubmission.new(@questions, @subm, @scores).ques_subm
-    @grade = TakenQuiz.find_by(quiz_id: qid, student_id: stu_id).grade
+    @grade = TakenQuiz.find_by(quiz_id: qid, student_id: stu_id)
     @request = Regrade.find_by quiz_id: qid, student_id: stu_id
     @regrade = Regrade.new
+    @not_graded = @scores.inject { |q1, q2| q1.nil? || q2.nil? }
   end
 
   def finish
