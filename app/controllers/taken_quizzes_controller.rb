@@ -4,7 +4,7 @@ class TakenQuizzesController < ApplicationController
     if @grade.update_attributes taken_quiz_params
       flash[:notice] = 'Added comment!'
     else
-      flash[:error] = "Comment was left blank or was too long."
+      flash[:error] = 'Comment was left blank or was too long.'
     end
     redirect_to :back
   end
