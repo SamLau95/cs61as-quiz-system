@@ -1,6 +1,8 @@
 h3#show_quiz = @quiz
 - if @grade.finished? || @current_user.staff?
   h1 = "Total: #{@grade.grade}/10"
+  h3 General comments:
+  p = @grade.comment
 
 - if @current_user.student?
   - if @request && @request.graded
@@ -36,14 +38,19 @@ h3#show_quiz = @quiz
                                                        student_id: @student_id),
                                    method: 'put',
                                    class: 'large button'
-    h3 Regrade request:
+  - else
     - if @request
+      h3 Regrade request:
       = "Questions to grade: #{@request.questions}"
       br 
       br
       = "Reasons: #{@request.reason}"
-    - else 
-      p No regrade request was submitted!
+  .row
+    .small-6.columns
+      = simple_form_for @grade do |f|
+        = f.input :comment, label: 'General Comments'
+        = f.submit 'Save Comments!', class: 'button'
+
   br
   br
 

@@ -57,6 +57,8 @@ Cs61asQuizzes::Application.routes.draw do
     patch '/:id/unlock', to: 'quiz_locks#unlock', as: :unlock_student
   end
 
+  resources :taken_quizzes, only: [:update]
+
   resources :grades
 
   resources :regrades, except: [:new, :edit, :update]

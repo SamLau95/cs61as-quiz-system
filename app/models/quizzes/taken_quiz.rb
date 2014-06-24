@@ -17,6 +17,10 @@ class TakenQuiz < ActiveRecord::Base
   belongs_to :quiz
   belongs_to :student
 
+  # Validations for comments
+
+  validates :comment, presence: true, length: { maximum: 200 }
+
   scope :not_graded, -> { where(finished: false) }
 
   def to_s
