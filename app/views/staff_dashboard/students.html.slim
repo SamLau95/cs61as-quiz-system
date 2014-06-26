@@ -23,6 +23,6 @@ div
       p All Students
       ul.students
         - @students.each do |student|
-          = link_to student, student
+          li = link_to student, student
 
         = paginate @students
