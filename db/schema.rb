@@ -20,24 +20,20 @@ ActiveRecord::Schema.define(version: 20140626080419) do
   create_table "grades", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "comments",                            default: "No Comments"
+    t.text     "comments",    default: "No Comments"
     t.integer  "question_id"
     t.integer  "student_id"
-    t.decimal  "grade",       precision: 2, scale: 1, default: 0.0
-    t.string   "lesson",                              default: ""
-    t.boolean  "retake",                              default: false
+    t.decimal  "grade",       default: 0.0
+    t.string   "lesson",      default: ""
+    t.boolean  "retake",      default: false
   end
 
   create_table "questions", force: true do |t|
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "lesson",             default: ""
+    t.string   "lesson",     default: ""
     t.string   "difficulty"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
   end
 
   create_table "quiz_locks", force: true do |t|
@@ -133,10 +129,10 @@ ActiveRecord::Schema.define(version: 20140626080419) do
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "grade",      precision: 3, scale: 1, default: 0.0
-    t.boolean  "finished",                           default: false
-    t.string   "lesson",                             default: ""
-    t.string   "comment",                            default: "No comments"
+    t.decimal  "grade",      default: 0.0
+    t.boolean  "finished",   default: false
+    t.string   "lesson",     default: ""
+    t.string   "comment",    default: "No comments"
   end
 
   add_index "taken_quizzes", ["quiz_id", "student_id"], name: "index_taken_quizzes_on_quiz_id_and_student_id", unique: true, using: :btree
