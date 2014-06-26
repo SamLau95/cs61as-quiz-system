@@ -13,9 +13,6 @@
 
 # Quiz class; knows its questions and its submisisons
 class Quiz < ActiveRecord::Base
-
-  # default_scope { order('lesson') }
-  
   has_many :students, through: :taken_quizzes, foreign_key: 'quiz_id'
   has_many :taken_quizzes
   has_many :questions, through: :relationships, foreign_key: 'question_id'
