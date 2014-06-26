@@ -25,7 +25,7 @@ class StaffDashboardController < ApplicationController
   end
 
   def grading
-    @to_grade = TakenQuiz.not_graded
+    @grade = TakenQuiz.not_graded.sort_by { |r| Quiz.find(r.quiz_id).lesson }
   end
 
   def bank
