@@ -34,8 +34,8 @@ h3#show_quiz = @quiz
   - if !@not_graded
     h3 Don't forget to hit finish grading after you're done grading, otherwise the student's grades won't be uploaded to the CSV!
 
-    = link_to 'Finished Grading!', finish_grading_path(@quiz.id,
-                                                       student_id: @student_id),
+    = link_to 'Finished Grading!', finish_grading_path(@student_id,
+                                                       quiz_id: @quiz.id),
                                    method: 'put',
                                    class: 'large button'
   - else
