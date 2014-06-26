@@ -19,7 +19,7 @@ class GradesController < ApplicationController
 
   def update
     grade = Grade.find params[:id]
-    oldg, newg = grade.grade, params[:grade][:grade].to_i
+    oldg, newg = grade.grade, params[:grade][:grade].to_f
     @submission = Submission.find_by question_id: grade.question_id,
                                      student_id: grade.student_id
     @question = Question.find grade.question_id

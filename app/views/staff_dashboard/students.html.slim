@@ -16,13 +16,13 @@ div
           p No Results!
         - else
           - @search.each do |student|
-            = link_to student, student
+            li = link_to student, student
 div
   row
     .small-12.columns
       p All Students
       ul.students
         - @students.each do |student|
-          = link_to student, student
+          li = link_to student, student
 
         = paginate @students

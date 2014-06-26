@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624043930) do
+ActiveRecord::Schema.define(version: 20140626080419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140624043930) do
     t.text     "comments",    default: "No Comments"
     t.integer  "question_id"
     t.integer  "student_id"
-    t.integer  "grade",       default: 0
+    t.decimal  "grade",       default: 0.0
     t.string   "lesson",      default: ""
     t.boolean  "retake",      default: false
   end
@@ -32,12 +32,8 @@ ActiveRecord::Schema.define(version: 20140624043930) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "lesson",             default: ""
+    t.string   "lesson",     default: ""
     t.string   "difficulty"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
   end
 
   create_table "quiz_locks", force: true do |t|
@@ -133,7 +129,7 @@ ActiveRecord::Schema.define(version: 20140624043930) do
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "grade",      default: 0
+    t.decimal  "grade",      default: 0.0
     t.boolean  "finished",   default: false
     t.string   "lesson",     default: ""
     t.string   "comment",    default: "No comments"

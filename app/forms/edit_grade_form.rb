@@ -17,7 +17,7 @@ class EditGradeForm < Reform::Form
   end
 
   def check_points
-    unless (0..10).include? @fields.grade.to_i
+    unless (0..10).include? @fields.grade.to_f
       errors.add :grade, 'Invalid grade'
     end
   end
