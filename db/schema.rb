@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624043930) do
+ActiveRecord::Schema.define(version: 20140626080419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 20140624043930) do
   create_table "grades", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "comments",    default: "No Comments"
+    t.text     "comments",                            default: "No Comments"
     t.integer  "question_id"
     t.integer  "student_id"
-    t.integer  "grade",       default: 0
-    t.string   "lesson",      default: ""
-    t.boolean  "retake",      default: false
+    t.decimal  "grade",       precision: 2, scale: 1, default: 0.0
+    t.string   "lesson",                              default: ""
+    t.boolean  "retake",                              default: false
   end
 
   create_table "questions", force: true do |t|
@@ -133,10 +133,10 @@ ActiveRecord::Schema.define(version: 20140624043930) do
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "grade",      default: 0
-    t.boolean  "finished",   default: false
-    t.string   "lesson",     default: ""
-    t.string   "comment",    default: "No comments"
+    t.decimal  "grade",      precision: 3, scale: 1, default: 0.0
+    t.boolean  "finished",                           default: false
+    t.string   "lesson",                             default: ""
+    t.string   "comment",                            default: "No comments"
   end
 
   add_index "taken_quizzes", ["quiz_id", "student_id"], name: "index_taken_quizzes_on_quiz_id_and_student_id", unique: true, using: :btree
