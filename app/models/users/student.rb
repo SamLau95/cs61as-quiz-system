@@ -28,11 +28,11 @@ class Student < User
 
   has_many :quizzes, through: :taken_quizzes, foreign_key: 'student_id'
   has_many :taken_quizzes, dependent: :destroy
-  has_many :submissions
-  has_one :quiz_request
-  has_one :quiz_lock
-  has_many :grades
-  has_many :regrades
+  has_many :submissions, dependent: :destroy
+  has_one :quiz_request, dependent: :destroy
+  has_one :quiz_lock, dependent: :destroy
+  has_many :grades, dependent: :destroy
+  has_many :regrades, dependent: :destroy
 
   delegate :lesson, to: :quiz_request, prefix: true
   delegate :locked?, to: :quiz_lock, allow_nil: true
