@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626080419) do
+ActiveRecord::Schema.define(version: 20140711073255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20140626080419) do
     t.integer  "student_id"
     t.decimal  "grade",       default: 0.0
     t.string   "lesson",      default: ""
-    t.boolean  "retake",      default: false
   end
 
   create_table "questions", force: true do |t|
@@ -133,6 +132,7 @@ ActiveRecord::Schema.define(version: 20140626080419) do
     t.boolean  "finished",   default: false
     t.string   "lesson",     default: ""
     t.string   "comment",    default: "No comments"
+    t.boolean  "retake",     default: false
   end
 
   add_index "taken_quizzes", ["quiz_id", "student_id"], name: "index_taken_quizzes_on_quiz_id_and_student_id", unique: true, using: :btree
