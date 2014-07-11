@@ -99,12 +99,11 @@ class Student < User
                               lesson: lesson, 
                               retake: false
     quiz2 = TakenQuiz.find_by student_id: id,
-                              lesson: lesson, 
+                              lesson: lesson,
                               retake: true
     if quiz2.blank?
       return [login, quiz1.grade, quiz1.comment, false]
     else
-      grades2.each { |g| total2 += g.grade }
       return [login, quiz2.grade, quiz2.comment, true]
     end
   end
