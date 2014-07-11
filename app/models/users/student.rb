@@ -90,21 +90,22 @@ class Student < User
   end
 
   def has_grade(lesson)
-    taken = TakenQuiz.where(student_id: id, lesson: lesson)
     !grades.where(lesson: lesson).blank? &&
-    taken.inject { |a, b| a.finished && b.finished }
+    taken_quizzes.inject { |a, b| a.finished && b.finished }
   end
 
   def get_row(lesson)
-    grades1 = grades.where(lesson: lesson, retake: 'false')
-    grades2 = grades.where(lesson: lesson, retake: 'true')
-    total1, total2 = 0, 0
-    if grades2.blank?
-      grades1.each { |g| total1 += g.grade }
-      return [login, total1, 'false']
+    quiz1 = TakenQuiz.find_by student_id: id,
+                              lesson: lesson, 
+                              retake: false
+    quiz2 = TakenQuiz.find_by student_id: id,
+                              lesson: lesson, 
+                              retake: true
+    if quiz2.blank?
+      return [login, quiz1.grade, quiz1.comment, false]
     else
       grades2.each { |g| total2 += g.grade }
-      return [login, total2, 'true']
+      return [login, quiz2.grade, quiz2.comment, true]
     end
   end
 
