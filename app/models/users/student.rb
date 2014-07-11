@@ -80,7 +80,7 @@ class Student < User
   def self.get_csv(lesson)
     CSV.generate do |csv|
       csv << ["Lesson #{lesson} grades"]
-      csv << ['Login', 'Grade', 'Retake?']
+      csv << ['Login', 'Grade', 'Comments', 'Retake?']
       all.each do |student|
         if student.has_grade(lesson)
           csv << student.get_row(lesson)
