@@ -96,7 +96,7 @@ class Student < User
 
   def get_row(lesson)
     quiz1 = TakenQuiz.find_by student_id: id,
-                              lesson: lesson, 
+                              lesson: lesson,
                               retake: false
     quiz2 = TakenQuiz.find_by student_id: id,
                               lesson: lesson,
