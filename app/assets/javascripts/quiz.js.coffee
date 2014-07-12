@@ -22,7 +22,7 @@ fullscreen = ->
           type: 'POST'
 
   $('.hilite').keydown (e) ->
-    if (e.keyCode == 9) 
+    if (e.keyCode == 9)
       start = this.selectionStart
       end = this.selectionEnd
       $this = $(this)
@@ -45,6 +45,7 @@ ready = ->
     $(window).blur -> onchange()
     timer(gon.time_left)
     hilite()
+    $('#take_quiz_form').sisyphus()
   else if $('#show_quiz').length
     hilite_answer()
   else
