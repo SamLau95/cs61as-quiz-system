@@ -21,6 +21,7 @@ class QuizzesController < ApplicationController
 
   def submit
     ql = QuizLock.find_by_student_id(current_user.id)
+    quiz = Quiz.find ql.quiz_id
     if ql.locked
       flash[:error] = 'You wish you could turn this in.'
       redirect_to student_dashboard_path
@@ -31,7 +32,8 @@ class QuizzesController < ApplicationController
       if @quiz_form.validate_and_save params[:quiz]
         TakenQuiz.create student_id: ql.student_id,
                          quiz_id: ql.quiz_id,
-                         lesson: q.lesson
+                         lesson: q.lesson,
+                         retake: quiz.retake
         ql.destroy
         flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
         redirect_to student_dashboard_path

@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  student_id :integer
-#  lesson     :integer
+#  lesson     :string(255)      default("")
 #  created_at :datetime
 #  updated_at :datetime
 #  approved   :boolean          default(FALSE)

@@ -3,7 +3,7 @@
 # Table name: quizzes
 #
 #  id         :integer          not null, primary key
-#  lesson     :integer
+#  lesson     :string(255)      default("")
 #  version    :integer
 #  retake     :boolean          default(FALSE)
 #  created_at :datetime

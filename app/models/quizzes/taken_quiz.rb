@@ -7,9 +7,11 @@
 #  student_id :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  grade      :integer          default(0)
+#  grade      :decimal(, )      default(0.0)
 #  finished   :boolean          default(FALSE)
-#  lesson     :integer
+#  lesson     :string(255)      default("")
+#  comment    :string(255)      default("No comments")
+#  retake     :boolean          default(FALSE)
 #
 
 # TakenQuiz Class
