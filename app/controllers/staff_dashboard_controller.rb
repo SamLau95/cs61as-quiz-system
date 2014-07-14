@@ -4,7 +4,9 @@ class StaffDashboardController < ApplicationController
 
   def index
     @drafts = Quiz.drafts
-    @published = Quiz.published
+    @published = Quiz.published.sort_by do |q1| 
+      q1.lesson.scan(/\d/).map { |n| n.to_i }
+    end
     @quiz = Quiz.new
     @download = downloads
   end
