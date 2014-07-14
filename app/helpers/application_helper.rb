@@ -22,4 +22,10 @@ module ApplicationHelper
   def get_number(quiz, question)
     Relationship.find_by(question_id: question, quiz_id: quiz).number
   end
+
+  def sort_lessons(quizzes)
+    quizzes.sort_by do |q1| 
+      q1.lesson.scan(/\d/).map { |n| n.to_i }
+    end
+  end
 end
