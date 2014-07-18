@@ -38,13 +38,14 @@ h3#show_quiz = @quiz
                                                        quiz_id: @quiz.id),
                                    method: 'put',
                                    class: 'large button'
-  - else
-    - if @request
-      h3 Regrade request:
-      = "Questions to grade: #{@request.questions}"
-      br 
-      br
-      = "Reasons: #{@request.reason}"
+  - if @request
+    h3 Regrade request:
+    = "Questions to grade: #{@request.questions}"
+    br 
+    br
+    = "Reasons: #{@request.reason}"
+    br
+    br
   .row
     .small-6.columns
       = simple_form_for @grade do |f|
