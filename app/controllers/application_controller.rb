@@ -25,13 +25,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Not needed anymore, just here in case for future use.
-  # protected
+  protected
 
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.for(:sign_up) do |u|
-  #     u.permit(:login, :email, :password, :password_confirmation,
-  #              :first_name, :last_name)
-  #   end
-  # end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:login, :email, :password, :password_confirmation,
+               :first_name, :last_name)
+    end
+  end
 end
