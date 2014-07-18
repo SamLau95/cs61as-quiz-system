@@ -12,7 +12,9 @@ class StudentsController < ApplicationController
     @student_id = stu_id
     @quiz = Quiz.find qid
     @questions = @quiz.questions
-    @subm = Submission.where(quiz_id: qid, student_id: stu_id)
+    @subm = @questions.map do |q|
+      Submission.find_by question_id: q.id, student_id: stu_id
+    end
     @scores = @questions.map do |q|
       Grade.find_by question_id: q.id, student_id: stu_id
     end
