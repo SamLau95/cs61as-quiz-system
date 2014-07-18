@@ -16,19 +16,22 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if user.staff?
+    if !user.added_info
+      edit_user_path(user)
+    elsif user.staff?
       staff_dashboard_path
-    else
+    elsif user.student?
       student_dashboard_path
     end
   end
 
-  protected
+  # Not needed anymore, just here in case for future use.
+  # protected
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:login, :email, :password, :password_confirmation,
-               :first_name, :last_name)
-    end
-  end
+  # def configure_permitted_parameters
+  #   devise_parameter_sanitizer.for(:sign_up) do |u|
+  #     u.permit(:login, :email, :password, :password_confirmation,
+  #              :first_name, :last_name)
+  #   end
+  # end
 end

@@ -19,6 +19,7 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
+#  added_info             :boolean          default(FALSE)
 #
 
 class Staff < User
