@@ -1,4 +1,6 @@
-h1 Hello
+h1 Edit Profile
+
+p * = Required fields
 
 row
   .small-12-columns
@@ -10,7 +12,7 @@ row
           = f.input :email
           p Enter old password to confirm changes:
           = f.input :current_password, label: 'Old Password'
-
+        .small-6.columns
           p Change password (optional):
           = f.input :password, label: 'New Password'
           = f.input :password_confirmation, label: 'Confirm Password'

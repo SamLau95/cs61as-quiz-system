@@ -5,6 +5,10 @@ class StaffDashboardController < ApplicationController
   def index
     @drafts = Quiz.drafts
     @published = Quiz.published
+    # TODO: Sort by lesson
+    #.sort_by do |q|
+    #   q.lesson.gsub("-", "").split("").map { |n| n.to_i }
+    # end
     @quiz = Quiz.new
     @download = downloads
   end
