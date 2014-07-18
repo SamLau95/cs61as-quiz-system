@@ -2,7 +2,7 @@ h1 Edit
 
 = simple_form_for @grade_form do |f|
   .row
-    .small-3.columns
+    .small-12.columns
       h3 Question:
       = markdown @question.content
 
@@ -13,8 +13,14 @@ h1 Edit
       pre.replace
         = @submission.content
 
-      h5 Rubric
+      h5 Rubric:
       = markdown @question.rubric.rubric
+
+      h5 Points Possible:
+      = @rlt.points
+
+      br
+      br
       
       = f.input :grade
       = f.input :comments, as: :text
