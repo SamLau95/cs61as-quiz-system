@@ -56,6 +56,9 @@ ready = ->
     $('#take_quiz_form').sisyphus()
   else if $('#show_quiz').length
     hilite_answer()
+    CodeMirror($('.show')[0], {
+      readOnly: true
+    })
   else
     $(window).off 'blur'
 
