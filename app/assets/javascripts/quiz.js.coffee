@@ -20,7 +20,14 @@ fullscreen = ->
     #     $.ajax
     #       url: gon.lock_path,
     #       type: 'POST'
-    CodeMirror($('.textbox'))
+    myCodeMirror = CodeMirror.fromTextArea($('.text')[0], {
+      lineNumbers : true,
+      matchBrackets : true,
+      theme: "blackboard",
+      tabSize: 2,
+      smartIndent: false
+
+    })
 
   $('.hilite').keydown (e) ->
     if (e.keyCode == 9)
