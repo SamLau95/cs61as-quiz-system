@@ -86,6 +86,17 @@ class StaffDashboardController < ApplicationController
     end
   end
 
+  def download_initial_passwords
+    passwords = Student.all.map { |m| [m.login, m.first_password] }
+    respond_to do |format|
+      format.html { redirect_to staff_dashboard_path }
+      format.csv do
+        send_data create_student_csv(passwords),
+                  filename: 'studentInitialPW.csv'
+      end
+    end
+  end
+
   private
 
   def downloads
@@ -99,7 +110,8 @@ class StaffDashboardController < ApplicationController
   def import_student(login)
     password = Devise.friendly_token.first 8
     student = Student.create(login: login, password: password,
-                             first_name: login, last_name: login)
+                             first_name: login, last_name: login,
+                             first_password: password)
     if student.new_record?
       [login, "Not saved. #{student.errors.full_messages.join ' '}"]
     else

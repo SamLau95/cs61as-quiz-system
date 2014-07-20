@@ -9,7 +9,7 @@ Cs61asQuizzes::Application.routes.draw do
 
   scope '/staff' do
     get '', to: 'staff_dashboard#index', as: :staff_dashboard
-    post '/download', to: 'staff_dashboard#download', as: :download_grades
+    post '/download_grades', to: 'staff_dashboard#download', as: :download_grades
     get '/bank/:id', to: 'staff_dashboard#bank', as: :question_bank
     post '/add/:id', to: 'staff_dashboard#add', as: :add_question
     get '/questions', to: 'staff_dashboard#questions', as: :question_dashboard
@@ -20,6 +20,7 @@ Cs61asQuizzes::Application.routes.draw do
                             as: :import_students_form
     post '/import_students', to: 'staff_dashboard#import_students',
                              as: :import_students
+    get '/download_passwords', to: 'staff_dashboard#download_initial_passwords', as: :download_pw
   end
 
   resources :students
