@@ -1,5 +1,7 @@
 # Controller for users
 class UsersController < ApplicationController
+  load_and_authorize_resource
+  
   def edit
     user = User.find params[:id]
     @edit_form = EditUserForm.new user

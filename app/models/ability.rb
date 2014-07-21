@@ -7,7 +7,7 @@ class Ability
 
     alias_action :index, to: :see
     alias_action :view, to: :check
-
+    
     if !user.added_info
       can [:edit, :update], User, :id => user.id
     elsif user.staff?
