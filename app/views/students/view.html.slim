@@ -61,7 +61,7 @@ h3#show_quiz = @quiz
       p = markdown question.content
       
       p Student Answer:
-      pre.replace
+      textarea.show
         = subm.content
       - if score && (@current_user.staff? || @grade.finished)
         p Grade:

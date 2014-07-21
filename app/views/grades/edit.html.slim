@@ -10,7 +10,7 @@ h1#show_quiz Edit
       = markdown @question.solution.content
 
       h5 Student's Answer:
-      pre.replace
+      textarea.show
         = @submission.content
 
       h5 Rubric:

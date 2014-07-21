@@ -21,7 +21,6 @@ fullscreen = ->
     #       url: gon.lock_path,
     #       type: 'POST'
     for textedit in $('.textedit')
-      console.log(text)
       CodeMirror.fromTextArea(text, {
         lineNumbers : true,
         matchBrackets : true,
@@ -43,10 +42,10 @@ hilite = ->
   $('.hilite').keyup (e) ->
     HighlightLisp.highlight_element(e.target)
 
-hilite_answer = ->
-  answers = $('.replace')
-  for i in [0...answers.length]
-    HighlightLisp.highlight_element(answers[i])
+# hilite_answer = ->
+#   answers = $('.replace')
+#   for i in [0...answers.length]
+#     HighlightLisp.highlight_element(answers[i])
 
 ready = ->
   if $('#take_quiz_form').length
@@ -56,10 +55,13 @@ ready = ->
     hilite()
     $('#take_quiz_form').sisyphus()
   else if $('#show_quiz').length
-    hilite_answer()
-    CodeMirror($('.show')[0], {
-      readOnly: true
-    })
+    # hilite_answer()
+    for show in $('.show')
+      CodeMirror.fromTextArea(show, {
+        readOnly: true,
+        lineNumbers : true,
+        theme: "blackboard"
+      })
   else
     $(window).off 'blur'
 
