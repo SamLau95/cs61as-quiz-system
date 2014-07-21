@@ -20,23 +20,24 @@ fullscreen = ->
     #     $.ajax
     #       url: gon.lock_path,
     #       type: 'POST'
-    myCodeMirror = CodeMirror.fromTextArea($('.text')[0], {
-      lineNumbers : true,
-      matchBrackets : true,
-      theme: "blackboard",
-      tabSize: 2,
-      smartIndent: false
+    for textedit in $('.textedit')
+      console.log(text)
+      CodeMirror.fromTextArea(text, {
+        lineNumbers : true,
+        matchBrackets : true,
+        theme: "blackboard",
+        tabSize: 2,
+        smartIndent: false
+      })
 
-    })
-
-  $('.hilite').keydown (e) ->
-    if (e.keyCode == 9)
-      start = this.selectionStart
-      end = this.selectionEnd
-      $this = $(this)
-      $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
-      this.selectionStart = this.selectionEnd = start + 1
-      return false
+  # $('.hilite').keydown (e) ->
+  #   if (e.keyCode == 9)
+  #     start = this.selectionStart
+  #     end = this.selectionEnd
+  #     $this = $(this)
+  #     $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
+  #     this.selectionStart = this.selectionEnd = start + 1
+  #     return false
 
 hilite = ->
   $('.hilite').keyup (e) ->
