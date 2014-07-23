@@ -1,29 +1,36 @@
 require 'spec_helper'
 
 describe 'The student dashboard' do
-  let(:student) { create :student }
+  let(:student) { create :student, added_info: true }
+  before { sign_in student }
   subject { page }
 
-  describe 'displays all lessons' do
+  describe 'with quizzes' do
     before do
       create :quiz, lesson: 1, version: 1
       create :quiz, lesson: 1, version: 2
       create :quiz, lesson: 2
-      sign_in student
+      visit student_dashboard_path
     end
 
     [1, 2].each do |lesson|
-      it { should have_content "Quiz #{lesson}" }
+      it "has lesson #{lesson} as an option" do
+        within 'select#lesson' do
+          expect(page).to have_css "option[value=\"#{lesson}\"]"
+        end
+      end
     end
   end
 
   describe 'making a quiz request' do
     let!(:quiz) { create :quiz }
-    before { sign_in student }
+    before do
+      visit student_dashboard_path
+      select quiz.lesson, from: 'lesson'
+    end
 
-    it { should have_content "Quiz #{quiz.lesson}" }
     it 'creates a QuizRequest' do
-      expect { click_quiz_link quiz }
+      expect { click_button 'Request' }
              .to change(QuizRequest, :count).by 1
     end
   end
@@ -31,8 +38,9 @@ describe 'The student dashboard' do
   describe 'after making a request' do
     let!(:quiz) { create :quiz }
     before do
-      sign_in student
-      click_quiz_link quiz
+      visit student_dashboard_path
+      select quiz.lesson, from: 'lesson'
+      click_button 'Request'
     end
 
     it { should have_content 'requesting' }
@@ -79,7 +87,7 @@ describe 'The student dashboard' do
   describe 'taking a quiz' do
     let!(:quiz) { create :quiz }
     before do
-      sign_in student
+      visit student_dashboard_path
       click_quiz_link quiz
       student.quiz_request.lock_and_destroy!
       visit student_dashboard_path

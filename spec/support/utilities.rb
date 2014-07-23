@@ -6,7 +6,3 @@ def sign_in(user)
   fill_in 'Password', with: user.password
   click_button 'Sign in'
 end
-
-def click_quiz_link(quiz)
-  click_link "Quiz #{quiz.lesson}"
-end
