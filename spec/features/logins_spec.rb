@@ -10,15 +10,45 @@ describe 'Logging in' do
 
   describe 'as a student' do
     let(:student) { create :student }
-    before { sign_in student }
 
-    it { should have_content 'Student' }
+    describe 'without filling in profile' do
+      before { sign_in student }
+      it 'prompts to complete it' do
+        expect(current_path).to eq(edit_user_path student)
+      end
+    end
+
+    describe 'with info filled in' do
+      before do
+        student.toggle! :added_info
+        sign_in student
+      end
+
+      it 'goes to student dashboard' do
+        expect(current_path).to eq(student_dashboard_path)
+      end
+    end
   end
 
   describe 'as staff' do
     let(:staff) { create :staff }
-    before { sign_in staff }
 
-    it { should have_content 'Staff' }
+    describe 'without filling in profile' do
+      before { sign_in staff }
+      it 'prompts to complete it' do
+        expect(current_path).to eq(edit_user_path staff)
+      end
+    end
+
+    describe 'with info filled in' do
+      before do
+        staff.toggle! :added_info
+        sign_in staff
+      end
+
+      it 'goes to staff dashboard' do
+        expect(current_path).to eq(staff_dashboard_path)
+      end
+    end
   end
 end
