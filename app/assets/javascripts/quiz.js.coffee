@@ -14,14 +14,14 @@ fullscreen = ->
     $('li.name').hide()
     fs = 'webkitfullscreenchange mozfullscreenchange fullscreenchange'
     fullScreen = false
-    # $(document).on fs, (e) ->
-    #   fullScreen = !fullScreen
-    #   if !fullScreen
-    #     $.ajax
-    #       url: gon.lock_path,
-    #       type: 'POST'
+    $(document).on fs, (e) ->
+      fullScreen = !fullScreen
+      if !fullScreen
+        $.ajax
+          url: gon.lock_path,
+          type: 'POST'
     for textedit in $('.textedit')
-      CodeMirror.fromTextArea(text, {
+      CodeMirror.fromTextArea(textedit, {
         lineNumbers : true,
         matchBrackets : true,
         theme: "blackboard",
@@ -50,8 +50,8 @@ hilite = ->
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    # $(window).blur -> onchange()
-    # timer(gon.time_left)
+    $(window).blur -> onchange()
+    timer(gon.time_left)
     hilite()
     $('#take_quiz_form').sisyphus()
   else if $('#show_quiz').length
