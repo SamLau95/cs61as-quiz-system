@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'A signed in student' do
-  let(:student) { create :student }
+  let(:student) { create :student, added_info: true }
   before { sign_in student }
 
   subject { page }
@@ -35,7 +35,8 @@ describe 'A signed in student' do
       let!(:quiz) { create :quiz }
       before do
         visit student_dashboard_path
-        click_quiz_link quiz
+        select quiz.lesson, from: 'lesson'
+        click_button 'Request'
       end
 
       it { should have_content 'requesting' }

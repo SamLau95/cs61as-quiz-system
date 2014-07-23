@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe 'The staff dashboard' do
-  let(:staff) { create :staff }
+  let(:staff) { create :staff, added_info: true }
   subject { page }
   before { sign_in staff }
 
   describe 'when there are quizzes' do
-    let!(:quizzes) { 4.times.map { create :quiz } }
+    let!(:quizzes) { create_pair :quiz }
     before { visit staff_dashboard_path }
 
     it 'displays all quizzes' do
@@ -16,8 +16,9 @@ describe 'The staff dashboard' do
     end
   end
 
-  describe 'when there are quiz requests' do
-    let!(:requests) { 4.times.map { create :quiz_request } }
+  # To move into a spec for quiz requests
+  pending 'when there are quiz requests' do
+    let!(:requests) { create_pair :quiz_request }
     before { visit staff_dashboard_path }
 
     it 'displays all unapproved quiz requests' do
@@ -37,7 +38,7 @@ describe 'The staff dashboard' do
     end
   end
 
-  describe 'approving a request' do
+  pending 'approving a request' do
     let!(:request) { create :quiz_request }
     before do
       visit staff_dashboard_path
@@ -47,7 +48,7 @@ describe 'The staff dashboard' do
     it { should_not have_link "approve-#{request.id}" }
   end
 
-  describe 'cancelling a request' do
+  pending 'cancelling a request' do
     let!(:request) { create :quiz_request }
     before { visit staff_dashboard_path }
 
