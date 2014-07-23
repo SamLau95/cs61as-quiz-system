@@ -20,24 +20,32 @@ fullscreen = ->
         $.ajax
           url: gon.lock_path,
           type: 'POST'
+    for textedit in $('.textedit')
+      CodeMirror.fromTextArea(textedit, {
+        lineNumbers : true,
+        matchBrackets : true,
+        theme: "blackboard",
+        tabSize: 2,
+        smartIndent: false
+      })
 
-  $('.hilite').keydown (e) ->
-    if (e.keyCode == 9)
-      start = this.selectionStart
-      end = this.selectionEnd
-      $this = $(this)
-      $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
-      this.selectionStart = this.selectionEnd = start + 1
-      return false
+  # $('.hilite').keydown (e) ->
+  #   if (e.keyCode == 9)
+  #     start = this.selectionStart
+  #     end = this.selectionEnd
+  #     $this = $(this)
+  #     $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
+  #     this.selectionStart = this.selectionEnd = start + 1
+  #     return false
 
 hilite = ->
   $('.hilite').keyup (e) ->
     HighlightLisp.highlight_element(e.target)
 
-hilite_answer = ->
-  answers = $('.replace')
-  for i in [0...answers.length]
-    HighlightLisp.highlight_element(answers[i])
+# hilite_answer = ->
+#   answers = $('.replace')
+#   for i in [0...answers.length]
+#     HighlightLisp.highlight_element(answers[i])
 
 ready = ->
   if $('#take_quiz_form').length
@@ -47,7 +55,13 @@ ready = ->
     hilite()
     $('#take_quiz_form').sisyphus()
   else if $('#show_quiz').length
-    hilite_answer()
+    # hilite_answer()
+    for show in $('.show')
+      CodeMirror.fromTextArea(show, {
+        readOnly: true,
+        lineNumbers : true,
+        theme: "blackboard"
+      })
   else
     $(window).off 'blur'
 

@@ -16,9 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if user.staff?
+    if !user.added_info
+      edit_user_path(user)
+    elsif user.staff?
       staff_dashboard_path
-    else
+    elsif user.student?
       student_dashboard_path
     end
   end

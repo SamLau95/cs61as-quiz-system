@@ -21,9 +21,8 @@ p After you click Begin, you cannot use the computer for anything else!
           = markdown sf.object.question_content
           br
           div
-            = sf.text_area :content, label: false, class: 'expand hilite'
-            p Preview:
-            pre.replace
+            = sf.text_area :content, label: false, 
+                                     class: 'textedit expand'
             br
         = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
 

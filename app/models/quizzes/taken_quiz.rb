@@ -11,7 +11,6 @@
 #  finished   :boolean          default(FALSE)
 #  lesson     :string(255)      default("")
 #  comment    :string(255)      default("No comments")
-#  retake     :boolean          default(FALSE)
 #
 
 # TakenQuiz Class

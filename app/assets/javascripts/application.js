@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require foundation
 //= require turbolinks
+//= require ./vendor/codeMirror/codemirror
 //= require_tree .
 
 var ready = function() {

@@ -19,18 +19,19 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
+#  added_info             :boolean          default(FALSE)
 #
 
 # Base User class; doesn't get instantiated
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  default_scope { order('login') }
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   LOGRX = /\Acs61as-[a-z]{2,3}\z/
   validates :login, presence: true, format: { with: LOGRX }, uniqueness: true
-  validates :first_name, :last_name, presence: true
 
   def staff?
     false
@@ -46,5 +47,9 @@ class User < ActiveRecord::Base
 
   def taking_quiz?
     false
+  end
+
+  def has_info?
+    !email.nil? && !first_name.nil? && !last_name.nil?
   end
 end

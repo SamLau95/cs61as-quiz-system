@@ -1,5 +1,7 @@
 # Controller for users
 class UsersController < ApplicationController
+  load_and_authorize_resource
+  
   def edit
     user = User.find params[:id]
     @edit_form = EditUserForm.new user
@@ -12,7 +14,10 @@ class UsersController < ApplicationController
       user.update_with_password(user_params)
       user.update_attributes(user_params)
       sign_in(user, bypass: true)
-      flash[:success] = 'Updated profile!'
+      if user.has_info?
+        flash[:success] = 'Updated profile!'
+        user.update_attribute(:added_info, true)
+      end
       redirect_to after_sign_in_path_for(user)
     else
       render 'edit'

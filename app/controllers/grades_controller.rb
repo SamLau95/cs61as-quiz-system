@@ -15,6 +15,8 @@ class GradesController < ApplicationController
                                      student_id: grade.student_id
     @question = Question.find grade.question_id
     @grade_form = EditGradeForm.new grade
+    @rlt = Relationship.find_by question_id: @question,
+                                quiz_id: @submission.quiz_id
   end
 
   def update
