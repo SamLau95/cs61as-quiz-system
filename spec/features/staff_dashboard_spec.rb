@@ -16,6 +16,7 @@ describe 'The staff dashboard' do
     end
   end
 
+  # To move into a spec for quiz requests
   pending 'when there are quiz requests' do
     let!(:requests) { create_pair :quiz_request }
     before { visit staff_dashboard_path }
