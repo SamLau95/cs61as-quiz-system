@@ -1,8 +1,11 @@
 FactoryGirl.define do
+  logins = ('aa'..'zz').to_a
+
   factory :student do
     first_name 'Student'
     sequence(:last_name) { |n| "#{n}" }
     sequence(:email) { |n| "student#{n}@gmail.com" }
+    sequence(:login) { |n| "cs61as-a#{logins[n]}" }
     password 'password'
   end
 
@@ -10,6 +13,7 @@ FactoryGirl.define do
     first_name 'Staff'
     sequence(:last_name) { |n| "#{n}" }
     sequence(:email) { |n| "staff#{n}@gmail.com" }
+    sequence(:login) { |n| "cs61as-t#{logins[n]}" }
     password 'password'
   end
 
@@ -32,8 +36,6 @@ FactoryGirl.define do
 
   factory :question do
     content Faker::Lorem.paragraph
-    sequence(:number) { |n| n }
-    points 5
     lesson 1
     difficulty 'Easy'
   end
