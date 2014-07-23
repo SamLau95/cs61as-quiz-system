@@ -68,6 +68,17 @@ class StaffDashboardController < ApplicationController
     end
   end
 
+  def download_questions
+    file = Tempfile.new('questions')
+    Question.all.each do |q|
+      file.puts "Lesson: #{q.lesson} \n"
+      file.puts "Difficulty: #{q.difficulty}\n"
+      file.puts "Content:\n#{q.content} \n\n"
+    end
+    send_file file, filename: 'questions.md'
+    file.close
+  end
+
   def import_students_form
     @results = []
   end

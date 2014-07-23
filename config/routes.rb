@@ -21,6 +21,7 @@ Cs61asQuizzes::Application.routes.draw do
     post '/import_students', to: 'staff_dashboard#import_students',
                              as: :import_students
     get '/download_passwords', to: 'staff_dashboard#download_initial_passwords', as: :download_pw
+    get '/download_questions', to: 'staff_dashboard#download_questions', as: :download_questions
   end
 
   resources :students

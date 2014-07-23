@@ -7,3 +7,7 @@ h3 Question Bank:
 = render 'staff_dashboard/question_bank', lesson: @lessons,
                                           add: false,
                                           quiz_id: nil
+
+h3 Download All Questions
+
+= link_to 'Download!', download_questions_path, class: 'button'
