@@ -66,7 +66,8 @@ ready = ->
       CodeMirror.fromTextArea(show, {
         readOnly: true,
         lineNumbers : true,
-        theme: "blackboard"
+        theme: "blackboard",
+        tabSize: 2
       })
   else
     $(window).off 'blur'
