@@ -54,8 +54,8 @@ hilite = ->
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    # $(window).blur -> onchange()
-    # timer(gon.time_left)
+    $(window).blur -> onchange()
+    timer(gon.time_left)
     hilite()
     $('form').sisyphus({
       timeout: 1
