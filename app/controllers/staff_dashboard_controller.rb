@@ -29,6 +29,7 @@ class StaffDashboardController < ApplicationController
     @grade = TakenQuiz.not_graded.sort_by do |r| 
       q = Quiz.find(r.quiz_id)
       [Quiz.lesson_values[q.lesson], q.version]
+    end
   end
 
   def bank
