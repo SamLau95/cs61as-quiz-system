@@ -12,7 +12,7 @@
 
 # Model that represents questions
 class Question < ActiveRecord::Base
-  # default_scope -> { order 'number ASC' }
+  # default_scope -> { order 'lesson' }
   paginates_per 10
 
   has_many :relationships, dependent: :destroy

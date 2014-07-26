@@ -121,7 +121,6 @@ class StaffDashboardController < ApplicationController
   def import_student(login)
     password = Devise.friendly_token.first 8
     student = Student.create(login: login, password: password,
-                             first_name: login, last_name: login,
                              first_password: password)
     if student.new_record?
       [login, "Not saved. #{student.errors.full_messages.join ' '}"]
