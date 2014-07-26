@@ -20,15 +20,19 @@ fullscreen = ->
         $.ajax
           url: gon.lock_path,
           type: 'POST'
-    for textedit in $('.textedit')
-      CodeMirror.fromTextArea(textedit, {
+    opts = {
         lineNumbers : true,
         matchBrackets : true,
         theme: "blackboard",
         tabSize: 2,
         smartIndent: false
-      })
-
+      }
+    editors = (CodeMirror.fromTextArea(textedit, opts) for textedit in $('.textedit'))
+    for editor in editors
+      do (editor) ->
+        editor.on 'change', -> 
+          editor.save()
+        , editor
   # $('.hilite').keydown (e) ->
   #   if (e.keyCode == 9)
   #     start = this.selectionStart
@@ -53,14 +57,17 @@ ready = ->
     $(window).blur -> onchange()
     timer(gon.time_left)
     hilite()
-    $('#take_quiz_form').sisyphus()
+    $('form').sisyphus({
+      timeout: 1
+    })
   else if $('#show_quiz').length
     # hilite_answer()
     for show in $('.show')
       CodeMirror.fromTextArea(show, {
         readOnly: true,
         lineNumbers : true,
-        theme: "blackboard"
+        theme: "blackboard",
+        tabSize: 2
       })
   else
     $(window).off 'blur'
