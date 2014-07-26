@@ -1,14 +1,11 @@
 # Controller for staff dashboard
 class StaffDashboardController < ApplicationController
   authorize_resource class: false
+  before_action :delete_quizzes, only: :index
 
   def index
-    @drafts = Quiz.drafts
-    @published = Quiz.published
-    # TODO: Sort by lesson
-    #.sort_by do |q|
-    #   q.lesson.gsub("-", "").split("").map { |n| n.to_i }
-    # end
+    @drafts = Quiz.sort_lesson Quiz.drafts
+    @published = Quiz.sort_lesson Quiz.published
     @quiz = Quiz.new
     @download = downloads
   end
@@ -29,7 +26,9 @@ class StaffDashboardController < ApplicationController
   end
 
   def grading
-    @grade = TakenQuiz.not_graded.sort_by { |r| Quiz.find(r.quiz_id).lesson }
+    @grade = TakenQuiz.not_graded.sort_by do |r| 
+      q = Quiz.find(r.quiz_id)
+      [Quiz.lesson_values[q.lesson], q.version]
   end
 
   def bank
@@ -125,5 +124,10 @@ class StaffDashboardController < ApplicationController
         csv << r
       end
     end
+  end
+
+  def delete_quizzes
+    Quiz.invalid.each { |q| q.destroy }
+    true
   end
 end
