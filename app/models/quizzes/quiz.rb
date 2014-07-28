@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  lesson     :string(255)      default("")
-#  version    :integer
+#  version    :integer          default(0)
 #  retake     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime

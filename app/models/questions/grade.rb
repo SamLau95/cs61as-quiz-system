@@ -10,7 +10,6 @@
 #  student_id  :integer
 #  grade       :decimal(, )      default(0.0)
 #  lesson      :string(255)      default("")
-#  retake      :boolean          default(FALSE)
 #
 
 # Grading class

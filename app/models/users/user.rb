@@ -20,6 +20,7 @@
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
 #  added_info             :boolean          default(FALSE)
+#  first_password         :string(255)      default("")
 #
 
 # Base User class; doesn't get instantiated
