@@ -32,4 +32,8 @@ class Staff < User
   def grading_assignments
     taken_quizzes
   end
+
+  def self.assign_grader
+    return all.min_by { |staff| staff.grading_assignments.length }
+  end
 end
