@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find params[:id]
-    @taken = @student.taken_quizzes
+    @taken = @student.quizzes_taken
   end
 
   def view

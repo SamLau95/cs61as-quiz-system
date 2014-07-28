@@ -62,7 +62,7 @@ class Student < User
     "#{first_name} #{last_name}: #{login}"
   end
 
-  def taken_quizzes
+  def quizzes_taken
     taken = []
     submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
     taken.uniq.sort_by(&:lesson)
@@ -92,7 +92,7 @@ class Student < User
 
   def has_grade(lesson)
     !grades.where(lesson: lesson).blank? &&
-    taken_quizzes.inject { |a, b| a.finished && b.finished }
+    taken_quizzes.inject(true) { |a, b| a && b.finished }
   end
 
   def get_row(lesson)
