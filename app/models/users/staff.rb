@@ -23,7 +23,13 @@
 #
 
 class Staff < User
+  has_many :taken_quizzes
+
   def staff?
     true
+  end
+
+  def grading_assignments
+    taken_quizzes
   end
 end

@@ -17,7 +17,7 @@
 class TakenQuiz < ActiveRecord::Base
   belongs_to :quiz
   belongs_to :student
-
+  belongs_to :staff
   # Validations for comments
 
   validates :comment, presence: true, length: { maximum: 200 }
