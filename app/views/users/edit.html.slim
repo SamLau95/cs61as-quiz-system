@@ -15,11 +15,15 @@ row
           = f.input :first_name
           = f.input :last_name
           = f.input :email
-          p Enter old password to confirm changes:
-          = f.input :current_password, label: 'Old Password'
         .small-6.columns
           p Change password (optional):
           = f.input :password, label: 'New Password (minimum length of 6)'
           = f.input :password_confirmation, label: 'Confirm Password'
+          br
+      .row
+        .small-6.small-centered.columns
+          p Enter old password to confirm changes:
+          = f.input :current_password, label: 'Old Password'
+
 
       = f.submit 'Update!', class: 'small button'
