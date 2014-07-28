@@ -37,4 +37,11 @@ class TakenQuiz < ActiveRecord::Base
   def undo
     update_attribute(:finished, false)
   end
+
+  def self.sort_quizzes(taken_quizzes)
+    taken_quizzes.sort_by do |r| 
+      q = Quiz.find(r.quiz_id)
+      [Quiz.lesson_values[q.lesson], q.version]
+    end
+  end
 end
