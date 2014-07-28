@@ -12,6 +12,11 @@ def make_users
                   password: 'password',
                   login: 'cs61as-av'
   end
+  Staff.create first_name: 'Staff',
+               last_name: "2",
+               email: "staff2@gmail.com",
+               password: 'password',
+               login: 'cs61as-ab'
 end
 
 def make_quizzes
@@ -46,7 +51,8 @@ def make_quizzes
   q3.create_solution content: '11'
   q3.create_rubric rubric: '5: Hello'
   q = Quiz.create lesson: '2',
-                  version: 1
+                  version: 1,
+                  is_draft: false
   q4 = Question.create content: 'What do you say after Hello?',
                        lesson: '2',
                        difficulty: 'Easy'
