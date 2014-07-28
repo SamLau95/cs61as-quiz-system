@@ -12,11 +12,11 @@ def make_users
                   password: 'password',
                   login: 'cs61as-av'
   end
-  Staff.create first_name: 'Staff',
+  Staff.create first_name: "Staff",
                last_name: "2",
                email: "staff2@gmail.com",
-               password: 'password',
-               login: 'cs61as-ab'
+               password: "password",
+               login: "cs61as-ab"
 end
 
 def make_quizzes

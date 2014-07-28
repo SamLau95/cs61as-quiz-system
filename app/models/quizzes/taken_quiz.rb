@@ -39,7 +39,7 @@ class TakenQuiz < ActiveRecord::Base
   end
 
   def self.sort_quizzes(taken_quizzes)
-    taken_quizzes.sort_by do |r| 
+    taken_quizzes.sort_by do |r|
       q = Quiz.find(r.quiz_id)
       [Quiz.lesson_values[q.lesson], q.version]
     end
