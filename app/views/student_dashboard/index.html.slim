@@ -44,6 +44,8 @@ h1 Welcome to the Student Dashboard!
   - if @taken.empty? 
     p No Quizzes taken yet! Request a quiz!
   - else
-    - @taken.each do |quiz|
-      = link_to quiz, view_quiz_path(@current_user.id, quiz_id: quiz.id)
+    ul
+      - @taken.each do |quiz|
+        li
+          = link_to quiz, view_quiz_path(@current_user.id, quiz_id: quiz.id)
   
