@@ -22,7 +22,7 @@ class StudentsController < ApplicationController
     @grade = TakenQuiz.find_by(quiz_id: qid, student_id: stu_id)
     @request = Regrade.find_by quiz_id: qid, student_id: stu_id
     @regrade = Regrade.new
-    @not_graded = @scores.inject { |q1, q2| q1.nil? || q2.nil? }
+    @not_graded = @scores.inject(false) { |q, q2| q || q2.nil? }
   end
 
   def finish
