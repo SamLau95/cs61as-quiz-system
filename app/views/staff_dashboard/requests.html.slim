@@ -7,8 +7,9 @@ h3 Quiz Requests
     - @requests.each do |request|
       li
         = request
-        = link_to 'Approve', approve_request_path(request),
+        = link_to '  Approve  ', approve_request_path(request),
                   method: :post, id: "approve-#{request.id}"
+
         = link_to 'Cancel', cancel_request_path(request),
                   method: :delete, id: "cancel-#{request.id}"
   

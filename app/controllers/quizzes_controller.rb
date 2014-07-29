@@ -33,7 +33,8 @@ class QuizzesController < ApplicationController
         TakenQuiz.create student_id: ql.student_id,
                          quiz_id: ql.quiz_id,
                          lesson: q.lesson,
-                         retake: quiz.retake
+                         retake: quiz.retake,
+                         staff_id: Staff.assign_grader.id
         ql.destroy
         flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
         redirect_to student_dashboard_path

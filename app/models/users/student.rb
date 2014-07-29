@@ -21,6 +21,7 @@ require 'csv'
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
 #  added_info             :boolean          default(FALSE)
+#  first_password         :string(255)      default("")
 #
 
 # Student model; uses users table
