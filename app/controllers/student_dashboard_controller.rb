@@ -6,6 +6,6 @@ class StudentDashboardController < ApplicationController
     @lessons = Quiz.lessons
     @quiz_request = current_user.quiz_request
     @quiz_lock = current_user.quiz_lock
-    @taken = current_user.taken_quizzes
+    @taken = current_user.quizzes_taken
   end
 end
