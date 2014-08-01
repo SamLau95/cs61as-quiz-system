@@ -31,15 +31,13 @@ class Quiz < ActiveRecord::Base
   scope :invalid, -> { where lesson: "" }
 
   # validates :lesson, :version, presence: true
-  LESSON_VALUES = { "0-1" => 1, "0-2" => 2, "0-3" => 3,
-                    "1" => 4, "2" => 5, "3" => 6,
-                    "4" => 7, "5" => 8, "6" => 9,
-                    "7" => 10, "8" => 11, "9" => 12,
-                    "10" => 13, "11" => 14, "12" => 15,
-                    "13" => 16, "14" => 17 }
+  LESSON_VALUES = ["0-1", "0-2", "0-3", "1", "2", "3", "4", "5", "6",
+                   "7", "8", "9", "10", "11", "12", "13", "14"]
 
   def self.lessons
-    published.map(&:lesson).uniq.sort
+    published.map(&:lesson).uniq.sort_by do |num|
+      Quiz::LESSON_VALUES.find_index num
+    end
   end
 
   def self.choose_one(quiz_request)
@@ -102,13 +100,9 @@ class Quiz < ActiveRecord::Base
     Quiz.published.where(lesson: lesson, retake: retake)
   end
 
-  def self.lesson_values
-    LESSON_VALUES
-  end
-
   def self.sort_lesson(quizzes)
     quizzes.sort_by do |q|
-      [Quiz.lesson_values[q.lesson], q.version]
+      [Quiz::LESSON_VALUES.find_index(q.lesson), q.version]
     end
   end
 end
