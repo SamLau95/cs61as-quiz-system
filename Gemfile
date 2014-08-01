@@ -54,6 +54,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.2.0'
   gem 'factory_girl_rails', '~> 4.4.0'
   gem 'capybara', '~> 2.2.1'
+  gem 'poltergeist', '~> 1.5.1'
   gem 'guard-livereload', '~> 2.1.1'
   gem 'guard-rspec', '~> 4.2.8'
   gem 'zeus', '~> 0.13.3'
