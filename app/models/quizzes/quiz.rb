@@ -53,10 +53,6 @@ class Quiz < ActiveRecord::Base
     questions.map { |q| submissions.build question: q }
   end
 
-  def self::LESSON_VALUES
-    ['0-1', '0-2', '0-3'] + (1..14).to_a.map { |n| n.to_s }
-  end
-
   def next_number
     return 1 if questions.empty?
     questions.last.relationships.find_by_quiz_id(id).number + 1
