@@ -57,6 +57,8 @@ group :development, :test do
   gem 'guard-livereload', '~> 2.1.1'
   gem 'guard-rspec', '~> 4.2.8'
   gem 'zeus', '~> 0.13.3'
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :production do
