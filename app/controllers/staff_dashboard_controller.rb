@@ -11,7 +11,7 @@ class StaffDashboardController < ApplicationController
   end
 
   def questions
-    @lessons = Quiz.all_lessons
+    @lessons = Quiz::LESSON_VALUES
   end
 
   def requests
@@ -48,7 +48,7 @@ class StaffDashboardController < ApplicationController
       flash[:success] = 'Added question from question bank!'
       redirect_to edit_quiz_path(params[:quiz_id])
     else
-      @lesson = Quiz.all_lessons
+      @lesson = Quiz::LESSON_VALUES
       flash[:error] = 'This question has already been used on a retake!'
       redirect_to question_bank_path(id: quiz.lesson,
                                      add: true,
@@ -110,7 +110,7 @@ class StaffDashboardController < ApplicationController
 
   def downloads
     download = []
-    Quiz.all_lessons.each do |n|
+    Quiz::LESSON_VALUES.each do |n|
       download << ["Lesson #{n}", n]
     end
     download
