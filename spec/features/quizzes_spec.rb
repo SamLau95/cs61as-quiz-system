@@ -12,7 +12,40 @@ describe 'Quiz' do
     it 'by one' do
       expect do
         click_link('Create a New Quiz!')
-      end.to change(Quiz.all, :count).by(1)
+      end.to change(Quiz, :count).by(1)
+    end
+
+    it 'by -1 (removed invalid quizzes)' do
+      expect do
+        click_link('Create a New Quiz!')
+        click_link('Dashboard')        
+      end.to change(Quiz, :count).by(0)
+    end
+  end
+
+  describe 'should not be saved if invalid' do
+    let!(:new_quiz) { create :quiz, lesson: '5', version: 2 }
+    before do 
+      visit staff_dashboard_path
+      click_link "Create a New Quiz!"
+      expect(page).to have_content 'Editing Quiz'
+    end
+
+    it 'if it has an invalid version' do
+      fill_in 'Version', with: 'a'
+      click_button 'Update!'
+      expect(page).to have_content('is not a number')
+    end
+
+    it 'if it has a version that has already been used' do
+      fill_in 'Version', with: 2
+      select '5', from: 'Lesson'
+      click_button 'Update!'
+      expect(page).to have_content('This version has already been used!')      
+    end
+
+    after do
+      expect(page).to have_no_content('Welcome')      
     end
   end
 
@@ -24,6 +57,7 @@ describe 'Quiz' do
       click_link(quiz)
       expect(page).to have_no_content('You have no questions yet!')
       expect(page).to have_link('Edit Quiz')
+      expect(page).to have_link('Quiz Stats')
     end
 
     it 'should go to edit page when edit link is clicked' do
