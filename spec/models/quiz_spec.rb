@@ -9,8 +9,6 @@ describe Quiz do
   let!(:question2) { create :question, difficulty: 'Medium', lesson: '2' }
   let!(:question3) { create :question, difficulty: 'Hard', lesson: '2' }
 
-  let!(:generated_quiz) { Quiz.generate_random('2', false) }
-
   describe '.lessons' do
     it 'should return an array of published lessons' do
       expect(Quiz.lessons).to eq(['1', '2'])
@@ -55,6 +53,7 @@ describe Quiz do
   end
 
   describe '.generate_random' do
+    let!(:generated_quiz) { Quiz.generate_random('2', false) }
     it 'should generate a quiz with 3 random questions (if possible)' do
       [question1, question2, question3].each do |question|
         expect(generated_quiz.questions.to_a).to include(question)
@@ -72,10 +71,46 @@ describe Quiz do
     end
   end
 
-  describe '.add_numbers' do
+  describe '#add_numbers' do
+    let!(:generated_quiz) { Quiz.generate_random('2', false) }
     let!(:quiz_numbers) { generated_quiz.relationships.map {|q| q.number } }
     it 'should add numbering to questions' do
       expect(quiz_numbers).to eql([1,2,3])
+    end
+  end
+
+  describe '#can_add?' do
+    let!(:quiz3) { create :quiz, lesson: '2', retake: true }
+    before do
+      quiz3.questions << question1
+      quiz2.questions << question2
+    end
+    it 'should detect whether or not a question can be added to a quiz' do
+      expect(quiz2.can_add?(question1)).to be false
+      expect(quiz3.can_add?(question2)).to be false
+
+      expect(quiz2.can_add?(question3)).to be true
+      expect(quiz3.can_add?(question3)).to be true
+    end
+  end
+
+  describe '.has_quiz' do
+    it 'should return boolean if there is a quiz with given lesson/retake' do
+      expect(Quiz.has_quiz(quiz1.lesson, quiz1.retake)).to be true
+      expect(Quiz.has_quiz(quiz1.lesson, !quiz1.retake)).to be false
+    end
+  end
+
+  describe '.sort_lesson' do
+    before do
+      ["0-1", "0-2", "0-3", "10"].each do |lesson|
+        Quiz.create(lesson: lesson)
+      end
+    end
+    let!(:sorted) { ['0-1', '0-2', '0-3', '1', '1', '2', '10'] }
+    let!(:lessons) { Quiz.sort_lesson(Quiz.all).map { |q| q.lesson } }
+    it 'should return a sorted array of Quizzes' do
+      expect(lessons).to eql(sorted)
     end
   end
 end
