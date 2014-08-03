@@ -93,7 +93,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def self.has_quiz(lesson, retake)
-    Quiz.published.where(lesson: lesson, retake: retake)
+    !Quiz.published.where(lesson: lesson, retake: retake).blank?
   end
 
   def self.sort_lesson(quizzes)

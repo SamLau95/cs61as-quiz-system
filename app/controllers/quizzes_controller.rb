@@ -138,7 +138,7 @@ class QuizzesController < ApplicationController
 
   def check_quiz_and_make_request(cu, les)
     re = current_user.retake(les) == 1
-    if Quiz.has_quiz(les, re).blank?
+    if !Quiz.has_quiz(les, re)
       flash[:notice] = "We don't currently have this quiz - please tell us!"
     else
       QuizRequest.create student: cu, lesson: les, retake: re
