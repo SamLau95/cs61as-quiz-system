@@ -36,7 +36,7 @@ FactoryGirl.define do
 
   factory :question do
     content Faker::Lorem.paragraph
-    lesson 1
+    lesson '1'
     difficulty 'Easy'
   end
 
