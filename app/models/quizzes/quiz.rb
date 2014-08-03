@@ -87,9 +87,9 @@ class Quiz < ActiveRecord::Base
 
   def can_add?(quest)
     q = Quiz.where(lesson: lesson, retake: !retake)
-    questions = []
-    q.each { |quiz| questions << quiz.questions }
-    !(questions.flatten.include? quest)
+    questions_list = []
+    q.each { |quiz| questions_list << quiz.questions }
+    !(questions_list.flatten.include? quest)
   end
 
   def self.has_quiz(lesson, retake)
