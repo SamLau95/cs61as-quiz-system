@@ -18,7 +18,7 @@ FactoryGirl.define do
   end
 
   factory :quiz do
-    lesson 1
+    lesson '1'
     sequence(:version) { |n| n }
     retake false
     is_draft false
