@@ -62,13 +62,7 @@ class Student < User
   def to_s
     "#{first_name} #{last_name}: #{login}"
   end
-
-  def quizzes_taken
-    taken = []
-    submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
-    taken.uniq.sort_by(&:lesson)
-  end
-
+  
   def retake(lesson)
     subm = Submission.where(student_id: id)
     take = []

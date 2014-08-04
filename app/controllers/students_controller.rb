@@ -4,7 +4,10 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find params[:id]
-    @taken = @student.quizzes_taken
+    @taken = TakenQuiz.sort_quizzes(@student.taken_quizzes).map do |q|
+      Quiz.find(q.quiz_id)
+    end
+
   end
 
   def view
