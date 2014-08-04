@@ -3,8 +3,8 @@
     = simple_form_for quiz_form do |f|
       .row
         .small-2.columns
-          = f.label :lesson
-          = f.select :lesson, options_for_select(Quiz::LESSON_VALUES)
+          = f.input :lesson do
+            = f.select :lesson, options_for_select(Quiz::LESSON_VALUES)
         .small-2.columns.end
           = f.input :version
       .row
