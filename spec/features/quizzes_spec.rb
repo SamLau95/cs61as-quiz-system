@@ -24,7 +24,8 @@ describe 'Quiz' do
   end
 
   describe 'should not be saved if invalid' do
-    let!(:new_quiz) { create :quiz, lesson: '5', version: 2 }
+    let!(:new_quiz) { create :quiz, lesson: '1', version: 1 }
+    let!(:question) { create :question, lesson: '1'}
     before do 
       visit staff_dashboard_path
       click_link "Create a New Quiz!"
@@ -38,16 +39,41 @@ describe 'Quiz' do
     end
 
     it 'if it has a version that has already been used' do
-      fill_in 'Version', with: 2
-      select '5', from: 'Lesson'
+      fill_in 'Version', with: 1
+      select '1', from: 'Lesson'
       click_button 'Update!'
       expect(page).to have_content('This version has already been used!')      
+    end
+
+    it "if doesn't questions that add up to 10 points" do
+      fill_in 'Version', with: 2
+      select '1', from: 'Lesson'
+      click_button 'Update!'
+      expect(page).to have_content('Points must sum to 10')      
+    end
+
+    it "if question lessons don't match" do
+      click_link 'Add a new question!'
+      expect(page).to have_content 'New Question!'
+      select '2', from: 'Lesson'
+      fill_in 'Points', with: 10
+      fill_in 'Question (parsed as Markdown)', with: 'Lorem Ipsum'
+      fill_in 'Solution (parsed as Markdown)', with: 'Lorem Ipsum'
+      fill_in 'Rubric (parsed as Markdown)', with: 'Lorem Ipsum'
+      click_button 'Create'
+      expect(page).to have_content "Content: Lorem Ipsum"
+      fill_in 'Version', with: 2
+      select '1', from: 'Lesson'
+      click_button 'Update!'
+      expect(page).to have_content 'Question lessons must match' 
     end
 
     after do
       expect(page).to have_no_content('Welcome')      
     end
   end
+
+  
 
   describe 'editing' do
     let!(:quiz) { create :quiz }
