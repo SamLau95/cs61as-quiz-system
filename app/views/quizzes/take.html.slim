@@ -5,7 +5,7 @@ div
   .minutes 0 minutes
   .seconds 0 seconds
 br
-p Don't click out of the quiz screen please. 
+p Don't click out of the quiz screen please.
 p Doing so will lock your quiz.
 p After you click Begin, you cannot use the computer for anything else!
 #quiz
@@ -21,11 +21,10 @@ p After you click Begin, you cannot use the computer for anything else!
           = markdown sf.object.question_content
           br
           div
-            = sf.text_area :content, label: false, 
-                                     class: 'textedit expand'
+            = sf.text_area :content, label: false, class: 'textedit expand'
             br
         = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
 
-= link_to 'Start!', '#', class: 'Small button', id: 'fullscreen' 
+= link_to 'Start!', '#', class: 'Small button', id: 'fullscreen'
 
 = link_to '', student_dashboard_path, class: 'hidden'
