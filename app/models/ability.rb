@@ -7,14 +7,14 @@ class Ability
 
     alias_action :index, to: :see
     alias_action :view, to: :check
-    
+
     if !user.added_info
       can [:edit, :update], User, :id => user.id
     elsif user.staff?
       can :manage, :all
     elsif user.student?
       if user.added_info
-        can :cancel, QuizRequest if user.quiz_request
+        can :destroy, QuizRequest if user.quiz_request
         can :make_request, Quiz
         can [:take, :submit], Quiz if user.approved_request?
         can :see, :student_dashboard

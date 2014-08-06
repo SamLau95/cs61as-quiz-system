@@ -9,7 +9,7 @@ class QuizRequestsController < ApplicationController
     redirect_to staff_dashboard_path
   end
 
-  def cancel
+  def destroy
     request = QuizRequest.find(params[:id]).destroy
     flash[:success] = 'Cancelled quiz request!'
     redirect_to @current_user.staff? ? staff_dashboard_path :
