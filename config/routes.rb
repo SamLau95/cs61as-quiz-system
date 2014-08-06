@@ -1,6 +1,5 @@
 Cs61asQuizzes::Application.routes.draw do
-
-  devise_for :users, controllers: { registrations: 'students/registrations' }
+  devise_for :users
   devise_scope :user do
     root to: 'devise/sessions#new'
   end
@@ -49,9 +48,10 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :questions
 
-  scope '/quiz_requests' do
-    post '/:id/approve', to: 'quiz_requests#approve', as: :approve_request
-    delete '/:id/',      to: 'quiz_requests#cancel',  as: :cancel_request
+  resources :quiz_requests, only: :destroy do
+    member {
+      post :approve
+    }
   end
 
   scope '/quiz_locks' do
