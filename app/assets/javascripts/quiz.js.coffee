@@ -30,7 +30,7 @@ fullscreen = ->
     editors = (CodeMirror.fromTextArea(textedit, opts) for textedit in $('.textedit'))
     for editor in editors
       do (editor) ->
-        editor.on 'change', -> 
+        editor.on 'change', ->
           editor.save()
         , editor
   # $('.hilite').keydown (e) ->
