@@ -42,9 +42,6 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :submissions
-  scope '/submissions' do
-    post '/save', to: 'quizzes#save_submission', as: :save_submission
-  end
 
   resources :questions
 
@@ -54,9 +51,11 @@ Cs61asQuizzes::Application.routes.draw do
     }
   end
 
-  scope '/quiz_locks' do
-    post '/:id/lock',    to: 'quiz_locks#lock',   as: :lock_student
-    patch '/:id/unlock', to: 'quiz_locks#unlock', as: :unlock_student
+  resources :quiz_locks, only: [:lock, :unlock] do
+    member {
+      post :lock
+      patch :unlock
+    }
   end
 
   resources :taken_quizzes, only: [:update]
@@ -64,7 +63,4 @@ Cs61asQuizzes::Application.routes.draw do
   resources :grades
 
   resources :regrades, except: [:new, :edit, :update]
-  scope '/regrades' do
-    post '/:id/change', to: 'regrades#change_status', as: :change_grade_status
-  end
 end
