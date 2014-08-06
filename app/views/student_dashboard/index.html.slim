@@ -19,7 +19,7 @@ h1 Welcome to the Student Dashboard!
     p Please ask a TA to unlock your account.
 
     = simple_form_for @quiz_lock,
-                      url: unlock_student_path(@quiz_lock) do |f|
+                      url: unlock_quiz_lock_path(@quiz_lock) do |f|
       .row
         .small-3.columns
           = label_tag :staff_id, 'Staff Login'
