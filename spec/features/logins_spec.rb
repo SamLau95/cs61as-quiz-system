@@ -9,7 +9,7 @@ describe 'Logging in' do
   end
 
   describe 'as a student' do
-    let(:student) { create :student }
+    let(:student) { create :student, added_info: false }
 
     describe 'without filling in profile' do
       before { sign_in student }
@@ -31,7 +31,7 @@ describe 'Logging in' do
   end
 
   describe 'as staff' do
-    let(:staff) { create :staff }
+    let(:staff) { create :staff, added_info: false }
 
     describe 'without filling in profile' do
       before { sign_in staff }
