@@ -31,7 +31,11 @@ Cs61asQuizzes::Application.routes.draw do
     get '/grade_quiz/:id', to: 'students#grade', as: :grade_quiz
   end
 
-  resources :quizzes
+  resources :quizzes do
+    collection do
+      get :take
+    end
+  end
   get '/take_quiz', to: 'quizzes#take', as: :take_quiz
   scope '/quizzes' do
     post '/request', to: 'quizzes#make_request',
@@ -46,16 +50,16 @@ Cs61asQuizzes::Application.routes.draw do
   resources :questions
 
   resources :quiz_requests, only: :destroy do
-    member {
+    member do
       post :approve
-    }
+    end
   end
 
   resources :quiz_locks, only: [:lock, :unlock] do
-    member {
+    member do
       post :lock
       patch :unlock
-    }
+    end
   end
 
   resources :taken_quizzes, only: [:update]
