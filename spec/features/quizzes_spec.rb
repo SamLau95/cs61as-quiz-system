@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "Quiz" do
-  let(:staff) { create :staff, added_info: true }
+  let(:staff) { create :staff }
   subject { page }
   before { sign_in staff }
 
