@@ -15,7 +15,7 @@ class QuizzesController < ApplicationController
   def take
     quiz_lock = current_user.quiz_lock
     @quiz_form = TakeQuizForm.new quiz_lock.quiz
-    gon.push lock_path: lock_student_path(quiz_lock),
+    gon.push lock_path: lock_quiz_lock_path(quiz_lock),
              time_left: quiz_lock.time_left
   end
 

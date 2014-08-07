@@ -1,6 +1,5 @@
 Cs61asQuizzes::Application.routes.draw do
-
-  devise_for :users, controllers: { registrations: 'students/registrations' }
+  devise_for :users
   devise_scope :user do
     root to: 'devise/sessions#new'
   end
@@ -32,7 +31,11 @@ Cs61asQuizzes::Application.routes.draw do
     get '/grade_quiz/:id', to: 'students#grade', as: :grade_quiz
   end
 
-  resources :quizzes
+  resources :quizzes do
+    collection do
+      get :take
+    end
+  end
   get '/take_quiz', to: 'quizzes#take', as: :take_quiz
   scope '/quizzes' do
     post '/request', to: 'quizzes#make_request',
@@ -43,20 +46,20 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :submissions
-  scope '/submissions' do
-    post '/save', to: 'quizzes#save_submission', as: :save_submission
-  end
 
   resources :questions
 
-  scope '/quiz_requests' do
-    post '/:id/approve', to: 'quiz_requests#approve', as: :approve_request
-    delete '/:id/',      to: 'quiz_requests#cancel',  as: :cancel_request
+  resources :quiz_requests, only: :destroy do
+    member do
+      post :approve
+    end
   end
 
-  scope '/quiz_locks' do
-    post '/:id/lock',    to: 'quiz_locks#lock',   as: :lock_student
-    patch '/:id/unlock', to: 'quiz_locks#unlock', as: :unlock_student
+  resources :quiz_locks, only: [:lock, :unlock] do
+    member do
+      post :lock
+      patch :unlock
+    end
   end
 
   resources :taken_quizzes, only: [:update]
@@ -64,7 +67,4 @@ Cs61asQuizzes::Application.routes.draw do
   resources :grades
 
   resources :regrades, except: [:new, :edit, :update]
-  scope '/regrades' do
-    post '/:id/change', to: 'regrades#change_status', as: :change_grade_status
-  end
 end
