@@ -109,7 +109,7 @@ describe "Taking a quiz" do
       context "filling in answers" do
         before do
           0.upto(2) do |n|
-            page.execute_script("$(\"#{textarea_css(n)}\")[0].value = "Answer #{n}"")
+            page.execute_script("$(\"#{textarea_css(n)}\")[0].value = 'Answer #{n}'")
           end
         end
 
