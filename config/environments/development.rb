@@ -28,7 +28,18 @@ Cs61asQuizzes::Application.configure do
   config.assets.debug = true
 
   # For Devise
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost:5000' }
+
+  config.action_mailer.delivery_method = :smtp
+
+  ActionMailer::Base.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :authentication => :plain,
+    :domain => 'gmail.com',
+    :user_name => 'username@gmail.com',
+    :password => 'secret'
+  }
 
   # Initialize bullet
   config.after_initialize do
