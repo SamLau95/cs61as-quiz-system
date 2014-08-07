@@ -30,3 +30,6 @@
 
 # Dump files
 *.dump
+
+# Environment Variables
+.env
