@@ -31,21 +31,6 @@ Cs61asQuizzes::Application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:5000' }
   Rails.application.routes.default_url_options[:host] = 'localhost:5000'
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default :charset => "utf-8"
-
-  config.action_mailer.smtp_settings = {
-     :address              => "smtp.gmail.com",
-     :port                 => 587,
-     :domain               => 'domain.com',
-     :user_name            => 'email_address@domain.com',
-     :password             => 'password',
-     :authentication       => :plain,
-     :enable_starttls_auto => true  
-  }
-
   # Initialize bullet
   config.after_initialize do
     Bullet.enable = true
