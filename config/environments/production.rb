@@ -23,14 +23,15 @@ Cs61asQuizzes::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
 
-  ActionMailer::Base.smtp_settings = {
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :authentication => :plain,
-    :domain => 'gmail.com',
-    :user_name => 'username@gmail.com',
-    :password => 'secret'
-   }
+  config.action_mailer.smtp_settings = {
+     :address              => "smtp.gmail.com",
+     :port                 => 587,
+     :domain               => 'domain.com',
+     :user_name            => 'email_address@domain.com',
+     :password             => 'password',
+     :authentication       => :plain,
+     :enable_starttls_auto => true  
+  }
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
