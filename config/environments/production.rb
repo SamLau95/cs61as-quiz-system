@@ -15,8 +15,8 @@ Cs61asQuizzes::Application.configure do
   config.action_controller.perform_caching = true
 
   # Devise mailer
-  config.action_mailer.default_url_options = { host: 'cs61as-quizzes.herokuapp.com' }
-  Rails.application.routes.default_url_options[:host] = 'cs61as-quizzes.herokuapp.com'
+  config.action_mailer.default_url_options = { host: 'cs61as-quizzes-staging.herokuapp.com' }
+  Rails.application.routes.default_url_options[:host] = 'cs61as-quizzes-staging.herokuapp.com'
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
