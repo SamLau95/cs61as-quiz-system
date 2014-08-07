@@ -45,14 +45,14 @@ describe "Quiz" do
       expect(page).to have_content("This version has already been used!")      
     end
 
-    it "if doesn"t questions that add up to 10 points" do
+    it "if doesn't questions that add up to 10 points" do
       fill_in "Version", with: 2
       select "1", from: "Lesson"
       click_button "Update!"
       expect(page).to have_content("Points must sum to 10")      
     end
 
-    it "if question lessons don"t match" do
+    it "if question lessons don't match" do
       click_link "Add a new question!"
       expect(page).to have_content "New Question!"
       select "2", from: "Lesson"
