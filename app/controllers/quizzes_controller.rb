@@ -65,7 +65,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions
-    @lessons = Quiz.all_lessons
+    @lessons = Quiz::LESSON_VALUES
     Question.destroy(params[:destroy]) if params[:destroy]
     respond_to do |format|
       format.html { render 'edit' }
@@ -77,7 +77,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find params[:id]
     @quiz_form = EditQuizForm.new quiz
     @questions = quiz.questions
-    @lessons = Quiz.all_lessons
+    @lessons = Quiz::LESSON_VALUES
     if @quiz_form.validate_and_save quiz_params
       flash[:success] = "Updated #{quiz}!"
       redirect_to staff_dashboard_path
@@ -138,7 +138,7 @@ class QuizzesController < ApplicationController
 
   def check_quiz_and_make_request(cu, les)
     re = current_user.retake(les) == 1
-    if Quiz.has_quiz(les, re).blank?
+    if !Quiz.has_quiz(les, re)
       flash[:notice] = "We don't currently have this quiz - please tell us!"
     else
       QuizRequest.create student: cu, lesson: les, retake: re

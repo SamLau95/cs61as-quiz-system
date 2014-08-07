@@ -20,7 +20,7 @@ FactoryGirl.define do
   end
 
   factory :quiz do
-    lesson 1
+    lesson '1'
     sequence(:version) { |n| n }
     retake false
     is_draft false
@@ -38,7 +38,7 @@ FactoryGirl.define do
 
   factory :question do
     content { Faker::Lorem.paragraph }
-    lesson 1
+    lesson '1'
     difficulty 'Easy'
   end
 

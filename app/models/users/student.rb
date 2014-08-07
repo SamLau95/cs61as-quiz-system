@@ -62,13 +62,7 @@ class Student < User
   def to_s
     "#{first_name} #{last_name}: #{login}"
   end
-
-  def quizzes_taken
-    taken = []
-    submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
-    taken.uniq.sort_by(&:lesson)
-  end
-
+  
   def retake(lesson)
     subm = Submission.where(student_id: id)
     take = []
@@ -99,16 +93,13 @@ class Student < User
   end
 
   def get_row(lesson)
-    quiz1 = TakenQuiz.find_by student_id: id,
-                              lesson: lesson,
-                              retake: false
-    quiz2 = TakenQuiz.find_by student_id: id,
-                              lesson: lesson,
-                              retake: true
+    quiz1 = TakenQuiz.find_by student_id: id, lesson: lesson, retake: false
+    quiz2 = TakenQuiz.find_by student_id: id, lesson: lesson, retake: true
     if quiz2.blank?
       return [login, quiz1.grade, quiz1.comment, false]
     else
-      return [login, quiz2.grade, quiz2.comment, true]
+      grade = quiz2.grade == 10 ? 9 : quiz2.grade
+      return [login, grade, quiz2.comment, true]
     end
   end
 

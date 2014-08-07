@@ -43,7 +43,7 @@ class EditQuestionForm < Reform::Form
 
   def check_rubric
     if @fields.rubric.rubric.blank?
-      errors.add :content, 'Needs a Rubric'
+      errors.add :content, "Doesn't have rubric"
     end
   end
 

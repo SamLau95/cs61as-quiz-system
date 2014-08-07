@@ -41,7 +41,7 @@ class TakenQuiz < ActiveRecord::Base
   def self.sort_quizzes(taken_quizzes)
     taken_quizzes.sort_by do |r|
       q = Quiz.find(r.quiz_id)
-      [Quiz.lesson_values[q.lesson], q.version]
+      [Quiz::LESSON_VALUES.find_index(q.lesson), q.version]
     end
   end
 end

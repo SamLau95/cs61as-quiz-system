@@ -31,15 +31,13 @@ class Quiz < ActiveRecord::Base
   scope :invalid, -> { where lesson: "" }
 
   # validates :lesson, :version, presence: true
-  LESSON_VALUES = { "0-1" => 1, "0-2" => 2, "0-3" => 3,
-                    "1" => 4, "2" => 5, "3" => 6,
-                    "4" => 7, "5" => 8, "6" => 9,
-                    "7" => 10, "8" => 11, "9" => 12,
-                    "10" => 13, "11" => 14, "12" => 15,
-                    "13" => 16, "14" => 17 }
+  LESSON_VALUES = ["0-1", "0-2", "0-3", "1", "2", "3", "4", "5", "6",
+                   "7", "8", "9", "10", "11", "12", "13", "14"]
 
   def self.lessons
-    published.map(&:lesson).uniq.sort
+    published.map(&:lesson).uniq.sort_by do |num|
+      Quiz::LESSON_VALUES.find_index num
+    end
   end
 
   def self.choose_one(quiz_request)
@@ -53,10 +51,6 @@ class Quiz < ActiveRecord::Base
 
   def new_submissions
     questions.map { |q| submissions.build question: q }
-  end
-
-  def self.all_lessons
-    ['0-1', '0-2', '0-3'] + (1..14).to_a.map { |n| n.to_s }
   end
 
   def next_number
@@ -93,22 +87,18 @@ class Quiz < ActiveRecord::Base
 
   def can_add?(quest)
     q = Quiz.where(lesson: lesson, retake: !retake)
-    questions = []
-    q.each { |quiz| questions << quiz.questions }
-    !(questions.flatten.include? quest)
+    questions_list = []
+    q.each { |quiz| questions_list << quiz.questions }
+    !(questions_list.flatten.include? quest)
   end
 
   def self.has_quiz(lesson, retake)
-    Quiz.published.where(lesson: lesson, retake: retake)
-  end
-
-  def self.lesson_values
-    LESSON_VALUES
+    !Quiz.published.where(lesson: lesson, retake: retake).blank?
   end
 
   def self.sort_lesson(quizzes)
     quizzes.sort_by do |q|
-      [Quiz.lesson_values[q.lesson], q.version]
+      [Quiz::LESSON_VALUES.find_index(q.lesson), q.version]
     end
   end
 end

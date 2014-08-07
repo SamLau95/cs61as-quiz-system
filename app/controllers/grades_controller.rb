@@ -29,7 +29,7 @@ class GradesController < ApplicationController
     quiz = Quiz.find(params[:quiz_id])
     if @grade_form.validate_and_save grade_params
       tq = TakenQuiz.find_by student_id: grade.student_id, quiz_id: quiz
-      tq.update_attribute(:grade, newg + tq.grade - oldg)
+      tq.update_attribute(:grade, g)
       redirect_to view_quiz_path(grade.student_id, quiz_id: quiz)
     else
       render 'edit'
