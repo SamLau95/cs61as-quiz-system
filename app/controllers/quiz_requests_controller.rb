@@ -3,6 +3,7 @@ class QuizRequestsController < ApplicationController
   load_and_authorize_resource
 
   def approve
+    @request = QuizRequest.find(params[:id])
     @request.lock_and_destroy!
     flash[:success] = "Approved #{@request.student}!"
     redirect_to staff_dashboard_path
