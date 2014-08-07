@@ -29,6 +29,7 @@ Cs61asQuizzes::Application.configure do
 
   # For Devise
   config.action_mailer.default_url_options = { host: 'localhost:5000' }
+  Rails.application.routes.default_url_options[:host] = 'localhost:5000'
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
