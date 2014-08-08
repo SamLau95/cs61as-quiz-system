@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "Quiz" do
-  let(:staff) { create :staff, added_info: true }
+  let(:staff) { create :staff }
   subject { page }
   before { sign_in staff }
 
@@ -23,7 +23,7 @@ describe "Quiz" do
     end
   end
 
-  describe "should not be saved if invalid" do
+  describe "should not be valid" do
     let!(:new_quiz) { create :quiz, lesson: "1", version: 1 }
     let!(:question) { create :question, lesson: "1"}
     before do
