@@ -43,20 +43,50 @@ describe "Creating a question" do
       expect(page).to have_content "Add a Question!"
     end
 
-    it "should not be valid unless all fields are filled in" do
-      click_button 'Create'
-      expect(page).not_to have_content "Welcome to the Staff Dashboard!"
-      expect(page).to have_content "can't be blank"
+    describe "should not be valid" do
+      it "if lesson is blank" do
+        fill_in_question
+        fill_in_solution
+        fill_in_rubric
+      end
+
+      it "if question is blank" do
+        fill_in_lesson
+        fill_in_solution
+        fill_in_rubric
+      end
+
+      it "if solution is blank" do
+        fill_in_lesson
+        fill_in_question
+        fill_in_rubric
+      end
+
+      it "if rubric is blank" do
+        fill_in_lesson
+        fill_in_question
+        fill_in_solution
+      end
+
+      after do
+        count_doesnt_change
+        expect(page).to have_content "can't be blank"
+      end
     end
 
-    it "should have valid lesson" do
-      fill_in_question
-      fill_in_solution
-      fill_in_rubric
-      expect do
-        click_link "Create"
-      end.to change(Question, :count).by(0)
-      expect(page).to have_content "can't be blank"
+    describe "should be valid" do
+      it "if all information is filled in" do
+        fill_in_lesson
+        fill_in_question
+        fill_in_solution
+        fill_in_rubric
+        expect do
+          click_button "Create"
+        end.to change(Question, :count).by 1
+        expect(page).to have_content "Welcome"
+      end
     end
+
+
   end
 end
