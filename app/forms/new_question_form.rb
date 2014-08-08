@@ -9,8 +9,12 @@ class NewQuestionForm < Reform::Form
 
   property :solution do
     property :content
-
     validates :content, presence: true
+  end
+
+  property :rubric do
+    property :rubric
+    validates :rubric, presence: true
   end
 
   validates :content, :lesson, presence: true

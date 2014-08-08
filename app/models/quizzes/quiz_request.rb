@@ -1,5 +1,4 @@
 # == Schema Information
-#
 # Table name: quiz_requests
 #
 #  id         :integer          not null, primary key
