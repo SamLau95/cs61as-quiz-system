@@ -84,7 +84,6 @@ timer = (time) ->
     setTimeout (-> timer(time - 1)), 1000
   else
     $(".seconds").html("0 second(s)")
-    console.log 'Out of time!'
     $("#submit_quiz").click()
 
 $(document).ready ready
