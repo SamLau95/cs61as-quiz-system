@@ -13,15 +13,16 @@ h1#show_quiz Edit
       textarea.show
         = @submission.content
 
-      h5 Rubric:
-      = markdown @question.rubric.rubric
+      - if @question.rubric
+        h5 Rubric:
+        = markdown @question.rubric.rubric
 
       h5 Points Possible:
       = @rlt.points
 
       br
       br
-      
+
       = f.input :grade
       = f.input :comments, as: :text
       = hidden_field_tag :quiz_id, @submission.quiz_id
