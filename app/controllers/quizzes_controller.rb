@@ -1,6 +1,7 @@
 # Controller for quizzes
 class QuizzesController < ApplicationController
   load_and_authorize_resource except: :create
+  skip_before_action :verify_authenticity_token, only: :submit
 
   def make_request
     cu, les = current_user, params[:lesson]
