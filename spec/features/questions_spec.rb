@@ -86,7 +86,5 @@ describe "Creating a question" do
         expect(page).to have_content "Welcome"
       end
     end
-
-
   end
 end
