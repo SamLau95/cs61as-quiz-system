@@ -16,6 +16,8 @@ class Ability
       if user.added_info
         can :destroy, QuizRequest if user.quiz_request
         can :make_request, Quiz
+        # Very bad - fix authorization later
+        can :show, Quiz
         can [:take, :submit], Quiz if user.approved_request?
         can :see, :student_dashboard
         can :check, Student unless user.taking_quiz?
