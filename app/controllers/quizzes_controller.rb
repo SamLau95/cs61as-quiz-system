@@ -96,7 +96,7 @@ class QuizzesController < ApplicationController
     quiz = Quiz.find qid
     if quiz.is_draft
       Relationship.find_by(quiz_id: qid, question_id: quest_id).destroy
-      flash[:success] = 'Removed question from quiz.'
+      flash[:success] = "Removed question from quiz."
     else
       flash[:error] = "Can't remove question from published quiz!"
     end

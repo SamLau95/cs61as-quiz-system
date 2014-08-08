@@ -24,7 +24,7 @@ describe 'A signed in student' do
     end
 
     describe 'take quiz without making request' do
-      before { visit take_quiz_path }
+      before { visit take_quizzes_path }
       it { should_not have_content '#take_quiz_form' }
       it { should have_content 'Student' }
     end

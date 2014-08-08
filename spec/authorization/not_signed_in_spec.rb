@@ -19,7 +19,7 @@ describe "Someone that isn't signed in" do
   end
 
   describe 'cannot view any quizzes' do
-    before { visit take_quiz_path }
+    before { visit take_quizzes_path }
     it { should have_content 'Sign in' }
   end
 

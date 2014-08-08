@@ -49,7 +49,7 @@ describe 'The student dashboard' do
     it { should_not have_link "Quiz #{quiz.lesson}" }
 
     describe 'before being approved' do
-      before { visit take_quiz_path }
+      before { visit take_quizzes_path }
       it 'does not allow a student to take a quiz' do
         expect(current_path).to eq student_dashboard_path
       end
@@ -78,7 +78,7 @@ describe 'The student dashboard' do
       describe 'the begin quiz link' do
         before { click_link 'Begin quiz!' }
         it 'lets the student take a quiz' do
-          expect(current_path).to eq take_quiz_path
+          expect(current_path).to eq take_quizzes_path
         end
       end
     end

@@ -10,7 +10,7 @@ h1 Welcome to the Student Dashboard!
                                                    class: 'large button'
 - elsif @quiz_lock && !@quiz_lock.locked
   .quiz-lock
-    = link_to 'Begin quiz!', take_quiz_path, class: 'button',
+    = link_to 'Begin quiz!', take_quizzes_path, class: 'button',
                              'data-no-turbolink' => true
 
 - elsif @quiz_lock && @quiz_lock.locked
@@ -34,7 +34,7 @@ h1 Welcome to the Student Dashboard!
 - else
   br
   h3 Take a quiz:
-  = form_tag make_quiz_request_path do
+  = form_tag make_request_quizzes_path do
     = select_tag :lesson, options_for_select(@lessons)
     = submit_tag 'Request quiz!', class: 'button',
                                   data: { confirm: 'Are you sure you want to make this request?' }

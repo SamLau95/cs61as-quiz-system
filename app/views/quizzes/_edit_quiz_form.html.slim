@@ -14,7 +14,7 @@
       = f.submit 'Update!', class: 'small button'
 
     = link_to 'Add a new question!', new_question_path(quiz_id: quiz_form.id)
-    
+
     p Or add a question from the question bank!
 
     = render 'staff_dashboard/question_bank', lesson: @lessons,
@@ -24,16 +24,16 @@
     - if @questions.empty?
       p You have no questions yet!
     - else
-      - @questions.each do |question| 
-        = link_to "Edit Question", edit_question_path(question, 
-                                                      quiz_id: quiz_form.id, 
+      - @questions.each do |question|
+        = link_to "Edit Question", edit_question_path(question,
+                                                      quiz_id: quiz_form.id,
                                                       add_pts: true,
                                                       lesson: false)
         div
           p Question #{question.number(quiz_form.id)}
           p Points: #{question.points(quiz_form.id)}
           p Content: #{markdown question.content}
-        = link_to "delete", delete_rlt_path(quiz_form.id, quest_id: question.id),
+        = link_to "delete", quiz_relationships_path(quiz_form.id, question_id: question.id),
                             method: :delete,
                             data: { confirm: 'Are you sure?'}
         br
