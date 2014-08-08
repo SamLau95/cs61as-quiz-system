@@ -15,8 +15,8 @@ Cs61asQuizzes::Application.configure do
   config.action_controller.perform_caching = true
 
   # Devise mailer
-  config.action_mailer.default_url_options = { host: 'cs61as-quizzes-staging.herokuapp.com' }
-  Rails.application.routes.default_url_options[:host] = 'cs61as-quizzes-staging.herokuapp.com'
+  config.action_mailer.default_url_options = { host: 'cs61as-quizzes.herokuapp.com' }
+  Rails.application.routes.default_url_options[:host] = 'cs61as-quizzes.herokuapp.com'
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
