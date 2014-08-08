@@ -6,24 +6,30 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :users, only: [:edit, :update]
 
-  scope '/staff' do
-    get '', to: 'staff_dashboard#index', as: :staff_dashboard
-    post '/download_grades', to: 'staff_dashboard#download', as: :download_grades
-    get '/bank/:id', to: 'staff_dashboard#bank', as: :question_bank
-    post '/add/:id', to: 'staff_dashboard#add', as: :add_question
-    get '/questions', to: 'staff_dashboard#questions', as: :question_dashboard
-    get '/requests', to: 'staff_dashboard#requests', as: :requests_dashboard
-    get '/students', to: 'staff_dashboard#students', as: :students_dashboard
-    get '/grading', to: 'staff_dashboard#grading', as: :grading_dashboard
-    get '/import_students', to: 'staff_dashboard#import_students_form',
+  scope module: 'staffs' do
+    get '/staff_dashboard', to: 'dashboard#index', as: :staff_dashboard
+
+    resources :grades do
+      collection do
+        post :download
+      end
+    end
+
+    get '/bank/:id', to: 'dashboard#bank', as: :question_bank
+    post '/add/:id', to: 'dashboard#add', as: :add_question
+    get '/questions', to: 'dashboard#questions', as: :question_dashboard
+    get '/requests', to: 'dashboard#requests', as: :requests_dashboard
+    get '/students', to: 'dashboard#students', as: :students_dashboard
+    get '/grading', to: 'dashboard#grading', as: :grading_dashboard
+    get '/import_students', to: 'dashboard#import_students_form',
                             as: :import_students_form
-    post '/import_students', to: 'staff_dashboard#import_students',
+    post '/import_students', to: 'dashboard#import_students',
                              as: :import_students
-    get '/download_passwords', to: 'staff_dashboard#download_initial_passwords', as: :download_pw
-    get '/download_questions', to: 'staff_dashboard#download_questions', as: :download_questions
+    get '/download_passwords', to: 'dashboard#download_initial_passwords', as: :download_pw
+    get '/download_questions', to: 'dashboard#download_questions', as: :download_questions
   end
 
-  get '/student_dashboard', to: 'student_dashboard#index'
+  get '/student_dashboard', to: 'students/dashboard#index', as: :student_dashboard
   resources :students do
     scope module: 'students' do
       resources :quizzes, only: :show do
@@ -64,8 +70,6 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :taken_quizzes, only: [:update]
-
-  resources :grades
 
   resources :regrades, except: [:new, :edit, :update]
 end
