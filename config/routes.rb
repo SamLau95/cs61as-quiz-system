@@ -32,11 +32,6 @@ Cs61asQuizzes::Application.routes.draw do
     end
   end
 
-  scope '/student' do
-    get '/view_quiz/:id', to: 'students#view', as: :view_quiz
-    put '/view_quiz/:id/finish', to: 'students#finish', as: :finish_grading
-  end
-
   resources :quizzes do
     resource :relationships, only: :destroy
 
