@@ -19,8 +19,8 @@ module Students
     end
 
     def finish_grading
-      TakenQuiz.find_by(student_id: params[:student_id], quiz: @quiz).finish
-      regrade = Regrade.find_by(student_id: params[:student_id], quiz: @quiz)
+      TakenQuiz.find_by(student_id: params[:student_id], quiz_id: params[:quiz_id]).finish
+      regrade = Regrade.find_by(student_id: params[:student_id], quiz_id: params[:quiz_id])
       regrade.finish if regrade
       flash[:success] = 'Finished grading!'
       redirect_to staff_dashboard_path
