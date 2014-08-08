@@ -46,5 +46,5 @@ h1 Welcome to the Student Dashboard!
     ul
       - @taken.each do |quiz|
         li
-          = link_to quiz, view_quiz_path(@current_user.id, quiz_id: quiz.id)
+          = link_to quiz, student_quiz_path(@current_user, quiz)
 

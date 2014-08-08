@@ -34,14 +34,13 @@ h3#show_quiz = @quiz
   - if !@not_graded
     h3 Don't forget to hit finish grading after you're done grading, otherwise the student's grades won't be uploaded to the CSV!
 
-    = link_to 'Finished Grading!', finish_grading_path(@student_id,
-                                                       quiz_id: @quiz.id),
+    = link_to 'Finished Grading!', student_quiz_finish_grading_path(@student, @quiz),
                                    method: 'put',
                                    class: 'large button'
   - if @request
     h3 Regrade request:
     = "Questions to grade: #{@request.questions}"
-    br 
+    br
     br
     = "Reasons: #{@request.reason}"
     br
@@ -56,10 +55,10 @@ h3#show_quiz = @quiz
   br
 - if !@quiz.retake || @current_user.staff?
   - @ques_subm.each do |question, subm, score, rlt|
-    div 
+    div
       p = "Question #{rlt.number}: "
       p = markdown question.content
-      
+
       p Student Answer:
       textarea.show
         = subm.content
@@ -70,6 +69,6 @@ h3#show_quiz = @quiz
         p = score.comments
       br
       - if @current_user.staff?
-        = link_to 'Grade Question!', new_grade_path(qid: question.id, 
-                                                    sid: @student_id),
+        = link_to 'Grade Question!', new_grade_path(qid: question.id,
+                                                    sid: @student.id),
                                      class: 'small button'

@@ -10,8 +10,8 @@ class RegradesController < ApplicationController
     else
       flash[:error] = "You didn't fill out all the required fields!"
     end
-    redirect_to view_quiz_path(params[:regrade][:student_id],
-                               quiz_id: params[:regrade][:quiz_id])
+    redirect_to student_quiz_path(student_id: params[:regrade][:student_id],
+                                  id: params[:regrade][:quiz_id])
   end
 
   def destroy

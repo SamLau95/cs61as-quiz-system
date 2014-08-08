@@ -9,4 +9,4 @@ h4 Quizzes taken:
   ul
     - @taken.each do |quiz|
       li
-        = link_to quiz, view_quiz_path(@student.id, quiz_id: quiz.id)
+        = link_to quiz, student_quiz_path(@student, quiz)
