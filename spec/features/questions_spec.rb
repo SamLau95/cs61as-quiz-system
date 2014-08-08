@@ -1,7 +1,7 @@
 require "spec_helper"
 
 def fill_in_lesson
-  select "1", from: 'Lesson'
+  select "1", from: "Lesson"
 end
 
 def fill_in_question
@@ -18,7 +18,7 @@ end
 
 def count_doesnt_change
   expect do
-    click_button 'Create'
+    click_button "Create"
   end.to change(Question, :count).by(0)
 end
 
@@ -33,31 +33,30 @@ describe "Creating a question" do
       click_link "New Question!"
     end
 
-    it 'should not have a point field' do
-      expect(page).to have_content 'New Question!'
-      expect(page).not_to have_content 'Points'
+    it "should not have a point field" do
+      expect(page).to have_content "New Question!"
+      expect(page).not_to have_content "Points"
     end
 
-    it 'should return to question dashboard if you click cancel' do
-      click_link 'Cancel'
-      expect(page).to have_content 'Add a Question!'
+    it "should return to question dashboard if you click cancel" do
+      click_link "Cancel"
+      expect(page).to have_content "Add a Question!"
     end
 
-    it 'should not be valid unless all fields are filled in' do
-      expect(page).not_to have_content 'Welcome to the Staff Dashboard!'
+    it "should not be valid unless all fields are filled in" do
+      click_button 'Create'
+      expect(page).not_to have_content "Welcome to the Staff Dashboard!"
       expect(page).to have_content "can't be blank"
     end
 
-    it 'should have valid lesson' do
-      pending()
-      # fill_in_question
-      # fill_in_solution
-      # fill_in_rubric
-      # expect do
-      #   click_link 'Create'
-      # end.to change(Question, :count).by(0)
-      # click_link 'Create'
-      # expect(page).to have_content "can't be blank"
+    it "should have valid lesson" do
+      fill_in_question
+      fill_in_solution
+      fill_in_rubric
+      expect do
+        click_link "Create"
+      end.to change(Question, :count).by(0)
+      expect(page).to have_content "can't be blank"
     end
   end
 end
