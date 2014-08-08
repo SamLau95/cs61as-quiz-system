@@ -17,8 +17,8 @@ class TakeQuizForm < Reform::Form
 
   def validate_and_save(params)
     return false unless validate(params)
-    params[:new_submissions_attributes].none? do |_, attrs|
-      Submission.create(attrs).new_record?
+    params[:new_submissions_attributes].each do |_, attrs|
+      Submission.create(attrs)
     end
   end
 end
