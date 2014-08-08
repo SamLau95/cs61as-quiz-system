@@ -18,15 +18,15 @@ describe "Quiz" do
     it "by -1 (removed invalid quizzes)" do
       expect do
         click_link("Create a New Quiz!")
-        click_link("Dashboard")        
+        click_link("Dashboard")
       end.to change(Quiz, :count).by(0)
     end
   end
 
-  describe "should not be saved if invalid" do
+  describe "should not be valid" do
     let!(:new_quiz) { create :quiz, lesson: "1", version: 1 }
     let!(:question) { create :question, lesson: "1"}
-    before do 
+    before do
       visit staff_dashboard_path
       click_link "Create a New Quiz!"
       expect(page).to have_content "Editing Quiz"
@@ -42,14 +42,14 @@ describe "Quiz" do
       fill_in "Version", with: 1
       select "1", from: "Lesson"
       click_button "Update!"
-      expect(page).to have_content("This version has already been used!")      
+      expect(page).to have_content("This version has already been used!")
     end
 
     it "if doesn't questions that add up to 10 points" do
       fill_in "Version", with: 2
       select "1", from: "Lesson"
       click_button "Update!"
-      expect(page).to have_content("Points must sum to 10")      
+      expect(page).to have_content("Points must sum to 10")
     end
 
     it "if question lessons don't match" do
@@ -65,15 +65,19 @@ describe "Quiz" do
       fill_in "Version", with: 2
       select "1", from: "Lesson"
       click_button "Update!"
-      expect(page).to have_content "Question lessons must match" 
+      expect(page).to have_content "Question lessons must match"
+    end
+
+    it "if it tries to add a question that has already been used by retake" do
+
     end
 
     after do
-      expect(page).to have_no_content("Welcome")      
+      expect(page).to have_no_content("Welcome")
     end
   end
 
-  
+
 
   describe "editing" do
     let!(:quiz) { create :quiz }
