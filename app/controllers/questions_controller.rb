@@ -92,7 +92,7 @@ class QuestionsController < ApplicationController
 
   def create_question
     solution = Solution.new question_params.delete :solution_attributes
-    rubric = Rubric.new question_params.delete :rubric
+    rubric = Rubric.new question_params.delete :rubric_attributes
     question = Question.new question_params
     question.solution = solution
     question.rubric = rubric
