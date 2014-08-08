@@ -18,12 +18,10 @@ module Students
       @not_graded = @scores.inject(false) { |q, q2| q || q2.nil? }
     end
 
-    def finish
-      TakenQuiz.find_by(student_id: params[:id],
-                        quiz_id: params[:quiz_id]).finish
-      re = Regrade.find_by(student_id: params[:id],
-                           quiz_id: params[:quiz_id])
-      re.finish unless re.blank?
+    def finish_grading
+      TakenQuiz.find_by(student_id: params[:student_id], quiz: @quiz).finish
+      regrade = Regrade.find_by(student_id: params[:student_id], quiz: @quiz)
+      regrade.finish if regrade
       flash[:success] = 'Finished grading!'
       redirect_to staff_dashboard_path
     end
