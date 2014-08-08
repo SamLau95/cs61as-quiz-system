@@ -26,8 +26,8 @@ class StaffDashboardController < ApplicationController
   end
 
   def grading
-    @grade = TakenQuiz.sort_quizzes TakenQuiz.not_graded
-    @assign = TakenQuiz.sort_quizzes @current_user.taken_quizzes.not_graded
+    @all_to_grade = TakenQuiz.sort_quizzes TakenQuiz.not_graded
+    @assigned = TakenQuiz.sort_quizzes @current_user.taken_quizzes.not_graded
   end
 
   def bank

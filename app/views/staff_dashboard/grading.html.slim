@@ -2,21 +2,21 @@ h3 Quizzes To Grade
 
 h4 Your Grading Assignments
 
-- if @assign.empty?
+- if @assigned.empty?
   p You have no assignments. Go have fun ^^. Or do more homework.
 - else
   ul
-    - @assign.each do |g|
+    - @assigned.each do |g|
       li
-        = link_to g, view_quiz_path(g.student_id, quiz_id: g.quiz_id)
+        = link_to g, student_quiz_path(student_id: g.student_id, id: g.quiz_id)
 
 
 h4 All Quizzes to Grade
 
-- if @grade.empty?
+- if @all_to_grade.empty?
   p There are no quizzes to grade! Way to Go!
 - else
   ul
-    - @grade.each do |g|
+    - @all_to_grade.each do |g|
       li
-        = link_to g, view_quiz_path(g.student_id, quiz_id: g.quiz_id)
+        = link_to g, student_quiz_path(student_id: g.student_id, id: g.quiz_id)
