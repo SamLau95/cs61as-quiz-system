@@ -23,12 +23,18 @@ Cs61asQuizzes::Application.routes.draw do
     get '/download_questions', to: 'staff_dashboard#download_questions', as: :download_questions
   end
 
-  resources :students
+  get '/student_dashboard', to: 'student_dashboard#index'
+  resources :students do
+    scope module: 'students' do
+      resources :quizzes, only: :show do
+        put :finish_grading
+      end
+    end
+  end
+
   scope '/student' do
-    get '', to: 'student_dashboard#index', as: :student_dashboard
     get '/view_quiz/:id', to: 'students#view', as: :view_quiz
     put '/view_quiz/:id/finish', to: 'students#finish', as: :finish_grading
-    get '/grade_quiz/:id', to: 'students#grade', as: :grade_quiz
   end
 
   resources :quizzes do
