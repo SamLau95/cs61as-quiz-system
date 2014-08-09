@@ -76,26 +76,6 @@ module Staffs
       download
     end
 
-    def import_student(login)
-      password = Devise.friendly_token.first 8
-      student = Student.create(login: login, password: password,
-                               first_password: password)
-      if student.new_record?
-        [login, "Not saved. #{student.errors.full_messages.join ' '}"]
-      else
-        [login, password]
-      end
-    end
-
-    def create_student_csv(results)
-      CSV.generate do |csv|
-        csv << ['Login', 'Password']
-        results.each do |r|
-          csv << r
-        end
-      end
-    end
-
     def delete_quizzes
       Quiz.invalid.each { |q| q.destroy }
       true

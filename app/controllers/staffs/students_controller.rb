@@ -15,5 +15,45 @@ module Staffs
         Quiz.find(q.quiz_id)
       end
     end
+
+    def import
+      @results = []
+    end
+
+    def submit_import
+      @logins = params[:logins]
+      @results = @logins.split
+                        .reject { |login| Student.find_by_login login }
+                        .map { |login| import_student login }
+      respond_to do |format|
+        format.html { redirect_to staff_dashboard_path }
+        format.csv do
+          send_data create_student_csv(@results),
+                    filename: 'studentInfo.csv'
+        end
+      end
+    end
+
+    private
+
+    def import_student(login)
+      password = Devise.friendly_token.first 8
+      student = Student.create(login: login, password: password,
+                               first_password: password)
+      if student.new_record?
+        [login, "Not saved. #{student.errors.full_messages.join ' '}"]
+      else
+        [login, password]
+      end
+    end
+
+    def create_student_csv(results)
+      CSV.generate do |csv|
+        csv << ['Login', 'Password']
+        results.each do |r|
+          csv << r
+        end
+      end
+    end
   end
 end

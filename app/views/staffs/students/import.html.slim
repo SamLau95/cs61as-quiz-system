@@ -1,5 +1,5 @@
 h3 Import Students
-= form_tag import_students_path(format: 'csv') do
+= form_tag submit_import_students_path(format: 'csv') do
   .row
     .medium-7.columns
       = label_tag :logins, 'Copy and paste student logins, one per line. You may enter in logins that have already been processed before; they will be ignored.'
@@ -20,6 +20,6 @@ h3 Import Students
   .columns
     p Click here to download initial passwords for all currently registered students!
 
-    = link_to 'Download Passwords', download_pw_path(format: 'csv'), 
+    = link_to 'Download Passwords', download_pw_path(format: 'csv'),
                                     class: 'button'
 
