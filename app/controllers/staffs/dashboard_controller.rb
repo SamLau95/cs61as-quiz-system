@@ -11,12 +11,6 @@ module Staffs
       @download = downloads
     end
 
-    def students
-      @students = Student.page params[:page]
-      @value = params[:search]
-      @search = Student.get(params[:search])
-    end
-
     def grading
       @all_to_grade = TakenQuiz.sort_quizzes TakenQuiz.not_graded
       @assigned = TakenQuiz.sort_quizzes @current_user.taken_quizzes.not_graded
