@@ -109,6 +109,17 @@ module Staffs
       end
     end
 
+    def download_questions
+      file = Tempfile.new('questions')
+      Question.all.each do |q|
+        file.puts "Lesson: #{q.lesson} \n"
+        file.puts "Difficulty: #{q.difficulty}\n"
+        file.puts "Content:\n#{q.content} \n\n"
+      end
+      send_file file, filename: 'questions.md'
+      file.close
+    end
+
     private
 
     def question_params

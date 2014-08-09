@@ -34,6 +34,17 @@ module Staffs
       end
     end
 
+    def download_initial_passwords
+      passwords = Student.all.map { |m| [m.login, m.first_password] }
+      respond_to do |format|
+        format.html { redirect_to staff_dashboard_path }
+        format.csv do
+          send_data create_student_csv(passwords),
+                    filename: 'studentInitialPW.csv'
+        end
+      end
+    end
+
     private
 
     def import_student(login)

@@ -1,6 +1,11 @@
 # Controller for Grades
 module Staffs
   class GradesController < ApplicationController
+    def index
+      @all_to_grade = TakenQuiz.sort_quizzes TakenQuiz.not_graded
+      @assigned = TakenQuiz.sort_quizzes current_user.taken_quizzes.not_graded
+    end
+
     def new
       qid, sid = params[:qid], params[:sid]
       @question = Question.find qid
@@ -35,6 +40,16 @@ module Staffs
         redirect_to student_quiz_path(student_id: grade.student_id, id: quiz)
       else
         render 'edit'
+      end
+    end
+
+    def download
+      respond_to do |format|
+        format.html { redirect_to staff_dashboard_path }
+        format.csv do
+          send_data Student.get_csv(params[:lesson]),
+                    filename: "lesson#{params[:lesson]}.csv"
+        end
       end
     end
 
