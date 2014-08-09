@@ -45,10 +45,17 @@ Cs61asQuizzes::Application.routes.draw do
         end
       end
     end
+
+    resources :taken_quizzes, only: [:update]
+
+    resources :regrades, only: :destroy
   end
 
-  get '/student_dashboard', to: 'students/dashboard#index', as: :student_dashboard
+  scope module: 'students' do
+    get '/student_dashboard', to: 'dashboard#index', as: :student_dashboard
 
+    resources :regrades, only: :create
+  end
 
   resources :quizzes do
     resource :relationships, only: :destroy
@@ -64,16 +71,10 @@ Cs61asQuizzes::Application.routes.draw do
     end
   end
 
-  resources :submissions
-
   resources :quiz_locks, only: [:lock, :unlock] do
     member do
       post :lock
       patch :unlock
     end
   end
-
-  resources :taken_quizzes, only: [:update]
-
-  resources :regrades, except: [:new, :edit, :update]
 end
