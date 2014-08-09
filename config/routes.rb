@@ -21,7 +21,6 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
-    get '/bank/:id', to: 'dashboard#bank', as: :question_bank
     post '/add/:id', to: 'dashboard#add', as: :add_question
     get '/questions', to: 'dashboard#questions', as: :question_dashboard
     get '/requests', to: 'dashboard#requests', as: :requests_dashboard
