@@ -1,4 +1,4 @@
-module Students
+module Staffs::Students
   class QuizzesController < ApplicationController
     load_and_authorize_resource
 
