@@ -25,7 +25,12 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
-    get '/requests', to: 'dashboard#requests', as: :requests_dashboard
+    resources :quiz_requests, only: [:index, :destroy] do
+      member do
+        post :approve
+      end
+    end
+
     get '/students', to: 'dashboard#students', as: :students_dashboard
     get '/grading', to: 'dashboard#grading', as: :grading_dashboard
     get '/import_students', to: 'dashboard#import_students_form',
@@ -60,12 +65,6 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :submissions
-
-  resources :quiz_requests, only: :destroy do
-    member do
-      post :approve
-    end
-  end
 
   resources :quiz_locks, only: [:lock, :unlock] do
     member do
