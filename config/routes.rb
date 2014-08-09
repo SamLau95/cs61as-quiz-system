@@ -32,6 +32,11 @@ Cs61asQuizzes::Application.routes.draw do
     end
 
     resources :students, only: [:index, :show] do
+      collection do
+        get :import
+        post :submit_import
+      end
+
       scope module: 'students' do
         resources :quizzes, only: :show do
           put :finish_grading
@@ -39,12 +44,7 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
-    get '/students', to: 'dashboard#students', as: :students_dashboard
     get '/grading', to: 'dashboard#grading', as: :grading_dashboard
-    get '/import_students', to: 'dashboard#import_students_form',
-                            as: :import_students_form
-    post '/import_students', to: 'dashboard#import_students',
-                             as: :import_students
     get '/download_passwords', to: 'dashboard#download_initial_passwords', as: :download_pw
     get '/download_questions', to: 'dashboard#download_questions', as: :download_questions
   end
