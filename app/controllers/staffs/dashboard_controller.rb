@@ -11,10 +11,6 @@ module Staffs
       @download = downloads
     end
 
-    def questions
-      @lessons = Quiz::LESSON_VALUES
-    end
-
     def requests
       @requests = QuizRequest.all
       @regrades = Regrade.not_graded
@@ -31,15 +27,6 @@ module Staffs
       @assigned = TakenQuiz.sort_quizzes @current_user.taken_quizzes.not_graded
     end
 
-    def bank
-      @questions = Question.where(lesson: params[:id])
-                           .includes(:solution).includes(:rubric)
-                           .page params[:page]
-      @requests = QuizRequest.all
-      @add = params[:add] == 'true'
-      @id = params[:quiz_id]
-    end
-
     def add
       id, qid = params[:id], params[:quiz_id]
       quiz = Quiz.find params[:quiz_id]
@@ -51,7 +38,7 @@ module Staffs
       else
         @lesson = Quiz::LESSON_VALUES
         flash[:error] = 'This question has already been used on a retake!'
-        redirect_to question_bank_path(id: quiz.lesson,
+        redirect_to bank_questions_path(lesson: quiz.lesson,
                                        add: true,
                                        quiz_id: quiz.id)
       end

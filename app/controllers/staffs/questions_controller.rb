@@ -89,6 +89,15 @@ module Staffs
       redirect_to :back
     end
 
+    def bank
+      @questions = Question.where(lesson: params[:lesson])
+                           .includes(:solution).includes(:rubric)
+                           .page params[:page]
+      @requests = QuizRequest.all
+      @add = params[:add] == 'true'
+      @id = params[:quiz_id]
+    end
+
     private
 
     def question_params
