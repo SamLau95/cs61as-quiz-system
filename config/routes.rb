@@ -22,6 +22,7 @@ Cs61asQuizzes::Application.routes.draw do
 
       collection do
         get :bank
+        get :download
       end
     end
 
@@ -35,6 +36,7 @@ Cs61asQuizzes::Application.routes.draw do
       collection do
         get :import
         post :submit_import
+        get :download_initial_passwords
       end
 
       scope module: 'students' do
@@ -43,10 +45,6 @@ Cs61asQuizzes::Application.routes.draw do
         end
       end
     end
-
-    get '/grading', to: 'dashboard#grading', as: :grading_dashboard
-    get '/download_passwords', to: 'dashboard#download_initial_passwords', as: :download_pw
-    get '/download_questions', to: 'dashboard#download_questions', as: :download_questions
   end
 
   get '/student_dashboard', to: 'students/dashboard#index', as: :student_dashboard
