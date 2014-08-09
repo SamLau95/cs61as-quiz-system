@@ -6,6 +6,23 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :users, only: [:edit, :update]
 
+  scope module: 'students' do
+    get '/student_dashboard', to: 'dashboard#index', as: :student_dashboard
+
+    resources :regrades, only: :create
+
+    resources :quizzes, only: :take do
+      member do
+        post :submit
+      end
+
+      collection do
+        get :take
+        post :make_request
+      end
+    end
+  end
+
   scope module: 'staffs' do
     get '/staff_dashboard', to: 'dashboard#index', as: :staff_dashboard
 
