@@ -95,6 +95,21 @@ module Staffs
       @id = params[:quiz_id]
     end
 
+    def add
+      @quiz = Quiz.find params[:quiz_id]
+      if @quiz.can_add? @question
+        Relationship.where(question: @question, quiz: @quiz).first_or_create
+        flash[:success] = 'Added question from question bank!'
+        redirect_to edit_quiz_path @quiz
+      else
+        @lesson = Quiz::LESSON_VALUES
+        flash[:error] = 'This question has already been used on a retake!'
+        redirect_to bank_questions_path(lesson: quiz.lesson,
+                                        add: true,
+                                        quiz_id: quiz.id)
+      end
+    end
+
     private
 
     def question_params

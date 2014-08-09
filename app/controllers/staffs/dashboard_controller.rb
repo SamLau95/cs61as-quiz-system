@@ -27,23 +27,6 @@ module Staffs
       @assigned = TakenQuiz.sort_quizzes @current_user.taken_quizzes.not_graded
     end
 
-    def add
-      id, qid = params[:id], params[:quiz_id]
-      quiz = Quiz.find params[:quiz_id]
-      quest = Question.find params[:id]
-      if quiz.can_add? quest
-        Relationship.where(question_id: id, quiz_id: qid).first_or_create
-        flash[:success] = 'Added question from question bank!'
-        redirect_to edit_quiz_path(params[:quiz_id])
-      else
-        @lesson = Quiz::LESSON_VALUES
-        flash[:error] = 'This question has already been used on a retake!'
-        redirect_to bank_questions_path(lesson: quiz.lesson,
-                                       add: true,
-                                       quiz_id: quiz.id)
-      end
-    end
-
     def download
       respond_to do |format|
         format.html { redirect_to staff_dashboard_path }
