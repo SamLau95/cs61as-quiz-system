@@ -31,6 +31,14 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
+    resources :students, only: [:index, :show] do
+      scope module: 'students' do
+        resources :quizzes, only: :show do
+          put :finish_grading
+        end
+      end
+    end
+
     get '/students', to: 'dashboard#students', as: :students_dashboard
     get '/grading', to: 'dashboard#grading', as: :grading_dashboard
     get '/import_students', to: 'dashboard#import_students_form',
@@ -42,13 +50,7 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   get '/student_dashboard', to: 'students/dashboard#index', as: :student_dashboard
-  resources :students do
-    scope module: 'students' do
-      resources :quizzes, only: :show do
-        put :finish_grading
-      end
-    end
-  end
+
 
   resources :quizzes do
     resource :relationships, only: :destroy
