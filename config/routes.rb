@@ -32,7 +32,7 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
-    resources :questions do
+    resources :questions, except: :show do
       member do
         post :add
       end
@@ -66,25 +66,13 @@ Cs61asQuizzes::Application.routes.draw do
     resources :taken_quizzes, only: [:update]
 
     resources :regrades, only: :destroy
-  end
 
-  scope module: 'students' do
-    get '/student_dashboard', to: 'dashboard#index', as: :student_dashboard
+    resources :quizzes do
+      resource :relationships, only: :destroy
 
-    resources :regrades, only: :create
-  end
-
-  resources :quizzes do
-    resource :relationships, only: :destroy
-
-    member do
-      post :submit
-      get :stats
-    end
-
-    collection do
-      get :take
-      post :make_request
+      member do
+        get :stats
+      end
     end
   end
 
