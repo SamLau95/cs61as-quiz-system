@@ -109,7 +109,7 @@ module Staffs
       end
     end
 
-    def download_questions
+    def download
       file = Tempfile.new('questions')
       Question.all.each do |q|
         file.puts "Lesson: #{q.lesson} \n"
