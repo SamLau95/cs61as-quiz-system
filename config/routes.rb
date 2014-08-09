@@ -15,6 +15,12 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
+    resources :questions do
+      collection do
+        get :bank
+      end
+    end
+
     get '/bank/:id', to: 'dashboard#bank', as: :question_bank
     post '/add/:id', to: 'dashboard#add', as: :add_question
     get '/questions', to: 'dashboard#questions', as: :question_dashboard
@@ -53,8 +59,6 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :submissions
-
-  resources :questions
 
   resources :quiz_requests, only: :destroy do
     member do
