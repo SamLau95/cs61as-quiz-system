@@ -46,11 +46,10 @@ module Staffs
     def edit
       @add_pts = params[:add_pts]
       @lesson = params[:lesson]
-      question = Question.find params[:id]
       @quiz_id = params[:quiz_id]
-      @quest_form = EditQuestionForm.new question
+      @quest_form = EditQuestionForm.new @question
       rlt = Relationship.find_by(quiz_id: params[:quiz_id],
-                                 question_id: question.id)
+                                 question: @question)
       @points = rlt.nil? ? 0 : rlt.points
     end
 

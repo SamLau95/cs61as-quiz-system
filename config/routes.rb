@@ -46,7 +46,7 @@ Cs61asQuizzes::Application.routes.draw do
   end
 
   resources :quizzes do
-    resources :relationships, only: :destroy
+    resource :relationships, only: :destroy
 
     member do
       post :submit
