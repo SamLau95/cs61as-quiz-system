@@ -11,11 +11,6 @@ module Staffs
       @download = downloads
     end
 
-    def requests
-      @requests = QuizRequest.all
-      @regrades = Regrade.not_graded
-    end
-
     def students
       @students = Student.page params[:page]
       @value = params[:search]
