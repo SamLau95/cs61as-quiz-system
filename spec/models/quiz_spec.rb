@@ -103,11 +103,12 @@ describe Quiz do
 
   describe ".sort_lesson" do
     before do
+      Quiz.destroy_all
       ["0-1", "0-2", "0-3", "10"].each do |lesson|
         Quiz.create(lesson: lesson)
       end
     end
-    let!(:sorted) { ["0-1", "0-2", "0-3", "1", "2", "10"] }
+    let!(:sorted) { ["0-1", "0-2", "0-3", "10"] }
     let!(:lessons) { Quiz.sort_lesson(Quiz.all).map { |q| q.lesson } }
     it "should return a sorted array of Quizzes" do
       expect(lessons).to eql(sorted)
