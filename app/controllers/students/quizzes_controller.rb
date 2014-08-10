@@ -46,7 +46,7 @@ module Students
 
     def can_take?(lesson)
       (!current_user.making_request? || !current_user.taking_quiz?) &&
-      current_user.retake(params[:lesson]) < 2
+      current_user.retake(lesson) < 2
     end
 
     def inject_current_user_into!(quiz_params)
