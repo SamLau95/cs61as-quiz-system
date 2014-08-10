@@ -1,6 +1,6 @@
 # Student controller
 module Staffs
-  class StudentsController < ApplicationController
+  class StudentsController < BaseController
     load_and_authorize_resource
 
     def index

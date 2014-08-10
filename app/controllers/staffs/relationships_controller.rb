@@ -1,5 +1,5 @@
 module Staffs
-  class RelationshipsController < ApplicationController
+  class RelationshipsController < BaseController
     def destroy
       quiz = Quiz.find params[:quiz_id]
       if quiz.is_draft?

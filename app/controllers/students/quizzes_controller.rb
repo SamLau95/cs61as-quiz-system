@@ -1,5 +1,5 @@
 module Students
-  class QuizzesController < ApplicationController
+  class QuizzesController < BaseController
     def make_request
       cu, les = current_user, params[:lesson]
       if can_take? les

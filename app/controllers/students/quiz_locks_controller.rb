@@ -1,5 +1,5 @@
 # Controller for QuizLocks
-class QuizLocksController < ApplicationController
+class QuizLocksController < BaseController
   load_and_authorize_resource
 
   def lock

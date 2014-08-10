@@ -1,6 +1,6 @@
 # Question Controller
 module Staffs
-  class QuestionsController < ApplicationController
+  class QuestionsController < BaseController
     load_and_authorize_resource except: :create
 
     def new
