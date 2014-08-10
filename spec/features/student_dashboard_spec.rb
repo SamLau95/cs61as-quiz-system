@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'The student dashboard' do
-  let(:student) { create :student, added_info: true }
+  let(:student) { create :student }
   before { sign_in student }
   subject { page }
 
