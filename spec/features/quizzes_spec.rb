@@ -68,10 +68,6 @@ describe "Quiz" do
       expect(page).to have_content "Question lessons must match"
     end
 
-    it "if it tries to add a question that has already been used by retake" do
-
-    end
-
     after do
       expect(page).to have_no_content("Welcome")
     end

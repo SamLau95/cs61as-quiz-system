@@ -1,0 +1,28 @@
+h3 Students
+
+div
+  row
+    .small-12.columns
+      p Search
+      = form_for students_path, method: 'get' do
+        = text_field_tag :search, @value, placeholder: 'Enter a name!'
+        = submit_tag 'Search!', class: 'small button'
+div
+  row
+    .small-12.columns
+      p Search Results
+      ul
+        - if @search.blank?
+          p No Results!
+        - else
+          - @search.each do |student|
+            li = link_to student, student
+div
+  row
+    .small-12.columns
+      p All Students
+      ul.students
+        - @students.each do |student|
+          li = link_to student, student
+
+        = paginate @students

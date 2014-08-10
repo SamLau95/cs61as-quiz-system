@@ -1,0 +1,5 @@
+- lesson.each do |lesson|
+  = link_to "Lesson #{lesson}", bank_questions_path(lesson: lesson,
+                                                   add: add,
+                                                   quiz_id: quiz_id),
+                                class: 'small button'

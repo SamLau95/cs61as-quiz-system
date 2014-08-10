@@ -6,52 +6,73 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :users, only: [:edit, :update]
 
-  scope '/staff' do
-    get '', to: 'staff_dashboard#index', as: :staff_dashboard
-    post '/download_grades', to: 'staff_dashboard#download', as: :download_grades
-    get '/bank/:id', to: 'staff_dashboard#bank', as: :question_bank
-    post '/add/:id', to: 'staff_dashboard#add', as: :add_question
-    get '/questions', to: 'staff_dashboard#questions', as: :question_dashboard
-    get '/requests', to: 'staff_dashboard#requests', as: :requests_dashboard
-    get '/students', to: 'staff_dashboard#students', as: :students_dashboard
-    get '/grading', to: 'staff_dashboard#grading', as: :grading_dashboard
-    get '/import_students', to: 'staff_dashboard#import_students_form',
-                            as: :import_students_form
-    post '/import_students', to: 'staff_dashboard#import_students',
-                             as: :import_students
-    get '/download_passwords', to: 'staff_dashboard#download_initial_passwords', as: :download_pw
-    get '/download_questions', to: 'staff_dashboard#download_questions', as: :download_questions
-  end
+  scope module: 'students' do
+    get '/student_dashboard', to: 'dashboard#index', as: :student_dashboard
 
-  resources :students
-  scope '/student' do
-    get '', to: 'student_dashboard#index', as: :student_dashboard
-    get '/view_quiz/:id', to: 'students#view', as: :view_quiz
-    put '/view_quiz/:id/finish', to: 'students#finish', as: :finish_grading
-    get '/grade_quiz/:id', to: 'students#grade', as: :grade_quiz
-  end
+    resources :regrades, only: :create
 
-  resources :quizzes do
-    collection do
-      get :take
+    resources :quizzes, only: :take do
+      member do
+        post :submit
+      end
+
+      collection do
+        get :take
+        post :make_request
+      end
     end
   end
-  get '/take_quiz', to: 'quizzes#take', as: :take_quiz
-  scope '/quizzes' do
-    post '/request', to: 'quizzes#make_request',
-                     as: :make_quiz_request
-    post '/:id/submit', to: 'quizzes#submit', as: :submit_quiz
-    delete '/:id/delete', to: 'quizzes#delete_question', as: :delete_rlt
-    get '/stats/:id', to: 'quizzes#stats', as: :check_quiz
-  end
 
-  resources :submissions
+  scope module: 'staffs' do
+    get '/staff_dashboard', to: 'dashboard#index', as: :staff_dashboard
 
-  resources :questions
+    resources :grades do
+      collection do
+        post :download
+      end
+    end
 
-  resources :quiz_requests, only: :destroy do
-    member do
-      post :approve
+    resources :questions, except: :show do
+      member do
+        post :add
+      end
+
+      collection do
+        get :bank
+        get :download
+      end
+    end
+
+    resources :quiz_requests, only: [:index, :destroy] do
+      member do
+        post :approve
+      end
+    end
+
+    resources :students, only: [:index, :show] do
+      collection do
+        get :import
+        post :submit_import
+        get :download_initial_passwords
+      end
+
+      scope module: 'students' do
+        resources :quizzes, only: :show do
+          put :finish_grading
+        end
+      end
+    end
+
+    resources :taken_quizzes, only: [:update]
+
+    resources :regrades, only: :destroy
+
+    resources :quizzes do
+      resource :relationships, only: :destroy
+
+      member do
+        get :stats
+      end
     end
   end
 
@@ -61,10 +82,4 @@ Cs61asQuizzes::Application.routes.draw do
       patch :unlock
     end
   end
-
-  resources :taken_quizzes, only: [:update]
-
-  resources :grades
-
-  resources :regrades, except: [:new, :edit, :update]
 end

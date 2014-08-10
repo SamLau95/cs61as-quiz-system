@@ -11,15 +11,15 @@ nav.top-bar data-topbar=true
     - if current_user && current_user.staff?
       ul.left
         li.divider
-        li = link_to 'Questions', question_dashboard_path
+        li = link_to 'Questions', questions_path
         li.divider
-        li = link_to 'Students', students_dashboard_path
+        li = link_to 'Students', students_path
         li.divider
-        li = link_to 'Requests', requests_dashboard_path
+        li = link_to 'Requests', quiz_requests_path
         li.divider
-        li = link_to 'Grading', grading_dashboard_path
+        li = link_to 'Grading', grades_path
         li.divider
-        li = link_to 'Import Students', import_students_form_path
+        li = link_to 'Import Students', import_students_path
         li.divider
     ul.right
       li.divider

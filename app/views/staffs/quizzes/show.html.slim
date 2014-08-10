@@ -1,0 +1,20 @@
+h1 = @quiz
+
+br
+= link_to 'Back', :back, class: 'small button'
+
+div
+  = link_to "Edit Quiz", edit_quiz_path(@quiz), class: 'small button'
+  br
+  = link_to "See Quiz Stats", stats_quiz_path(@quiz), class: 'small button'
+
+-if @quiz.questions.nil?
+  p You have no questions yet!
+- else
+  - @questions.each do |question|
+    div
+    p Question #{question.number(@quiz.id)}
+    p Points: #{question.points(@quiz.id)}
+    p = markdown question.content
+
+

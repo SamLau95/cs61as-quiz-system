@@ -19,7 +19,7 @@ describe Quiz do
     let(:chosen_quiz) { Quiz.choose_one(request1) }
     it "should choose a random quiz" do
       expect(chosen_quiz.lesson).to eq(request1.lesson)
-      expect(chosen_quiz.retake).to eq(request1.retake) 
+      expect(chosen_quiz.retake).to eq(request1.retake)
     end
   end
 

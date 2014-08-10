@@ -1,0 +1,25 @@
+h3 Import Students
+= form_tag submit_import_students_path(format: 'csv') do
+  .row
+    .medium-7.columns
+      = label_tag :logins, 'Copy and paste student logins, one per line. You may enter in logins that have already been processed before; they will be ignored.'
+      = text_area_tag :logins, @logins, class: 'expand'
+  .row
+    .medium-12.columns
+      = submit_tag 'Create students!', class: 'button'
+
+.row
+  .columns
+    - unless @results.empty?
+      h3 Results:
+      - @results.each do |login, password|
+        = "#{login},#{password}"
+        br
+
+.row
+  .columns
+    p Click here to download initial passwords for all currently registered students!
+
+    = link_to 'Download Passwords', download_initial_passwords_students_path(format: 'csv'),
+                                    class: 'button'
+
