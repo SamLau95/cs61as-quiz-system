@@ -46,7 +46,7 @@ FactoryGirl.define do
     lesson '1'
     difficulty 'Easy'
 
-    after(:build) do |question, evaluator|
+    after(:build) do |question|
       question.rubric = create :rubric, question: question unless question.rubric
     end
   end
