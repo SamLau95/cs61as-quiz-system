@@ -38,7 +38,7 @@ module Staffs
         tq = TakenQuiz.find_by student: grade.student, quiz: quiz
         # This needs double checking; isn't really great
         tq.update_attribute(:grade, tq.grade - oldg + newg)
-        redirect_to student_quiz_path(student_id: grade.student_id, id: quiz)
+        redirect_to student_quiz_path(grade.student_id, quiz)
       else
         @rlt = Relationship.find_by question_id: @question,
                                     quiz_id: @submission.quiz_id
