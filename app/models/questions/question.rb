@@ -22,6 +22,8 @@ class Question < ActiveRecord::Base
   has_many :submissions
   has_one :solution, dependent: :destroy
 
+  validate :rubric_present?
+
   def to_s
     "Question Lesson #{lesson}, #{difficulty}"
   end
@@ -36,5 +38,13 @@ class Question < ActiveRecord::Base
 
   def points(quiz_id)
     relationships.find_by_quiz_id(quiz_id).points
+  end
+
+  private
+
+  def rubric_present?
+    unless rubric.present?
+      errors.add(:rubric, 'must be present')
+    end
   end
 end
