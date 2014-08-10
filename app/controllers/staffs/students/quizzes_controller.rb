@@ -1,7 +1,6 @@
 module Staffs::Students
   class QuizzesController < ApplicationController
     load_and_authorize_resource
-
     def show
       @student = Student.find params[:student_id]
       @questions = @quiz.questions

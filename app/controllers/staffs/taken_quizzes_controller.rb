@@ -1,4 +1,6 @@
 class TakenQuizzesController < ApplicationController
+  load_and_authorize_resource
+
   def update
     @grade = TakenQuiz.find params[:id]
     if @grade.update_attributes taken_quiz_params

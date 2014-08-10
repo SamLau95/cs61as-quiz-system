@@ -1,4 +1,5 @@
 class RelationshipsController < ApplicationController
+  load_and_authorize_resource
   def destroy
     quiz = Quiz.find params[:quiz_id]
     if quiz.is_draft?

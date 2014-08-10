@@ -1,5 +1,6 @@
 module Students
   class RegradesController < ApplicationController
+    load_and_authorize_resource
     def create
       quiz = Quiz.find params[:regrade][:quiz_id]
       regrade = Regrade.new regrade_params

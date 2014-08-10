@@ -19,7 +19,7 @@ class Ability
         # Very bad - fix authorization later
         can :show, Quiz
         can [:take, :submit], Quiz if user.approved_request?
-        can :see, :student_dashboard
+        can :see, Students::DashboardController
         can :check, Student unless user.taking_quiz?
         can :lock, QuizLock, student_id: user.id
         can :unlock, QuizLock if !user.approved_request?

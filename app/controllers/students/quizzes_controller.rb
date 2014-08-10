@@ -1,5 +1,7 @@
 module Students
   class QuizzesController < ApplicationController
+    load_and_authorize_resource
+
     def make_request
       cu, les = current_user, params[:lesson]
       if can_take? les

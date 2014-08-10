@@ -1,6 +1,7 @@
 # Controller for Grades
 module Staffs
   class GradesController < ApplicationController
+    load_and_authorize_resource
     def index
       @all_to_grade = TakenQuiz.sort_quizzes TakenQuiz.not_graded
       @assigned = TakenQuiz.sort_quizzes current_user.taken_quizzes.not_graded
