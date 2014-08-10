@@ -34,4 +34,8 @@ class ApplicationController < ActionController::Base
                :first_name, :last_name)
     end
   end
+
+  def deny_access_if!(condition, *args)
+    raise CanCan::AccessDenied.new(*args) if condition
+  end
 end
