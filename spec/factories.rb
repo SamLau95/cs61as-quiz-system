@@ -30,7 +30,7 @@ FactoryGirl.define do
 
       after(:create) do |quiz, evaluator|
         evaluator.questions_count.times do |n|
-          quiz.questions << create(:question)
+          quiz.questions << create(:question_with_rubric_and_solution)
         end
       end
     end
@@ -40,6 +40,21 @@ FactoryGirl.define do
     content { Faker::Lorem.paragraph }
     lesson '1'
     difficulty 'Easy'
+
+    factory :question_with_rubric_and_solution do
+      after(:create) do |question, evaluator|
+        question.solution = create(:solution)
+        question.rubric = create(:rubric)
+      end
+    end
+  end
+
+  factory :solution do
+    content { Faker::Lorem.paragraph }
+  end
+
+  factory :rubric do
+    rubric { Faker::Lorem.paragraph }
   end
 
   factory :quiz_request do
@@ -51,5 +66,17 @@ FactoryGirl.define do
     locked false
     student
     quiz
+  end
+
+  factory :submission do
+    content { Faker::Lorem.paragraph }
+    student
+    quiz
+    question
+  end
+
+  factory :taken_quiz do
+    staff
+    student
   end
 end
