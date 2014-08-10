@@ -8,20 +8,21 @@ describe "Someone that isn't signed in" do
     it { should have_content 'Sign in' }
   end
 
-  # To be fixed. Soon.
-  pending 'cannot see the student dashboard' do
-    before { visit student_dashboard_path }
-    it { should have_content 'Sign in' }
-  end
+  describe 'cannot' do
+    it 'see the staff dashboard' do
+      visit student_dashboard_path
+    end
 
-  describe 'cannot see the student dashboard' do
-    before { visit staff_dashboard_path }
-    it { should have_content 'Sign in' }
-  end
+    it 'see the staff dashboard' do
+      visit staff_dashboard_path
+    end
 
-  describe 'cannot view any quizzes' do
-    before { visit take_quizzes_path }
-    it { should have_content 'Sign in' }
-  end
+    it 'view any quizzes' do
+      visit take_quizzes_path
+    end
 
+    after do
+      expect(page).to have_content('Sign in')
+    end
+  end
 end
