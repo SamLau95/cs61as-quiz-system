@@ -21,6 +21,13 @@ Cs61asQuizzes::Application.routes.draw do
         post :make_request
       end
     end
+
+    resources :quiz_locks, only: [:lock, :unlock] do
+      member do
+        post :lock
+        patch :unlock
+      end
+    end
   end
 
   scope module: 'staffs' do
@@ -73,13 +80,6 @@ Cs61asQuizzes::Application.routes.draw do
       member do
         get :stats
       end
-    end
-  end
-
-  resources :quiz_locks, only: [:lock, :unlock] do
-    member do
-      post :lock
-      patch :unlock
     end
   end
 end
