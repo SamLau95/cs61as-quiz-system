@@ -40,6 +40,8 @@ module Staffs
         tq.update_attribute(:grade, tq.grade - oldg + newg)
         redirect_to student_quiz_path(student_id: grade.student_id, id: quiz)
       else
+        @rlt = Relationship.find_by question_id: @question,
+                                    quiz_id: @submission.quiz_id
         render 'edit'
       end
     end
