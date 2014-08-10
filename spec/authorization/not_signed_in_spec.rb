@@ -9,6 +9,8 @@ describe "Someone that isn't signed in" do
   end
 
   describe 'cannot' do
+    let (:user) { create :student }
+    let (:quiz) { create :quiz }
     it 'see the staff dashboard' do
       visit student_dashboard_path
     end
@@ -19,6 +21,22 @@ describe "Someone that isn't signed in" do
 
     it 'view any quizzes' do
       visit take_quizzes_path
+    end
+
+    it "edit a user's profile" do
+      visit edit_user_path(user)
+    end
+
+    it "take a quiz" do
+      visit take_quizzes_path
+    end
+
+    it 'see question bank' do
+      visit bank_questions_path
+    end
+
+    it 'see quiz stats' do
+      visit stats_quiz_path(quiz)
     end
 
     after do
