@@ -1,5 +1,10 @@
 require 'spec_helper'
 
+def expect_to_redirect_to_sign_in(path)
+  visit path
+  expect(page).to have_content 'Sign in'
+end
+
 describe "Someone that isn't signed in" do
   subject { page }
 
@@ -13,35 +18,31 @@ describe "Someone that isn't signed in" do
     let (:quiz) { create :quiz }
 
     it 'see the student dashboard' do
-      visit student_dashboard_path
+      expect_to_redirect_to_sign_in student_dashboard_path
     end
 
     it 'see the staff dashboard' do
-      visit staff_dashboard_path
+      expect_to_redirect_to_sign_in staff_dashboard_path
     end
 
     it 'view any quizzes' do
-      visit take_quizzes_path
+      expect_to_redirect_to_sign_in take_quizzes_path
     end
 
     it "edit a user's profile" do
-      visit edit_user_path(user)
+      expect_to_redirect_to_sign_in edit_user_path(user)
     end
 
     it "take a quiz" do
-      visit take_quizzes_path
+      expect_to_redirect_to_sign_in take_quizzes_path
     end
 
     it 'see question bank' do
-      visit bank_questions_path
+      expect_to_redirect_to_sign_in bank_questions_path
     end
 
     it 'see quiz stats' do
-      visit stats_quiz_path(quiz)
-    end
-
-    after do
-      expect(page).to have_content('Sign in')
+      expect_to_redirect_to_sign_in stats_quiz_path(quiz)
     end
   end
 end
