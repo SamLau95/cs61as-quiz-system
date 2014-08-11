@@ -9,7 +9,7 @@ describe 'Logging in' do
   end
 
   describe 'as a student' do
-    let(:student) { create :student, added_info: false }
+    let(:student) { create :student, first_name: nil }
 
     describe 'without filling in profile' do
       before { sign_in student }
@@ -20,7 +20,7 @@ describe 'Logging in' do
 
     describe 'with info filled in' do
       before do
-        student.toggle! :added_info
+        student.update first_name: 'Hello'
         sign_in student
       end
 
@@ -31,7 +31,7 @@ describe 'Logging in' do
   end
 
   describe 'as staff' do
-    let(:staff) { create :staff, added_info: false }
+    let(:staff) { create :staff, first_name: nil }
 
     describe 'without filling in profile' do
       before { sign_in staff }
@@ -42,7 +42,7 @@ describe 'Logging in' do
 
     describe 'with info filled in' do
       before do
-        staff.toggle! :added_info
+        staff.update first_name: 'Hello'
         sign_in staff
       end
 
