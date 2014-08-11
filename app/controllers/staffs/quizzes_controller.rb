@@ -21,8 +21,8 @@ module Staffs
     end
 
     def edit
-      @quiz_form = EditQuizForm.new quiz
-      @questions = quiz.questions
+      @quiz_form = EditQuizForm.new @quiz
+      @questions = @quiz.questions
       @lessons = Quiz::LESSON_VALUES
       Question.destroy(params[:destroy]) if params[:destroy]
       respond_to do |format|
@@ -32,11 +32,11 @@ module Staffs
     end
 
     def update
-      @quiz_form = EditQuizForm.new quiz
-      @questions = quiz.questions
+      @quiz_form = EditQuizForm.new @quiz
+      @questions = @quiz.questions
       @lessons = Quiz::LESSON_VALUES
       if @quiz_form.validate_and_save quiz_params
-        flash[:success] = "Updated #{quiz}!"
+        flash[:success] = "Updated #{@quiz}!"
         redirect_to staff_dashboard_path
       else
         render :edit
