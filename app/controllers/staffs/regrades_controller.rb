@@ -1,5 +1,6 @@
 module Staffs
   class RegradesController < ApplicationController
+    load_and_authorize_resource
     def destroy
       Regrade.find(params[:id]).destroy!
       flash[:success] = "You've deleted the regrade request.

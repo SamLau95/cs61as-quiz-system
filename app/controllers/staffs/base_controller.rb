@@ -6,7 +6,7 @@ module Staffs
 
     def authorize_staff!
       authenticate_user!
-      authorize! :manage, :all
+      authorize! :manage, :self_only
     end
   end
 end

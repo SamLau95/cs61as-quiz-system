@@ -8,19 +8,40 @@ describe "Someone that isn't signed in" do
     it { should have_content 'Sign in' }
   end
 
-  describe 'cannot see the student dashboard' do
-    before { visit student_dashboard_path }
-    it { should have_content 'Sign in' }
-  end
+  describe 'cannot' do
+    let (:user) { create :student }
+    let (:quiz) { create :quiz }
 
-  describe 'cannot see the student dashboard' do
-    before { visit staff_dashboard_path }
-    it { should have_content 'Sign in' }
-  end
+    it 'see the student dashboard' do
+      visit student_dashboard_path
+    end
 
-  describe 'cannot view any quizzes' do
-    before { visit take_quizzes_path }
-    it { should have_content 'Sign in' }
-  end
+    it 'see the staff dashboard' do
+      visit staff_dashboard_path
+    end
 
+    it 'view any quizzes' do
+      visit take_quizzes_path
+    end
+
+    it "edit a user's profile" do
+      visit edit_user_path(user)
+    end
+
+    it "take a quiz" do
+      visit take_quizzes_path
+    end
+
+    it 'see question bank' do
+      visit bank_questions_path
+    end
+
+    it 'see quiz stats' do
+      visit stats_quiz_path(quiz)
+    end
+
+    after do
+      expect(page).to have_content('Sign in')
+    end
+  end
 end
