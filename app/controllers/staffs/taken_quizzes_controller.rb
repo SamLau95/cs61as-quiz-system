@@ -1,8 +1,8 @@
 module Staffs
   class TakenQuizzesController < BaseController
     def update
-      @grade = TakenQuiz.find params[:id]
-      if @grade.update_attributes taken_quiz_params
+      @taken_quiz = TakenQuiz.find params[:id]
+      if @taken_quiz.update_attributes taken_quiz_params
         flash[:notice] = 'Added comment!'
       else
         flash[:error] = 'Comment was left blank or was too long.'

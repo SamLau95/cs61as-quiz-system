@@ -21,8 +21,8 @@ module Staffs
                                        student_id: grade.student_id
       @question = Question.find grade.question_id
       @grade_form = EditGradeForm.new grade
-      @rlt = Relationship.find_by question_id: @question,
-                                  quiz_id: @submission.quiz_id
+      @rlt = Relationship.find_by question: @question,
+                                  quiz: @submission.quiz
     end
 
     def update

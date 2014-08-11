@@ -1,7 +1,7 @@
 # Question Controller
 module Staffs
   class QuestionsController < BaseController
-    load_and_authorize_resource except: :create
+    before_action :set_question, only: [:edit, :update, :destroy, :add]
 
     def new
       if params[:quiz_id]
@@ -56,11 +56,10 @@ module Staffs
     def update
       @add_pts, @lesson = params[:add_pts], params[:lesson]
       @points = params[:points]
-      question = Question.find params[:id]
       @quiz_id = params[:quiz_id]
       quiz = Quiz.find @quiz_id unless @quiz_id.empty?
       question_params[:points] = { pts: @points, qid: @quiz_id }
-      @quest_form = EditQuestionForm.new question
+      @quest_form = EditQuestionForm.new @question
       if @quest_form.validate_and_save question_params
         flash[:success] = 'Updated Question!'
         if quiz
@@ -122,10 +121,16 @@ module Staffs
 
     private
 
+    def set_question
+      @question = Question.find params[:id]
+    end
+
+    # Bad - explicitly require params
     def question_params
       params.require(:question).permit!
     end
 
+    # Bad - use a service object to reach across multiple models
     def create_question
       solution = Solution.new question_params.delete :solution_attributes
       rubric = Rubric.new question_params.delete :rubric_attributes

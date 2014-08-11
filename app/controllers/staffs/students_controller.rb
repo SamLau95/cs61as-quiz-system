@@ -1,8 +1,6 @@
 # Student controller
 module Staffs
   class StudentsController < BaseController
-    load_and_authorize_resource
-
     def index
       @students = Student.page params[:page]
       @value = params[:search]

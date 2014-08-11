@@ -1,7 +1,7 @@
 module Staffs::Students
   class QuizzesController < Staffs::BaseController
-    load_and_authorize_resource
     def show
+      @quiz = Quiz.find params[:quiz_id]
       @student = Student.find params[:student_id]
       @questions = @quiz.questions
       @subm = @questions.map do |q|
