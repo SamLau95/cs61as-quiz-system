@@ -1,7 +1,7 @@
 h1 Edit Profile
 
 - if current_user && !current_user.added_info?
-  p Before you begin, please fill in your correct first/last name and email. 
+  p Before you begin, please fill in your correct first/last name and email.
   p Also feel free to change your password to something a little more convinient.
   br
 
@@ -9,7 +9,7 @@ p * = Required fields
 
 row
   .small-12-columns
-    = simple_form_for @edit_form, url: { action: 'update' } do |f|
+    = simple_form_for @user, as: :user, url: { action: 'update' } do |f|
       .row
         .small-6.columns
           = f.input :first_name
@@ -17,13 +17,12 @@ row
           = f.input :email
         .small-6.columns
           p Change password (optional):
-          = f.input :password, label: 'New Password (minimum length of 6)'
+          = f.input :password, label: 'New Password (minimum length of 8)'
           = f.input :password_confirmation, label: 'Confirm Password'
           br
       .row
         .small-6.small-centered.columns
           p Enter old password to confirm changes:
           = f.input :current_password, label: 'Old Password'
-
 
       = f.submit 'Update!', class: 'small button'
