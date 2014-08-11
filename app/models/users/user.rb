@@ -62,5 +62,6 @@ class User < ActiveRecord::Base
 
   def set_added_info
     self.added_info = email.present? && first_name.present? && last_name.present?
+    true
   end
 end
