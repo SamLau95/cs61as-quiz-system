@@ -12,7 +12,7 @@ module Students
 
     def take
       quiz_lock = current_user.quiz_lock
-      deny_access_if! !quiz_lock.present?
+      deny_access_unless! quiz_lock.present?
       @quiz_form = TakeQuizForm.new quiz_lock.quiz
       gon.push lock_path: lock_quiz_lock_path(quiz_lock),
                time_left: quiz_lock.time_left

@@ -38,4 +38,8 @@ class ApplicationController < ActionController::Base
   def deny_access_if!(condition, *args)
     raise CanCan::AccessDenied.new(*args) if condition
   end
+
+  def deny_access_unless!(condition, *args)
+    raise CanCan::AccessDenied.new(*args) unless condition
+  end
 end
