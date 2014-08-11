@@ -15,46 +15,4 @@ describe 'The staff dashboard' do
       end
     end
   end
-
-  # To move into a spec for quiz requests
-  pending 'when there are quiz requests' do
-    let!(:requests) { create_pair :quiz_request }
-    before { visit staff_dashboard_path }
-
-    it 'displays all unapproved quiz requests' do
-      requests.each do |request|
-        expect(page).to have_content request.to_s
-      end
-    end
-
-    it 'displays confirm links' do
-      requests.each do |request|
-        expect(page).to have_link "approve-#{request.id}"
-      end
-    end
-
-    it 'displays cancel links' do
-      expect(page).to have_link 'Cancel'
-    end
-  end
-
-  pending 'approving a request' do
-    let!(:request) { create :quiz_request }
-    before do
-      visit staff_dashboard_path
-      click_link "approve-#{request.id}"
-    end
-
-    it { should_not have_link "approve-#{request.id}" }
-  end
-
-  pending 'cancelling a request' do
-    let!(:request) { create :quiz_request }
-    before { visit staff_dashboard_path }
-
-    it 'deletes the request' do
-      expect { click_link "cancel-#{request.id}" }
-             .to change(QuizRequest, :count).by(-1)
-    end
-  end
 end

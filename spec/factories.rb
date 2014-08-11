@@ -36,6 +36,11 @@ FactoryGirl.define do
     end
   end
 
+  factory :rubric do
+    rubric { Faker::Lorem.paragraph }
+    question
+  end
+
   factory :question do
     content { Faker::Lorem.paragraph }
     lesson '1'

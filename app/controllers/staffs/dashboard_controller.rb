@@ -1,7 +1,7 @@
 # Controller for staff dashboard
 module Staffs
-  class DashboardController < ApplicationController
-    load_and_authorize_resource class: false
+  class DashboardController < BaseController
+    authorize_resource class: false
     before_action :delete_invalid_quizzes, only: :index
 
     def index

@@ -1,7 +1,6 @@
 # Controller for the student dashboard
 module Students
-  class DashboardController < ApplicationController
-    load_and_authorize_resource class: Students::DashboardController
+  class DashboardController < BaseController
     def index
       @lessons = Quiz.lessons
       @quiz_request = current_user.quiz_request

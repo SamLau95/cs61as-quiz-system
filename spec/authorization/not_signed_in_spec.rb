@@ -11,7 +11,8 @@ describe "Someone that isn't signed in" do
   describe 'cannot' do
     let (:user) { create :student }
     let (:quiz) { create :quiz }
-    it 'see the staff dashboard' do
+
+    it 'see the student dashboard' do
       visit student_dashboard_path
     end
 
