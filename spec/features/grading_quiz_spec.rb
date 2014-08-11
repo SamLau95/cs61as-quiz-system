@@ -22,11 +22,11 @@ describe "Grading a Quiz" do
     let!(:student) { create :student }
     let!(:staff2) { create :staff }
     let!(:quiz) { create :quiz_with_questions }
-    let!(:taken_quiz) { TakenQuiz.create(quiz_id: quiz.id,
-                                        student_id: student.id,
-                                        staff_id: staff2.id,
-                                        lesson: quiz.lesson,
-                                        retake: quiz.retake) }
+    let!(:taken_quiz) { TakenQuiz.create quiz_id: quiz.id,
+                                         student_id: student.id,
+                                         staff_id: staff2.id,
+                                         lesson: quiz.lesson,
+                                         retake: quiz.retake }
     before do
       quiz.questions.map do |q|
         create :submission, question: q, quiz: quiz, student: student

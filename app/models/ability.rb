@@ -12,6 +12,7 @@ class Ability
       cannot :see, Students::DashboardController
     elsif user.student?
       can :manage, :self_only
+      # can :show, Staffs::Students::QuizzesController
     end
   end
 end
