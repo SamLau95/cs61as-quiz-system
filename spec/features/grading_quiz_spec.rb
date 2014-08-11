@@ -22,9 +22,9 @@ describe "Grading a Quiz" do
     let!(:student) { create :student }
     let!(:staff2) { create :staff }
     let!(:quiz) { create :quiz_with_questions }
-    let!(:taken_quiz) { TakenQuiz.create quiz_id: quiz.id,
-                                         student_id: student.id,
-                                         staff_id: staff2.id,
+    let!(:taken_quiz) { TakenQuiz.create quiz: quiz,
+                                         student: student,
+                                         staff: staff2,
                                          lesson: quiz.lesson,
                                          retake: quiz.retake }
     before do
@@ -50,28 +50,30 @@ describe "Grading a Quiz" do
       it { should have_content "Grade Question" }
 
       describe "should not be valid" do
+        def expect_changes_not_persisted
+          expect(page).to_not have_content "#{quiz}"
+          expect(taken_quiz.reload.grade).to eql(0.0)
+        end
 
         it "if the grade is blank" do
           fill_in "Grade", with: ""
           click_button "Update Grade!"
           expect(page).to have_content "can't be blank"
+          expect_changes_not_persisted
         end
 
         it "if comments are blank" do
           fill_in "Comments", with: ""
           click_button "Update Grade!"
           expect(page).to have_content "can't be blank"
+          expect_changes_not_persisted
         end
 
         it "if the grade is not in range of (0..10)" do
           fill_in "Grade", with: 11
           click_button "Update Grade!"
           expect(page).to have_content "Invalid grade"
-        end
-
-        after do
-          expect(page).to_not have_content "#{quiz}"
-          expect(taken_quiz.grade).to eql(0.0)
+          expect_changes_not_persisted
         end
       end
 
@@ -96,6 +98,7 @@ describe "Grading a Quiz" do
         end
       end
 
+      # 15/10 really?...
       it { should have_content "Total: 15.0/10" }
       it { should have_content "Finished Grading!" }
       it { should have_content "5.0" }
