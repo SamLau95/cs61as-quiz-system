@@ -36,6 +36,7 @@ describe "Quiz" do
       fill_in "Version", with: "a"
       click_button "Update!"
       expect(page).to have_content("is not a number")
+      expect(page).to_not have_content("Welcome")
     end
 
     it "if it has a version that has already been used" do
@@ -43,6 +44,7 @@ describe "Quiz" do
       select "1", from: "Lesson"
       click_button "Update!"
       expect(page).to have_content("This version has already been used!")
+      expect(page).to_not have_content("Welcome")
     end
 
     it "if doesn't questions that add up to 10 points" do
@@ -50,6 +52,7 @@ describe "Quiz" do
       select "1", from: "Lesson"
       click_button "Update!"
       expect(page).to have_content("Points must sum to 10")
+      expect(page).to_not have_content("Welcome")
     end
 
     it "if question lessons don't match" do
@@ -66,10 +69,7 @@ describe "Quiz" do
       select "1", from: "Lesson"
       click_button "Update!"
       expect(page).to have_content "Question lessons must match"
-    end
-
-    after do
-      expect(page).to have_no_content("Welcome")
+      expect(page).to_not have_content("Welcome")
     end
   end
 
