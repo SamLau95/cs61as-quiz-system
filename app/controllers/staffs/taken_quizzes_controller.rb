@@ -1,17 +1,19 @@
-class TakenQuizzesController < ApplicationController
-  def update
-    @grade = TakenQuiz.find params[:id]
-    if @grade.update_attributes taken_quiz_params
-      flash[:notice] = 'Added comment!'
-    else
-      flash[:error] = 'Comment was left blank or was too long.'
+module Staffs
+  class TakenQuizzesController < BaseController
+    def update
+      @grade = TakenQuiz.find params[:id]
+      if @grade.update_attributes taken_quiz_params
+        flash[:notice] = 'Added comment!'
+      else
+        flash[:error] = 'Comment was left blank or was too long.'
+      end
+      redirect_to :back
     end
-    redirect_to :back
-  end
 
-  private
+    private
 
-  def taken_quiz_params
-    params.require(:taken_quiz).permit!
+    def taken_quiz_params
+      params.require(:taken_quiz).permit!
+    end
   end
 end

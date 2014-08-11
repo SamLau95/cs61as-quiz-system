@@ -1,5 +1,5 @@
 module Students
-  class RegradesController < ApplicationController
+  class RegradesController < BaseController
     def create
       quiz = Quiz.find params[:regrade][:quiz_id]
       regrade = Regrade.new regrade_params
