@@ -16,17 +16,16 @@ describe "Grading a Quiz" do
 
   it { should have_content "Quizzes To Grade" }
   it { should have_content "You have no assignments." }
-  it { should have_content "There are no quizzes to grade!"}
+  it { should have_content "There are no quizzes to grade!" }
 
   describe "as a staff member" do
     let!(:student) { create :student }
     let!(:staff2) { create :staff }
     let!(:quiz) { create :quiz_with_questions }
-    let!(:taken_quiz) { TakenQuiz.create quiz: quiz,
-                                         student: student,
-                                         staff: staff2,
-                                         lesson: quiz.lesson,
-                                         retake: quiz.retake }
+    let!(:taken_quiz) do
+      TakenQuiz.create quiz: quiz, student: student, staff: staff2, lesson: quiz.lesson, retake: quiz.retake
+    end
+
     before do
       quiz.questions.map do |q|
         create :submission, question: q, quiz: quiz, student: student
@@ -40,7 +39,7 @@ describe "Grading a Quiz" do
 
     describe "before grading quiz" do
       it { should have_content "#{quiz}" }
-      it { should have_content "Total: 0.0/10"}
+      it { should have_content "Total: 0.0/10" }
       it { should_not have_content "Finished Grading!" }
     end
 
