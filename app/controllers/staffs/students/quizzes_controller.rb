@@ -1,7 +1,7 @@
 module Staffs::Students
   class QuizzesController < Staffs::BaseController
     def show
-      @quiz = Quiz.find params[:quiz_id]
+      @quiz = Quiz.find params[:id]
       @student = Student.find params[:student_id]
       @questions = @quiz.questions
       @subm = @questions.map do |q|
