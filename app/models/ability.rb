@@ -13,6 +13,7 @@ class Ability
     elsif user.staff?
       can :manage, :all
       cannot [:edit, :update], User, :id => (0...user.id).to_a + ((user.id + 1)..User.all.count).to_a
+      cannot :see, Students::DashboardController
     elsif user.student?
       if user.added_info
         can :destroy, QuizRequest if user.quiz_request
