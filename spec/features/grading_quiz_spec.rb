@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+def fill_in_grade
+  fill_in "Grade", with: 5
+  fill_in "Comments", with: "Good Job!"
+  click_button "Update Grade!"
+end
+
 describe "Grading a Quiz" do
   let(:staff) { create :staff }
   subject { page }
@@ -78,6 +84,34 @@ describe "Grading a Quiz" do
         expect(page).to have_content "5.0"
         expect(page).to have_content "Good Job!"
         expect(page).to_not have_content "Finished Grading!"
+      end
+    end
+
+    describe "grading entire quiz" do
+      before do
+        quiz.questions.each do |q|
+          page.find("#grade#{q.id}").click
+          expect(page).to have_content "Grade Question"
+          fill_in_grade
+        end
+      end
+
+      it { should have_content "Total: 15.0/10" }
+      it { should have_content "Finished Grading!" }
+      it { should have_content "5.0" }
+      it { should have_content "Good Job!" }
+
+      it "should change taken_quiz's finished field to true" do
+        click_link "Finished Grading!"
+        expect(TakenQuiz.not_graded.count).to eq 0
+      end
+
+      it "should redirect to grading dashboard" do
+        click_link "Finished Grading!"
+        expect(page).to have_content "Quizzes To Grade"
+        expect(page).to have_content "There are no quizzes to grade!"
+        expect(page).to have_content "You have no assignments."
+        expect(page).to_not have_content "#{taken_quiz}"
       end
     end
   end
