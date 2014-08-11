@@ -92,15 +92,22 @@ describe "Quiz" do
       expect(page).to have_content("Add a new question!")
     end
 
-    pending "removing questions" do
+    describe "removing questions", js: true do
       before do
         create :question, quizzes: [quiz]
+        page.evaluate_script('window.confirm = function() { return true; }')
         visit edit_quiz_path(quiz)
       end
 
-      it "should show no questions if one is removed" do
-        click_link("delete")
-        expect(page).to have_content("You have no questions yet!")
+      it "should not allow removal if quiz is published" do
+        click_link "Remove"
+        expect(page).to have_content "Can't remove"
+      end
+
+      it "should remove question if quiz is published" do
+        quiz.toggle! :is_draft
+        click_link "Remove"
+        expect(page).to have_content "You have no questions yet!"
       end
     end
   end

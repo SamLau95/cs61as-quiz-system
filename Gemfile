@@ -14,7 +14,7 @@ gem 'jquery-rails', '~> 3.1.0'
 gem 'turbolinks', '~> 2.2.1'
 gem 'jbuilder', '~> 1.2'
 gem 'pg', '~> 0.17.1'
-gem 'cancan', '~> 1.6.10'
+gem 'cancancan', '~> 1.9'
 gem 'ffaker', '~> 1.22.1'
 gem 'figaro', '~> 0.7.0'
 

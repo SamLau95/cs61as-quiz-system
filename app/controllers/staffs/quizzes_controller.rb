@@ -1,6 +1,6 @@
 # Controller for quizzes
 module Staffs
-  class QuizzesController < ApplicationController
+  class QuizzesController < BaseController
     load_and_authorize_resource except: :create
 
     def new

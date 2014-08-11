@@ -1,9 +1,9 @@
 module Students
-  class QuizzesController < ApplicationController
+  class QuizzesController < BaseController
     def make_request
-      cu, les = current_user, params[:lesson]
-      if can_take? les
-        check_quiz_and_make_request(cu, les)
+      student, lesson = current_user, params[:lesson]
+      if can_take_quiz_for_lesson? lesson
+        check_quiz_and_make_request(student, lesson)
       else
         flash[:alert] = "You can't request this quiz!"
       end
@@ -12,6 +12,7 @@ module Students
 
     def take
       quiz_lock = current_user.quiz_lock
+      deny_access_if! !quiz_lock.present?
       @quiz_form = TakeQuizForm.new quiz_lock.quiz
       gon.push lock_path: lock_quiz_lock_path(quiz_lock),
                time_left: quiz_lock.time_left
@@ -44,7 +45,7 @@ module Students
 
     private
 
-    def can_take?(lesson)
+    def can_take_quiz_for_lesson?(lesson)
       (!current_user.making_request? || !current_user.taking_quiz?) &&
       current_user.retake(lesson) < 2
     end

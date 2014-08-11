@@ -1,5 +1,5 @@
 module Staffs::Students
-  class QuizzesController < ApplicationController
+  class QuizzesController < Staffs::BaseController
     load_and_authorize_resource
 
     def show

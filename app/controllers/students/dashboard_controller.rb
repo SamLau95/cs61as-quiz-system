@@ -1,6 +1,6 @@
 # Controller for the student dashboard
 module Students
-  class DashboardController < ApplicationController
+  class DashboardController < BaseController
     def index
       @lessons = Quiz.lessons
       @quiz_request = current_user.quiz_request

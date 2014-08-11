@@ -1,6 +1,6 @@
 # Controller for approving/cancelling quiz requests
 module Staffs
-  class QuizRequestsController < ApplicationController
+  class QuizRequestsController < BaseController
     load_and_authorize_resource
 
     def index
