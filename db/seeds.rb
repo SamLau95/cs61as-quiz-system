@@ -1,4 +1,3 @@
-
 def make_users
   1.upto(2) do |i|
     Student.create first_name: 'Student',
