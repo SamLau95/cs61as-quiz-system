@@ -22,18 +22,14 @@ module Staffs
     def create
       @add_pts, @lesson = params[:add_pts], params[:lesson]
       @points = params[:points].blank? ? 0 : params[:points]
-      question = create_question
+      question = CreateQuestion.call question_params
       @quiz_id = params[:quiz_id]
       quiz = Quiz.find_by_id @quiz_id
       question_params[:points] = { pts: @points, qid: @quiz_id }
       @quest_form = NewQuestionForm.new question
       if @quest_form.validate_and_save question_params
         flash[:success] = 'Created Question!'
-        if quiz
-          redirect_to edit_quiz_path(quiz)
-        else
-          redirect_to staff_dashboard_path
-        end
+        redirect_after_editing quiz
       else
         render 'new'
       end
@@ -62,11 +58,7 @@ module Staffs
       @quest_form = EditQuestionForm.new @question
       if @quest_form.validate_and_save question_params
         flash[:success] = 'Updated Question!'
-        if quiz
-          redirect_to edit_quiz_path(quiz)
-        else
-          redirect_to staff_dashboard_path
-        end
+        redirect_after_editing quiz
       else
         render 'edit'
       end
@@ -130,14 +122,12 @@ module Staffs
       params.require(:question).permit!
     end
 
-    # Bad - use a service object to reach across multiple models
-    def create_question
-      solution = Solution.new question_params.delete :solution_attributes
-      rubric = Rubric.new question_params.delete :rubric_attributes
-      question = Question.new question_params
-      question.solution = solution
-      question.rubric = rubric
-      question
+    def redirect_after_editing(quiz)
+      if quiz
+        redirect_to edit_quiz_path(quiz)
+      else
+        redirect_to questions_path
+      end
     end
   end
 end
