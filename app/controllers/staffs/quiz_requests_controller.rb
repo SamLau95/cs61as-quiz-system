@@ -14,7 +14,7 @@ module Staffs
       redirect_to staff_dashboard_path
     end
 
-    def destroy
+    def delete
       QuizRequest.destroy params[:id]
       flash[:success] = 'Cancelled quiz request!'
       redirect_to staff_dashboard_path
