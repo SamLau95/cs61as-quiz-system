@@ -11,7 +11,7 @@ Cs61asQuizzes::Application.routes.draw do
 
     resources :regrades, only: :create
 
-    resources :quizzes, only: :take do
+    resources :quizzes, only: [:take, :show] do
       member do
         post :submit
       end
@@ -28,6 +28,8 @@ Cs61asQuizzes::Application.routes.draw do
         patch :unlock
       end
     end
+
+    resources :quiz_requests, only: :destroy
   end
 
   scope module: 'staffs' do
