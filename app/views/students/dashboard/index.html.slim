@@ -44,7 +44,7 @@ h1 Welcome to the Student Dashboard!
     p No Quizzes taken yet! Request a quiz!
   - else
     ul
-      - @taken.each do |quiz|
+      - @taken.each do |taken|
         li
-          = link_to quiz, student_quiz_path(@current_user, quiz)
+          = link_to quiz, quiz_path(taken)
 
