@@ -44,8 +44,9 @@ module Students
     end
 
     def show
-      @grade = TakenQuiz.find_by params[:id]
-      @quiz, @student, @questions = @grade.quiz, @grade.student, @quiz.questions
+      @grade = TakenQuiz.find params[:id]
+      @quiz, @student = @grade.quiz, @grade.student
+      @questions = @quiz.questions
       @subm = @questions.map do |q|
         Submission.find_by question_id: q.id, student: @student
       end
