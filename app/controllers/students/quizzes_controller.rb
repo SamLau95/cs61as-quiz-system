@@ -43,6 +43,21 @@ module Students
       end
     end
 
+    def show
+      @grade = TakenQuiz.find_by params[:id]
+      @quiz, @student, @questions = @grade.quiz, @grade.student, @quiz.questions
+      @subm = @questions.map do |q|
+        Submission.find_by question_id: q.id, student: @student
+      end
+      @scores = @questions.map do |q|
+        Grade.find_by question_id: q.id, student: @student
+      end
+      @ques_subm = QuizSubmission.new(@questions, @subm, @scores).ques_subm
+      @request = Regrade.find_by quiz: @quiz, student: @student
+      @regrade = Regrade.new
+      @not_graded = @scores.inject(false) { |q, q2| q || q2.nil? }
+    end
+
     private
 
     def can_take_quiz_for_lesson?(lesson)
