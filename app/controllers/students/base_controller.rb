@@ -6,7 +6,7 @@ module Students
 
     def authorize_student!
       authenticate_user!
-      authorize! :manage, :self_only
+      authorize! :manage, :student_dashboard
     end
   end
 end

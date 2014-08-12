@@ -71,4 +71,5 @@ h3#show_quiz = @quiz
       - if @current_user.staff?
         = link_to 'Grade Question!', new_grade_path(qid: question.id,
                                                     sid: @student.id),
-                                     class: 'small button'
+                                     class: 'small button',
+                                     id: "grade#{question.id}"

@@ -10,14 +10,6 @@ h3 Import Students
 
 .row
   .columns
-    - unless @results.empty?
-      h3 Results:
-      - @results.each do |login, password|
-        = "#{login},#{password}"
-        br
-
-.row
-  .columns
     p Click here to download initial passwords for all currently registered students!
 
     = link_to 'Download Passwords', download_initial_passwords_students_path(format: 'csv'),

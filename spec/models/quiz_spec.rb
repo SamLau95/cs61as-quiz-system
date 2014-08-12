@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: quizzes
+#
+#  id         :integer          not null, primary key
+#  lesson     :string(255)      default("")
+#  version    :integer          default(0)
+#  retake     :boolean          default(FALSE)
+#  created_at :datetime
+#  updated_at :datetime
+#  is_draft   :boolean          default(TRUE)
+#
+
 require "spec_helper"
 
 describe Quiz do

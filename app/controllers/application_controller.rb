@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = 'You aren\'t allowed to view that page!'
+    flash[:error] = "You aren't allowed to view that page!"
     if current_user
-      redirect_to after_sign_in_path_for(current_user)
+      redirect_to after_sign_in_path_for current_user
     else
       redirect_to root_url
     end
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     if !user.added_info
-      edit_user_path(user)
+      edit_user_path user
     elsif user.staff?
       staff_dashboard_path
     elsif user.student?
@@ -37,5 +37,9 @@ class ApplicationController < ActionController::Base
 
   def deny_access_if!(condition, *args)
     raise CanCan::AccessDenied.new(*args) if condition
+  end
+
+  def deny_access_unless!(condition, *args)
+    raise CanCan::AccessDenied.new(*args) unless condition
   end
 end

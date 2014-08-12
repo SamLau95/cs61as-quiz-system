@@ -7,9 +7,9 @@ class Ability
     can [:edit, :update], User, id: user.id
 
     if user.staff?
-      can :manage, :all
+      can :manage, :staff_dashboard
     elsif user.student?
-      can :manage, :self_only
+      can :manage, :student_dashboard
     end
   end
 end

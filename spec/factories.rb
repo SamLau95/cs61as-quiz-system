@@ -7,7 +7,6 @@ FactoryGirl.define do
     sequence(:email) { |n| "student#{n}@gmail.com" }
     sequence(:login) { |n| "cs61as-a#{logins[n]}" }
     password 'password'
-    added_info true
   end
 
   factory :staff do
@@ -16,7 +15,6 @@ FactoryGirl.define do
     sequence(:email) { |n| "staff#{n}@gmail.com" }
     sequence(:login) { |n| "cs61as-t#{logins[n]}" }
     password 'password'
-    added_info true
   end
 
   factory :quiz do
@@ -41,12 +39,18 @@ FactoryGirl.define do
     question
   end
 
+  factory :solution do
+    content { Faker::Lorem.paragraph }
+    question
+  end
+
   factory :question do
     content { Faker::Lorem.paragraph }
     lesson '1'
     difficulty 'Easy'
 
     after(:build) do |question|
+      question.solution = create :solution, question: question unless question.solution
       question.rubric = create :rubric, question: question unless question.rubric
     end
   end
@@ -60,5 +64,17 @@ FactoryGirl.define do
     locked false
     student
     quiz
+  end
+
+  factory :submission do
+    content { Faker::Lorem.paragraph }
+    student
+    quiz
+    question
+  end
+
+  factory :taken_quiz do
+    staff
+    student
   end
 end

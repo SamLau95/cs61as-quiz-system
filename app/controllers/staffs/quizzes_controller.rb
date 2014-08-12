@@ -1,7 +1,7 @@
 # Controller for quizzes
 module Staffs
   class QuizzesController < BaseController
-    load_and_authorize_resource except: :create
+    before_action :set_quiz, only: [:edit, :update, :show, :stats]
 
     def new
       @new_quiz = Quiz.create
@@ -21,9 +21,8 @@ module Staffs
     end
 
     def edit
-      quiz = Quiz.find params[:id]
-      @quiz_form = EditQuizForm.new quiz
-      @questions = quiz.questions
+      @quiz_form = EditQuizForm.new @quiz
+      @questions = @quiz.questions
       @lessons = Quiz::LESSON_VALUES
       Question.destroy(params[:destroy]) if params[:destroy]
       respond_to do |format|
@@ -33,12 +32,11 @@ module Staffs
     end
 
     def update
-      quiz = Quiz.find params[:id]
-      @quiz_form = EditQuizForm.new quiz
-      @questions = quiz.questions
+      @quiz_form = EditQuizForm.new @quiz
+      @questions = @quiz.questions
       @lessons = Quiz::LESSON_VALUES
       if @quiz_form.validate_and_save quiz_params
-        flash[:success] = "Updated #{quiz}!"
+        flash[:success] = "Updated #{@quiz}!"
         redirect_to staff_dashboard_path
       else
         render :edit
@@ -46,18 +44,16 @@ module Staffs
     end
 
     def destroy
-      Quiz.find(params[:id]).destroy
+      Quiz.destroy params[:id]
       redirect_to staff_dashboard_path, notice: 'Deleted quiz.'
     end
 
     def show
-      @quiz = Quiz.find(params[:id])
       @questions = @quiz.questions
     end
 
     def stats
-      @quiz = Quiz.find(params[:id])
-      @grades = TakenQuiz.where(quiz_id: params[:id])
+      @grades = TakenQuiz.where(quiz: @quiz)
       @students, @avg = [], 0
       @grades.each do |g|
         s = Student.find(g.student_id)
@@ -68,6 +64,10 @@ module Staffs
     end
 
     private
+
+    def set_quiz
+      @quiz = Quiz.find params[:id]
+    end
 
     def quiz_params
       params.require(:quiz).permit!

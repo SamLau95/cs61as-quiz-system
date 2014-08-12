@@ -1,7 +1,7 @@
 # Controller for approving/cancelling quiz requests
 module Staffs
   class QuizRequestsController < BaseController
-    load_and_authorize_resource
+    before_action :set_quiz_request, only: :approve
 
     def index
       @requests = QuizRequest.all
@@ -15,10 +15,16 @@ module Staffs
     end
 
     def destroy
-      @quiz_request.destroy
+      QuizRequest.destroy params[:id]
       flash[:success] = 'Cancelled quiz request!'
       redirect_to current_user.staff? ? staff_dashboard_path :
                                         student_dashboard_path
+    end
+
+    private
+
+    def set_quiz_request
+      @quiz_request = QuizRequest.find params[:id]
     end
   end
 end
