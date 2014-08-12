@@ -4,10 +4,11 @@ h1 Welcome to the Student Dashboard!
   .quiz-request
     h3 You are currently requesting to take quiz #{@quiz_request.lesson}
     p Your request is not approved yet!
-    = link_to 'Just kidding, get me out of here!', quiz_request_path(@quiz_request),
-                                                   method: 'delete',
-                                                   data: { confirm: 'Are you sure you want to cancel your request?'},
-                                                   class: 'large button'
+    = link_to 'Just kidding, get me out of here!',
+              quiz_request_path(@quiz_request),
+              method: 'delete',
+              data: { confirm: 'Are you sure you want to cancel your request?'},
+              class: 'large button'
 - elsif @quiz_lock && !@quiz_lock.locked
   .quiz-lock
     = link_to 'Begin quiz!', take_quizzes_path, class: 'button',
@@ -46,5 +47,5 @@ h1 Welcome to the Student Dashboard!
     ul
       - @taken.each do |taken|
         li
-          = link_to quiz, quiz_path(taken)
+          = link_to taken, quiz_path(taken)
 
