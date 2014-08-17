@@ -9,7 +9,7 @@ h3#show_quiz = @quiz
   h3 Don't forget to hit finish grading after you're done grading, otherwise the student's grades won't be uploaded to the CSV!
 
   = link_to 'Finished Grading!',
-            staffs_staffs_student_quiz_finish_grading_path(@student, @quiz),
+            staffs_student_quiz_finish_grading_path(@student, @quiz),
             method: 'put',
             class: 'large button'
 
@@ -24,7 +24,7 @@ h3#show_quiz = @quiz
 
 .row
   .small-6.columns
-    = simple_form_for @grade do |f|
+    = simple_form_for @grade, url: staffs_taken_quiz_path do |f|
       = f.input :comment, label: 'General Comments'
       = f.submit 'Save Comments!', class: 'button'
 

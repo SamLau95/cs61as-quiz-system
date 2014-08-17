@@ -1,10 +1,9 @@
 module Students
   class RegradesController < BaseController
     def create
-      quiz = Quiz.find params[:regrade][:quiz_id]
-      regrade = Regrade.new regrade_params
-      @taken_quiz = TakenQuiz.find_by(quiz_id: quiz.id,
-                                      student_id: current_user.id)
+      @taken_quiz = TakenQuiz.find regrade_params.delete(:taken_quiz)
+      regrade = Regrade.new regrade_params.merge(quiz: @taken_quiz.quiz,
+                                                 student: @taken_quiz.student)
       if regrade.save
         flash[:success] = "You've submitted a regrade request!"
         @taken_quiz.undo

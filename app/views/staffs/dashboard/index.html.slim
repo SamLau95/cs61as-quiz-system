@@ -1,7 +1,7 @@
 h1 Welcome to the Staff Dashboard!
 
 p.makequizzes
-  = link_to "Create a New Quiz!", new_staffs_quiz, class: 'button small'
+  = link_to "Create a New Quiz!", new_staffs_quiz_path, class: 'button small'
 
 p or
 
@@ -9,7 +9,7 @@ h3 Generate a quiz
 
 .row
   .small-3.columns
-    = simple_form_for @quiz do |f|
+    = simple_form_for @quiz, url: staffs_quizzes_path do |f|
       = f.hidden_field :quiz_type, value: 'generate'
       = f.input :lesson, collection: Quiz::LESSON_VALUES
       = f.input :retake, as: :boolean, label: 'Retake?'
@@ -19,7 +19,7 @@ h3 Quiz Drafts
 ul.quizzes
   - @drafts.each do |quiz|
     li = link_to quiz, staffs_quiz_path(quiz)
-    ul = link_to 'Delete Quiz', quiz,
+    ul = link_to 'Delete Quiz', staffs_quiz_path(quiz),
                                 method: :delete,
                                 data: { confirm: "You sure?" }
 
