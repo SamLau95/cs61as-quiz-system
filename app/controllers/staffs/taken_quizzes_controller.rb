@@ -7,7 +7,8 @@ module Staffs
       else
         flash[:error] = 'Comment was left blank or was too long.'
       end
-      redirect_to :back
+      redirect_to staffs_student_quiz_path(@taken_quiz.student,
+                                           @taken_quiz.quiz)
     end
 
     private
