@@ -78,7 +78,7 @@ describe 'The student dashboard' do
       describe 'the begin quiz link' do
         before { click_link 'Begin quiz!' }
         it 'lets the student take a quiz' do
-          expect(current_path).to eq take_staffs_quizzes_path
+          expect(current_path).to eq take_students_quizzes_path
         end
       end
     end

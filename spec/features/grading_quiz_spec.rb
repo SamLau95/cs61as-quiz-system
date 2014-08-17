@@ -11,7 +11,7 @@ describe "Grading a Quiz" do
   subject { page }
   before do
     sign_in staff
-    visit grades_staffs_path
+    visit staffs_grades_path
   end
 
   it { should have_content "Quizzes To Grade" }
@@ -30,7 +30,7 @@ describe "Grading a Quiz" do
       quiz.questions.map do |q|
         create :submission, question: q, quiz: quiz, student: student
       end
-      visit grades_staffs_path
+      visit staffs_grades_path
       expect(page).to_not have_content "There are no quizzes to grade!"
       expect(page).to have_content "You have no assignments."
       expect(page).to have_content "#{taken_quiz}"
