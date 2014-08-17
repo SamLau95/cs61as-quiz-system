@@ -7,7 +7,7 @@ describe 'The staff dashboard' do
 
   describe 'when there are quizzes' do
     let!(:quizzes) { create_pair :quiz }
-    before { visit staff_dashboard_path }
+    before { visit staffs_dashboard_path }
 
     it 'displays all quizzes' do
       quizzes.each do |quiz|

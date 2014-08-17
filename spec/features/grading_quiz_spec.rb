@@ -11,7 +11,7 @@ describe "Grading a Quiz" do
   subject { page }
   before do
     sign_in staff
-    visit grades_path
+    visit staffs_grades_path
   end
 
   it { should have_content "Quizzes To Grade" }
@@ -30,11 +30,11 @@ describe "Grading a Quiz" do
       quiz.questions.map do |q|
         create :submission, question: q, quiz: quiz, student: student
       end
-      visit grades_path
+      visit staffs_grades_path
       expect(page).to_not have_content "There are no quizzes to grade!"
       expect(page).to have_content "You have no assignments."
       expect(page).to have_content "#{taken_quiz}"
-      visit student_quiz_path(taken_quiz.student, taken_quiz.quiz)
+      visit staffs_student_quiz_path(taken_quiz.student, taken_quiz.quiz)
     end
 
     describe "before grading quiz" do
@@ -114,6 +114,20 @@ describe "Grading a Quiz" do
         expect(page).to have_content "There are no quizzes to grade!"
         expect(page).to have_content "You have no assignments."
         expect(page).to_not have_content "#{taken_quiz}"
+      end
+    end
+
+    describe "adding comments" do
+      it "should not be valid if it is blank" do
+        fill_in "General Comments", with: ""
+        click_button "Save Comments!"
+        expect(page).to have_content "No comments"
+      end
+
+      it "should be valid if the comment is not blank" do
+        fill_in "General Comments", with: "Lorem Ipsum"
+        click_button "Save Comments!"
+        expect(page).to have_content "Lorem Ipsum"
       end
     end
   end

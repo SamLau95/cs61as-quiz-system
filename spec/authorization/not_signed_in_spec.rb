@@ -18,15 +18,11 @@ describe "Someone that isn't signed in" do
     let (:quiz) { create :quiz }
 
     it 'see the student dashboard' do
-      expect_to_redirect_to_sign_in student_dashboard_path
+      expect_to_redirect_to_sign_in students_dashboard_path
     end
 
     it 'see the staff dashboard' do
-      expect_to_redirect_to_sign_in staff_dashboard_path
-    end
-
-    it 'view any quizzes' do
-      expect_to_redirect_to_sign_in take_quizzes_path
+      expect_to_redirect_to_sign_in staffs_dashboard_path
     end
 
     it "edit a user's profile" do
@@ -34,15 +30,15 @@ describe "Someone that isn't signed in" do
     end
 
     it "take a quiz" do
-      expect_to_redirect_to_sign_in take_quizzes_path
+      expect_to_redirect_to_sign_in take_students_quizzes_path
     end
 
     it 'see question bank' do
-      expect_to_redirect_to_sign_in bank_questions_path
+      expect_to_redirect_to_sign_in bank_staffs_questions_path
     end
 
     it 'see quiz stats' do
-      expect_to_redirect_to_sign_in stats_quiz_path(quiz)
+      expect_to_redirect_to_sign_in stats_staffs_quiz_path(quiz)
     end
   end
 end

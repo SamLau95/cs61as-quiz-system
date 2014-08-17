@@ -83,7 +83,7 @@ describe "Creating a question" do
         expect do
           click_button "Create"
         end.to change(Question, :count).by 1
-        expect(page).to have_content "Welcome"
+        expect(page).to have_content "Add a Question!"
       end
     end
   end

@@ -1,17 +1,16 @@
 module Students
   class RegradesController < BaseController
     def create
-      quiz = Quiz.find params[:regrade][:quiz_id]
-      regrade = Regrade.new regrade_params
+      @taken_quiz = TakenQuiz.find regrade_params.delete(:taken_quiz)
+      regrade = Regrade.new regrade_params.merge(quiz: @taken_quiz.quiz,
+                                                 student: @taken_quiz.student)
       if regrade.save
         flash[:success] = "You've submitted a regrade request!"
-        TakenQuiz.find_by(quiz_id: params[:regrade][:quiz_id],
-                          student_id: current_user.id).undo
+        @taken_quiz.undo
       else
         flash[:error] = "You didn't fill out all the required fields!"
       end
-      redirect_to student_quiz_path(student_id: params[:regrade][:student_id],
-                                    id: params[:regrade][:quiz_id])
+      redirect_to students_quiz_path(@taken_quiz)
     end
 
     private

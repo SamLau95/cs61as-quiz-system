@@ -24,7 +24,7 @@ class TakenQuiz < ActiveRecord::Base
 
   validates :comment, presence: true, length: { maximum: 200 }
 
-  scope :not_graded, -> { where(finished: false) }
+  scope :not_graded, -> { where(finished: false).includes(:quiz, :student) }
 
   def to_s
     "#{Student.find student_id}: #{Quiz.find quiz_id}"

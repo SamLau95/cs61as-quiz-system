@@ -11,7 +11,7 @@ describe 'Staff dashboard requests' do
     create :quiz, lesson: request.lesson
     create :quiz, lesson: other_request.lesson
     sign_in staff
-    visit quiz_requests_path
+    visit staffs_quiz_requests_path
   end
 
   it 'displays all unapproved quiz requests' do

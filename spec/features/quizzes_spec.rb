@@ -7,7 +7,7 @@ describe "Quiz" do
 
 
   describe "should increase quiz count" do
-    before { visit staff_dashboard_path }
+    before { visit staffs_dashboard_path }
 
     it "by one" do
       expect do
@@ -27,7 +27,7 @@ describe "Quiz" do
     let!(:new_quiz) { create :quiz, lesson: "1", version: 1 }
     let!(:question) { create :question, lesson: "1"}
     before do
-      visit staff_dashboard_path
+      visit staffs_dashboard_path
       click_link "Create a New Quiz!"
       expect(page).to have_content "Editing Quiz"
     end
@@ -77,7 +77,7 @@ describe "Quiz" do
 
   describe "editing" do
     let!(:quiz) { create :quiz }
-    before { visit staff_dashboard_path }
+    before { visit staffs_dashboard_path }
 
     it "should go link to show page" do
       click_link(quiz)
@@ -87,7 +87,7 @@ describe "Quiz" do
     end
 
     it "should go to edit page when edit link is clicked" do
-      visit quiz_path(quiz)
+      visit staffs_quiz_path(quiz)
       click_link("Edit Quiz")
       expect(page).to have_content("Add a new question!")
     end
@@ -96,7 +96,7 @@ describe "Quiz" do
       before do
         create :question, quizzes: [quiz]
         page.evaluate_script('window.confirm = function() { return true; }')
-        visit edit_quiz_path(quiz)
+        visit edit_staffs_quiz_path(quiz)
       end
 
       it "should not allow removal if quiz is published" do

@@ -8,7 +8,7 @@ h4 Your Grading Assignments
   ul
     - @assigned.each do |g|
       li
-        = link_to g, student_quiz_path(g.student, g.quiz)
+        = link_to g, staffs_student_quiz_path(g.student, g.quiz)
 
 
 h4 All Quizzes to Grade
@@ -19,4 +19,4 @@ h4 All Quizzes to Grade
   ul
     - @all_to_grade.each do |g|
       li
-        = link_to g, student_quiz_path(g.student, g.quiz)
+        = link_to g, staffs_student_quiz_path(g.student, g.quiz)

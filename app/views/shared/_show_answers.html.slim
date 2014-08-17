@@ -1,0 +1,20 @@
+- if !quiz.retake || current_user.staff?
+  - ques_subm.each do |question, subm, score, rlt|
+    div
+      p = "Question #{rlt.number}: "
+      p = markdown question.content
+
+      p Student Answer:
+      textarea.show
+        = subm.content
+      - if score && (current_user.staff? || grade.finished)
+        p Grade:
+        p = score.grade
+        p Reader Comments:
+        p = score.comments
+      br
+      - if current_user.staff?
+        = link_to 'Grade Question!', new_staffs_grade_path(qid: question.id,
+                                                    sid: student.id),
+                                     class: 'small button',
+                                     id: "grade#{question.id}"

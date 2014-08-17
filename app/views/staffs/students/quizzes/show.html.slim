@@ -4,72 +4,35 @@ h3#show_quiz = @quiz
   h3 General comments:
   p = @grade.comment
 
-- if @current_user.student?
-  - if @request && @request.graded
-    p Your quiz has already been regraded!
-  - else
-    - if @request
-      p Your quiz is being regraded!
-    - else
-      - if !@grade.finished?
-        h1 Your quiz has not been graded!
-      - else
-        h2 Request a regrade!
-        = simple_form_for @regrade do |f|
-          .row
-            .small-6.columns
-              = f.input :questions, label: 'Questions to Regrade (separate with comma)',
-                                  placeholder: 'Ex: 1, 2, 3'
-          .row
-            .small-6.columns
-              = f.input :reason, label: 'Reason why it should be regraded:',
-                                 input_html: { class: 'expand' },
-                                 placeholder: 'Ex: The code runs correctly on lab computer.'
-              = f.hidden_field :quiz_id, value: @quiz.id
-              = f.hidden_field :student_id, value: @current_user.id
-          = f.submit 'Submit!', class: 'small button'
 
-- if @current_user.staff?
+- if !@not_graded
+  h3 Don't forget to hit finish grading after you're done grading, otherwise the student's grades won't be uploaded to the CSV!
 
-  - if !@not_graded
-    h3 Don't forget to hit finish grading after you're done grading, otherwise the student's grades won't be uploaded to the CSV!
+  = link_to 'Finished Grading!',
+            staffs_student_quiz_finish_grading_path(@student, @quiz),
+            method: 'put',
+            class: 'large button'
 
-    = link_to 'Finished Grading!', student_quiz_finish_grading_path(@student, @quiz),
-                                   method: 'put',
-                                   class: 'large button'
-  - if @request
-    h3 Regrade request:
-    = "Questions to grade: #{@request.questions}"
-    br
-    br
-    = "Reasons: #{@request.reason}"
-    br
-    br
-  .row
-    .small-6.columns
-      = simple_form_for @grade do |f|
-        = f.input :comment, label: 'General Comments'
-        = f.submit 'Save Comments!', class: 'button'
-
+- if @request
+  h3 Regrade request:
+  = "Questions to grade: #{@request.questions}"
   br
   br
-- if !@quiz.retake || @current_user.staff?
-  - @ques_subm.each do |question, subm, score, rlt|
-    div
-      p = "Question #{rlt.number}: "
-      p = markdown question.content
+  = "Reasons: #{@request.reason}"
+  br
+  br
 
-      p Student Answer:
-      textarea.show
-        = subm.content
-      - if score && (@current_user.staff? || @grade.finished)
-        p Grade:
-        p = score.grade
-        p Reader Comments:
-        p = score.comments
-      br
-      - if @current_user.staff?
-        = link_to 'Grade Question!', new_grade_path(qid: question.id,
-                                                    sid: @student.id),
-                                     class: 'small button',
-                                     id: "grade#{question.id}"
+.row
+  .small-6.columns
+    = simple_form_for @grade, url: staffs_taken_quiz_path do |f|
+      = f.input :comment, label: 'General Comments'
+      = f.hidden_field :taken_id, value: @grade.id
+      = f.submit 'Save Comments!', class: 'button'
+
+br
+br
+
+= render 'shared/show_answers', quiz: @quiz,
+                                ques_subm: @ques_subm,
+                                grade: @grade,
+                                student: @student

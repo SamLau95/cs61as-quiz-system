@@ -5,9 +5,7 @@ module Students
       @lessons = Quiz.lessons
       @quiz_request = current_user.quiz_request
       @quiz_lock = current_user.quiz_lock
-      @taken = TakenQuiz.sort_quizzes(current_user.taken_quizzes).map do |q|
-        Quiz.find(q.quiz_id)
-      end
+      @taken = TakenQuiz.sort_quizzes(current_user.taken_quizzes)
     end
   end
 end

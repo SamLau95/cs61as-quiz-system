@@ -22,7 +22,7 @@ module Staffs::Students
       regrade = Regrade.find_by(student_id: params[:student_id], quiz_id: params[:quiz_id])
       regrade.finish if regrade
       flash[:success] = 'Finished grading!'
-      redirect_to grades_path
+      redirect_to staffs_grades_path
     end
   end
 end
