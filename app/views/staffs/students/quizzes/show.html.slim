@@ -26,6 +26,7 @@ h3#show_quiz = @quiz
   .small-6.columns
     = simple_form_for @grade, url: staffs_taken_quiz_path do |f|
       = f.input :comment, label: 'General Comments'
+      = f.hidden_field :taken_id, value: @grade.id
       = f.submit 'Save Comments!', class: 'button'
 
 br

@@ -1,7 +1,7 @@
 module Staffs
   class TakenQuizzesController < BaseController
     def update
-      @taken_quiz = TakenQuiz.find params[:id]
+      @taken_quiz = TakenQuiz.find params[:taken_quiz].delete :taken_id
       if @taken_quiz.update_attributes taken_quiz_params
         flash[:notice] = 'Added comment!'
       else
