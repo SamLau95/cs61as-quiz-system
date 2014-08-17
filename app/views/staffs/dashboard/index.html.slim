@@ -1,7 +1,7 @@
 h1 Welcome to the Staff Dashboard!
 
 p.makequizzes
-  = link_to "Create a New Quiz!", new_quiz_path, class: 'button small'
+  = link_to "Create a New Quiz!", new_staffs_quiz, class: 'button small'
 
 p or
 
@@ -18,7 +18,7 @@ h3 Generate a quiz
 h3 Quiz Drafts
 ul.quizzes
   - @drafts.each do |quiz|
-    li = link_to quiz, quiz_path(quiz)
+    li = link_to quiz, staffs_quiz_path(quiz)
     ul = link_to 'Delete Quiz', quiz,
                                 method: :delete,
                                 data: { confirm: "You sure?" }
@@ -26,12 +26,12 @@ ul.quizzes
 h3 Published Quizzes
 ul.quizzes
   - @published.each do |quiz|
-    li = link_to quiz, quiz_path(quiz)
+    li = link_to quiz, staffs_quiz_path(quiz)
 
 
 h3 Download Grades.txt file
 .row
   .small-3.column
-    = form_tag download_grades_path( format: 'csv' ) do
+    = form_tag download_staffs_grades_path( format: 'csv' ) do
       = select_tag(:lesson, options_for_select(@download))
       = submit_tag 'Download!', class: 'button'

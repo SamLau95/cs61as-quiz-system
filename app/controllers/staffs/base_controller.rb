@@ -6,7 +6,7 @@ module Staffs
 
     def authorize_staff!
       authenticate_user!
-      authorize! :manage, :staff_dashboard
+      authorize! :manage, :staffs_dashboard
     end
   end
 end

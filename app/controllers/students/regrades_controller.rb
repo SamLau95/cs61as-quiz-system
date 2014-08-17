@@ -3,7 +3,7 @@ module Students
     def create
       quiz = Quiz.find params[:regrade][:quiz_id]
       regrade = Regrade.new regrade_params
-      @taken_quiz = TakenQuiz.find_by(quiz_id: params[:regrade][:quiz_id],
+      @taken_quiz = TakenQuiz.find_by(quiz_id: quiz.id,
                                       student_id: current_user.id)
       if regrade.save
         flash[:success] = "You've submitted a regrade request!"
@@ -11,7 +11,7 @@ module Students
       else
         flash[:error] = "You didn't fill out all the required fields!"
       end
-      redirect_to quiz_path(@taken_quiz)
+      redirect_to students_quiz_path(@taken_quiz)
     end
 
     private

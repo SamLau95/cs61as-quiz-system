@@ -7,14 +7,14 @@ module Students
       else
         flash[:alert] = "You can't request this quiz!"
       end
-      redirect_to student_dashboard_path
+      redirect_to students_dashboard_path
     end
 
     def take
       quiz_lock = current_user.quiz_lock
       deny_access_unless! quiz_lock.present?
       @quiz_form = TakeQuizForm.new quiz_lock.quiz
-      gon.push lock_path: lock_quiz_lock_path(quiz_lock),
+      gon.push lock_path: lock_students_quiz_lock_path(quiz_lock),
                time_left: quiz_lock.time_left
     end
 
@@ -23,7 +23,7 @@ module Students
       quiz = Quiz.find ql.quiz_id
       if ql.locked
         flash[:error] = 'You wish you could turn this in.'
-        redirect_to student_dashboard_path
+        redirect_to students_dashboard_path
       else
         q = Quiz.find(params[:id])
         @quiz_form = TakeQuizForm.new q
@@ -36,7 +36,7 @@ module Students
                            staff_id: Staff.assign_grader.id
           ql.destroy
           flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
-          redirect_to student_dashboard_path
+          redirect_to students_dashboard_path
         else
           render 'take'
         end

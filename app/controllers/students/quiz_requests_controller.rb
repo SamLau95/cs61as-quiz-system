@@ -4,7 +4,7 @@ module Students
     def destroy
       QuizRequest.destroy params[:id]
       flash[:success] = 'Cancelled quiz request!'
-      redirect_to student_dashboard_path
+      redirect_to students_dashboard_path
     end
   end
 end

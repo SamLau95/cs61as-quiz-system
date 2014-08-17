@@ -90,11 +90,11 @@ module Staffs
       if @quiz.can_add? @question
         Relationship.where(question: @question, quiz: @quiz).first_or_create
         flash[:success] = 'Added question from question bank!'
-        redirect_to edit_quiz_path @quiz
+        redirect_to edit_staffs_quiz_path @quiz
       else
         @lesson = Quiz::LESSON_VALUES
         flash[:error] = 'This question has already been used on a retake!'
-        redirect_to bank_questions_path(lesson: quiz.lesson,
+        redirect_to bank_staffs_questions_path(lesson: quiz.lesson,
                                         add: true,
                                         quiz_id: quiz.id)
       end
@@ -124,9 +124,9 @@ module Staffs
 
     def redirect_after_editing(quiz)
       if quiz
-        redirect_to edit_quiz_path(quiz)
+        redirect_to edit_staffs_quiz_path(quiz)
       else
-        redirect_to questions_path
+        redirect_to staffs_questions_path
       end
     end
   end

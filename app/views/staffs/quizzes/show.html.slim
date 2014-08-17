@@ -4,9 +4,9 @@ br
 = link_to 'Back', :back, class: 'small button'
 
 div
-  = link_to "Edit Quiz", edit_quiz_path(@quiz), class: 'small button'
+  = link_to "Edit Quiz", edit_staffs_quiz_path(@quiz), class: 'small button'
   br
-  = link_to "See Quiz Stats", stats_quiz_path(@quiz), class: 'small button'
+  = link_to "See Quiz Stats", stats_staffs_quiz_path(@quiz), class: 'small button'
 
 -if @quiz.questions.nil?
   p You have no questions yet!

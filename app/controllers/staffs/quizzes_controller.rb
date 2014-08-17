@@ -5,7 +5,7 @@ module Staffs
 
     def new
       @new_quiz = Quiz.create
-      redirect_to edit_quiz_path(@new_quiz), notice: 'Created Quiz'
+      redirect_to edit_staffs_quiz_path(@new_quiz), notice: 'Created Quiz'
     end
 
     def create
@@ -15,7 +15,7 @@ module Staffs
         else
           lesson, rtk = params[:quiz][:lesson], params[:quiz][:retake]
           @quiz = Quiz.generate_random(lesson, rtk)
-          redirect_to edit_quiz_path(@quiz), notice: 'Created quiz.'
+          redirect_to edit_staffs_quiz_path(@quiz), notice: 'Created quiz.'
         end
       end
     end
@@ -37,7 +37,7 @@ module Staffs
       @lessons = Quiz::LESSON_VALUES
       if @quiz_form.validate_and_save quiz_params
         flash[:success] = "Updated #{@quiz}!"
-        redirect_to staff_dashboard_path
+        redirect_to staffs_dashboard_path
       else
         render :edit
       end
@@ -45,7 +45,7 @@ module Staffs
 
     def destroy
       Quiz.destroy params[:id]
-      redirect_to staff_dashboard_path, notice: 'Deleted quiz.'
+      redirect_to staffs_dashboard_path, notice: 'Deleted quiz.'
     end
 
     def show

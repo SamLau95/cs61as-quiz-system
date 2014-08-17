@@ -6,34 +6,8 @@ Cs61asQuizzes::Application.routes.draw do
 
   resources :users, only: [:edit, :update]
 
-  scope module: 'students' do
-    get '/student_dashboard', to: 'dashboard#index', as: :student_dashboard
-
-    resources :regrades, only: :create
-
-    resources :quizzes, only: [:take, :show] do
-      member do
-        post :submit
-      end
-
-      collection do
-        get :take
-        post :make_request
-      end
-    end
-
-    resources :quiz_locks, only: [:lock, :unlock] do
-      member do
-        post :lock
-        patch :unlock
-      end
-    end
-
-    resources :quiz_requests, only: :destroy
-  end
-
-  scope module: 'staffs' do
-    get '/staff_dashboard', to: 'dashboard#index', as: :staff_dashboard
+  namespace 'staffs' do
+    get '/staff_dashboard', to: 'dashboard#index', as: :dashboard
 
     resources :grades do
       collection do
@@ -84,5 +58,31 @@ Cs61asQuizzes::Application.routes.draw do
         get :stats
       end
     end
+  end
+
+  namespace 'students' do
+    get '/student_dashboard', to: 'dashboard#index', as: :dashboard
+
+    resources :regrades, only: :create
+
+    resources :quizzes, only: [:take, :show] do
+      member do
+        post :submit
+      end
+
+      collection do
+        get :take
+        post :make_request
+      end
+    end
+
+    resources :quiz_locks, only: [:lock, :unlock] do
+      member do
+        post :lock
+        patch :unlock
+      end
+    end
+
+    resources :quiz_requests, only: :destroy
   end
 end

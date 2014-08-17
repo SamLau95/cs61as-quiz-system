@@ -14,7 +14,7 @@ h3#show_quiz = @quiz
       h1 Your quiz has not been graded!
     - else
       h2 Request a regrade!
-      = simple_form_for @regrade do |f|
+      = simple_form_for @regrade, url: students_regrades_path do |f|
         .row
           .small-6.columns
             = f.input :questions,
@@ -25,8 +25,7 @@ h3#show_quiz = @quiz
             = f.input :reason, label: 'Reason why it should be regraded:',
                                 input_html: { class: 'expand' },
                                 placeholder: 'Ex: The code runs correctly on lab computer.'
-            = f.hidden_field :quiz_id, value: @quiz.id
-            = f.hidden_field :student_id, value: @current_user.id
+            = f.hidden_field :taken_quiz, value: @grade.id
         = f.submit 'Submit!', class: 'small button'
 
 = render 'shared/show_answers', quiz: @quiz,

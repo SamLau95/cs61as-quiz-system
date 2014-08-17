@@ -18,7 +18,7 @@
             = f.input :is_draft, label: 'Draft?', as: :boolean
         = f.submit 'Update!', class: 'small button'
 
-      = link_to 'Add a new question!', new_question_path(quiz_id: @quiz_form.id)
+      = link_to 'Add a new question!', new_staffs_question_path(quiz_id: @quiz_form.id)
 
       p Or add a question from the question bank!
 
@@ -30,7 +30,7 @@
         p You have no questions yet!
       - else
         - @questions.each do |question|
-          = link_to "Edit Question", edit_question_path(question,
+          = link_to "Edit Question", edit_staffs_question_path(question,
                                                         quiz_id: @quiz_form.id,
                                                         add_pts: true,
                                                         lesson: false)
@@ -38,7 +38,7 @@
             p Question #{question.number(@quiz_form.id)}
             p Points: #{question.points(@quiz_form.id)}
             p Content: #{markdown question.content}
-          = link_to "Remove", quiz_relationships_path(quiz_id: @quiz_form.id, question_id: question.id),
+          = link_to "Remove", staffs_quiz_relationships_path(quiz_id: @quiz_form.id, question_id: question.id),
                               method: :delete,
                               data: { confirm: 'Are you sure?'}
           br

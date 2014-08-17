@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
     if !user.added_info
       edit_user_path user
     elsif user.staff?
-      staff_dashboard_path
+      staffs_dashboard_path
     elsif user.student?
-      student_dashboard_path
+      students_dashboard_path
     end
   end
 

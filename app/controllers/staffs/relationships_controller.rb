@@ -8,7 +8,7 @@ module Staffs
       else
         flash[:error] = "Can't remove question from published quiz!"
       end
-      redirect_to edit_quiz_path quiz
+      redirect_to edit_staffs_quiz_path quiz
     end
   end
 end

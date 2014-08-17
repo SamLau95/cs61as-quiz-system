@@ -24,7 +24,7 @@ module Staffs
                         .reject { |login| Student.find_by_login login }
                         .map { |login| import_student login }
       respond_to do |format|
-        format.html { redirect_to import_students_path }
+        format.html { redirect_to import_staffs_students_path }
         format.csv do
           send_data create_student_csv(@results),
                     filename: 'studentInfo.csv'
@@ -35,7 +35,7 @@ module Staffs
     def download_initial_passwords
       passwords = Student.all.map { |m| [m.login, m.first_password] }
       respond_to do |format|
-        format.html { redirect_to staff_dashboard_path }
+        format.html { redirect_to staffs_dashboard_path }
         format.csv do
           send_data create_student_csv(passwords),
                     filename: 'studentInitialPW.csv'

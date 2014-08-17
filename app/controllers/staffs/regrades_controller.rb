@@ -6,7 +6,7 @@ module Staffs
                         quiz: @regrade.quiz_id).finish
       flash[:success] = "You've deleted the regrade request.
                          The student can now request another one"
-      redirect_to staff_dashboard_path
+      redirect_to staffs_dashboard_path
     end
   end
 end

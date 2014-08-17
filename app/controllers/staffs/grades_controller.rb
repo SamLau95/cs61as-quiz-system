@@ -12,7 +12,7 @@ module Staffs
       @grade = Grade.where(question_id: qid,
                            student_id: sid,
                            lesson: @question.lesson).first_or_create
-      redirect_to edit_grade_path(@grade)
+      redirect_to edit_staffs_grade_path(@grade)
     end
 
     def edit
@@ -37,7 +37,7 @@ module Staffs
         tq = TakenQuiz.find_by student: grade.student, quiz: quiz
         # This needs double checking; isn't really great
         tq.update_attribute(:grade, tq.grade - oldg + newg)
-        redirect_to student_quiz_path(grade.student_id, quiz)
+        redirect_to staffs_student_quiz_path(grade.student_id, quiz)
       else
         @rlt = Relationship.find_by question_id: @question,
                                     quiz_id: @submission.quiz_id
@@ -47,7 +47,7 @@ module Staffs
 
     def download
       respond_to do |format|
-        format.html { redirect_to staff_dashboard_path }
+        format.html { redirect_to staffs_dashboard_path }
         format.csv do
           send_data Student.get_csv(params[:lesson]),
                     filename: "lesson#{params[:lesson]}.csv"
