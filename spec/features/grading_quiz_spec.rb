@@ -116,5 +116,19 @@ describe "Grading a Quiz" do
         expect(page).to_not have_content "#{taken_quiz}"
       end
     end
+
+    describe "adding comments" do
+      it "should not be valid if it is blank" do
+        fill_in "General Comments", with: ""
+        click_button "Save Comments!"
+        expect(page).to have_content "No comments"
+      end
+
+      it "should be valid if the comment is not blank" do
+        fill_in "General Comments", with: "Lorem Ipsum"
+        click_button "Save Comments!"
+        expect(page).to have_content "Lorem Ipsum"
+      end
+    end
   end
 end
