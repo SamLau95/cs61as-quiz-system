@@ -34,7 +34,7 @@ describe "Grading a Quiz" do
       expect(page).to_not have_content "There are no quizzes to grade!"
       expect(page).to have_content "You have no assignments."
       expect(page).to have_content "#{taken_quiz}"
-      visit staffs_quiz_path(taken_quiz.student, taken_quiz.quiz)
+      visit staffs_student_quiz_path(taken_quiz.student, taken_quiz.quiz)
     end
 
     describe "before grading quiz" do
