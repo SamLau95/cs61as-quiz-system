@@ -18,6 +18,10 @@ class TakeQuizForm < Reform::Form
   def validate_and_save(params)
     return false unless validate(params)
     params[:new_submissions_attributes].each do |_, attrs|
+      subm = Submission.find_by question_id: attrs[:question_id],
+                                student_id: attrs[:student_id],
+                                quiz_id: attrs[:quiz_id]
+      subm.destroy if !subm.nil?
       Submission.create(attrs)
     end
   end

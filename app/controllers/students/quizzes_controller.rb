@@ -1,5 +1,6 @@
 module Students
   class QuizzesController < BaseController
+    skip_before_filter :verify_authenticity_token, only: :submit
     def make_request
       student, lesson = current_user, params[:lesson]
       if can_take_quiz_for_lesson? lesson
