@@ -20,7 +20,7 @@ class Quiz < ActiveRecord::Base
   has_many :questions, through: :relationships, foreign_key: 'question_id'
   has_many :relationships, dependent: :destroy
   has_many :submissions
-  has_many :staffs_quiz_requests
+  has_many :quiz_requests
   has_many :quiz_locks
   has_many :grades
 

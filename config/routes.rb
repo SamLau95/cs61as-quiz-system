@@ -26,10 +26,9 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
-    resources :quiz_requests, only: :index do
+    resources :quiz_requests, only: [:index, :destroy] do
       member do
         post :approve
-        delete :delete, to: 'quiz_requests#delete', as: :destroy
       end
     end
 
