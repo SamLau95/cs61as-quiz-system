@@ -10,7 +10,7 @@ describe 'The student dashboard' do
       create :quiz, lesson: 1, version: 1
       create :quiz, lesson: 1, version: 2
       create :quiz, lesson: 2
-      visit student_dashboard_path
+      visit students_dashboard_path
     end
 
     [1, 2].each do |lesson|
@@ -25,7 +25,7 @@ describe 'The student dashboard' do
   describe 'making a quiz request' do
     let!(:quiz) { create :quiz }
     before do
-      visit student_dashboard_path
+      visit students_dashboard_path
       select quiz.lesson, from: 'lesson'
     end
 
@@ -38,7 +38,7 @@ describe 'The student dashboard' do
   describe 'after making a request' do
     let!(:quiz) { create :quiz }
     before do
-      visit student_dashboard_path
+      visit students_dashboard_path
       select quiz.lesson, from: 'lesson'
       click_button 'Request'
     end
@@ -49,9 +49,9 @@ describe 'The student dashboard' do
     it { should_not have_link "Quiz #{quiz.lesson}" }
 
     describe 'before being approved' do
-      before { visit take_quizzes_path }
+      before { visit take_students_quizzes_path }
       it 'does not allow a student to take a quiz' do
-        expect(current_path).to eq student_dashboard_path
+        expect(current_path).to eq students_dashboard_path
       end
     end
 
@@ -70,7 +70,7 @@ describe 'The student dashboard' do
     describe 'after being approved' do
       before do
         student.quiz_request.lock_and_destroy!
-        visit student_dashboard_path
+        visit students_dashboard_path
       end
 
       it { should have_link 'Begin quiz!' }
@@ -78,7 +78,7 @@ describe 'The student dashboard' do
       describe 'the begin quiz link' do
         before { click_link 'Begin quiz!' }
         it 'lets the student take a quiz' do
-          expect(current_path).to eq take_quizzes_path
+          expect(current_path).to eq take_staffs_quizzes_path
         end
       end
     end
@@ -87,10 +87,10 @@ describe 'The student dashboard' do
   describe 'taking a quiz' do
     let!(:quiz) { create :quiz }
     before do
-      visit student_dashboard_path
+      visit students_dashboard_path
       click_quiz_link quiz
       student.quiz_request.lock_and_destroy!
-      visit student_dashboard_path
+      visit students_dashboard_path
       click_link 'Begin quiz!'
     end
   end

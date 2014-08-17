@@ -25,7 +25,7 @@ describe 'Logging in' do
       end
 
       it 'goes to student dashboard' do
-        expect(current_path).to eq(student_dashboard_path)
+        expect(current_path).to eq(students_dashboard_path)
       end
     end
   end
@@ -47,7 +47,7 @@ describe 'Logging in' do
       end
 
       it 'goes to staff dashboard' do
-        expect(current_path).to eq(staff_dashboard_path)
+        expect(current_path).to eq(staffs_dashboard_path)
       end
     end
   end

@@ -54,7 +54,7 @@ describe "Taking a quiz" do
         before do
           quiz_lock.created_at = 1.hour.ago + 5.seconds
           quiz_lock.save
-          visit take_quizzes_path
+          visit take_students_quizzes_path
           sleep 3
         end
 
@@ -68,7 +68,7 @@ describe "Taking a quiz" do
         before do
           page.execute_script "$(window).blur()"
           sleep 0.5
-          visit student_dashboard_path
+          visit students_dashboard_path
         end
 
         it "locks the quiz" do

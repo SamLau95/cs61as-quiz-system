@@ -6,7 +6,7 @@ describe 'Import students' do
 
   before do
     sign_in staff
-    visit import_students_path
+    visit import_staffs_students_path
   end
 
   it { should have_content 'Import Students' }
