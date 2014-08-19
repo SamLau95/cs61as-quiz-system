@@ -94,9 +94,7 @@ module Staffs
       else
         @lesson = Quiz::LESSON_VALUES
         flash[:error] = 'This question has already been used on a retake!'
-        redirect_to bank_staffs_questions_path(lesson: quiz.lesson,
-                                        add: true,
-                                        quiz_id: quiz.id)
+        redirect_to edit_staffs_quiz_path @quiz
       end
     end
 

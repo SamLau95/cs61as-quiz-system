@@ -1,5 +1,6 @@
 # == Schema Information
-# Table name: staffs_quiz_requests
+#
+# Table name: quiz_requests
 #
 #  id         :integer          not null, primary key
 #  student_id :integer
