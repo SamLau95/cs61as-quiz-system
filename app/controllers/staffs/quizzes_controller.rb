@@ -22,7 +22,7 @@ module Staffs
 
     def edit
       @quiz_form = EditQuizForm.new @quiz
-      @questions = @quiz.questions
+      @questions = @quiz
       @lessons = Quiz::LESSON_VALUES
       Question.destroy(params[:destroy]) if params[:destroy]
       respond_to do |format|
@@ -66,7 +66,7 @@ module Staffs
     private
 
     def set_quiz
-      @quiz = Quiz.find params[:id]
+      @quiz = Quiz.includes(:questions).find(params[:id])
     end
 
     def quiz_params
