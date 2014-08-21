@@ -48,12 +48,8 @@ module Students
       @grade = TakenQuiz.find params[:id]
       @quiz, @student = @grade.quiz, current_user
       @questions = @quiz.questions
-      @subm = @questions.map do |q|
-        Submission.find_by question_id: q.id, student: @student
-      end
-      @scores = @questions.map do |q|
-        Grade.find_by question_id: q.id, student: @student
-      end
+      @subm = @questions.map { |q| q.submissions.find_by student: @student }
+      @scores = @questions.map { |q| q.grades.find_by student: @student }
       @ques_subm = QuizSubmission.new(@questions, @subm, @scores).ques_subm
       @request = Regrade.find_by quiz: @quiz, student: @student
       @regrade = Regrade.new
