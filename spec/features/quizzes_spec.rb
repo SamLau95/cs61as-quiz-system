@@ -1,5 +1,11 @@
 require "spec_helper"
 
+def fill_in_quiz_field(lesson, version)
+  select lesson, from: "Lesson"
+  fill_in "Version", with: version
+  click_button "Update!"
+end
+
 describe "Quiz" do
   let(:staff) { create :staff }
   subject { page }
@@ -24,33 +30,31 @@ describe "Quiz" do
   end
 
   describe "should not be valid" do
-    let!(:new_quiz) { create :quiz, lesson: "1", version: 1 }
-    let!(:question) { create :question, lesson: "1"}
     before do
+      Quiz.destroy_all
+      Question.destroy_all
       visit staffs_dashboard_path
       click_link "Create a New Quiz!"
       expect(page).to have_content "Editing Quiz"
     end
 
+    let!(:new_quiz) { create :quiz, lesson: "1", version: 1, retake: true }
+    let!(:question) { create :question, lesson: "1" }
+
     it "if it has an invalid version" do
-      fill_in "Version", with: "a"
-      click_button "Update!"
+      fill_in_quiz_field "0-1", "a"
       expect(page).to have_content("is not a number")
       expect(page).to_not have_content("Welcome")
     end
 
     it "if it has a version that has already been used" do
-      fill_in "Version", with: 1
-      select "1", from: "Lesson"
-      click_button "Update!"
+      fill_in_quiz_field "1", 1
       expect(page).to have_content("This version has already been used!")
       expect(page).to_not have_content("Welcome")
     end
 
     it "if doesn't questions that add up to 10 points" do
-      fill_in "Version", with: 2
-      select "1", from: "Lesson"
-      click_button "Update!"
+      fill_in_quiz_field "1", 2
       expect(page).to have_content("Points must sum to 10")
       expect(page).to_not have_content("Welcome")
     end
@@ -65,11 +69,26 @@ describe "Quiz" do
       fill_in "Rubric (parsed as Markdown)", with: "Lorem Ipsum"
       click_button "Create"
       expect(page).to have_content "Content: Lorem Ipsum"
-      fill_in "Version", with: 2
-      select "1", from: "Lesson"
-      click_button "Update!"
+      fill_in_quiz_field "1", 2
       expect(page).to have_content "Question lessons must match"
-      expect(page).to_not have_content("Welcome")
+      expect(page).to_not have_content "Welcome"
+    end
+
+    it "if it uses a question that has already been used by a retake" do
+      new_quiz.relationships.create! question_id: question.id,
+                                     number: 1,
+                                     points: 10
+      click_link "Lesson 1"
+      expect(page).to have_content question.content
+      click_link "Add question!"
+      expect(page).to have_content "Editing Quiz"
+      expect(page).to have_content question.content
+      click_link "Edit Question"
+      fill_in "Points", with: 10
+      click_button "Update!"
+      fill_in_quiz_field "1", 2
+      expect(page).to_not have_content "Welcome"
+      expect(page).to have_content "You have an invalid question!"
     end
   end
 
