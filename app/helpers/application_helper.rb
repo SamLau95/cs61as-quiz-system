@@ -22,4 +22,9 @@ module ApplicationHelper
   def get_number(quiz, question)
     Relationship.find_by(question_id: question, quiz_id: quiz).number
   end
+
+  def get_selections_for_request(request)
+    quizzes = Quiz.where lesson: request.lesson, retake: request.retake
+    quizzes.map { |q| [q.to_s, q.id] }
+  end
 end
