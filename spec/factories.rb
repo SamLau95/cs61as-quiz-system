@@ -84,4 +84,11 @@ FactoryGirl.define do
     question
     student
   end
+
+  factory :regrade do
+    student
+    quiz
+    questions "1"
+    reason "Just Because"
+  end
 end
