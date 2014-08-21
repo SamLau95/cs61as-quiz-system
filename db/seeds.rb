@@ -24,7 +24,6 @@ def make_quizzes
                         lesson: '1',
                         difficulty: 'Easy'
   q1.relationships.create! quiz_id: q.id,
-                           question_id: q1.id,
                            number: 1,
                            points: 3
   q1.create_solution content: '2'
@@ -33,7 +32,6 @@ def make_quizzes
                         lesson: '1',
                         difficulty: 'Medium'
   q2.relationships.create! quiz_id: q.id,
-                           question_id: q2.id,
                            number: 2,
                            points: 3
   q2.create_solution content: '3'
@@ -42,7 +40,6 @@ def make_quizzes
                         lesson: '1',
                         difficulty: 'Hard'
   q3.relationships.create! quiz_id: q.id,
-                           question_id: q3.id,
                            number: 3,
                            points: 4
   q3.create_solution content: '11'
@@ -54,7 +51,6 @@ def make_quizzes
                         lesson: '2',
                         difficulty: 'Easy'
   q4.relationships.create! quiz_id: q.id,
-                           question_id: q4.id,
                            number: 1,
                            points: 10
   q4.create_solution content: 'World'
