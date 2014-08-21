@@ -20,7 +20,9 @@ br
           br
         - @questions.each do |question|
           tr
-            td = markdown question.content.truncate 100
+            td
+              p = markdown question.content.truncate 100
+              p = link_to 'see more', staffs_question_path(question)
             br
             td = markdown question.solution.content.truncate 100
             br
