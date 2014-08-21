@@ -30,6 +30,10 @@ Cs61asQuizzes::Application.routes.draw do
       member do
         post :approve
       end
+
+      collection do
+        post :choose
+      end
     end
 
     resources :students, only: [:index, :show] do
