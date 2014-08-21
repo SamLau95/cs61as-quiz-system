@@ -77,4 +77,11 @@ FactoryGirl.define do
     staff
     student
   end
+
+  factory :grade do
+    grade 3
+    lesson "1"
+    question
+    student
+  end
 end
