@@ -6,25 +6,35 @@ br
 - if @questions.blank?
   p There are no questions!
 - else
-  - @questions.each do |question|
-    p Question:
-    = markdown question.content
-
-    p Solution:
-    = markdown question.solution.content
-    br
-
-    - if question.rubric
-      p Rubric:
-      = markdown question.rubric.rubric
-
-    - if @add
-      = link_to 'Add question!', add_staffs_question_path(question,
-                                                   quiz_id: @id),
-                                 method: :post
-    - else
-      p = link_to 'Edit Question', edit_staffs_question_path(question)
-      p = link_to 'Delete Question', staffs_question_path(question),
-                                     method: :delete,
-                                     data: { confirm: 'Are you sure?'}
-  = paginate @questions
+  .row
+    .small-12.coluumns
+      table.question-bank
+        tr
+          th Content
+          br
+          th Solution
+          br
+          th Rubric
+          br
+          th Options
+          br
+        - @questions.each do |question|
+          tr
+            td = markdown question.content.truncate 100
+            br
+            td = markdown question.solution.content.truncate 100
+            br
+            td = markdown question.rubric.rubric.truncate 100
+            br
+            - if @add
+              td = link_to 'Add question!', add_staffs_question_path(question,
+                                                                 quiz_id: @id),
+                                                                 method: :post
+              br
+            - else
+              td
+                p = link_to 'Edit Question', edit_staffs_question_path(question)
+                p = link_to 'Delete Question', staffs_question_path(question),
+                                                                    method: :delete,
+                                               data: { confirm: 'Are you sure?'}
+  / = paginate @questions
