@@ -7,18 +7,10 @@ module Staffs
       @drafts = Quiz.sort_lesson Quiz.drafts
       @published = Quiz.sort_lesson Quiz.published
       @quiz = Quiz.new
-      @download = downloads
+      @download = Quiz::LESSON_VALUES.map { |n| ["Lesson #{n}", n] }
     end
 
     private
-
-    def downloads
-      download = []
-      Quiz::LESSON_VALUES.each do |n|
-        download << ["Lesson #{n}", n]
-      end
-      download
-    end
 
     def delete_invalid_quizzes
       Quiz.invalid.each { |q| q.destroy }
