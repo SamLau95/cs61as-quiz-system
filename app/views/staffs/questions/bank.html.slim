@@ -1,42 +1,43 @@
 h3 Question Bank
 
 br
-= link_to 'Back', staffs_questions_path, class: 'small button'
+div
+  = link_to 'Back', :back, class: 'small button'
 
-- if @questions.blank?
-  p There are no questions!
-- else
-  .row
-    .small-12.coluumns
-      table.question-bank
-        tr
-          th Content
-          br
-          th Solution
-          br
-          th Rubric
-          br
-          th Options
-          br
-        - @questions.each do |question|
+  - if @questions.blank?
+    p There are no questions!
+  - else
+    .row
+      .small-12.coluumns
+        table.question-bank
           tr
-            td
-              p = markdown question.content.truncate 100
-              p = link_to 'see more', staffs_question_path(question)
+            th Content
             br
-            td = markdown question.solution.content.truncate 100
             br
-            td = markdown question.rubric.rubric.truncate 100
+            th Solution
             br
-            - if @add
-              td = link_to 'Add question!', add_staffs_question_path(question,
-                                                                 quiz_id: @id),
-                                                                 method: :post
-              br
-            - else
+            th Rubric
+            br
+            th Options
+          - @questions.each do |question|
+            tr
               td
-                p = link_to 'Edit Question', edit_staffs_question_path(question)
-                p = link_to 'Delete Question', staffs_question_path(question),
-                                                                    method: :delete,
-                                               data: { confirm: 'Are you sure?'}
+                p = markdown question.content.truncate 100
+                p = link_to 'see more', staffs_question_path(question)
+              br
+              td = markdown question.solution.content.truncate 100
+              br
+              td = markdown question.rubric.rubric.truncate 100
+              br
+              - if @add
+                td = link_to 'Add question!', add_staffs_question_path(question,
+                                                                   quiz_id: @id),
+                                                                   method: :post
+                br
+              - else
+                td
+                  p = link_to 'Edit Question', edit_staffs_question_path(question)
+                  p = link_to 'Delete Question', staffs_question_path(question),
+                                                                      method: :delete,
+                                                 data: { confirm: 'Are you sure?'}
   / = paginate @questions

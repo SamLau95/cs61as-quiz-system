@@ -39,6 +39,10 @@ module Staffs
       @lessons = Quiz::LESSON_VALUES
     end
 
+    def show
+      @question = Question.find params[:id]
+    end
+
     def edit
       @add_pts = params[:add_pts]
       @lesson = params[:lesson]
