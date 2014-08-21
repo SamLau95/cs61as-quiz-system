@@ -79,7 +79,7 @@ describe "Quiz" do
                                      number: 1,
                                      points: 10
       click_link "Lesson 1"
-      expect(page).to have_content question.content
+      expect(page).to have_content question.content.truncate 100
       click_link "Add question!"
       expect(page).to have_content "Editing Quiz"
       expect(page).to have_content question.content
