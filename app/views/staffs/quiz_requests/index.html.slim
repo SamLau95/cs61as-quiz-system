@@ -10,6 +10,11 @@ h3 Quiz Requests
         = link_to '  Approve  ', approve_staffs_quiz_request_path(request),
                   method: :post, id: "approve-#{request.id}"
 
+        = form_tag choose_staffs_quiz_requests_path do
+          = select_tag :quiz_id, options_for_select(get_selections_for_request(request))
+          = hidden_field_tag :id, request.id
+          = submit_tag 'Approve Chosen Quiz', class: "small button"
+
         = link_to 'Cancel', staffs_quiz_request_path(request),
                   method: :delete, id: "cancel-#{request.id}"
 
@@ -22,4 +27,4 @@ h3 Quiz Regrade Requests
     - @regrades.each do |re|
       li
         = link_to re, staffs_student_quiz_path(re.student, re.quiz)
-        = link_to "Delete Request!", staffs_regrade_path(re), method: :delete
+        = link_to "  Delete Request!", staffs_regrade_path(re), method: :delete

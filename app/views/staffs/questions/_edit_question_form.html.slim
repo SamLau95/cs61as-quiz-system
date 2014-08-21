@@ -1,6 +1,6 @@
 .row
   .small-12.columns
-    = simple_form_for quest_form do |f|
+    = simple_form_for quest_form, url: staffs_question_path do |f|
       .row
         .small-3.columns
           h3 Question
@@ -28,7 +28,7 @@
           = f.fields_for :solution do |sf|
             = sf.hidden_field :question_id, value: f.object.id
             br
-            = sf.input :content, as: :text, 
+            = sf.input :content, as: :text,
                                  label: 'Solution (parsed as Markdown)',
                                  input_html: { class: 'expand' },
                                  placeholder: 'Add Solution'
@@ -37,7 +37,7 @@
             br
             = sf.input :rubric, as: :text,
                                 label: 'Rubric (parsed as Markdown)',
-                                input_html: { class: 'expand' }, 
+                                input_html: { class: 'expand' },
                                 placeholder: 'Add Rubric'
       br
         = f.submit 'Update!', class: 'small button'

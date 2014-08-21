@@ -77,4 +77,18 @@ FactoryGirl.define do
     staff
     student
   end
+
+  factory :grade do
+    grade 3
+    lesson "1"
+    question
+    student
+  end
+
+  factory :regrade do
+    student
+    quiz
+    questions "1"
+    reason "Just Because"
+  end
 end

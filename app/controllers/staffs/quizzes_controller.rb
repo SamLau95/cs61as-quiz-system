@@ -66,7 +66,7 @@ module Staffs
     private
 
     def set_quiz
-      @quiz = Quiz.find params[:id]
+      @quiz = Quiz.includes(:questions).find(params[:id])
     end
 
     def quiz_params

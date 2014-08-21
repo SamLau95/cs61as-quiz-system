@@ -15,7 +15,7 @@ Cs61asQuizzes::Application.routes.draw do
       end
     end
 
-    resources :questions, except: :show do
+    resources :questions do
       member do
         post :add
       end
@@ -29,6 +29,10 @@ Cs61asQuizzes::Application.routes.draw do
     resources :quiz_requests, only: [:index, :destroy] do
       member do
         post :approve
+      end
+
+      collection do
+        post :choose
       end
     end
 

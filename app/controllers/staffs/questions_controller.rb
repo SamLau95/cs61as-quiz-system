@@ -20,10 +20,9 @@ module Staffs
     end
 
     def create
-      @add_pts, @lesson = params[:add_pts], params[:lesson]
+      @add_pts, @lesson, @quiz_id = params[:add_pts], params[:lesson], params[:quiz_id]
       @points = params[:points].blank? ? 0 : params[:points]
       question = CreateQuestion.call question_params
-      @quiz_id = params[:quiz_id]
       quiz = Quiz.find_by_id @quiz_id
       question_params[:points] = { pts: @points, qid: @quiz_id }
       @quest_form = NewQuestionForm.new question
@@ -37,6 +36,10 @@ module Staffs
 
     def index
       @lessons = Quiz::LESSON_VALUES
+    end
+
+    def show
+      @question = Question.find params[:id]
     end
 
     def edit
@@ -94,9 +97,7 @@ module Staffs
       else
         @lesson = Quiz::LESSON_VALUES
         flash[:error] = 'This question has already been used on a retake!'
-        redirect_to bank_staffs_questions_path(lesson: quiz.lesson,
-                                        add: true,
-                                        quiz_id: quiz.id)
+        redirect_to edit_staffs_quiz_path @quiz
       end
     end
 
