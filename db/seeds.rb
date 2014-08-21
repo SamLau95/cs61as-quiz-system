@@ -5,7 +5,7 @@ def make_users
                   password: 'password',
                   login: 'cs61as-aou'
   Staff.create! first_name: 'Staff',
-                last_name: "1",
+                last_name: "#1",
                 email: "staff1@gmail.com",
                 password: 'password',
                 login: 'cs61as-av'
@@ -20,7 +20,7 @@ def make_quizzes
   q = Quiz.create! lesson: '1',
                    version: 1,
                    is_draft: false
-  q1 = Question.new content: 'What is 1 + 1?',
+  q1 = Question.create! content: 'What is 1 + 1?',
                         lesson: '1',
                         difficulty: 'Easy'
   q1.relationships.create! quiz_id: q.id,
@@ -29,7 +29,7 @@ def make_quizzes
                            points: 3
   q1.create_solution content: '2'
   q1.create_rubric rubric: '5: Hello'
-  q2 = Question.create content: 'What is 1 * 3?',
+  q2 = Question.create! content: 'What is 1 * 3?',
                         lesson: '1',
                         difficulty: 'Medium'
   q2.relationships.create! quiz_id: q.id,
