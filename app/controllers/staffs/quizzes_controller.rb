@@ -22,7 +22,7 @@ module Staffs
 
     def edit
       @quiz_form = EditQuizForm.new @quiz
-      @questions = @quiz
+      @questions = @quiz.questions
       @lessons = Quiz::LESSON_VALUES
       Question.destroy(params[:destroy]) if params[:destroy]
       respond_to do |format|
