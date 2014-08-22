@@ -93,12 +93,11 @@ module Staffs
       if @quiz.can_add? @question
         Relationship.where(question: @question, quiz: @quiz).first_or_create
         flash[:success] = 'Added question from question bank!'
-        redirect_to edit_staffs_quiz_path @quiz
       else
         @lesson = Quiz::LESSON_VALUES
         flash[:error] = 'This question has already been used on a retake!'
-        redirect_to edit_staffs_quiz_path @quiz
       end
+      redirect_to edit_staffs_quiz_path @quiz
     end
 
     def download
