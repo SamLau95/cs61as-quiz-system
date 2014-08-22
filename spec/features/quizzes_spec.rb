@@ -85,7 +85,7 @@ describe "Quiz" do
       expect(page).to have_content question.content
       click_link "Edit Question"
       fill_in "Points", with: 10
-      click_button "Update!"
+      click_button "Update"
       fill_in_quiz_field "1", 2
       expect(page).to_not have_content "Welcome"
       expect(page).to have_content "You have an invalid question!"

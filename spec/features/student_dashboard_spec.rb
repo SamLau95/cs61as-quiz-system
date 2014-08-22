@@ -57,19 +57,19 @@ describe 'The student dashboard' do
 
     describe 'approving' do
       it 'destroys the quiz request' do
-        expect { student.quiz_request.lock_and_destroy! }
+        expect { student.quiz_request.lock_and_destroy! nil }
                .to change(QuizRequest, :count).by(-1)
       end
 
       it 'creates a quiz lock' do
-        expect { student.quiz_request.lock_and_destroy! }
+        expect { student.quiz_request.lock_and_destroy! nil }
                .to change(QuizLock, :count).by 1
       end
     end
 
     describe 'after being approved' do
       before do
-        student.quiz_request.lock_and_destroy!
+        student.quiz_request.lock_and_destroy! nil
         visit students_dashboard_path
       end
 
