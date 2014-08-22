@@ -60,7 +60,7 @@ module Staffs
         @students << [s.to_s, s.login, g.grade]
         @avg += g.grade
       end
-      @grades.size == 0 ? 0 : @avg /= @grades.size
+      @avg = @avg == 0 ? 0 : @avg /= @grades.size
     end
 
     private
