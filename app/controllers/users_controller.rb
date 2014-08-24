@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_with_password user_params
       flash[:success] = 'Updated profile!'
+      sign_in(@user, bypass: true)
       redirect_to after_sign_in_path_for @user
     else
       flash[:error] = "You're missing some fields!"
