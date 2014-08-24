@@ -54,13 +54,14 @@ module Staffs
 
     def stats
       @grades = TakenQuiz.where(quiz: @quiz)
-      @students, @avg = [], 0
+      @students, @avg = [], 0.0
       @grades.each do |g|
         s = Student.find(g.student_id)
         @students << [s.to_s, s.login, g.grade]
         @avg += g.grade
       end
-      @grades.size == 0 ? 0 : @avg /= @grades.size
+      
+      @avg /= (@grades.length.nonzero? || 1)
     end
 
     private

@@ -74,8 +74,9 @@ FactoryGirl.define do
   end
 
   factory :taken_quiz do
-    staff
     student
+    quiz
+    grade 0
   end
 
   factory :grade do

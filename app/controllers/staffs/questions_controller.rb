@@ -20,11 +20,8 @@ module Staffs
     end
 
     def create
-      @add_pts, @lesson, @quiz_id = params[:add_pts], params[:lesson], params[:quiz_id]
-      @points = params[:points].blank? ? 0 : params[:points]
-      question = CreateQuestion.call question_params
-      quiz = Quiz.find_by_id @quiz_id
-      question_params[:points] = { pts: @points, qid: @quiz_id }
+      quiz = assign_params
+      question = CreateQuestion.call question_params.except :points
       @quest_form = NewQuestionForm.new question
       if @quest_form.validate_and_save question_params
         flash[:success] = 'Created Question!'
@@ -43,9 +40,7 @@ module Staffs
     end
 
     def edit
-      @add_pts = params[:add_pts]
-      @lesson = params[:lesson]
-      @quiz_id = params[:quiz_id]
+      get_question_options
       @quest_form = EditQuestionForm.new @question
       rlt = Relationship.find_by(quiz_id: params[:quiz_id],
                                  question: @question)
@@ -53,11 +48,7 @@ module Staffs
     end
 
     def update
-      @add_pts, @lesson = params[:add_pts], params[:lesson]
-      @points = params[:points]
-      @quiz_id = params[:quiz_id]
-      quiz = Quiz.find @quiz_id unless @quiz_id.empty?
-      question_params[:points] = { pts: @points, qid: @quiz_id }
+      quiz = assign_params
       @quest_form = EditQuestionForm.new @question
       if @quest_form.validate_and_save question_params
         flash[:success] = 'Updated Question!'
@@ -93,12 +84,11 @@ module Staffs
       if @quiz.can_add? @question
         Relationship.where(question: @question, quiz: @quiz).first_or_create
         flash[:success] = 'Added question from question bank!'
-        redirect_to edit_staffs_quiz_path @quiz
       else
         @lesson = Quiz::LESSON_VALUES
         flash[:error] = 'This question has already been used on a retake!'
-        redirect_to edit_staffs_quiz_path @quiz
       end
+      redirect_to edit_staffs_quiz_path @quiz
     end
 
     def download
@@ -129,6 +119,17 @@ module Staffs
       else
         redirect_to staffs_questions_path
       end
+    end
+
+    def assign_params
+      get_question_options
+      @points = params[:points]
+      question_params[:points] = { pts: @points, qid: @quiz_id }
+      quiz = Quiz.find_by_id @quiz_id
+    end
+
+    def get_question_options
+      @add_pts, @lesson, @quiz_id = params[:add_pts], params[:lesson], params[:quiz_id]
     end
   end
 end

@@ -1,21 +1,5 @@
 require 'spec_helper'
 
-def fill_in_attributes
-  fill_in 'First',        with: new_first
-  fill_in 'Last',         with: new_last
-  fill_in 'Email',        with: new_email
-  fill_in 'New Password', with: new_pass
-  fill_in 'Confirm',      with: new_pass
-end
-
-def expect_attributes_to_be_updated(user)
-  user.reload
-  expect(user.first_name).to eq new_first
-  expect(user.last_name).to eq new_last
-  expect(user.email).to eq new_email
-  expect(user.valid_password? new_pass).to be_true
-end
-
 describe 'Profile editing' do
   let(:new_first) { 'New first' }
   let(:new_last) { 'New last' }

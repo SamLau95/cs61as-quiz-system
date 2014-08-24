@@ -45,9 +45,10 @@ class NewQuestionForm < Reform::Form
 
   def update_points(pts)
     unless pts[:qid].blank?
+      pts[:pts] = pts[:pts].blank? ? 0 : pts[:pts]
       rlt = Relationship.create quiz_id: pts[:qid],
                                 question_id: @model.id,
-                                points: pts[:pts] || 0
+                                points: pts[:pts]
     end
     true
   end

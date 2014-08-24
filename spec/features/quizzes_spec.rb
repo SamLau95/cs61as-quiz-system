@@ -85,7 +85,7 @@ describe "Quiz" do
       expect(page).to have_content question.content
       click_link "Edit Question"
       fill_in "Points", with: 10
-      click_button "Update!"
+      click_button "Update"
       fill_in_quiz_field "1", 2
       expect(page).to_not have_content "Welcome"
       expect(page).to have_content "You have an invalid question!"
@@ -128,6 +128,29 @@ describe "Quiz" do
         click_link "Remove"
         expect(page).to have_content "You have no questions yet!"
       end
+    end
+  end
+
+  describe "stats" do
+    let(:quiz) { create :quiz_with_questions }
+    before { visit stats_staffs_quiz_path(quiz) }
+
+    it { should have_content quiz.to_s }
+
+    describe "should be zero if there are no quizzes" do
+      it { should have_content "Average grade: 0" }
+    end
+
+    describe "should be >= zero if there are quizzes" do
+      let(:student) { create :student }
+      let!(:taken_quiz) { create :taken_quiz, quiz: quiz, student: student, grade: 5.0 }
+      before do
+        visit stats_staffs_quiz_path(quiz)
+      end
+
+      it { should have_content student.to_s }
+      it { should have_content student.login }
+      it { should have_content "Average grade: 5.0" }
     end
   end
 end

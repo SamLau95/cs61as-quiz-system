@@ -1,48 +1,11 @@
 .row
   .small-12.columns
     = simple_form_for quest_form, url: staffs_question_path do |f|
-      .row
-        .small-3.columns
-          h3 Question
-          = f.label :difficulty
-          = f.select :difficulty, options_for_select(Question.levels)
-          = hidden_field_tag :quiz_id, quiz_id
-          = hidden_field_tag :add_pts, add_pts
-          = hidden_field_tag :lesson, lesson
-          - if add_pts == "true"
-            = label_tag :points, '* Points'
-            = text_field_tag :points, points
-          - if lesson == "true"
-            = f.input :lesson, collection: Quiz::LESSON_VALUES
-            / = f.file_field :photo
-          - else
-            = f.hidden_field :lesson, value: f.object.lesson
-      .row
-        .small-12.columns
-          = f.input :content, as: :text,
-                              label: 'Question (parsed as Markdown)',
-                              input_html: { class: 'expand' },
-                              placeholder: 'Add Question'
-      .row
-        .small-12.columns
-          = f.fields_for :solution do |sf|
-            = sf.hidden_field :question_id, value: f.object.id
-            br
-            = sf.input :content, as: :text,
-                                 label: 'Solution (parsed as Markdown)',
-                                 input_html: { class: 'expand' },
-                                 placeholder: 'Add Solution'
-          = f.fields_for :rubric do |sf|
-            = sf.hidden_field :question_id, value: f.object.id
-            br
-            = sf.input :rubric, as: :text,
-                                label: 'Rubric (parsed as Markdown)',
-                                input_html: { class: 'expand' },
-                                placeholder: 'Add Rubric'
-      br
-        = f.submit 'Update!', class: 'small button'
-        br
-        = link_to 'Cancel', :back, class: 'small button'
-
+      = render 'question_form', f: f,
+                                quiz_id: quiz_id,
+                                add_pts: add_pts,
+                                lesson: lesson,
+                                points: points,
+                                button: "Update"
 
 = render 'shared/markdown_reference'
