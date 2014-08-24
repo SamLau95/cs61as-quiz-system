@@ -3,7 +3,7 @@ h3 Import Students
   .row
     .medium-7.columns
       = label_tag :logins, 'Copy and paste student logins, one per line. You may enter in logins that have already been processed before; they will be ignored.'
-      = text_area_tag :logins, @logins, class: 'expand'
+      = text_area_tag :logins, @logins, class: 'expand', id: "import"
   .row
     .medium-12.columns
       = submit_tag 'Create students!', class: 'button'
