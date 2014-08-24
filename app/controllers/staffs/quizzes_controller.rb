@@ -61,7 +61,7 @@ module Staffs
         @avg += g.grade
       end
       
-      @avg /= (@grades.legnth.nonzero? || 1)
+      @avg /= (@grades.length.nonzero? || 1)
     end
 
     private
