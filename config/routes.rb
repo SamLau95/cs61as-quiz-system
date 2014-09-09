@@ -69,13 +69,11 @@ Cs61asQuizzes::Application.routes.draw do
     resources :regrades, only: :create
 
     resources :quizzes, only: [:take, :show] do
-      member do
-        post :submit
-      end
 
       collection do
         get :take
         post :make_request
+        post :submit
       end
     end
 

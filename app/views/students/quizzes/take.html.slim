@@ -11,11 +11,9 @@ p After you click Begin, you cannot use the computer for anything else!
 #quiz
   .row
     .small-12.columns
-     = simple_form_for @quiz_form, url: submit_students_quiz_path(@quiz_form),
+     = simple_form_for @quiz_form, url: submit_students_quizzes_path,
                         html: { id: 'take_quiz_form', method: :post } do |f|
         = f.fields_for :new_submissions do |sf|
-          = sf.hidden_field :quiz_id, value: @quiz_form.id
-          = sf.hidden_field :question_id, value: sf.object.question_id
           br
           = "Question #{get_number sf.object.quiz_id, sf.object.question_id}:"
           = markdown sf.object.question_content
