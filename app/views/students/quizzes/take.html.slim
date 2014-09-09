@@ -1,0 +1,28 @@
+h1 Quiz #{@quiz_form.lesson}
+
+div
+  | Time left:
+  .minutes 0 minutes
+  .seconds 0 seconds
+br
+p Don't click out of the quiz screen please.
+p Doing so will lock your quiz.
+p After you click Begin, you cannot use the computer for anything else!
+#quiz
+  .row
+    .small-12.columns
+     = simple_form_for @quiz_form, url: submit_students_quizzes_path,
+                        html: { id: 'take_quiz_form', method: :post } do |f|
+        = f.fields_for :new_submissions do |sf|
+          br
+          = "Question #{get_number sf.object.quiz_id, sf.object.question_id}:"
+          = markdown sf.object.question_content
+          br
+          div
+            = sf.text_area :content, label: false, class: 'textedit expand'
+            br
+        = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
+
+= link_to 'Start!', '#', class: 'Small button', id: 'fullscreen'
+
+= link_to '', students_dashboard_path, class: 'hidden'

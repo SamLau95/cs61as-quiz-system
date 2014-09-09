@@ -4,21 +4,14 @@ class Ability
 
   def initialize(user)
     user ||= User.new
+    can [:edit, :update], User, id: user.id
 
-    alias_action :index, to: :see
-    alias_action :view, to: :check
-
-    if user.staff?
-      can :manage, :all
-    elsif user.student?
-      can :cancel, QuizRequest if user.quiz_request
-      can :make_request, Quiz
-      can [:take, :submit], Quiz if user.approved_request?
-      can :see, :student_dashboard
-      can :check, Student unless user.taking_quiz?
-      can :lock, QuizLock, student_id: user.id
-      can :unlock, QuizLock if !user.approved_request?
-      can [:edit, :update], User
+    if user.added_info?
+      if user.staff?
+        can :manage, :staffs_dashboard
+      elsif user.student?
+        can :manage, :students_dashboard
+      end
     end
   end
 end

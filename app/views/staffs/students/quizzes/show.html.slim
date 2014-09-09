@@ -1,0 +1,37 @@
+h3#show_quiz = @quiz
+h1 = "Total: #{@grade.grade}/10"
+h3 General comments:
+p = @grade.comment
+
+
+- if !@not_graded
+  h3 Don't forget to hit finish grading after you're done grading, otherwise the student's grades won't be uploaded to the CSV!
+
+  = link_to 'Finished Grading!',
+            staffs_student_quiz_finish_grading_path(@student, @quiz),
+            method: 'put',
+            class: 'large button'
+
+- if @request
+  h3 Regrade request:
+  = "Questions to grade: #{@request.questions}"
+  br
+  br
+  = "Reasons: #{@request.reason}"
+  br
+  br
+
+.row
+  .small-6.columns
+    = simple_form_for @grade, url: staffs_taken_quiz_path do |f|
+      = f.input :comment, label: 'General Comments'
+      = f.hidden_field :taken_id, value: @grade.id
+      = f.submit 'Save Comments!', class: 'button'
+
+br
+br
+
+= render 'shared/show_answers', quiz: @quiz,
+                                ques_subm: @ques_subm,
+                                grade: @grade,
+                                student: @student

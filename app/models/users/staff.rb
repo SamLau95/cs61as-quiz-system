@@ -19,10 +19,22 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
+#  added_info             :boolean          default(FALSE)
+#  first_password         :string(255)      default("")
 #
 
 class Staff < User
+  has_many :taken_quizzes
+
   def staff?
     true
+  end
+
+  def grading_assignments
+    taken_quizzes
+  end
+
+  def self.assign_grader
+    all.min_by { |staff| staff.grading_assignments.length }.id
   end
 end

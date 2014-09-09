@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711073255) do
+ActiveRecord::Schema.define(version: 20140818105131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20140711073255) do
     t.boolean  "is_draft",   default: true
   end
 
-  add_index "quizzes", ["lesson", "version", "retake"], name: "index_quizzes_on_lesson_and_version_and_retake", unique: true, using: :btree
+  add_index "quizzes", ["lesson", "version"], name: "index_quizzes_on_lesson_and_version", unique: true, using: :btree
 
   create_table "regrades", force: true do |t|
     t.integer  "student_id"
@@ -133,17 +133,19 @@ ActiveRecord::Schema.define(version: 20140711073255) do
     t.string   "lesson",     default: ""
     t.string   "comment",    default: "No comments"
     t.boolean  "retake",     default: false
+    t.integer  "staff_id"
   end
 
   add_index "taken_quizzes", ["quiz_id", "student_id"], name: "index_taken_quizzes_on_quiz_id_and_student_id", unique: true, using: :btree
+  add_index "taken_quizzes", ["staff_id"], name: "index_taken_quizzes_on_staff_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: ""
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -154,6 +156,8 @@ ActiveRecord::Schema.define(version: 20140711073255) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "login",                  default: ""
+    t.boolean  "added_info",             default: false
+    t.string   "first_password",         default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

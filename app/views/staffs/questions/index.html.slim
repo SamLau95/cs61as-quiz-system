@@ -1,0 +1,13 @@
+h3 Add a Question!
+
+= link_to 'New Question!', new_staffs_question_path(id: nil)
+
+h3 Question Bank:
+
+= render 'question_bank', lesson: @lessons,
+                          add: false,
+                          quiz_id: nil
+
+h3 Download All Questions
+
+= link_to 'Download!', download_staffs_questions_path, class: 'button'

@@ -9,8 +9,12 @@ class NewQuestionForm < Reform::Form
 
   property :solution do
     property :content
-
     validates :content, presence: true
+  end
+
+  property :rubric do
+    property :rubric
+    validates :rubric, presence: true
   end
 
   validates :content, :lesson, presence: true
@@ -35,15 +39,16 @@ class NewQuestionForm < Reform::Form
 
   def check_rubric
     if @model.rubric.rubric.blank?
-      errors.add :content, "Doesn't have rubric."
+      errors.add :rubric, "Doesn't have rubric."
     end
   end
 
   def update_points(pts)
     unless pts[:qid].blank?
+      pts[:pts] = pts[:pts].blank? ? 0 : pts[:pts]
       rlt = Relationship.create quiz_id: pts[:qid],
                                 question_id: @model.id,
-                                points: pts[:pts] || 0
+                                points: pts[:pts]
     end
     true
   end

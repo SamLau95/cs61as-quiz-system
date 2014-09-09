@@ -12,7 +12,7 @@
 
 # Model that represents questions
 class Question < ActiveRecord::Base
-  # default_scope -> { order 'number ASC' }
+  # default_scope -> { order 'lesson' }
   paginates_per 10
 
   has_many :relationships, dependent: :destroy
@@ -21,6 +21,8 @@ class Question < ActiveRecord::Base
   has_one :rubric, dependent: :destroy
   has_many :submissions
   has_one :solution, dependent: :destroy
+
+  # validate :rubric_present?
 
   def to_s
     "Question Lesson #{lesson}, #{difficulty}"
@@ -37,4 +39,12 @@ class Question < ActiveRecord::Base
   def points(quiz_id)
     relationships.find_by_quiz_id(quiz_id).points
   end
+
+  private
+
+  # def rubric_present?
+  #   unless rubric.present?
+  #     errors.add(:rubric, 'must be present')
+  #   end
+  # end
 end

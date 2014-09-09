@@ -16,8 +16,8 @@
 class QuizRequest < ActiveRecord::Base
   belongs_to :student
 
-  def lock_and_destroy!
-    QuizLock.create! student: student, quiz: Quiz.choose_one(self)
+  def lock_and_destroy!(quiz)
+    QuizLock.create! student_id: student.id, quiz_id: quiz || Quiz.choose_one(self).id
     destroy
   end
 

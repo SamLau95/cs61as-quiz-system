@@ -14,7 +14,7 @@ gem 'jquery-rails', '~> 3.1.0'
 gem 'turbolinks', '~> 2.2.1'
 gem 'jbuilder', '~> 1.2'
 gem 'pg', '~> 0.17.1'
-gem 'cancan', '~> 1.6.10'
+gem 'cancancan', '~> 1.9'
 gem 'ffaker', '~> 1.22.1'
 gem 'figaro', '~> 0.7.0'
 
@@ -54,9 +54,13 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.2.0'
   gem 'factory_girl_rails', '~> 4.4.0'
   gem 'capybara', '~> 2.2.1'
+  gem 'launchy'
+  gem 'poltergeist', '~> 1.5.1'
   gem 'guard-livereload', '~> 2.1.1'
   gem 'guard-rspec', '~> 4.2.8'
   gem 'zeus', '~> 0.13.3'
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :production do

@@ -1,0 +1,51 @@
+h1 Welcome to the Student Dashboard!
+
+- if @quiz_request
+  .quiz-request
+    h3 You are currently requesting to take quiz #{@quiz_request.lesson}
+    p Your request is not approved yet!
+    = link_to 'Just kidding, get me out of here!',
+              students_quiz_request_path(@quiz_request),
+              method: 'delete',
+              data: { confirm: 'Are you sure you want to cancel your request?'},
+              class: 'large button'
+- elsif @quiz_lock && !@quiz_lock.locked
+  .quiz-lock
+    = link_to 'Begin quiz!', take_students_quizzes_path, class: 'button',
+                             'data-no-turbolink' => true
+
+- elsif @quiz_lock && @quiz_lock.locked
+  .not_quiz_lock
+    p We've detected a screen change!
+    p Please ask a TA to unlock your account.
+
+    = simple_form_for @quiz_lock,
+                      url: unlock_students_quiz_lock_path(@quiz_lock) do |f|
+      .row
+        .small-3.columns
+          = label_tag :staff_id, 'Staff Login'
+          = text_field_tag :staff_id
+      .row
+        .small-3.columns
+          = label_tag :password
+          = password_field_tag :password
+
+      = f.submit "Unlock", class: 'small button'
+
+- else
+  br
+  h3 Take a quiz:
+  = form_tag make_request_students_quizzes_path do
+    = select_tag :lesson, options_for_select(@lessons)
+    = submit_tag 'Request quiz!', class: 'button',
+                                  data: { confirm: 'Are you sure you want to make this request?' }
+
+  h3 Quizzes You've Taken:
+  - if @taken.empty?
+    p No Quizzes taken yet! Request a quiz!
+  - else
+    ul
+      - @taken.each do |taken|
+        li
+          = link_to taken, students_quiz_path(taken.id)
+

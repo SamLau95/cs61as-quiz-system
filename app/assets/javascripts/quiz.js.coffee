@@ -20,24 +20,36 @@ fullscreen = ->
         $.ajax
           url: gon.lock_path,
           type: 'POST'
-
-  $('.hilite').keydown (e) ->
-    if (e.keyCode == 9) 
-      start = this.selectionStart
-      end = this.selectionEnd
-      $this = $(this)
-      $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
-      this.selectionStart = this.selectionEnd = start + 1
-      return false
+    opts = {
+        lineNumbers : true,
+        matchBrackets : true,
+        theme: "blackboard",
+        tabSize: 2,
+        smartIndent: false
+      }
+    editors = (CodeMirror.fromTextArea(textedit, opts) for textedit in $('.textedit'))
+    for editor in editors
+      do (editor) ->
+        editor.on 'change', ->
+          editor.save()
+        , editor
+  # $('.hilite').keydown (e) ->
+  #   if (e.keyCode == 9)
+  #     start = this.selectionStart
+  #     end = this.selectionEnd
+  #     $this = $(this)
+  #     $this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end))
+  #     this.selectionStart = this.selectionEnd = start + 1
+  #     return false
 
 hilite = ->
   $('.hilite').keyup (e) ->
     HighlightLisp.highlight_element(e.target)
 
-hilite_answer = ->
-  answers = $('.replace')
-  for i in [0...answers.length]
-    HighlightLisp.highlight_element(answers[i])
+# hilite_answer = ->
+#   answers = $('.replace')
+#   for i in [0...answers.length]
+#     HighlightLisp.highlight_element(answers[i])
 
 ready = ->
   if $('#take_quiz_form').length
@@ -45,8 +57,18 @@ ready = ->
     $(window).blur -> onchange()
     timer(gon.time_left)
     hilite()
+    $('form').sisyphus({
+      timeout: 1
+    })
   else if $('#show_quiz').length
-    hilite_answer()
+    # hilite_answer()
+    for show in $('.show')
+      CodeMirror.fromTextArea(show, {
+        readOnly: true,
+        lineNumbers : true,
+        theme: "blackboard",
+        tabSize: 2
+      })
   else
     $(window).off 'blur'
 
@@ -62,7 +84,6 @@ timer = (time) ->
     setTimeout (-> timer(time - 1)), 1000
   else
     $(".seconds").html("0 second(s)")
-    console.log 'Out of time!'
     $("#submit_quiz").click()
 
 $(document).ready ready

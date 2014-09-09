@@ -1,0 +1,10 @@
+.row
+  .small-12.columns
+    = simple_form_for quest_form, url: staffs_questions_path do |f|
+      = render 'question_form', f: f,
+                                quiz_id: quiz_id,
+                                add_pts: add_pts,
+                                lesson: lesson,
+                                points: points,
+                                button: "Create"
+= render 'shared/markdown_reference'

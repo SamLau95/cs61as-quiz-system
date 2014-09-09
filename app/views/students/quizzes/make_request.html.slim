@@ -1,0 +1,6 @@
+h1 Requesting quiz #{@request.lesson}
+
+h3 Click this to proceed to quiz after a TA has approved you.
+= link_to "Take quiz #{@request.lesson}!",
+          process_students_quiz_request_path(@request.lesson), method: :post,
+          class: 'button'

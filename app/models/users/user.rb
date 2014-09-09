@@ -19,18 +19,28 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
+#  added_info             :boolean          default(FALSE)
+#  first_password         :string(255)      default("")
 #
 
 # Base User class; doesn't get instantiated
 class User < ActiveRecord::Base
+  EMAIL_PATTERN = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  LOGIN_PATTERN = /\Acs61as-[a-z]{2,3}\z/
+
+  default_scope { order('login') }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  LOGRX = /\Acs61as-[a-z]{2,3}\z/
-  validates :login, presence: true, format: { with: LOGRX }, uniqueness: true
-  validates :first_name, :last_name, presence: true
+  before_save :set_added_info
+
+  validates :first_name, :last_name, :email, presence: true, if: 'added_info?'
+  validates :email, format: { with: EMAIL_PATTERN }, uniqueness: true, if: 'added_info?'
+  validates :login, presence: true
+  validates :login, format: { with: LOGIN_PATTERN }, uniqueness: true
 
   def staff?
     false
@@ -46,5 +56,12 @@ class User < ActiveRecord::Base
 
   def taking_quiz?
     false
+  end
+
+  private
+
+  def set_added_info
+    self.added_info = email.present? && first_name.present? && last_name.present?
+    true
   end
 end

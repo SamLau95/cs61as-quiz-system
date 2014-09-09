@@ -1,0 +1,30 @@
+h1#show_quiz Grade Question
+
+= simple_form_for @grade_form, url: staffs_grade_path do |f|
+  .row
+    .small-12.columns
+      h3 Question:
+      = markdown @question.content
+
+      h4 Solution:
+      = markdown @question.solution.content
+
+      h5 Student's Answer:
+      textarea.show
+        = @submission.content
+
+      - if @question.rubric
+        h5 Rubric:
+        = markdown @question.rubric.rubric
+
+      h5 Points Possible:
+      = @rlt.points
+
+      br
+      br
+
+      = f.input :grade
+      = f.input :comments, as: :text
+      = hidden_field_tag :quiz_id, @submission.quiz_id
+
+  = f.submit 'Update Grade!', class: 'small button'

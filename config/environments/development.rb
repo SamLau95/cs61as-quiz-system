@@ -28,7 +28,8 @@ Cs61asQuizzes::Application.configure do
   config.assets.debug = true
 
   # For Devise
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost:5000' }
+  Rails.application.routes.default_url_options[:host] = 'localhost:5000'
 
   # Initialize bullet
   config.after_initialize do

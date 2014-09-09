@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  lesson     :string(255)      default("")
-#  version    :integer
+#  version    :integer          default(0)
 #  retake     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
@@ -26,11 +26,16 @@ class Quiz < ActiveRecord::Base
 
   scope :drafts,    -> { where is_draft: true }
   scope :published, -> { where is_draft: false }
+  scope :invalid, -> { where lesson: "" }
 
   # validates :lesson, :version, presence: true
+  LESSON_VALUES = ["0-1", "0-2", "0-3", "1", "2", "3", "4", "5", "6",
+                   "7", "8", "9", "10", "11", "12", "13", "14"]
 
   def self.lessons
-    published.map(&:lesson).uniq.sort
+    published.map(&:lesson).uniq.sort_by do |num|
+      Quiz::LESSON_VALUES.find_index num
+    end
   end
 
   def self.choose_one(quiz_request)
@@ -44,10 +49,6 @@ class Quiz < ActiveRecord::Base
 
   def new_submissions
     questions.map { |q| submissions.build question: q }
-  end
-
-  def self.all_lessons
-    ['0-1', '0-2', '0-3'] + (1..14).to_a.map { |n| n.to_s }
   end
 
   def next_number
@@ -82,14 +83,29 @@ class Quiz < ActiveRecord::Base
     end
   end
 
-  def can_add?(quest)
-    q = Quiz.where(lesson: lesson, retake: !retake)
-    questions = []
-    q.each { |quiz| questions << quiz.questions }
-    !(questions.flatten.include? quest)
+  def can_add?(question)
+    quizzes = Quiz.where lesson: lesson, retake: !retake
+    Quiz.check_question quizzes, question
+  end
+
+  def self.can_add?(question, les, ret)
+    quizzes = Quiz.where lesson: les, retake: !ret
+    Quiz.check_question quizzes, question
+  end
+
+  def self.check_question(quizzes, question)
+    questions_list = []
+    quizzes.each { |q| questions_list << q.questions }
+    !(questions_list.flatten.include? question)
   end
 
   def self.has_quiz(lesson, retake)
-    Quiz.published.where(lesson: lesson, retake: retake)
+    !Quiz.published.where(lesson: lesson, retake: retake).blank?
+  end
+
+  def self.sort_lesson(quizzes)
+    quizzes.sort_by do |q|
+      [Quiz::LESSON_VALUES.find_index(q.lesson), q.version]
+    end
   end
 end

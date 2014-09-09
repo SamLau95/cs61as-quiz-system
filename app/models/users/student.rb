@@ -20,6 +20,8 @@ require 'csv'
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  login                  :string(255)      default("")
+#  added_info             :boolean          default(FALSE)
+#  first_password         :string(255)      default("")
 #
 
 # Student model; uses users table
@@ -61,12 +63,6 @@ class Student < User
     "#{first_name} #{last_name}: #{login}"
   end
 
-  def taken_quizzes
-    taken = []
-    submissions.each { |sub| taken << Quiz.find(sub.quiz_id) }
-    taken.uniq.sort_by(&:lesson)
-  end
-
   def retake(lesson)
     subm = Submission.where(student_id: id)
     take = []
@@ -91,20 +87,19 @@ class Student < User
 
   def has_grade(lesson)
     !grades.where(lesson: lesson).blank? &&
-    taken_quizzes.inject { |a, b| a.finished && b.finished }
+    taken_quizzes.where(lesson: lesson).inject(true) do |a, b|
+      a && b.finished
+    end
   end
 
   def get_row(lesson)
-    quiz1 = TakenQuiz.find_by student_id: id,
-                              lesson: lesson,
-                              retake: false
-    quiz2 = TakenQuiz.find_by student_id: id,
-                              lesson: lesson,
-                              retake: true
+    quiz1 = TakenQuiz.find_by student_id: id, lesson: lesson, retake: false
+    quiz2 = TakenQuiz.find_by student_id: id, lesson: lesson, retake: true
     if quiz2.blank?
       return [login, quiz1.grade, quiz1.comment, false]
     else
-      return [login, quiz2.grade, quiz2.comment, true]
+      grade = quiz2.grade == 10 ? 9 : quiz2.grade
+      return [login, grade, quiz2.comment, true]
     end
   end
 

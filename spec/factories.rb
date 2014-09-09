@@ -1,8 +1,11 @@
 FactoryGirl.define do
+  logins = ('aa'..'zz').to_a
+
   factory :student do
     first_name 'Student'
     sequence(:last_name) { |n| "#{n}" }
     sequence(:email) { |n| "student#{n}@gmail.com" }
+    sequence(:login) { |n| "cs61as-a#{logins[n]}" }
     password 'password'
   end
 
@@ -10,12 +13,13 @@ FactoryGirl.define do
     first_name 'Staff'
     sequence(:last_name) { |n| "#{n}" }
     sequence(:email) { |n| "staff#{n}@gmail.com" }
+    sequence(:login) { |n| "cs61as-t#{logins[n]}" }
     password 'password'
   end
 
   factory :quiz do
-    sequence(:lesson) { |n| n }
-    version 1
+    lesson '1'
+    sequence(:version) { |n| n }
     retake false
     is_draft false
 
@@ -30,12 +34,25 @@ FactoryGirl.define do
     end
   end
 
+  factory :rubric do
+    rubric { Faker::Lorem.paragraph }
+    question
+  end
+
+  factory :solution do
+    content { Faker::Lorem.paragraph }
+    question
+  end
+
   factory :question do
-    content Faker::Lorem.paragraph
-    sequence(:number) { |n| n }
-    points 5
-    lesson 1
+    content { Faker::Lorem.paragraph }
+    lesson '1'
     difficulty 'Easy'
+
+    after(:build) do |question|
+      question.solution = create :solution, question: question unless question.solution
+      question.rubric = create :rubric, question: question unless question.rubric
+    end
   end
 
   factory :quiz_request do
@@ -47,5 +64,32 @@ FactoryGirl.define do
     locked false
     student
     quiz
+  end
+
+  factory :submission do
+    content { Faker::Lorem.paragraph }
+    student
+    quiz
+    question
+  end
+
+  factory :taken_quiz do
+    student
+    quiz
+    grade 0
+  end
+
+  factory :grade do
+    grade 3
+    lesson "1"
+    question
+    student
+  end
+
+  factory :regrade do
+    student
+    quiz
+    questions "1"
+    reason "Just Because"
   end
 end

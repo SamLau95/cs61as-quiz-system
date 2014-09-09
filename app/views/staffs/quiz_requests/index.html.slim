@@ -1,0 +1,32 @@
+h3 Quiz Requests
+
+- if @requests.empty?
+  p You don't have any quiz requests!
+- else
+  ul.quiz-requests
+    - @requests.each do |request|
+      li
+        = request
+        = link_to '  Approve  ', approve_staffs_quiz_request_path(request),
+                  method: :post, id: "approve-#{request.id}"
+        p or
+
+        = form_tag choose_staffs_quiz_requests_path do
+          = label_tag :quiz_id, "Choose a quiz"
+          = select_tag :quiz_id, options_for_select(get_selections_for_request(request))
+          = hidden_field_tag :id, request.id
+          = submit_tag 'Approve Chosen Quiz', class: "small button"
+
+        = link_to 'Cancel', staffs_quiz_request_path(request),
+                  method: :delete, id: "cancel-#{request.id}"
+
+h3 Quiz Regrade Requests
+
+- if @regrades.empty?
+  p You don't have any regrade requests!
+- else
+  ul
+    - @regrades.each do |re|
+      li
+        = link_to re, staffs_student_quiz_path(re.student, re.quiz)
+        = link_to "  Delete Request!", staffs_regrade_path(re), method: :delete

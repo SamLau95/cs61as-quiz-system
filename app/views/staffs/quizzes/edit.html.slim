@@ -1,0 +1,46 @@
+.row
+  .small-12.columns
+    h1 Editing Quiz
+
+.quiz
+  .row
+    .small-12-columns
+      = simple_form_for @quiz_form, url: staffs_quiz_path do |f|
+        .row
+          .small-2.columns
+            = f.input :lesson do
+              = f.select :lesson, options_for_select(Quiz::LESSON_VALUES)
+          .small-2.columns.end
+            = f.input :version
+        .row
+          .small-12.columns
+            = f.input :retake, as: :boolean
+            = f.input :is_draft, label: 'Draft?', as: :boolean
+        = f.submit 'Update!', class: 'small button'
+
+      = link_to 'Add a new question!', new_staffs_question_path(quiz_id: @quiz_form.id)
+
+      p Or add a question from the question bank!
+
+      = render 'staffs/questions/question_bank', lesson: @lessons,
+                                                add: true,
+                                                quiz_id: @quiz_form.id
+      br
+      - if @questions.empty?
+        p You have no questions yet!
+      - else
+        - @questions.each do |question|
+          = link_to "Edit Question", edit_staffs_question_path(question,
+                                                        quiz_id: @quiz_form.id,
+                                                        add_pts: true,
+                                                        lesson: false)
+          div
+            p Question #{question.number(@quiz_form.id)}
+            p Points: #{question.points(@quiz_form.id)}
+            p Content: #{markdown question.content}
+          = link_to "Remove", staffs_quiz_relationships_path(quiz_id: @quiz_form.id, question_id: question.id),
+                              method: :delete,
+                              data: { confirm: 'Are you sure?'}
+          br
+      = link_to 'Cancel', :back, class: 'small button'
+
