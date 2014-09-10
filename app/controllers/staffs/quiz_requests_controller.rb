@@ -32,7 +32,7 @@ module Staffs
 
     def approve_flash
       flash[:success] = "Approved #{@quiz_request.student}!"
-      redirect_to staffs_quiz_request_path
+      redirect_to staffs_quiz_requests_path
     end
   end
 end
