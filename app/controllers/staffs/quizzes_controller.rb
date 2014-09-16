@@ -1,7 +1,7 @@
 # Controller for quizzes
 module Staffs
   class QuizzesController < BaseController
-    before_action :set_quiz, only: [:edit, :update, :show, :stats]
+    before_action :set_quiz, only: [:edit, :update, :show]
 
     def new
       @new_quiz = Quiz.create
@@ -53,6 +53,7 @@ module Staffs
     end
 
     def stats
+      @quiz = Quiz.find(params[:id])
       @grades = TakenQuiz.where(quiz: @quiz)
       @students, @avg = [], 0.0
       @grades.each do |g|
@@ -60,7 +61,7 @@ module Staffs
         @students << [s.to_s, s.login, g.grade]
         @avg += g.grade
       end
-      
+
       @avg /= (@grades.length.nonzero? || 1)
     end
 

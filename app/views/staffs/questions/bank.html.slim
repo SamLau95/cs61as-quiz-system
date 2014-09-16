@@ -12,30 +12,22 @@ div
         table.question-bank
           tr
             th Content
-            br
-            br
             th Solution
-            br
             th Rubric
-            br
             th Options
           - @questions.each do |question|
             tr
               td
                 p = markdown question.content.truncate 100
                 p = link_to 'see more', staffs_question_path(question)
-              br
               td = markdown question.solution.content.truncate 100
-              br
               td = markdown question.rubric.rubric.truncate 100
-              br
-              - if @add
-                td = link_to 'Add question!', add_staffs_question_path(question,
+              td
+                - if @add
+                  = link_to 'Add question!', add_staffs_question_path(question,
                                                                    quiz_id: @id),
                                                                    method: :post
-                br
-              - else
-                td
+                - else
                   p = link_to 'Edit Question', edit_staffs_question_path(question)
                   p = link_to 'Delete Question', staffs_question_path(question),
                                                                       method: :delete,

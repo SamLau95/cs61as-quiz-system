@@ -8,14 +8,10 @@ br
 table.quiz-stats
   tr
     th Student
-    br
     th Login
-    br
     th Score
   - @students.each do |name,login,grade|
     tr
       td = name
-      br
       td = login
-      br
       td = grade
