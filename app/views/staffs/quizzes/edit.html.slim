@@ -8,8 +8,7 @@
       = simple_form_for @quiz_form, url: staffs_quiz_path do |f|
         .row
           .small-2.columns
-            = f.input :lesson do
-              = f.select :lesson, options_for_select(Quiz::LESSON_VALUES)
+            = f.input :lesson, collection: Quiz::LESSON_VALUES
           .small-2.columns.end
             = f.input :version
         .row
