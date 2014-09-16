@@ -58,7 +58,7 @@ module Staffs
       @students, @avg = [], 0.0
       @grades.each do |g|
         s = Student.find(g.student_id)
-        @students << [s.to_s, s.login, g.grade]
+        @students << [s.name, s.login, g.grade]
         @avg += g.grade
       end
 
