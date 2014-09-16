@@ -54,7 +54,7 @@ module Staffs
 
     def stats
       @quiz = Quiz.find(params[:id])
-      @grades = TakenQuiz.where(quiz: @quiz)
+      @grades = TakenQuiz.where(quiz: @quiz, finished: true)
       @students, @avg = [], 0.0
       @grades.each do |g|
         s = Student.find(g.student_id)
