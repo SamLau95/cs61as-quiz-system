@@ -67,7 +67,6 @@ class Student < User
     "#{name}: #{login}"
   end
 
-
   def retake(lesson)
     subm = Submission.where(student_id: id)
     take = []
