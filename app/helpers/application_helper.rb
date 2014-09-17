@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def get_selections_for_request(request)
-    quizzes = Quiz.where lesson: request.lesson, retake: request.retake
+    quizzes = Quiz.where lesson: request.lesson, retake: request.retake, is_draft: false
     quizzes.map { |q| [q.to_s, q.id] }
   end
 end
