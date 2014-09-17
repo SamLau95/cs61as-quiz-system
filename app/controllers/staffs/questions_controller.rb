@@ -97,6 +97,8 @@ module Staffs
         file.puts "Lesson: #{q.lesson} \n"
         file.puts "Difficulty: #{q.difficulty}\n"
         file.puts "Content:\n#{q.content} \n\n"
+        file.puts "Solution:\n#{q.solution.content}\n\n"
+        file.puts "Rubric:\n#{q.rubric.rubric}\n\n"
       end
       send_file file, filename: 'questions.md'
       file.close
