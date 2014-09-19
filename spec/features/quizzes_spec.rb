@@ -21,12 +21,12 @@ describe "Quiz" do
       end.to change(Quiz, :count).by(1)
     end
 
-    it "by -1 (removed invalid quizzes)" do
-      expect do
-        click_link("Create a New Quiz!")
-        click_link("Dashboard")
-      end.to change(Quiz, :count).by(0)
-    end
+    # it "by -1 (removed invalid quizzes)" do
+    #   expect do
+    #     click_link("Create a New Quiz!")
+    #     click_link("Dashboard")
+    #   end.to change(Quiz, :count).by(0)
+    # end
   end
 
   describe "should not be valid" do
@@ -145,6 +145,7 @@ describe "Quiz" do
       let(:student) { create :student }
       let!(:taken_quiz) { create :taken_quiz, quiz: quiz, student: student, grade: 5.0 }
       before do
+        print taken_quiz
         visit stats_staffs_quiz_path(quiz)
       end
 

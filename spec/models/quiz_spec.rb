@@ -122,7 +122,7 @@ describe Quiz do
       end
     end
     let!(:sorted) { ["0-1", "0-2", "0-3", "10"] }
-    let!(:lessons) { Quiz.sort_lesson(Quiz.all).map { |q| q.lesson } }
+    let!(:lessons) { Quiz.sort_lesson(Quiz.all, Quiz::LESSON_VALUES).map { |q| q.lesson } }
     it "should return a sorted array of Quizzes" do
       expect(lessons).to eql(sorted)
     end

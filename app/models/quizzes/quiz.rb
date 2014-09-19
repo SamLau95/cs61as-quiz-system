@@ -32,6 +32,8 @@ class Quiz < ActiveRecord::Base
   LESSON_VALUES = ["0-1", "0-2", "0-3", "1", "2", "3", "4", "5", "6",
                    "7", "8", "9", "10", "11", "12", "13", "14"]
 
+  DRAFT_LESSON_VALUES = ["0"] + LESSON_VALUES
+
   def self.lessons
     published.map(&:lesson).uniq.sort_by do |num|
       Quiz::LESSON_VALUES.find_index num
@@ -103,9 +105,9 @@ class Quiz < ActiveRecord::Base
     !Quiz.published.where(lesson: lesson, retake: retake).blank?
   end
 
-  def self.sort_lesson(quizzes)
+  def self.sort_lesson(quizzes, sortValue)
     quizzes.sort_by do |q|
-      [Quiz::LESSON_VALUES.find_index(q.lesson), q.version]
+      [sortValue.find_index(q.lesson), q.version]
     end
   end
 end
