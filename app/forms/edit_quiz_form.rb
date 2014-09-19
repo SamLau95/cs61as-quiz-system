@@ -54,7 +54,7 @@ class EditQuizForm < Reform::Form
 
   def right_questions
     @model.questions.each do |quest|
-      return false unless Quiz.can_add? quest, @fields.lesson, @fields.retake == 1
+      return false unless Quiz.can_add? quest, @fields.lesson, @fields.retake.to_i == 1
     end
     true
   end
