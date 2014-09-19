@@ -38,10 +38,10 @@ describe "Creating a question" do
       expect(page).not_to have_content "Points"
     end
 
-    it "should return to question dashboard if you click cancel" do
-      click_link "Cancel"
-      expect(page).to have_content "Add a Question!"
-    end
+    # it "should return to question dashboard if you click cancel" do
+    #   click_link "Cancel"
+    #   expect(page).to have_content "Add a Question!"
+    # end
 
     describe "should not be valid" do
       it "if lesson is blank" do
