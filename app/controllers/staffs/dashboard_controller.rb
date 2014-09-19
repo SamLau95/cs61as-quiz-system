@@ -1,7 +1,7 @@
 # Controller for staff dashboard
 module Staffs
   class DashboardController < BaseController
-    before_action :delete_invalid_quizzes, only: :index
+    # before_action :delete_invalid_quizzes, only: :index
 
     def index
       @drafts = Quiz.sort_lesson Quiz.drafts
