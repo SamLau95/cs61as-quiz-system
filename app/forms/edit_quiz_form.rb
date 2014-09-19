@@ -9,7 +9,7 @@ class EditQuizForm < Reform::Form
   property :is_draft
 
   validates :lesson, presence: true
-  validates :version, presence: true, numericality: true
+  validates :version, presence: true, numericality: { greater_than: 0 }
   validates :retake, presence: true
   validates :is_draft, presence: true
   validate :points_add_to_10
