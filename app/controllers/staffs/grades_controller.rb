@@ -55,10 +55,31 @@ module Staffs
       end
     end
 
+    def download_all
+      respond_to do |format|
+        format.csv do
+          get_all_grades
+          send_data '/tmp/grades.zip', filename: 'grades.zip',
+                                       type: 'application/zip',
+                                       deposition: 'attachment'
+        end
+      end
+    end
+
     private
 
     def grade_params
       params.require(:grade).permit!
+    end
+
+    def get_all_grades
+      Zip::File.open('/tmp/grades.zip', Zip::File::CREATE) do |zipfile|
+        Quiz::LESSON_VALUES.each do |lesson|
+          zipfile.get_output_stream("Lesson#{lesson}.csv") do |f|
+            f.puts Student.get_csv(lesson)
+          end
+        end
+      end
     end
   end
 end
