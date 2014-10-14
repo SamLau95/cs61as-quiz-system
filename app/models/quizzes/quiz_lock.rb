@@ -22,7 +22,7 @@ class QuizLock < ActiveRecord::Base
   end
 
   def expire_time
-    created_at + 2.minutes
+    created_at + 1.hour
   end
 
   def lock!
