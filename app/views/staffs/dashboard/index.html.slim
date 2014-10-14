@@ -35,3 +35,7 @@ h3 Download Grades.txt file
     = form_tag download_staffs_grades_path( format: 'csv' ) do
       = select_tag :lesson, options_for_select(@download)
       = submit_tag 'Download!', class: 'button'
+
+.row
+  .small-3.column
+    = link_to "Download All Grades!", download_all_staffs_grades_path(format: 'csv') , class: "button"

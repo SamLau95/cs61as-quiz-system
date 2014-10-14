@@ -12,6 +12,7 @@ Cs61asQuizzes::Application.routes.draw do
     resources :grades do
       collection do
         post :download
+        get :download_all
       end
     end
 

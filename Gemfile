@@ -21,6 +21,8 @@ gem 'figaro', '~> 0.7.0'
 # Authentication
 gem 'devise', '~> 3.2.3'
 
+# Dowload zip files
+gem 'zip-zip'
 gem 'newrelic_rpm'
 
 # JS/Frontend

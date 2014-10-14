@@ -78,10 +78,11 @@ class Student < User
   end
 
   def self.get_csv(lesson)
+    students = TakenQuiz.where(lesson:lesson).map { |t| t.student }.uniq
     CSV.generate do |csv|
       csv << ["Lesson #{lesson} grades"]
       csv << ['Login', 'Grade', 'Comments', 'Retake?']
-      all.each do |student|
+      students.each do |student|
         if student.has_grade(lesson)
           csv << student.get_row(lesson)
         end
