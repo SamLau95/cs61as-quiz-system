@@ -78,8 +78,8 @@ module Staffs
       end
       t = Tempfile.new(["my-temp-filename-#{Time.now}", '.zip'])
       Zip::File.open(t.path, Zip::File::CREATE) do |zipfile|
-        Quiz::LESSON_VALUES.each do |lesson|
-          zipfile.get_output_stream("Lesson#{lesson}.csv") do |f|
+        Quiz::LESSON_VALUES.drop(1).each do |lesson|
+          zipfile.get_output_stream("lesson#{lesson}.csv") do |f|
             f.write Student.get_csv(lesson)
           end
         end

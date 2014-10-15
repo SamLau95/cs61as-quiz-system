@@ -114,7 +114,7 @@ class Student < User
     Student.all.select do |s|
       s.first_name.downcase.include?(search) unless s.first_name.nil? ||
       s.last_name.downcase.include?(search) unless s.last_name.nil? ||
-      s.to_s.downcase.include?(search) ||
+      s.to_s.downcase.include?(search) unless s.to_s.nil?||
       s.login.downcase.include?(search)
     end
   end
