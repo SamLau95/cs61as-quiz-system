@@ -58,10 +58,10 @@ module Staffs
     def download_all
       respond_to do |format|
         format.csv do
-          get_all_grades
-          send_data '/tmp/grades.zip', filename: 'grades.zip',
-                                       type: 'application/zip',
-                                       deposition: 'attachment'
+          t = get_all_grades
+          send_file t.path, filename: 'grades.zip',
+                            type: 'application/zip',
+                            disposition: 'attachment'
         end
       end
     end
@@ -73,13 +73,28 @@ module Staffs
     end
 
     def get_all_grades
-      Zip::File.open('/tmp/grades.zip', Zip::File::CREATE) do |zipfile|
+      files = Quiz::LESSON_VALUES.map do |q|
+
+      end
+      t = Tempfile.new(["my-temp-filename-#{Time.now}", '.zip'])
+      Zip::File.open(t.path, Zip::File::CREATE) do |zipfile|
         Quiz::LESSON_VALUES.each do |lesson|
           zipfile.get_output_stream("Lesson#{lesson}.csv") do |f|
-            f.puts Student.get_csv(lesson)
+            f.write Student.get_csv(lesson)
           end
         end
+        # zipfile.get_output_stream("myFile.,txt") { |os| os.write "myFile contains just this" }
       end
+      t.close
+      t
+      # Zip::ZipOutputStream.open(t.path) do |zipfile|
+      #   1/0
+      #   Quiz::LESSON_VALUES.each do |lesson|
+      #       zipfile.put_next_entry lesson
+      #       zipfile.write Student.get_csv(lesson)
+      #   end
+      # end
+      # t.close
     end
   end
 end
