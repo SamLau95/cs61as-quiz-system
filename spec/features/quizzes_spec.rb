@@ -38,8 +38,9 @@ describe "Quiz" do
       expect(page).to have_content "Editing Quiz"
     end
 
-    let!(:new_quiz) { create :quiz, lesson: "1", version: 1, retake: true }
+    let!(:new_quiz_retake) { create :quiz, lesson: "1", version: 1, retake: true }
     let!(:question) { create :question, lesson: "1" }
+    let!(:new_quiz_not_retake) { create :quiz, lesson: "1", version: 1, retake: false }
 
     it "if it has an invalid version" do
       fill_in_quiz_field "0-1", "a"
@@ -67,15 +68,17 @@ describe "Quiz" do
       fill_in "Question (parsed as Markdown)", with: "Lorem Ipsum"
       fill_in "Solution (parsed as Markdown)", with: "Lorem Ipsum"
       fill_in "Rubric (parsed as Markdown)", with: "Lorem Ipsum"
+      uncheck 'Draft?'
       click_button "Create"
       expect(page).to have_content "Content: Lorem Ipsum"
+
       fill_in_quiz_field "1", 2
       expect(page).to have_content "Question lessons must match"
       expect(page).to_not have_content "Welcome"
     end
 
     it "if it uses a question that has already been used by a retake" do
-      new_quiz.relationships.create! question_id: question.id,
+      new_quiz_retake.relationships.create! question_id: question.id,
                                      number: 1,
                                      points: 10
       click_link "Lesson 1"
