@@ -68,7 +68,6 @@ describe "Quiz" do
       fill_in "Question (parsed as Markdown)", with: "Lorem Ipsum"
       fill_in "Solution (parsed as Markdown)", with: "Lorem Ipsum"
       fill_in "Rubric (parsed as Markdown)", with: "Lorem Ipsum"
-      uncheck 'Draft?'
       click_button "Create"
       expect(page).to have_content "Content: Lorem Ipsum"
 
@@ -146,13 +145,13 @@ describe "Quiz" do
 
     describe "should be >= zero if there are quizzes" do
       let(:student) { create :student }
-      let!(:taken_quiz) { create :taken_quiz, quiz: quiz, student: student, grade: 5.0 }
+      let!(:taken_quiz) { create :taken_quiz, quiz: quiz, student: student, grade: 5.0, finished: true }
       before do
         print taken_quiz
         visit stats_staffs_quiz_path(quiz)
       end
 
-      it { should have_content student.to_s }
+      it { should have_content student.name }
       it { should have_content student.login }
       it { should have_content "Average grade: 5.0" }
     end
