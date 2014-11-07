@@ -2,7 +2,7 @@
 module Staffs
   class StudentsController < BaseController
     def index
-      @students = Student.page params[:page]
+      @students = Student.valid_students.page params[:page]
       @value = params[:search]
       @search = Student.get params[:search]
     end

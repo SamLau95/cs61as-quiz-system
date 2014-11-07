@@ -39,6 +39,7 @@ class Student < User
   delegate :lesson, to: :quiz_request, prefix: true
   delegate :locked?, to: :quiz_lock, allow_nil: true
 
+  scope :valid_students, -> { where(added_info: true) }
   def email_required?
     false
   end
@@ -110,11 +111,11 @@ class Student < User
 
   def self.get(search)
     return nil if search.blank? || Student.all.blank?
-    search.downcase!
-    Student.all.select do |s|
-      s.first_name.downcase.include?(search) unless s.first_name.nil? ||
-      s.last_name.downcase.include?(search) unless s.last_name.nil? ||
-      s.to_s.downcase.include?(search) unless s.to_s.nil?||
+    search = search.downcase
+    Student.valid_students.select do |s|
+      s.first_name.downcase.include?(search) ||
+      s.last_name.downcase.include?(search) ||
+      s.to_s.downcase.include?(search) ||
       s.login.downcase.include?(search)
     end
   end

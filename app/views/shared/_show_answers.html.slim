@@ -11,7 +11,7 @@
         p Grade:
         p = score.grade
         p Reader Comments:
-        p = score.comments
+        p = simple_format score.comments.gsub(/\r\n/,"<br />")
       br
       - if current_user.staff?
         = link_to 'Grade Question!', new_staffs_grade_path(qid: question.id,
