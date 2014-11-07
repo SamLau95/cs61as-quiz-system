@@ -24,7 +24,7 @@ h1#show_quiz Grade Question
       br
 
       = f.input :grade
-      = f.input :comments, as: :text, input_html: { class: "expand" }
+      = f.input :comments, as: :text, label: "Commments (parsed as markdown)", input_html: { class: "expand" }
       = hidden_field_tag :quiz_id, @submission.quiz_id
 
   = f.submit 'Update Grade!', class: 'small button'
