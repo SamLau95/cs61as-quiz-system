@@ -14,12 +14,12 @@ fullscreen = ->
     $('li.name').hide()
     fs = 'webkitfullscreenchange mozfullscreenchange fullscreenchange'
     fullScreen = false
-    # $(document).on fs, (e) ->
-    #   fullScreen = !fullScreen
-    #   if !fullScreen
-    #     $.ajax
-    #       url: gon.lock_path,
-    #       type: 'POST'
+    $(document).on fs, (e) ->
+      fullScreen = !fullScreen
+      if !fullScreen
+        $.ajax
+          url: gon.lock_path,
+          type: 'POST'
 
     opts = {
         lineNumbers : true,
@@ -55,7 +55,7 @@ hilite = ->
 ready = ->
   if $('#take_quiz_form').length
     fullscreen()
-    # $(window).blur -> onchange()
+    $(window).blur -> onchange()
     hilite()
     $('form').sisyphus({
       timeout: 1
