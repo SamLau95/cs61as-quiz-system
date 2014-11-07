@@ -54,8 +54,7 @@ class Quiz < ActiveRecord::Base
   end
 
   def next_number
-    return 1 if questions.empty?
-    questions.last.relationships.find_by_quiz_id(id).number + 1
+    questions.size + 1
   end
 
   def self.generate_random(lesson, rtk)
@@ -76,6 +75,7 @@ class Quiz < ActiveRecord::Base
     questions
   end
 
+  # Updates the number for each question
   def add_numbers
     rlt = Relationship.where quiz_id: id
     count = 1
