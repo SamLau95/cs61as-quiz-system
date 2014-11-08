@@ -14,7 +14,8 @@
         .row
           .small-12.columns
             = f.input :retake, as: :boolean
-            = f.input :is_draft, label: 'Draft?', as: :boolean
+            #draft
+              = f.input :is_draft, label: 'Draft?', as: :boolean
         = f.submit 'Update!', class: 'small button'
 
       = link_to 'Add a new question!', new_staffs_question_path(quiz_id: @quiz_form.id)

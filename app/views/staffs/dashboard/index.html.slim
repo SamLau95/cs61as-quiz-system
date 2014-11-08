@@ -32,7 +32,7 @@ ul.quizzes
 h3 Download Grades.txt file
 .row
   .small-3.column
-    = form_tag download_staffs_grades_path( format: 'csv' ) do
+    = form_tag download_staffs_grades_path(format: 'csv') do
       = select_tag :lesson, options_for_select(@download)
       = submit_tag 'Download!', class: 'button'
 

@@ -19,7 +19,10 @@ module Staffs
     end
 
     def destroy
-      QuizRequest.destroy params[:id]
+      request = QuizRequest.find_by_id(params[:id])
+      if request
+        request.destroy
+      end
       flash[:success] = 'Cancelled quiz request!'
       redirect_to staffs_dashboard_path
     end
