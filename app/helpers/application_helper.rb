@@ -23,6 +23,10 @@ module ApplicationHelper
     Relationship.find_by(question_id: question, quiz_id: quiz).number
   end
 
+  def get_pts(quiz, question)
+    Relationship.find_by(question_id: question, quiz_id: quiz).points
+  end
+
   def get_selections_for_request(request)
     quizzes = Quiz.where lesson: request.lesson, retake: request.retake, is_draft: false
     quizzes.map { |q| [q.to_s, q.id] }

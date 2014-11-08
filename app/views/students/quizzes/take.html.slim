@@ -15,7 +15,12 @@ p After you click Begin, you cannot use the computer for anything else!
                         html: { id: 'take_quiz_form', method: :post } do |f|
         = f.fields_for :new_submissions do |sf|
           br
-          = "Question #{get_number sf.object.quiz_id, sf.object.question_id}:"
+          strong= "Question #{get_number sf.object.quiz_id, sf.object.question_id}:"
+          br
+          br
+          em= "Points possible: #{get_pts sf.object.quiz_id, sf.object.question_id}"
+          br
+          br
           = markdown sf.object.question_content
           br
           div

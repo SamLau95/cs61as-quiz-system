@@ -20,6 +20,7 @@ fullscreen = ->
         $.ajax
           url: gon.lock_path,
           type: 'POST'
+
     opts = {
         lineNumbers : true,
         matchBrackets : true,
