@@ -4,12 +4,12 @@ def make_users
                   email: "student#1@gmail.com",
                   password: 'password',
                   login: 'cs61as-aou'
-  Staff.create! first_name: 'Staff',
+  Reader.create! first_name: 'Staff',
                 last_name: "#1",
                 email: "staff1@gmail.com",
                 password: 'password',
                 login: 'cs61as-av'
-  Staff.create! first_name: "Staff",
+  Gsi.create! first_name: "Staff",
                 last_name: "2",
                 email: "staff2@gmail.com",
                 password: "password",
