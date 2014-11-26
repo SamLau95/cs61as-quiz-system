@@ -24,4 +24,7 @@
 #
 
 class Reader < Staff
+  def reader?
+    true
+  end
 end

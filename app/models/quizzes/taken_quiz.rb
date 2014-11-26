@@ -12,14 +12,14 @@
 #  lesson     :string(255)      default("")
 #  comment    :string(255)      default("No comments")
 #  retake     :boolean          default(FALSE)
-#  staff_id   :integer
+#  reader_id  :integer
 #
 
 # TakenQuiz Class
 class TakenQuiz < ActiveRecord::Base
   belongs_to :quiz
   belongs_to :student
-  belongs_to :staff
+  belongs_to :reader
   # Validations for comments
 
   validates :comment, presence: true, length: { maximum: 200 }

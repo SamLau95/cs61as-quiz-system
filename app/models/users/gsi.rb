@@ -24,4 +24,7 @@
 #
 
 class Gsi < Staff
+  def gsi?
+    true
+  end
 end
