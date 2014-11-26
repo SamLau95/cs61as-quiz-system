@@ -10,6 +10,8 @@
       - if score && (current_user.staff? || grade.finished)
         p Grade:
         p = score.grade
+        p Points Possible:
+        p = rlt.points
         p Reader Comments:
         p = markdown score.comments
       br
