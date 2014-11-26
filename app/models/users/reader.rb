@@ -27,4 +27,12 @@ class Reader < Staff
   def reader?
     true
   end
+
+  def grading_assignments
+    taken_quizzes
+  end
+
+  def self.assign_grader
+    all.min_by { |staff| staff.grading_assignments.length }.id
+  end
 end

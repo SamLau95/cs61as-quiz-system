@@ -29,12 +29,4 @@ class Staff < User
   def staff?
     true
   end
-
-  def grading_assignments
-    taken_quizzes
-  end
-
-  def self.assign_grader
-    all.min_by { |staff| staff.grading_assignments.length }.id
-  end
 end

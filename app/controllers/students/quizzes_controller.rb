@@ -34,7 +34,7 @@ module Students
                            quiz_id: ql.quiz_id,
                            lesson: quiz.lesson,
                            retake: quiz.retake,
-                           staff_id: Staff.assign_grader
+                           staff_id: Reader.assign_grader
           ql.destroy
           flash[:success] = "Submitted quiz #{@quiz_form.lesson}!"
           redirect_to students_dashboard_path
