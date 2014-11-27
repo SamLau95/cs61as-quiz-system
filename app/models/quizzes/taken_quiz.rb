@@ -13,6 +13,7 @@
 #  comment    :string(255)      default("No comments")
 #  retake     :boolean          default(FALSE)
 #  reader_id  :integer
+#  login      :string(255)      default("")
 #
 
 # TakenQuiz Class
