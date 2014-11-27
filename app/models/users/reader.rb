@@ -24,6 +24,8 @@
 #
 
 class Reader < Staff
+  has_many :taken_quizzes
+
   def reader?
     true
   end
@@ -33,6 +35,6 @@ class Reader < Staff
   end
 
   def self.assign_grader
-    all.min_by { |staff| staff.grading_assignments.length }.id
+    all.min_by { |staff| staff.grading_assignments.length }
   end
 end

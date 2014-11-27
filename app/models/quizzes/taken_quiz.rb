@@ -23,7 +23,10 @@ class TakenQuiz < ActiveRecord::Base
   belongs_to :reader
   # Validations for comments
 
+  LOGIN_PATTERN = /\Acs61as-[a-z]{2,3}\z/
+
   validates :comment, presence: true, length: { maximum: 200 }
+  validates :login, presence: true, format: { with: LOGIN_PATTERN }
 
   scope :not_graded, -> { where(finished: false).includes(:quiz, :student) }
 

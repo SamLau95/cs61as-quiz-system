@@ -3,9 +3,9 @@ module Staffs
     def update
       @taken_quiz = TakenQuiz.find params[:taken_quiz].delete :taken_id
       if @taken_quiz.update_attributes taken_quiz_params
-        flash[:notice] = 'Added comment!'
+        flash[:notice] = 'Added changes!'
       else
-        flash[:error] = 'Comment was left blank or was too long.'
+        flash[:error] = 'Invalid login or comment.'
       end
       redirect_to staffs_student_quiz_path(@taken_quiz.student,
                                            @taken_quiz.quiz)
