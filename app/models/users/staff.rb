@@ -29,4 +29,16 @@ class Staff < User
   def staff?
     true
   end
+
+  def gsi?
+    false
+  end
+
+  def reader?
+    false
+  end
+
+  def master?
+    false
+  end
 end

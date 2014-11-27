@@ -17,6 +17,14 @@ FactoryGirl.define do
     password 'password'
   end
 
+  factory :reader do
+    first_name "Reader"
+    sequence(:last_name) { |n| "#{n}" }
+    sequence(:email) { |n| "reader#{n}@gmail.com" }
+    sequence(:login) { |n| "cs61as-t#{logins[n]}" }
+    password 'password'
+  end
+
   factory :quiz do
     lesson '1'
     sequence(:version) { |n| n }
