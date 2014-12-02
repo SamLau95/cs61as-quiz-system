@@ -86,6 +86,8 @@ FactoryGirl.define do
     quiz
     reader
     grade 0
+    comment { Faker::Lorem.sentence }
+    login { "cs61as-aa" }
   end
 
   factory :grade do
