@@ -40,6 +40,18 @@ class Question < ActiveRecord::Base
     relationships.find_by_quiz_id(quiz_id).points
   end
 
+  def get_average
+    return "N/A" if grades.size == 0
+    (grades.map {|g| g.grade }.sum / grades.size).round(3)
+  end
+
+  def get_total_points
+  end
+
+  def self.get_assigned_questions
+    all.order('lesson').select { |q| !q.relationships.blank? }
+  end
+
   private
 
   # def rubric_present?

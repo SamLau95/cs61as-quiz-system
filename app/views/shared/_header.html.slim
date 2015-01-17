@@ -21,6 +21,9 @@ nav.top-bar data-topbar=true
         li.divider
         li = link_to 'Import Students', import_staffs_students_path
         li.divider
+        - if @current_user.master?
+          li = link_to 'Import Staff',
+          li.divider
     ul.right
       li.divider
       - if current_user
