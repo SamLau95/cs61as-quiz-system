@@ -18,6 +18,8 @@
 
 # TakenQuiz Class
 class TakenQuiz < ActiveRecord::Base
+  default_scope -> { order 'created DESC' }
+
   belongs_to :quiz
   belongs_to :student
   belongs_to :reader

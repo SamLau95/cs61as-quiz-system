@@ -1,0 +1,10 @@
+p = #{@student.name} has had trouble on the following quizzes:
+
+= @quizzes.each do |quiz|
+  p = Quiz #{quiz.lesson} - Score: #{quiz.grade}
+
+p Perhaps you should check up on the student!
+p = Student's email: #{@student.email}
+
+p Sincerely,
+p The cs61as auto mailer
