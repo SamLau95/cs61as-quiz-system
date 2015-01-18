@@ -54,13 +54,13 @@ module Staffs
       end
     end
 
-    def destroy_students
+    def reset_students
       Student.all.each { |s| s.destroy }
       flash[:success] = "Reset student database!"
       redirect_to import_staffs_dashboard_index_path
     end
 
-    def destroy_staff
+    def reset_staff
       Staff.all.each { |s| s.destroy if !s.master? }
       flash[:success] = "Reset staff members!"
       redirect_to import_staffs_dashboard_index_path
