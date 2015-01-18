@@ -120,4 +120,17 @@ class Student < User
       s.login.downcase.include?(search)
     end
   end
+
+  def check_if_send_email
+    quizzes = taken_quizzes.first(3)
+    HelpEmailJob.new.async.perform(self, quizzes) if is_failing?(quizzes)
+  end
+
+  def is_failing?(quizzes)
+    quizzes.select { |q| q.grade <= 6 }.size == 3
+  end
+
+  def self.reset
+    ResetStudentJob.new.async.perform
+  end
 end

@@ -4,6 +4,8 @@ class StaffMailer < ActionMailer::Base
   def help_email(student, quizzes)
     @student = student
     @quizzes = quizzes
-    mail(to: "contact.elevate.africa@gmail.com", subject: subject)
+    Staff.each do |s|
+      mail(to: s.email, subject: subject) unless s.email.blank?
+    end
   end
 end

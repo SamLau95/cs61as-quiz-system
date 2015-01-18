@@ -32,11 +32,11 @@ h1 DANGEROUS TERRITORY - BE CAUTIOUS
 .row
   .columns
     p Reset all Students - This will wipe the database of all students, grades, quizzes taken, etc.
-    = link_to "Reset Students", reset_students_staffs_dashboard_index_path(format: 'csv'),
+    = link_to "Reset Students", reset_students_staffs_dashboard_index_path,
                                 class: 'button', data: { confirm: "Are you SURE?!?! Changes cannot be undone!" }
 
 .row
   .columns
     p Reset all Staff - This will wipe the database of all staff members!
-    = link_to "Reset Staff", reset_staff_staffs_dashboard_index_path(format: 'csv'),
+    = link_to "Reset Staff", reset_staff_staffs_dashboard_index_path,
                              class: 'button', data: { confirm: "Are you SURE?!?!, Changes cannot be undone!" }

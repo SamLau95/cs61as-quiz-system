@@ -15,6 +15,7 @@ module Staffs::Students
     def finish_grading
       student, quiz = params[:student_id], params[:quiz_id]
       TakenQuiz.find_by(student_id: student, quiz_id: quiz).finish
+      student.check_if_send_email
       regrade = Regrade.find_by(student_id: student, quiz_id: quiz)
       regrade.finish if regrade
       flash[:success] = 'Finished grading!'
