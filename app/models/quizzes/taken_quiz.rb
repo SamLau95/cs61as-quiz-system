@@ -31,6 +31,7 @@ class TakenQuiz < ActiveRecord::Base
   validates :login, presence: true, format: { with: LOGIN_PATTERN }
 
   scope :not_graded, -> { where(finished: false).includes(:quiz, :student) }
+  scope :graded, -> { where(finished: true) }
 
   def to_s
     "#{Student.find student_id}: #{Quiz.find quiz_id}"

@@ -122,8 +122,9 @@ class Student < User
   end
 
   def check_if_send_email
-    quizzes = taken_quizzes.first(3)
-    HelpEmailJob.new.async.perform(self, quizzes) if is_failing?(quizzes)
+    quizzes = taken_quizzes.graded.first(3)
+    StaffMailer.help_email(self,quizzes).deliver
+    # HelpEmailJob.new.async.perform(self, quizzes) if is_failing?(quizzes)
   end
 
   def is_failing?(quizzes)
