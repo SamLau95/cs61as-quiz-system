@@ -13,6 +13,7 @@ Cs61asQuizzes::Application.routes.draw do
         get :import
         post :import_reader
         post :import_gsi
+        get :get_passwords
       end
     end
 

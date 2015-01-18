@@ -4,7 +4,7 @@ nav.top-bar data-topbar=true
       - if current_user.nil?
         h1 = link_to 'CS61AS Quizzes', root_path
       - elsif current_user.staff?
-        h1 = link_to 'Dashboard', staffs_dashboard_path
+        h1 = link_to 'Dashboard', staffs_dashboard_index_path
       - elsif current_user.student?
         h1 = link_to 'Dashboard', students_dashboard_path
   section.top-bar-section
@@ -22,7 +22,7 @@ nav.top-bar data-topbar=true
         li = link_to 'Import Students', import_staffs_students_path
         li.divider
         - if @current_user.master?
-          li = link_to 'Import Staff',
+          li = link_to 'Import Staff', import_staffs_dashboard_index_path
           li.divider
     ul.right
       li.divider

@@ -17,11 +17,11 @@ module Staffs
       @logins = params[:logins]
       @results = @logins.split
                         .reject { |login| Reader.find_by_login login }
-                        .map { |login| import_staff login, "reader" }
+                        .map { |login| import_staff login, Reader.new }
       respond_to do |format|
-        format.html { redirect_to import_staffs_students_path }
+        format.html { redirect_to import_staffs_dashboard_index_path }
         format.csv do
-          send_data create_staff_csv(@results),
+          send_data User.create_csv(@results),
                     filename: 'readers.csv'
         end
       end
@@ -31,12 +31,23 @@ module Staffs
       @logins = params[:logins]
       @results = @logins.split
                         .reject { |login| Gsi.find_by_login login }
-                        .map { |login| import_staff login, "gsi" }
+                        .map { |login| import_staff login, Gsi.new }
       respond_to do |format|
-        format.html { redirect_to import_staffs_students_path }
+        format.html { redirect_to import_staffs_dashboard_index_path }
         format.csv do
-          send_data create_staff_csv(@results),
-                    filename: 'gsis.csv'
+          send_data User.create_csv(@results),
+                    filename: 'TAs.csv'
+        end
+      end
+    end
+
+    def get_passwords
+      passwords = Staff.all.map { |s| [s.login, s.first_password] }
+      respond_to do |format|
+        format.html { redirect_to import_staffs_dashboard_index_path }
+        format.csv do
+          send_data User.create_csv(passwords),
+                    filename: "staff_initial_passwords.csv"
         end
       end
     end
@@ -48,10 +59,14 @@ module Staffs
       true
     end
 
-    def import_staff(login, type)
+    def import_staff(login, staff)
       password = Devise.friendly_token.first 8
-      if
-      staff = Rea
+      staff.update_attributes({ password: password, first_password: password, login: login })
+      if staff.new_record?
+        [login, "Not saved. #{staff.errors.full_messages.join ' '}"]
+      else
+        [login, password]
+      end
     end
   end
 end

@@ -26,6 +26,10 @@
 class Staff < User
   has_many :taken_quizzes
 
+  def email_required?
+    false
+  end
+
   def staff?
     true
   end

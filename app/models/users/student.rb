@@ -40,6 +40,7 @@ class Student < User
   delegate :locked?, to: :quiz_lock, allow_nil: true
 
   scope :valid_students, -> { where(added_info: true) }
+
   def email_required?
     false
   end
