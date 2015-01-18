@@ -14,6 +14,8 @@ Cs61asQuizzes::Application.routes.draw do
         post :import_reader
         post :import_gsi
         get :get_passwords
+        get :reset_students
+        get :reset_staff
       end
     end
 

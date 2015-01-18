@@ -42,7 +42,9 @@ module Staffs
     end
 
     def get_passwords
-      passwords = Staff.all.map { |s| [s.login, s.first_password] }
+      reader_passwords = Staff.all.map { |s| [s.login, s.first_password] }
+      ta_passwords = Gsi.all.map { |s| [s.login, s.first_password] }
+      passwords = reader_passwords + ta_passwords
       respond_to do |format|
         format.html { redirect_to import_staffs_dashboard_index_path }
         format.csv do
@@ -50,6 +52,18 @@ module Staffs
                     filename: "staff_initial_passwords.csv"
         end
       end
+    end
+
+    def destroy_students
+      Student.all.each { |s| s.destroy }
+      flash[:success] = "Reset student database!"
+      redirect_to import_staffs_dashboard_index_path
+    end
+
+    def destroy_staff
+      Staff.all.each { |s| s.destroy if !s.master? }
+      flash[:success] = "Reset staff members!"
+      redirect_to import_staffs_dashboard_index_path
     end
 
     private
