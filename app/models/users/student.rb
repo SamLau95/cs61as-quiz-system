@@ -40,6 +40,7 @@ class Student < User
   delegate :locked?, to: :quiz_lock, allow_nil: true
 
   scope :valid_students, -> { where(added_info: true) }
+
   def email_required?
     false
   end
@@ -118,5 +119,19 @@ class Student < User
       s.to_s.downcase.include?(search) ||
       s.login.downcase.include?(search)
     end
+  end
+
+  def check_if_send_email
+    quizzes = taken_quizzes.graded.first(3)
+    # StaffMailer.help_email(self, quizzes).deliver
+    HelpEmailJob.new.async.perform(self, quizzes) if failing?(quizzes)
+  end
+
+  def failing?(quizzes)
+    quizzes.select { |q| q.grade <= 6 }.size == 3
+  end
+
+  def self.reset
+    ResetStudentJob.new.async.perform
   end
 end

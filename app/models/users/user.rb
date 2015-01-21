@@ -1,3 +1,4 @@
+require 'csv'
 # == Schema Information
 #
 # Table name: users
@@ -56,6 +57,15 @@ class User < ActiveRecord::Base
 
   def taking_quiz?
     false
+  end
+
+  def self.create_csv(results)
+    CSV.generate do |csv|
+      csv << ['Login', 'Password']
+      results.each do |r|
+        csv << r
+      end
+    end
   end
 
   private

@@ -1,0 +1,42 @@
+h4 Create TAs
+= form_tag import_gsi_staffs_dashboard_index_path(format: 'csv') do
+  .row
+    .medium-7.columns
+      = label_tag :logins, 'Copy and paste TA logins, one per line. You may enter in logins that have already been processed before; they will be ignored. TA logins must begin with the letter "t".'
+      = text_area_tag :logins, @logins, class: 'expand', id: "import"
+  .row
+    .medium-12.columns
+      = submit_tag 'Create TAs', class: 'button'
+
+h4 Create Readers
+= form_tag import_reader_staffs_dashboard_index_path(format: 'csv') do
+  .row
+    .medium-7.columns
+      = label_tag :logins, 'Copy and paste student logins, one per line. You may enter in logins that have already been processed before; they will be ignored.'
+      = text_area_tag :logins, @logins, class: 'expand', id: "import"
+  .row
+    .medium-12.columns
+      = submit_tag 'Create Readers', class: 'button'
+
+
+.row
+  .columns
+    p Click here to download initial passwords for all staff members!
+
+    = link_to 'Download Passwords', get_passwords_staffs_dashboard_index_path(format: 'csv'),
+                                    class: 'button'
+
+
+h1 DANGEROUS TERRITORY - BE CAUTIOUS
+
+.row
+  .columns
+    p Reset all Students - This will wipe the database of all students, grades, quizzes taken, etc.
+    = link_to "Reset Students", reset_students_staffs_dashboard_index_path,
+                                class: 'button', data: { confirm: "Are you SURE?!?! Changes cannot be undone!" }
+
+.row
+  .columns
+    p Reset all Staff - This will wipe the database of all staff members!
+    = link_to "Reset Staff", reset_staff_staffs_dashboard_index_path,
+                             class: 'button', data: { confirm: "Are you SURE?!?!, Changes cannot be undone!" }

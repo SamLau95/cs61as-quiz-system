@@ -23,26 +23,8 @@
 #  first_password         :string(255)      default("")
 #
 
-class Staff < User
-  has_many :taken_quizzes
-
-  def email_required?
-    false
-  end
-
-  def staff?
-    true
-  end
-
+class Gsi < Staff
   def gsi?
-    false
-  end
-
-  def reader?
-    false
-  end
-
-  def master?
-    false
+    true
   end
 end

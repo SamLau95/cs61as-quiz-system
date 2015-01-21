@@ -23,26 +23,18 @@
 #  first_password         :string(255)      default("")
 #
 
-class Staff < User
+class Reader < Staff
   has_many :taken_quizzes
 
-  def email_required?
-    false
-  end
-
-  def staff?
+  def reader?
     true
   end
 
-  def gsi?
-    false
+  def grading_assignments
+    taken_quizzes
   end
 
-  def reader?
-    false
-  end
-
-  def master?
-    false
+  def self.assign_grader
+    all.min_by { |staff| staff.grading_assignments.length }
   end
 end

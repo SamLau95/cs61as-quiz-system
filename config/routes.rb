@@ -7,7 +7,17 @@ Cs61asQuizzes::Application.routes.draw do
   resources :users, only: [:edit, :update]
 
   namespace 'staffs' do
-    get '/staff_dashboard', to: 'dashboard#index', as: :dashboard
+
+    resources :dashboard, only: :index do
+      collection do
+        get :import
+        post :import_reader
+        post :import_gsi
+        get :get_passwords
+        get :reset_students
+        get :reset_staff
+      end
+    end
 
     resources :grades do
       collection do

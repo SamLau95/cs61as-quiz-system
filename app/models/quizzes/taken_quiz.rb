@@ -12,19 +12,26 @@
 #  lesson     :string(255)      default("")
 #  comment    :string(255)      default("No comments")
 #  retake     :boolean          default(FALSE)
-#  staff_id   :integer
+#  reader_id  :integer
+#  login      :string(255)      default("")
 #
 
 # TakenQuiz Class
 class TakenQuiz < ActiveRecord::Base
+  default_scope -> { order 'created_at DESC' }
+
   belongs_to :quiz
   belongs_to :student
-  belongs_to :staff
+  belongs_to :reader
   # Validations for comments
 
+  LOGIN_PATTERN = /\Acs61as-[a-z]{2,3}\z/
+
   validates :comment, presence: true, length: { maximum: 200 }
+  validates :login, presence: true, format: { with: LOGIN_PATTERN }
 
   scope :not_graded, -> { where(finished: false).includes(:quiz, :student) }
+  scope :graded, -> { where(finished: true) }
 
   def to_s
     "#{Student.find student_id}: #{Quiz.find quiz_id}"

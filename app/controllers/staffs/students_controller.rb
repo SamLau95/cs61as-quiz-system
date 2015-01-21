@@ -26,7 +26,7 @@ module Staffs
       respond_to do |format|
         format.html { redirect_to import_staffs_students_path }
         format.csv do
-          send_data create_student_csv(@results),
+          send_data User.create_csv(@results),
                     filename: 'studentInfo.csv'
         end
       end
@@ -37,7 +37,7 @@ module Staffs
       respond_to do |format|
         format.html { redirect_to staffs_dashboard_path }
         format.csv do
-          send_data create_student_csv(passwords),
+          send_data User.create_csv(passwords),
                     filename: 'studentInitialPW.csv'
         end
       end
@@ -53,15 +53,6 @@ module Staffs
         [login, "Not saved. #{student.errors.full_messages.join ' '}"]
       else
         [login, password]
-      end
-    end
-
-    def create_student_csv(results)
-      CSV.generate do |csv|
-        csv << ['Login', 'Password']
-        results.each do |r|
-          csv << r
-        end
       end
     end
   end

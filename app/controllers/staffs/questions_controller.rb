@@ -93,12 +93,14 @@ module Staffs
 
     def download
       file = Tempfile.new('questions')
-      Question.all.each do |q|
+      Question.get_assigned_questions.each do |q|
         file.puts "Lesson: #{q.lesson} \n"
         file.puts "Difficulty: #{q.difficulty}\n"
-        file.puts "Content:\n#{q.content} \n\n"
+        file.puts "Content:\n#{q.content.truncate 100 } \n\n"
         file.puts "Solution:\n#{q.solution.content}\n\n"
         file.puts "Rubric:\n#{q.rubric.rubric}\n\n"
+        file.puts "Total Points: #{q.relationships.first.points}\n\n"
+        file.puts "Average Points: #{q.get_average}\n\n\n\n"
       end
       send_file file, filename: 'questions.md'
       file.close

@@ -1,14 +1,14 @@
 h3 Quizzes To Grade
 
-h4 Your Grading Assignments
-
-- if @assigned.empty?
-  p You have no assignments. Go have fun ^^. Or do more homework.
-- else
-  ul
-    - @assigned.each do |g|
-      li
-        = link_to g, staffs_student_quiz_path(g.student, g.quiz)
+- if @current_user.reader?
+  h4 Your Grading Assignments
+  - if @assigned.blank?
+    p You have no assignments. Go have fun ^^. Or do more homework.
+  - else
+    ul
+      - @assigned.each do |g|
+        li
+          = link_to g, staffs_student_quiz_path(g.student, g.quiz)
 
 
 h4 All Quizzes to Grade

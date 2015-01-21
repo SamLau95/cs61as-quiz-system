@@ -20,10 +20,10 @@ describe "Grading a Quiz" do
 
   describe "as a staff member" do
     let!(:student) { create :student }
-    let!(:staff2) { create :staff }
+    let!(:staff2) { create :reader }
     let!(:quiz) { create :quiz_with_questions }
     let!(:taken_quiz) do
-      TakenQuiz.create quiz: quiz, student: student, staff: staff2, lesson: quiz.lesson, retake: quiz.retake
+      TakenQuiz.create quiz: quiz, student: student, reader: staff2, lesson: quiz.lesson, retake: quiz.retake
     end
 
     before do

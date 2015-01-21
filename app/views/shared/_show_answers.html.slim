@@ -1,14 +1,15 @@
 - ques_subm.each do |question, subm, score, rlt|
   div
-    p = "Question #{rlt.number}: "
+    p = "Question #{rlt.number}:"
     p = markdown question.content
-
     p Student Answer:
     textarea.show
       = subm.content
     - if score && (current_user.staff? || grade.finished)
       p Grade:
       p = score.grade
+      p Points Possible:
+      p = rlt.points
       p Reader Comments:
       p = markdown score.comments
     br

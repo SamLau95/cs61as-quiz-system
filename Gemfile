@@ -41,6 +41,9 @@ gem 'gon', '~> 5.0.4'
 # Pagination
 gem 'kaminari'
 
+# Async Jobs
+gem 'sucker_punch', '~> 1.0'
+
 group :development do
   gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller', '~> 0.7.2'
