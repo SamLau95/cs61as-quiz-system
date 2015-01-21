@@ -15,9 +15,9 @@ module Staffs
 
     def import_reader
       @logins = params[:logins]
-      @results = @logins.split
-                        .reject { |login| Reader.find_by_login login }
-                        .map { |login| import_staff login, Reader.new }
+      @results = @logins.split.
+                         reject { |login| Reader.find_by_login login }.
+                         map { |login| import_staff login, Reader.new }
       respond_to do |format|
         format.html { redirect_to import_staffs_dashboard_index_path }
         format.csv do
@@ -29,9 +29,9 @@ module Staffs
 
     def import_gsi
       @logins = params[:logins]
-      @results = @logins.split
-                        .reject { |login| Gsi.find_by_login login }
-                        .map { |login| import_staff login, Gsi.new }
+      @results = @logins.split.
+                         reject { |login| Gsi.find_by_login login }.
+                         map { |login| import_staff login, Gsi.new }
       respond_to do |format|
         format.html { redirect_to import_staffs_dashboard_index_path }
         format.csv do
@@ -75,7 +75,9 @@ module Staffs
 
     def import_staff(login, staff)
       password = Devise.friendly_token.first 8
-      staff.update_attributes({ password: password, first_password: password, login: login })
+      staff.update_attributes password: password,
+                              first_password: password,
+                              login: login
       if staff.new_record?
         [login, "Not saved. #{staff.errors.full_messages.join ' '}"]
       else

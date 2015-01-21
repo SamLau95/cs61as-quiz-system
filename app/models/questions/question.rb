@@ -42,7 +42,7 @@ class Question < ActiveRecord::Base
 
   def get_average
     return "N/A" if grades.size == 0
-    (grades.map {|g| g.grade }.sum / grades.size).round(3)
+    (grades.map { |g| g.grade }.sum / grades.size).round(3)
   end
 
   def get_total_points
