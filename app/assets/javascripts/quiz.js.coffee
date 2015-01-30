@@ -26,7 +26,7 @@ fullscreen = ->
         matchBrackets : true,
         theme: "blackboard",
         tabSize: 2,
-        smartIndent: false
+        smartIndent: true
       }
 
     editors = (CodeMirror.fromTextArea(textedit, opts) for textedit in $('.textedit'))
