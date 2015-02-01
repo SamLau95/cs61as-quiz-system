@@ -54,7 +54,7 @@ class Quiz < ActiveRecord::Base
   def self.lessons
     published.map(&:lesson).uniq.sort_by do |num|
       Quiz::LESSON_VALUES.find_index num
-    end.map { |q| "#{q} - #{LESSON_TITLES[q]}"}
+    end.map { |q| "#{q} - #{LESSON_TITLES[q]}" }
   end
 
   def self.choose_one(quiz_request)
