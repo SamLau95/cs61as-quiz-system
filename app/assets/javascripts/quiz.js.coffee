@@ -26,14 +26,19 @@ fullscreen = ->
         matchBrackets : true,
         theme: "blackboard",
         tabSize: 2,
-        smartIndent: false
+        smartIndent: true
       }
+
     editors = (CodeMirror.fromTextArea(textedit, opts) for textedit in $('.textedit'))
     for editor in editors
       do (editor) ->
+        id = $(editor.getTextArea()).attr("id")
+        if Cookies.get(id) != undefined
+          editor.setValue(Cookies.get(id))
         editor.on 'change', ->
-          editor.save()
+          Cookies.set(id, editor.getValue(), { expires: 6000 })
         , editor
+
   # $('.hilite').keydown (e) ->
   #   if (e.keyCode == 9)
   #     start = this.selectionStart
@@ -57,9 +62,6 @@ ready = ->
     fullscreen()
     $(window).blur -> onchange()
     hilite()
-    $('form').sisyphus({
-      timeout: 1
-    })
     timer(gon.time_left)
   else if $('#show_quiz').length
     # hilite_answer()

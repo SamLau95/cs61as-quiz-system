@@ -31,13 +31,30 @@ class Quiz < ActiveRecord::Base
   # validates :lesson, :version, presence: true
   LESSON_VALUES = ["0-1", "0-2", "0-3", "1", "2", "3", "4", "5", "6",
                    "7", "8", "9", "10", "11", "12", "13", "14"]
+  LESSON_TITLES = { "0-1" => "Intro",
+                    "0-2" => "Intro pt. 2",
+                    "0-3" => "Recursion",
+                    "1" => "Scheme Basics, Order of Evaluation, Recursion",
+                    "2" => "Lambdas and HOF",
+                    "3" => "Recursion, Iteration , Efficiency",
+                    "4" => "Data Abstraction and Sequences",
+                    "5" => "Hierarchical Data",
+                    "6" => "Generic Operators",
+                    "7" => "OOP",
+                    "8" => "Assignment, State and Environment",
+                    "9" => "Mutable Data and Vector",
+                    "10" => "Streams",
+                    "11" => "MCE",
+                    "12" => "Lazy & Analyzing Evaluator",
+                    "13" => "Logical Programming",
+                    "14" => "Concurrency & Mapreduce" }
 
   DRAFT_LESSON_VALUES = ["0"] + LESSON_VALUES
 
   def self.lessons
     published.map(&:lesson).uniq.sort_by do |num|
       Quiz::LESSON_VALUES.find_index num
-    end
+    end.map { |q| "#{q} - #{LESSON_TITLES[q]}" }
   end
 
   def self.choose_one(quiz_request)

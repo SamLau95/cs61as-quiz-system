@@ -24,7 +24,7 @@ p After you click Begin, you cannot use the computer for anything else!
           = markdown sf.object.question_content
           br
           div
-            = sf.text_area :content, label: false, class: 'textedit expand'
+            = sf.text_area :content, label: false, class: 'textedit expand saves', id: "#{sf.object.question_id}"
             br
         = f.submit 'Submit!', class: 'button', id: 'submit_quiz'
 
