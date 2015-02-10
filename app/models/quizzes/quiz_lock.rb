@@ -8,6 +8,7 @@
 #  locked     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
+#  quiz_time  :integer          default(60)
 #
 
 # Created when a quiz request is approved; locks a student to a particular quiz
