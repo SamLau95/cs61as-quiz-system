@@ -3,9 +3,9 @@ module Students
     skip_before_filter :verify_authenticity_token, only: :submit
 
     def make_request
-      student, lesson = current_user, params[:lesson]
+      lesson = params[:lesson]
       if can_take_quiz_for_lesson? lesson
-        check_quiz_and_make_request(student, lesson)
+        check_quiz_and_make_request(lesson)
       else
         flash[:alert] = "You can't request this quiz!"
       end
@@ -22,19 +22,18 @@ module Students
 
     def submit
       ql = QuizLock.find_by_student_id(current_user.id)
-      quiz = Quiz.find ql.quiz_id
       if ql.locked
         flash[:error] = 'You wish you could turn this in.'
         redirect_to students_dashboard_path
       else
-        @quiz_form = TakeQuizForm.new quiz
-        inject_current_user_into! params, quiz
+        @quiz_form = TakeQuizForm.new q1.quiz
+        inject_current_user_into! params, ql.quiz
         if @quiz_form.validate_and_save params[:quiz]
           reader = Reader.assign_grader
           TakenQuiz.create student_id: ql.student_id,
-                           quiz_id: ql.quiz_id,
-                           lesson: quiz.lesson,
-                           retake: quiz.retake,
+                           quiz_id: ql.quiz.id,
+                           lesson: ql.quiz.lesson,
+                           retake: ql.quiz.retake,
                            reader_id: reader.id,
                            login: reader.login
           ql.destroy
@@ -62,7 +61,7 @@ module Students
 
     def can_take_quiz_for_lesson?(lesson)
       (!current_user.making_request? || !current_user.taking_quiz?) &&
-      current_user.retake(lesson) < 2
+      current_user.number_of_taken_quizzes(lesson) < 2
     end
 
     def inject_current_user_into!(quiz_params, quiz)
@@ -75,12 +74,12 @@ module Students
       end
     end
 
-    def check_quiz_and_make_request(cu, les)
-      re = current_user.retake(les) == 1
+    def check_quiz_and_make_request(les)
+      re = current_user.number_of_taken_quizzes(les) != 0
       if !Quiz.has_quiz(les, re)
         flash[:notice] = "We don't currently have this quiz - please tell us!"
       else
-        QuizRequest.create student: cu, lesson: les, retake: re
+        QuizRequest.create student: current_user, lesson: les, retake: re
         flash[:success] = "Requesting quiz #{params[:lesson]}!"
       end
     end

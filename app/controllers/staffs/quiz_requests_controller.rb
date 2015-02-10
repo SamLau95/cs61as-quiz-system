@@ -8,13 +8,8 @@ module Staffs
       @regrades = Regrade.not_graded
     end
 
-    def approve
-      @quiz_request.lock_and_destroy! nil
-      approve_flash
-    end
-
     def choose
-      @quiz_request.lock_and_destroy! params[:quiz_id]
+      @quiz_request.lock_and_destroy! params[:quiz_id], params[:quiz_time]
       approve_flash
     end
 
