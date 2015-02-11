@@ -8,6 +8,7 @@
 #  locked     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
+#  quiz_time  :integer          default(60)
 #
 
 # Created when a quiz request is approved; locks a student to a particular quiz
@@ -22,7 +23,7 @@ class QuizLock < ActiveRecord::Base
   end
 
   def expire_time
-    created_at + 1.hour
+    created_at + quiz_time.minutes
   end
 
   def lock!

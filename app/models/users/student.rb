@@ -69,14 +69,8 @@ class Student < User
     "#{name}: #{login}"
   end
 
-  def retake(lesson)
-    subm = Submission.where(student_id: id)
-    take = []
-    subm.each do |s|
-      q = Quiz.find(s.quiz_id)
-      take << q if q.lesson == lesson
-    end
-    take.uniq.size
+  def number_of_taken_quizzes(lesson)
+    taken_quizzes.where(lesson: lesson).size
   end
 
   def self.get_csv(lesson)

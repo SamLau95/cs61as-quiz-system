@@ -7,15 +7,13 @@ h3 Quiz Requests
     - @requests.each do |request|
       li
         = request
-        = link_to '  Approve  ', approve_staffs_quiz_request_path(request),
-                  method: :post, id: "approve-#{request.id}"
-        p or
-
         = form_tag choose_staffs_quiz_requests_path do
           = label_tag :quiz_id, "Choose a quiz"
           = select_tag :quiz_id, options_for_select(get_selections_for_request(request))
+          = label_tag :quiz_id, "Select time limit"
+          = select_tag :quiz_time, options_for_select(get_quiz_time_selections)
           = hidden_field_tag :id, request.id
-          = submit_tag 'Approve Chosen Quiz', class: "small button"
+          = submit_tag 'Approve Quiz', class: "small button"
 
         = link_to 'Cancel', staffs_quiz_request_path(request),
                   method: :delete, id: "cancel-#{request.id}"

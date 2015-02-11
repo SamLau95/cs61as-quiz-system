@@ -29,6 +29,10 @@ module ApplicationHelper
 
   def get_selections_for_request(request)
     quizzes = Quiz.where lesson: request.lesson, retake: request.retake, is_draft: false
-    quizzes.map { |q| [q.to_s, q.id] }
+    quizzes.map { |q| [q.to_s, q.id] }.unshift ["Random", nil]
+  end
+
+  def get_quiz_time_selections
+    [60, 90, 120].map { |time| ["#{time} minutes", time] }
   end
 end
